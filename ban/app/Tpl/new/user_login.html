@@ -1,0 +1,60 @@
+{include file="inc/header.html"}
+<style type="text/css">
+	body{ background:#fff;width: 100%;}
+	.partners {
+	  bottom: -10px;
+	  width: 150px;
+	  height: 20px;
+	  line-height: 20px;
+	  left: 111px;
+	}
+	.user-lr-box .field .f-input{ width:295px}
+	#Jverify{  width: 143px;}
+	.user_login_bar .app_login_box h3{ display:none;}
+	.user_login_bar .app_login_box{ width:auto; padding:0 10px}
+	.w360{ width:355px}
+	#J_wrap{width:400px;margin-left:57%;margin-top: -15px!important;border-radius: 20px;position: absolute;top: -510px;} 
+	#xj_bg1{position: absolute;right: 2%;top: 90px;bottom: 0;z-index:-1;vertical-align: middle;background-image: url(app/tpl/new/inc/countup/static/111.jpg);width: 1200px;background-position: center 0;position:absolute; left:10px; height:100%; width:100%;background-position: center 0;background-repeat: no-repeat; height: 600px; }
+	.xj_login{border:1px solid #ccc;position:absolute;z-index:1;opacity: 0.5;}
+	.u_icon{top:-3px!important;}
+	div{margin: 4px auto;}
+	[class="lostpassword f_l"]{margin: 0 auto;}
+	div[class="main_bar wrap"]{margin:0 auto;width:100%;position:static;margin-left: 0!important;}
+	[class="f_r pt30 mt20"]{position: relative;right: 70px;}
+	[class="main_bars"]{width: 100%;}
+	[class="link f_l"]{margin-left: 75px;}
+	[class="logo mr15"]{width: 490px;}
+	@media screen and (max-width: 1200px){#xj_bg{margin-left: 100px;}}
+	[class="wrap"]{width: 1336px;}
+	.xj_span{text-align: center;}
+	#header{width: 100%!important;clear: both;}
+</style>
+</div>
+<div style="width: 1336px;" id="xj_bg1">
+	<div class="wrap" id="J_wrap"><!-- 登录界面 -->
+	<div style="width: 1336px; "></div>
+  	<img  id="xj_bg" min-width="1200px;" height="600px;">
+	<div class="user_login_bar bddf clearfix" style="background-color:rgba(250, 250, 250, 0.5)!important;border-radius: 8px;">
+		<div class="login_bar wrap" style="width:390px; height: 450px;">
+			<!-- <div class="login_l"></div>  -->
+			<div class="inc f_r" style="width:380px;">
+				<div class="clearfix" class="xj_login" >
+					<div class="user-lr-box mt30" >
+						{insert name="load_login_form"}
+						<div class="blank20"></div>
+						<div class="app_login_box">
+						{insert name="get_app_login" v="1"}
+						</div>
+					</div>
+				</div>
+				<span class="xj_span"></span><span class="xj_span"></span><span class="xj_span"></span><!-- 保留 -->
+			</div>
+
+		</div>
+	</div>
+</div>
+</div>
+<div></div>
+<div>
+{include file="inc/footer.html"}
+

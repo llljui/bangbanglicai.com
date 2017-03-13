@@ -1,0 +1,57 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/js/user.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<php>
+	
+	function get_time_limit($time_limit)
+    {
+    	return $time_limit." 天";
+    }
+	
+</php>
+<div class="main">
+<div class="main_title">投资记录</div>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">
+		{%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:130px;" />
+		
+		产品名称：<input type="text" class="textbox" name="load_name" value="{:trim($_REQUEST['load_name'])}" style="width:130px;" />
+		<input type="hidden" value="Learn" name="m" />
+		<input type="hidden" value="learn_load" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="learn" 
+	checkbox="true" 
+	action="" 
+	datasource="list" 
+	show="id:{%ID}|50px
+	,user_id|get_user_name_real:投资人
+	,create_date:投资时间
+	,money|format_price:投资金额(¥)
+	,name:产品名称
+	,time_limit:期限
+	,interest|format_price:预期收益(¥)
+	,is_send|get_time_limit:状态
+	" 
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{if $page_title}{$page_title} - {/if}{if $show_site_titile eq 1}{function name='app_conf' value='SHOP_SEO_TITLE'} - {/if}{$site_info.SHOP_TITLE}</title>
+    <link rel="icon" href="favicon.ico" type="/image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="/image/x-icon" />
+    <meta name="keywords" content="{if $page_keyword}{$page_keyword}{/if}{$site_info.SHOP_KEYWORD}" />
+    <meta name="description" content="{if $page_description}{$page_description}{/if}{$site_info.SHOP_DESCRIPTION}" />
+    {include file="inc/common/load_css_js.html"}
+
+    <link href="{$TMPL}/newstyle/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{$TMPL}/newstyle/css/public.css" />
+    <link rel="stylesheet" type="text/css" href="{$TMPL}/newstyle/css/home.css" />
+    <!--数字字体-->
+    <link rel="stylesheet" type="text/css" href="{$TMPL}/newstyle/css/proximasansmedium.css" />
+    <!--[if lt IE 9]>
+    <script src="{$TMPL}/newstyle/js/html5shiv.min.js"></script>
+    <script src="{$TMPL}/newstyle/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--网站通用头部-->
+<div id="header">
+    <!--灰色顶部区域-->
+    <div class="header-top">
+        <div class="content clear">
+            <div class="top_l2">
+                <span class="ht-sp-l">服务电话：400-6605-603 （9:00-18:00）</span>
+                <span class="ht-line mgl10"></span>
+                <span class="ht-gz">关注我们：<a class="ht-gz-qq" target="_blank"  href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAwMDA0NV8zMTAwNzBfNDAwNjYwNTYwM18yXw">
+                    </a><a target="_blank" class="ht-gz-wb" href="http://weibo.com/u/5680632586"></a><span class="dropdown dropdown-erwei"><a href="javascript:;"  class="dropdown-toggle ht-gz-wx" data-toggle="dropdown" role="button" aria-expanded="false"></a>
+                    <div class="dropdown-menu top-erwei-style">
+                  		<ul class="header-top-erwei clear">
+                  			<li class="pull-left">
+                  				<img src="{$TMPL}/newstyle/picture/erwei-ding.jpg" alt="订阅号" />
+                  				<p>订阅号</p>
+                  				<p>关注最新发标提醒</p>
+                  			</li>
+                  			<li class="pull-right">
+                  				<img src="{$TMPL}/newstyle/picture/erwei-fuwu.jpg" alt="服务号"/>
+                  				<p>服务号</p>
+                  				<p>手机投资更方便</p>
+                  			</li>
+                  		</ul>
+                  </div>
+                  </span></span>
+            </div>
+            <div class="pull-left top_act_position disNone" id="Brihide">
+                <span  class="top_act_txt">您有<span id="spanhbmoney">0</span>元红包待激活<a class="view" href="/MemberCenter/myaward.html#hb">点击查看</a></span>
+            </div>
+            <div class="top_a_r ht-r">
+                <span class="ht-r-ico1"></span>
+                <span class="header-name disNone" id="islogin">您好，<a class="col-b3" href="#"></a><a>[退出]</a></span>
+                <span class="" id="noislogin">
+                        <a href="javascript:;" onclick="gotoLogin()">登录</a>
+                        <span class="ht-line"></span>
+                        <a href="/MemberCenter/Register.html">注册</a>
+                    </span>
+                <span class="ht-line"></span>
+                <a  href="/userguide/userguide.html" class="">新手指引</a>
+                <span class="ht-line"></span>
+                <a href="javascript:;" onclick="openCenter(2)">帮助中心</a>
+                <span class="ht-line"></span>
+                <a href="http://bbs.9259.com" target="_blank">社区</a>
+                <span class="ht-line"></span>
+                <a href="/activity/activitylist.html" class="actToplink">所有活动</a>
+            </div>
+        </div>
+    </div>
+    <!--LOGO区域-->
+    <div class="header-Logo">
+        <div class="content clear">
+            <div class="logoimg-wrap">
+                <a href="/"></a>
+                <i class="light"></i>
+            </div>
+            <div class="top-Nav">
+                <ul class="clear" id="nav-list">
+                    <li><a class="m"  href="/">首页</a></li>
+                    <li><a class="m" href="/investment/investlist_0.html">我要投资</a></li>
+                    <li><a class="m" href="/about/safe.html">安全保障</a></li>
+                    <li><a class="m" href="/PracticalData.html">平台数据</a></li>
+                    <li><a class="m" href="/about/aboutUS.html">关于我们</a></li>
+                    <li class="subli"><a class="n" href="javascript:;" onclick="openCenter(1)">我的账户</a><span class="sdown"></span>
+                        <div class="subnav">
+                            <div class="sn_top"></div>
+                            <div class="subnav_li">
+                                <div><a href="/MemberCenter/find_0.html">充值</a></div>
+                                <div><a href="/MemberCenter/find_2.html">提现</a></div>
+                                <div><a href="/MemberCenter/invest_list.html">我的投资</a></div>
+                                <div><a href="/MemberCenter/cPlan.html">收款计划</a></div>
+                            </div>
+                            <div class="sn_bottom"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--通用头部end-->
+<!--[if IE 6]>
+<script>
+    window.onload=function(){
+        location.href="/error/IEbearError.html";
+    }
+</script>
+<![endif]-->
+<!--[if IE 7]>
+<script>
+    window.onload=function(){
+        location.href="/error/IEbearError.html";
+    }
+</script>
+<![endif]-->

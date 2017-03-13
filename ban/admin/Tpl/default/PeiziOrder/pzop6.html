@@ -1,0 +1,95 @@
+{// 引入标签库 }
+<tagLib name="html" /> 
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<script type="text/javascript">
+	function op_edits(id)
+	{
+		window.location.href=ROOT+'?m=PeiziOrder&a=op_edits&id='+id;
+	}
+	
+	function op_stock_money(id)
+	{
+		window.location.href=ROOT+'?m=PeiziOrderStockMoney&a=index&pid='+id;
+	}	
+	
+	function op_trade_list(id)
+	{
+		window.location.href=ROOT+'?m=PeiziOrder&a=trade_list&order_id='+id;
+	}	
+	
+	
+	function export_csv()
+	{
+		var query = $("#search_form").serialize();
+		var url= ROOT+"?is_export=1&"+query;
+		//alert(url);
+		location.href = url;
+	}
+</script>
+<PHP>
+
+	function get_stock_money_format($price,$item){
+		return "<span class='is_price' onclick='set_price(".$item['id'].",".$item['stock_money'].",this);'>".$item['stock_money_format']."</span>";
+	}
+	function get_time_limit_num_format($time_limit_num,$type_format){
+		return $time_limit_num.$type_format;
+	}
+</PHP>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" id = "search_form" action="__APP__" method="get">	
+
+		<label id="start_time_item_title">开始日期:</label><input type="text" class="textbox" name="start_time" value="{$start_time}" style="width:100px" id="q_start_time" onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input type="text" class="textbox" name="end_time" value="{$end_time}" style="width:100px" id="q_end_time" onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" />
+		
+		
+		配资类型
+		<select name="peizi_conf_id">
+        	<option value="-1" <if condition="$peizi_conf_id eq '-1' || $type eq ''">selected="selected"</if>>全部</option>
+            <foreach name='type_list' item='item'>
+            	<option value="{$item.id}" <if condition="$peizi_conf_id eq $item['id']">selected="selected"</if>>{$item.name}</option>
+            </foreach>
+		</select>
+		
+		<input type="hidden" value="PeiziOrder" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="item"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,user_id|get_user_name_real:会员
+		,total_money|format_price:总操盘资金
+		,warning_line|format_price:亏损警戒线
+		,open_line|format_price:亏损平仓线
+		,total_rate_money|format_price:已收利息
+		,total_site_money|format_price:已收服务费
+		,begin_date:开始交易日
+		,time_limit_num:期限
+		,stock_sn:股票帐户
+		,stock_money|get_stock_money_format=$item:总资产
+		,stock_date:资产统计日期
+		,conf_type_name:配资类型 
+		,lever:倍率"
+	actionlist="op_edits:详情,op_stock_money:股票市值,op_trade_list:历史交易"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

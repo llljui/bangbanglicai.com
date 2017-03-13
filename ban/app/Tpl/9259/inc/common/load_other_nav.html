@@ -1,0 +1,16 @@
+{if $MODULE_NAME eq 'user' || ($MODULE_NAME eq 'manageagency' && in_array($ACTION_NAME,array("login","regsiter","getpassword","steptwo"))) || ($MODULE_NAME eq 'authorized' && in_array($ACTION_NAME,array("login","regsiter","getpassword","steptwo")))}
+<div class="no-nav-text"><?php echo $GLOBALS['lang'][strtolower(MODULE_NAME."_".ACTION_NAME)];?></div>
+ {if $MODULE_NAME eq 'user' && $ACTION_NAME eq "login"}
+ <div class="f_r pt30 mt20">
+ 	<a href="{url x="index" r="user#register"}" class="f_blue">立即注册</a>
+ </div>
+ {/if}
+{else}
+	<div class="no-nav-text f_r pt20 mt10">
+		{if $MODULE_NAME eq 'manageagency' || $MODULE_NAME eq 'agency_money'}
+		{insert name="agency_info"}
+		{elseif $MODULE_NAME eq 'authorized'}
+		{insert name="authorized_info"}
+		{/if}
+	</div>
+{/if}

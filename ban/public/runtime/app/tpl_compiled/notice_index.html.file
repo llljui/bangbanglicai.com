@@ -1,0 +1,21 @@
+<?php echo $this->fetch('inc/header.html'); ?> 
+<div class="blank"></div>
+	<div class="short f_l">
+		<div class="tree-box clearfix">
+			<?php $_from = $this->_var['cate_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'cate_item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['cate_item']):
+?>
+			<?php if ($this->_var['cate_item']['type_id'] == 0 || $this->_var['cate_item']['type_id'] == 2): ?>
+			<div class="tree clearfix">
+				<div class="hd <?php if ($this->_var['cate_item']['id'] == $this->_var['cate']['id']): ?>hd_cur<?php endif; ?>"><a href="<?php echo $this->_var['cate_item']['url']; ?>"><?php echo $this->_var['cate_item']['title']; ?></a></div>
+			</div>
+			<?php endif; ?>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</div>
+		
+	</div>
+	<div class="long f_r" >
+		<?php echo $this->fetch('inc/inc_article_info.html'); ?>
+	</div>
+<div class="blank"></div>
+<?php echo $this->fetch('inc/footer.html'); ?>

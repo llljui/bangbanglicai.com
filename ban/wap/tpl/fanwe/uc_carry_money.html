@@ -1,0 +1,130 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_bank#index");
+	$this->_var['back_page'] = "#uc_bank";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_bank" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<!--申请提现-->
+<div class="uc_add_bank">
+	
+			<div class="bank_bg">
+				<ul>
+				{foreach from="$data.bank_carry" item="item" }
+					<li class="dl">
+						<span class="name">卡号</span>
+						<div class="info">
+							<p class="info_num">
+								{$item.bankcard}
+							</p>
+						</div>
+						
+					</li>
+					<input id="band_id" type="hidden" value="{$item.id}">
+					<li class="dl">
+						<span class="name">银行</span>
+						<div class="info">
+							<img src="{$item.uimg}" width="142px;" height="40px;" title="银行图片展示">
+						</div>
+					</li>
+					
+					<li class="dl">
+						<span class="name">姓名</span>
+						<div class="info">
+							<p class="info_num">
+								{$item.real_name}
+							</p>
+						</div>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+			
+			<div class="bank_bg">
+				<ul>
+					<li class="dl">
+						<span class="name">可用金额</span>
+						<div id="Jcarry_totalAmount" class="info">
+							<input id="Jcarry_totalAmount" type="hidden" value="{$data.money}">
+							<p class="info_num">
+								￥{$data.money}
+							</p>
+						</div>
+						
+					</li>
+					<li class="dl">
+                        <span class="name">不可提现</span>
+                        <div id="nmc_amount" class="info">
+                            <p class="info_num">
+                                                                                            ￥{$data.nmc_amount}
+								<input id="Jcarry_nmc_amount" type="hidden" value="{$data.nmc_amount}">															
+                            </p>
+                        </div>
+                        
+                    </li>
+					
+					<li class="dl">
+						<span class="name">手续费</span>
+						<div class="info">
+							<p class="info_num">
+								<span id="Jcarry_fee" class="f_l">0.00 元</span>
+							</p>
+						</div>
+					</li>
+					
+					<li class="dl">
+						<span class="name">实付金额</span>
+						<div class="info">
+							<p class="info_num specialfont">
+								<span id="Jcarry_realAmount" class="f_l">0.00 元</span>
+							</p>
+						</div>
+					</li>
+					
+				</ul>
+			</div>
+			
+			<div class="bank_bg">
+				<ul>
+					<li class="dl">
+						<span class="name">提取金额</span>
+						<div class="info">
+							<input id="Jcarry_amount" type="text" placeholder="请输入金额"/>
+						</div>
+					</li>
+					<li>
+						<div class="info">
+							<span id="Jcarry_balance" class="info_num specialfont"></span>
+						</div>
+					</li>
+					<li class="dl">
+						<span class="name">支付密码</span>
+						<div class="info">
+							<input id="paypassword" type="password" placeholder="请输入密码"/>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="specialfont presentation">
+				提现时间约为3个工作日
+			</div>
+
+	         <div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+					    <input type="hidden" name="json_fee" value='{$data.json_fee}' />
+						<input type="hidden" name="money" value="{$data.money}" />
+						<input type="hidden" name="nmc_amount" value="{$data.nmc_amount}" />
+					    <button class="but_this">申请提现</button>
+					</div>
+			</div>
+</div>
+
+{include file="./inc/footer.html"}
+
+
+
+

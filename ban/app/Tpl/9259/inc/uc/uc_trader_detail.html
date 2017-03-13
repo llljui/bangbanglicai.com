@@ -1,0 +1,219 @@
+<?php
+$this->_var['tra'][] = $this->_var['TMPL_REAL']."/js/utils/jscharts_cr.js";
+?>
+<script type="text/javascript">
+function closeWeeboxs(){
+	$.weeboxs.close();
+}
+</script>
+<script type="text/javascript" src="{function name="parse_script" v="$tra" c="$tra"}"></script>
+<div class="uc_box trader">        
+        <div class="tabbox f14 pl20">
+			股票配资详情
+		</div>        
+		<div class="clearfix tra_box p10">
+        	<div class="pl10 pt10 f_l">基本信息</div>
+            <a class='f_r back_btn' href="{if $vo.status == 4}{url x="index" r="uc_trader"}{else}{url x="index" r="uc_trader#history"}{/if}">返回列表</a>
+			<div class='blank'></div>
+            <div class='trader_info_left'>
+            	<ul>
+                	<li class='t_l'>订单类型</li><li class='t_r'>{$vo.conf_type_name}</li>
+                    <li class='t_l'>实盘单号</li><li class='t_r'>{$vo.order_sn}</li>
+                    <li class='t_l'>借款金额</li><li class='t_r'>{$vo.borrow_money_format}</li>
+                    <li class='t_l'>风险保证金</li><li class='t_r'>{$vo.cost_money_format}</li>
+                    <li class='t_l'>警戒线</li><li class='t_r'>{$vo.warning_line_format}</li>
+                    <li class='t_l'>平仓线</li><li class='t_r'>{$vo.open_line_format}</li>
+                    <li class='t_l'>日(月)管理费</li><li class='t_r'>{$vo.site_money_format}</li> 
+                    <li class='t_l'>日(月)利息费</li><li class='t_r'>{$vo.rate_money_format}</li> 
+                    <li class='t_l'>期限</li><li class='t_r'>{$vo.time_limit_num}</li>
+                    <li class='t_l'>开始时间</li><li class='t_r'>{$vo.begin_date}</li>
+                    <li class='t_l'>结束时间</li><li class='t_r'>{$vo.end_date}</li>
+                    <li class='t_l'>订单状态</li><li class='t_r'>{$vo.status_format}</li>
+                </ul>
+            </div>
+          <div class='trader_info_right'>
+          		<div><span class="r_c"><a href="javascript:void(0);" onclick="openWeeboxFrame('{url x="index" r="uc_trader#contract" p="id=$vo.id"}','电子协议',1024,668);" style="color:#39A1EA;">查看电子协议</a></span></div>
+            	{if $vo.stock_sn}
+                	<div>股票账户：{$vo.stock_sn}</div>
+                	<div>账户密码：{$vo.stock_pwd}</div>
+                {/if}
+                <div>本配资资产：<span class='t_m f18'>{$vo.total_money_format}</span></div>
+                <div>股票总市值：<span class='t_m f18'>{$vo.stock_money_format}</span></div>
+                <div>盈亏金额：<span class='t_m f18'>{$vo.loss_money_format}</span></div>
+                <div>盈亏比例：<span class='t_m f18'>{$vo.loss_rate_format}</span></div>
+            	<ul>
+                	<li {if !$vo.flag_0}class='t_disable'{/if} name="0">追加保证金</li>
+                    <li {if !$vo.flag_1}class='t_disable'{/if} name="1">配资延期</li>
+                    <li {if !$vo.flag_2}class='t_disable'{/if} name="2">申请增资</li>
+                    <li {if !$vo.flag_3}class='t_disable'{/if} name="3">申请减资</li>
+                    <li {if !$vo.flag_4}class='t_disable'{/if} name="4">提取盈余</li>
+                    <li {if !$vo.flag_5}class='t_disable'{else}class="t_red"{/if} name="5">结束配资</li>
+                </ul>
+                <div class="blank10 clearfix"></div>
+            </div>
+            
+		</div>		
+</div>
+<div class="blank20"></div>
+<div class="uc_box trader_box">      
+	<div class='trader_tab'>  
+        <div class="tabbox f14 pl20 y tab">
+			操盘列表
+		</div>       
+        <div class="tabbox f14 pl20 tab">
+			资金列表
+		</div>  
+        <div class="tabbox f14 pl20 tab">
+			历史金额
+		</div>
+        <div class="clearfix"></div> 
+    </div>
+		<div class="clearfix tra_box p10">
+        	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+                <tbody>
+                    <tr border="0">
+                        <th style="width:12%">申请时间</th>
+                        <th style="width:12%">申请类型</th>
+                        <th style="width:12%">申请描述</th>
+                        <th style="width:10%">审核状态</th>
+                        <th style="width:20%">变动描述</th>
+                        <th style="width:12%">审核时间</th>
+                        <th style="width:6%">操作</th>
+                    </tr>
+                    {foreach from="$op_list" item="item" key=key}
+              <tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+                        <td>{$item.create_date}</td>
+                        <td >{$item.op_type_format}</td>
+                        <td>{$item.memo}</td>
+                        <td title='{if $item.op_status == 2|| $item.op_status == 4}原因:{$item.op_memo}{/if}'>{if $item.op_status == 2|| $item.op_status == 4}{$item.op_status_format}(原因:{function name='cut_str' v="$item.op_memo" f='1'}){else}{$item.op_status_format}{/if}</td>
+                        <td>{$item.change_memo} </td>
+                        <td>{$item.op_date}</td>
+                        <td>{if $item.op_status == 0}<a href="javascript:void(0);" onclick ="cancel({$item.id})">撤销</a>{/if}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+		</div>	
+        <div class="clearfix tra_box p10 hide">
+        	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+                <tbody>
+                    <tr border="0">
+                  <th style="width:12%">日期</th>
+                  <th style="width:12%">利息费</th>
+                  <th style="width:12%">服务费</th>
+                    </tr>
+                    {foreach from="$fee_list" item="item" key=key}
+              <tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+                        
+                          <td >{$item.fee_date}</td>
+		                  <td>{$item.rate_money}</td>
+		                  <td>{$item.site_money}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+		</div>	      
+		<div class="clearfix tra_box p10 hide ml10">
+        	<div id="chartcontainer"></div>
+		</div>	
+</div>
+<div class="blank20"></div>
+<script>
+	$(".trader_box .tab").click(function(){
+		$(".y").removeClass("y");
+		$(this).addClass("y");
+		$(".trader_box .tra_box").addClass("hide");
+		$(".trader_box .tra_box:eq("+$(this).index()+")").removeClass("hide");
+	});
+	function cancel(id)
+	{
+		$.ajax({
+				url:'{url x="index" r="uc_trader#cancel_op"}',
+				data:{id:id},
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					if(result.status==1){
+						$.showSuccess(result.msg,function(){
+							location.reload();
+						});
+					}
+					else
+					{
+						$.weeboxs.close();
+						$.showErr(result.msg);
+					}
+				}
+			});
+	}
+	$(".trader_info_right li[class!=t_disable]").click(function(){
+		var str = '<div class="trader_notice">'+
+				'<ul><li class="hide" id="type">'+$(this).attr("name")+'</li>'+
+				'<li class="t_l" id="t_title"></li><li class="t_r" id="t_title_val"></li>'+
+				'<li class="t_l">申请描述：</li><li class="t_r"><textarea id="memo" cols="20" rows="4" class="m10"></textarea></li>'+
+				'</ul><div class="clearfix"></div></div>'
+		
+		$.weeboxs.open(str, {boxid:"do-tras-box",contentType:'text', title:$(this).html(),type:'wee',width:400,height:180,
+		onopen:function(){
+			$.ajax({
+				url:'{url x="index" r="uc_trader#add_op"}',
+				data:{type:$("#type").html(),id:{$vo.id}},
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					if(result.status==1){
+						$("#t_title").html(result.title);
+						$("#t_title_val").html(result.title_val);
+					}
+					else
+					{
+						$.weeboxs.close();
+						$.showErr(result.msg);
+					}
+				}
+			});
+		},
+		onok:function(){
+			var query = new Object();
+			query.id = {$vo.id};
+			query.type = $("#type").html();
+			query.memo = $("#memo").val();
+			query.op_val = $("#op_val").val();
+	
+			$.ajax({
+				url:'{url x="index" r="uc_trader#save_op"}',
+				data:query,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					if(result.status==1){
+						$.showSuccess(result.msg,function(){
+							location.reload();
+						});
+					}
+					else
+					{
+						$.showErr(result.msg);
+					}
+				}
+			});
+			
+		}});
+
+	});
+</script>
+<script type="text/javascript">
+	$(function(){
+		var myData = new Array(
+			{foreach from="$history_list" item=item name="history"}
+				['{$item.stock_date}',{$item.stock_money}]{if !$smarty.foreach.history.last},{/if}
+			{/foreach}
+		);
+		var myChart = new JSChart('chartcontainer', 'bar');
+		myChart.setDataArray(myData);
+		myChart.setTitle('');
+		myChart.setSize(950, 350);
+		myChart.setBarColor('#39a1ea');
+		myChart.draw();
+	});
+</script>

@@ -1,0 +1,17 @@
+<?php echo $this->fetch('inc/header.html'); ?>
+<div class="wrap" id="J_wrap">
+	<div class="authorized_login">
+		<div class="box">
+			<div class="user-lr-box mt20">
+				<?php 
+$k = array (
+  'name' => 'load_authorized_login_form',
+);
+echo $this->_hash . $k['name'] . '|' . base64_encode(serialize($k)) . $this->_hash;
+?>
+				<div class="blank10"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php echo $this->fetch('inc/footer.html'); ?>

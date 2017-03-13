@@ -1,0 +1,76 @@
+{if $smarty.request.is_ajax neq 1}	
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+	{/if}
+<!-- 这里是页面内容区 -->
+<!--账户明细-->
+<div class="uc_financial_statistics">
+<div class="statistical_box">
+		<ul class="record"> 
+      	<li class="clearfix">
+      		<div class="name">平台账户</div>
+			<div class="con_50 f_l">
+				<span class="name">账户金额</span>
+				<span class="con">{$data.total_money_format}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">可用金额</span>
+				<span class="con">{$data.money_format}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">冻结金额</span>
+				<span class="con">{$data.lock_money_format}</span>
+			</div>
+		</li>
+		{if $data.open_ips gt 0}
+		<li class="clearfix">
+      		<div class="name">托管账户{if $data.ips_acct_no eq ''}<span class="ea544a">未绑定！请登录电脑版绑定托管账户。</span>{/if}</div>
+			{if $data.ips_acct_no neq ''}
+			<div class="con_50 f_l">
+				<span class="name">未结算金额</span>
+				<span class="con">{$data.ips_needstl_format}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">可用金额</span>
+				<span class="con">{$data.ips_balance_format}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">冻结金额</span>
+				<span class="con">{$data.ips_lock_format}</span>
+			</div>
+			{/if}
+		</li>
+		{/if}
+		<li class="clearfix">
+      		<div class="name">账户信息</div>
+			<div class="con_50 f_l">
+				<span class="name">我的等级</span>
+				<span class="con">{$data.vip_grade}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">我的积分</span>
+				<span class="con">{$data.score}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">信用额度</span>
+				<span class="con">{$data.point}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">可用额度</span>
+				<span class="con">{$data.quota}</span>
+			</div>
+		</li>
+		</ul>
+	</div>
+	
+</div>
+{if $smarty.request.is_ajax neq 1}	
+{include file="./inc/footer.html"}
+{/if}

@@ -1,0 +1,58 @@
+
+
+.mouth_money_list li{ float: left; border: 1px solid #dddddd; width: 155px; height:108px; margin: 8px 13px 15px 0px; padding: 1px; border-radius: 3px; cursor: pointer; display:block;}
+.mouth_money_list li .top{ padding-top: 20px; padding-bottom: 5px;text-align:center; font-size: 12px; color:#333;}
+.mouth_money_list li .top span{ font-size:24px;}
+.mouth_money_list li .middle{width:105px; height:18px; border:1px solid #39A1EA;line-height:18px;text-align:center;font-size: 12px;}
+.mouth_money_list li .middle .youhui{display: block;float: left;width: 28px;height: 18px;color: #fff;background-color: #39A1EA;}
+.mouth_money_list li .middle .rate{ color: #39A1EA;}
+.mouth_money_list li .foot{padding-top:2px;text-align:center; color: #999;}
+.mouth_money_list li .foot i{color: #39A1EA;}
+.mouth_money_list .false .foot  i{color: #ddd;}
+.mouth_money_list .current{ border: 2px solid #39A1EA; padding: 0px; background: url(../images/peizi/tick1.png) no-repeat 123px 76px;} 
+.mouth_money_list .current .top span{ color:#39A1EA;}
+.Explanation{background:#f8f8f8; width:504px; height:180px; text-align:center; padding-top:70px; margin:0px;color:#999; line-height:30px;}
+
+
+.mouth_money_list  { display: none;}
+
+.mouth_money_list .false{ color:#ddd;}
+.mouth_money_list .false .top{color:#ddd;}
+.mouth_money_list .false .middle .rate{color:#ddd;}
+.mouth_money_list .false .middle .youhui{background-color:#ddd;}
+.mouth_money_list .false .middle{border: 1px solid #ddd;}
+.mouth_money_list .false .foot{color:#ddd;}
+
+.sure td{line-height: 52px;}
+.limit_info{ height:40px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta name="renderer" content="webkit">
+<meta name="Generator" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if $page_title}{$page_title} - {/if}{if $show_site_titile eq 1}{function name='app_conf' value='SHOP_SEO_TITLE'} - {/if}{$site_info.SHOP_TITLE}</title>
+<link rel="stylesheet" type="text/css" href="app/Tpl/new/inc/countup/conutup.css">
+<link rel="icon" href="favicon.ico" type="/image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="/image/x-icon" />
+<meta name="keywords" content="{if $page_keyword}{$page_keyword}{/if}{$site_info.SHOP_KEYWORD}" />
+<meta name="description" content="{if $page_description}{$page_description}{/if}{$site_info.SHOP_DESCRIPTION}" />
+{include file="inc/common/load_css_js.html"}
+</head>
+<script src="app/Tpl/new/inc/countup/jquery.min.js"></script>
+<script src="app/Tpl/new/inc/countup/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="app/Tpl/new/inc/countup/jquery.countup.min.js"></script>
+<!-- <script type="text/javascript" src='app/Tpl/new/inc/countup/trans/trans.js'></script> -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".counter").countUp();
+	});
+
+</script>
+<body>
+{if $vote}
+<a id="vote" href="{url x="index" r="vote"}" target="_blank"></a>	
+{/if}
+<div class="header" id="header">
+   {include file="inc/common/load_top.html"}
+	<div class="main_bars">
+		<div class="main_bar wrap">	
+			<div class="logo mr15">
+				<a class="link f_l" href="{$APP_ROOT}/">
+					<?php
+						$this->_var['logo_image'] = app_conf("SHOP_LOGO");
+					?>
+					{function name="load_page_png" v=$logo_image}
+				</a>
+			</div>     
+			<!--{if $MODULE_NAME <> 'user' && $MODULE_NAME <> 'manageagency' && $MODULE_NAME <> 'authorized' && $MODULE_NAME <> 'agency_money'}加载菜单-->
+			<ul class="main_nav">
+				{foreach from=$nav_list item=nav_item}
+					<li class="{if $nav_item.current eq 1}current{/if} {if count($nav_item.sub_nav) gt 0}jcur{/if} ml5 bdr3 pr" rel='{$nav_item.id}'>
+						<a href="{$nav_item.url}" target="{if $nav_item.blank eq 1}_blank{/if}" {if count($nav_item.sub_nav) gt 0}class="pr20"{/if}>{$nav_item.name} {if $nav_item.sub_nav}<i class="iconfont">&#xe61c;</i>{/if}</a>
+						{if $nav_item.sub_nav}
+                        <div class="sub_main_nav ps hide">
+						{foreach from=$nav_item.sub_nav item=sub_item}
+							<a href="{$sub_item.url}" {if $sub_item.current eq 1}class="current"{/if} target="{if $sub_item.blank eq 1}_blank{/if}">{$sub_item.name}</a>
+						{/foreach}
+						</div>
+						{/if}
+					</li>
+				{/foreach}
+			</ul>
+			<!--加载菜单END{else}-->
+			 {include file="inc/common/load_other_nav.html"}
+			<!--{/if}-->
+		</div>
+	</div>
+</div>
+<!--{if $MODULE_NAME == 'index'}-->
+{insert name="load_user_tip_index"}
+<div id="main_adv_box" class="main_adv_box f_l b_white">
+	<div id="main_adv_img" class="main_adv_img">
+        {foreach from=$adv_src item=adv key=key}
+        <span rel="{$adv.key_id}">{$adv.code}</span>
+        {/foreach}
+	</div>
+	<div id="main_adv_ctl" class="main_adv_ctl">
+		<ul>
+        {foreach from=$adv_src item=adv key=key}
+        <li rel="{$adv.key_id}">{$adv.key_id}</li>
+        {/foreach}
+		</ul>
+	</div>
+</div>
+
+
+<div class="blank0"></div>
+<!-- <div class="showcase">
+	<div class="wrap">
+		<div class="caseblok">
+			<span>累积投资金额：</span>
+			<em>{$VIRTUAL_MONEY_1_FORMAT}元</em>
+		</div>
+		<div class="caseblok">
+			<span>累计成交笔数：</span>
+			<em>{$stats.deal_total_count}笔</em>
+		</div>
+		<div class="caseblok">
+			<span>为客户赚取收益：</span>
+			<em>{$VIRTUAL_MONEY_2_FORMAT}元</em>
+		</div>
+        		<div class="caseblok">
+			<span>累计用户数：</span>
+			<em>{$stats.user_count_format}人</em>
+		</div>
+		<div class="caseblok">
+		<div class="back_img back_img_3"></div>
+    		<span>风险准备金：</span>
+			<em>{$VIRTUAL_MONEY_3_FORMAT}元</em>
+    	</div>
+	</div>
+</div> -->
+<div class="l_box">
+	<div class="_contain">
+	<div class="_contain0">
+		<img src="app/Tpl/new/inc/countup/static/1.png" style="left: 25px;">
+		<img src="app/Tpl/new/inc/countup/static/02.png" style="left:215px;">
+		<img src="app/Tpl/new/inc/countup/static/3.png" style="left: 430px;">
+		<img src="app/Tpl/new/inc/countup/static/4.png" style="left:630px;">
+		<img src="app/Tpl/new/inc/countup/static/5.png" style="left:795px;">
+	</div>
+
+	<ul>
+
+		<li>
+			<strong>累计投资</strong><br>
+            <span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -145px;" >{$VIRTUAL_MONEY_1_FORMAT}</span>元
+		</li>
+		<li>
+			<strong>累计成交</strong><br>
+			<span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -180px;">{$stats.deal_total_count}</span>笔
+		</li>
+		<li>
+			<strong>累计收益</strong><br>
+            <span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -142px;;">{$VIRTUAL_MONEY_2_FORMAT}</span>元
+		</li>
+		<li>
+			<strong  style="margin-left: -135px;">累计用户</strong><br>
+			<span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -140px;;">{$stats.user_count_format}</span>人
+		</li>
+		<li> 		
+			<strong  style="margin-left: -160px;" >风险储备金</strong><br>
+			<span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -145px;;">{$VIRTUAL_MONEY_3_FORMAT}</span>元
+		</li>
+	</ul>	
+</div>
+<!--{/if}-->
+{if $is_index == 1}
+	<div class="_goodness">
+		<ul>
+			<li>
+				<img src="app/Tpl/new/inc/countup/static/安全.png" alt="图片找不到"  style="background-color:#28A7E1;">
+				<h3>更安全</h3>
+				<span style="font:12px; font-weight:100;">安全套阶层协议</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">128位加密技术,第三方资金监管</span>
+			</li>
+			<li>
+		        <img src="app/Tpl/new/inc/countup/static/高收益.png" alt="图片找不到"  style="background-color:#FC8600">
+				<h3>高收益</h3>
+				<span style="font:12px; font-weight:100;">40倍银行存款利息</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">4倍余额宝收益,7%-14%高收益</span>
+			</li>
+			<li>
+			    <img src="app/Tpl/new/inc/countup/static/低门槛.png" alt="图片找不到"  style="background-color: #64dca0;">
+				<h3>低门槛</h3>
+				<span style="font:12px; font-weight:100;">100元起步，零花钱即可</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">投资被誉为"屌丝们的理财神器"</span>
+			</li>
+			<li>
+				<img src="app/Tpl/new/inc/countup/static/易流通.png" alt="图片找不到"  style="background-color:#ffcd56;">
+				<h3>易流通</h3>
+				<span style="font:12px; font-weight:100;">突然想用钱收回投资</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">自主定价挂牌转让，流动性极强</span>
+			</li>
+			<li>
+
+				<img src="app/Tpl/new/inc/countup/static/资金存管.png" alt="图片找不到"  style="background-color:#bc67e7;">
+				<h3>资金存管</h3>
+				<span style="font:12px; font-weight:100;">资金更放心</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">存取跟省心，服务更贴心</span>
+			</li>
+		</ul>
+	</div>
+</div>
+{/if}
+					
+<div class="wrap">

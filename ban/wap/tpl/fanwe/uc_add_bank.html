@@ -1,0 +1,101 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+		<?php
+	$this->_var['back_url'] = wap_url("index","uc_bank#index");
+	$this->_var['back_page'] = "#uc_bank";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_bank" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+{/if}
+<!-- 这里是页面内容区 -->
+
+<!--添加提现银行列表-->
+<div class="uc_add_bank">
+			<div class="bank_bg">
+				<ul>
+					{if $data.response_code eq 0}
+					<li class="dl" style="height:auto;padding:10px" onclick="RouterURL('{wap_url x="index" r="uc_credit"}','#uc_credit',2);">
+						<span style="font-size: 18px;color: red;">{$data.show_err}</span>
+					</div>
+					{/if}
+					<li class="dl">
+						<span class="name">开户名</span>
+						<div class="info">
+							<input type="text" value="{$data.real_name}" readonly="true"/>
+						</div>
+						
+					</li>
+					<li class="dl">
+						<span class="name">开户行</span>
+						<div class="info">
+							<input id="bankzone" type="text" placeholder="请输入开户行"/>
+						</div>
+					</li>
+					<li class="dl">
+						<span class="name">银行卡号</span>
+						<div class="info">
+							<input id="bankcard" type="text" placeholder="请输入银行卡号"/>
+						</div>
+					</li>
+					<li class="dl">
+						<span class="name">选择银行</span>
+						<div class="info bank_list">
+							<div class="this_bank">查看银行列表<input type="hidden" value=""></div>
+							<div class="seclet_but"><i class="fa fa-chevron-down"></i></div>
+							
+							
+							<ul class="bank_seclet" style="display:none;">
+								{foreach from="$data.item" item="item"}
+									<li>{$item.name}<input id="bank_id" type="hidden" value="{$item.id}"  /></li>
+								{/foreach}
+							</ul>							
+						</div>
+					</li>
+					
+					<li class="dl" style="height:auto; padding-right:0px;">
+						<span class="name">所在地</span>
+						<div class="info">
+							<select name='region_lv1' id="region_lv1" style="display: none; margin-right:5px;">
+								<option selected='selected' value='1'>中国</option>
+							 </select>	
+							 <select name='region_lv2' id="region_lv2" class="f_l"  style="height:32px;font-size:16px;line-height:32px;width:70px;margin-right:5px;">
+								<option value='0'>选择省</option>
+							</select>
+												
+							<select name='region_lv3' id="region_lv3" class="f_l"  style="height:32px;font-size:16px;line-height:32px ;width:70px;margin-right:5px;">
+								<option value='0'>选择市</option>	
+							 </select>									
+							<select name='region_lv4' id="region_lv4" class="f_l"  style="height:32px;font-size:16px;line-height:32px;width:70px;margin-right:5px;">
+								<option value='0'>选择区</option>
+							</select>
+						</div>
+						<div style="height:0px; clear:both"></div>
+					</li>
+					<li class="dl">
+						<span class="name">账户类型</span>
+						<div class="info clearfix">
+							<span class="card_type f_l">借记卡</span>
+							<span class="no_type f_r">不支持信用卡</span>
+						</div>
+					</li>
+					
+				</ul>
+			</div>			
+            <div class="w_b but_box_parent padding">
+				<div class="w_b_f_1 but_box">
+					<button id="add_bank" class=" but_this">确认</button>
+				</div>
+				<div class="w_b_f_1 but_box">	
+                    <a href="#" onclick="RouterURL('{wap_url a="index" r="uc_bank"}','#uc_bank',2);" class="bg_dbdbdb  but_this">取消</a>	
+				</div>
+			</div>
+
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+

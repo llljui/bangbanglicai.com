@@ -1,0 +1,7 @@
+<div class="modal-body">
+    <h3 class="coupon-title">{$item.name}</h3>
+    <div id="common-description">
+        {$item.detail}
+    </div>
+    <p>有效期：<span class="expiry-time">{if $item.begin_time eq 0}无限{else}{function name="to_date" value="$item.begin_time" f="Y-m-d"}{/if}{if $item.end_time gt 0} {$LANG.TO} {function name="to_date" value="$item.end_time" f="Y-m-d"}{/if}</span></p>
+</div>

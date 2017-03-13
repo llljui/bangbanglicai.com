@@ -1,0 +1,86 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$deal.name}的投资人明细表</div>
+<div class="blank5"></div>
+<script type="text/javascript">
+	function export_csv(){
+		
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_loads_csv&id={$deal.id}";
+		location.href = url;
+	}
+</script>
+<div class="main">
+<div class="search_row">
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+</div>
+<div class="blank5"></div>
+
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+	<tbody>
+		<tr>
+			<td class="topTd" colspan="40">&nbsp; </td>
+		</tr>
+		
+		<tr>
+		    <th rowspan="2">编号</th>
+		    <th rowspan="2">借款人</th>
+		    <th rowspan="2">标的名称</th>
+		    <th rowspan="2">投资人名称</th>
+		    <th rowspan="2">投资金额</th>
+		    <th rowspan="2">预期收益</th>
+		    <th rowspan="2">收益金额</th>
+		    <th rowspan="2">未收益金额</th>
+		    <th rowspan="2">借款期限</th>
+		    <th colspan="2">未还款金额</th>
+		    <th rowspan="2">备注</th>
+		</tr>
+		<tr>
+		    <th>本金</th>
+		    <th>利息</th>
+		</tr>
+		<tr>
+			<td rowspan="{:count($list)}">{$deal.id}</td>
+		    <td rowspan="{:count($list)}">{$deal.user_id|get_user_name_reals}</td>
+		    <td rowspan="{:count($list)}">{$deal.name}</td>
+		    <volist name="list" id="item" key="k">
+			<if condition="$k eq 1">
+			<td><if condition="$item['user_id'] eq '本期合计'">{$item.user_id}<else />{$item.user_id|get_user_name_reals}</if></td>
+			<td>{$item.money|number_format}</td>
+			<td>{$item.yq_interest_money|number_format}</td>
+			<td>{$item.sj_interest_money|number_format}</td>
+			<td>{$item.interest_money|number_format}</td>
+			<td>{$deal.repay_time}<if condition="$deal['repay_time_type'] eq 1">月<else />天</if></td>
+			<td>{$item.self_money}</td>
+			<td>{$item.interest_money1}</td>
+			<td>&nbsp;</td>
+			</if>
+			</volist>
+		</tr>
+		 <volist name="list" id="item" key="k">
+			<if condition="$k gt 1">
+			<tr>
+			<td><if condition="$item['user_id'] eq '本期合计'">{$item.user_id}<else />{$item.user_id|get_user_name_reals}</if></td>
+			<td>{$item.money|number_format}</td>
+			<td>{$item.yq_interest_money|number_format}</td>
+			<td>{$item.sj_interest_money|number_format}</td>
+			<td>{$item.interest_money|number_format}</td>
+			<td>{$deal.repay_time}<if condition="$deal['repay_time_type'] eq 1">月<else />天</if></td>
+			<td>{$item.self_money|number_format}</td>
+			<td>{$item.interest_money1|number_format}</td>
+			<td>&nbsp;</td>
+			</tr>
+			</if>
+			</volist>
+		<tr>
+			<td class="bottomTd" colspan="40"> &nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+
+</div>
+<!--借款 退款  提现-->
+</body>
+</html>

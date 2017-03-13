@@ -1,0 +1,28 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="deal_table">
+	<thead>
+		<tr>
+			<th>基金名称</th>
+			<th width="10%">历史收益率</th>
+			<th width="15%">起购金额</th>
+			<th width="10%">理财期限</th>
+			<th width="15%">成交总额</th>
+			<th width="15%">先到先得</th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach from="$list" item="list_item" name="list_items"}
+		<tr>
+			<td><a href="{$list_item.url}" target="_blank">{$list_item.name}</a></td>
+			<td>{function name="number_format" v=$list_item.average_income_rate f="2"}%</td>
+			<td>{$list_item.min_money}元</td>
+			<td>{if $list_item.time_limit}{$list_item.time_limit}个月{else}无期限{/if}</td>
+			<td>{$list_item.subscribing_amount}元</td>
+			<td><a href="{$list_item.url}" target="_blank" class="ui_button theme_bgcolor">抢先购买</a></td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+<div class="deals_tabel_pages">
+	<div class="pages">{$pages}</div>
+	<span class="f_999">相关数据由中证金牛提供</span>
+</div>

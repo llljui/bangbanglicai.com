@@ -1,0 +1,447 @@
+<?php if ($this->_var['is_ajax'] == 0): ?>
+<?php echo $this->fetch('inc/credit/credit_header.html'); ?>
+<?php endif; ?>
+<style type="text/css">
+	.credit_upload .field label {
+		height: 26px;
+		font-size: 12px;
+		line-height: 26px;
+		width: 150px;
+		}
+</style>
+<div class="<?php if ($this->_var['is_ajax'] == 1): ?>wb<?php else: ?>hd-bg p10<?php endif; ?>">
+	<form action="<?php
+echo parse_url_tag("u:index|credit#credit_save|"."".""); 
+?>" method="post" id="uploadCreditForm_<?php echo $this->_var['credit']['type']; ?>" name="uploadCreditForm_<?php echo $this->_var['credit']['type']; ?>">
+		<div id="item">
+	    	<div class="blank20"></div>
+	        <div style="background:#FEFEFC;" class="bdd pl15 pr15 pt5 pb15 ">
+	            <div class="f16 b pt5 pb5 f_blue">
+				<?php echo $this->_var['credit']['type_name']; ?>
+	            </div>
+	            <div class="f_dgray" style="text-indent: 2em;">
+				<?php echo $this->_var['credit']['brief']; ?>   
+				</div>
+	        </div>
+	        <div class="blank10"></div>
+	        <div id="explain" class="p10 ">
+	            <p class="f_dgray b">
+	            	认证说明：
+	            </p>
+	            <div id="explain_item">
+                    <div style="padding-left:20px">
+                    	<?php echo $this->_var['credit']['description_format']; ?>
+						<?php if ($this->_var['credit']['type'] == 'credit_videoauth'): ?>
+						<p>
+			               (视频认证文件已发送:&nbsp;<label class="ui-checkbox" rel="agreement"><input type="checkbox" name="usemail" id="usemail" value="1"></label> )
+			            </p>
+						<?php endif; ?>
+                    </div>
+                </div>
+				<?php if ($this->_var['credit']['role']): ?>
+				<div class="blank10"></div>
+				<p class="lh24">
+                    <span class="f_dgray b">认证条件：</span>
+                    <span class="f_red"><?php echo $this->_var['credit']['role']; ?></span>
+                </p>
+				<?php else: ?>
+				<div class="blank10"></div>
+				<?php endif; ?>
+	            <p class="lh24">
+	                <span class="f_dgray b">审核时间：</span>
+	                <span class="f_red">3个工作日内</span>
+	            </p>
+	            <p class="lh24">
+	                <span class="f_dgray b">认证有效期：</span>
+	                <span class="f_red"><?php if ($this->_var['credit']['expire'] > 0): ?><?php echo $this->_var['credit']['expire']; ?>个月<?php else: ?>永久<?php endif; ?></span>
+	            </p>
+				<div class="blank5"></div>
+				<?php if ($this->_var['credit']['type'] == 'credit_contact'): ?>
+				<?php echo $this->fetch('inc/credit/credit_contact_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_mobilereceipt'): ?>
+				<?php echo $this->fetch('inc/credit/credit_mobilereceipt_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_car'): ?>
+				<?php echo $this->fetch('inc/credit/credit_car_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_graducation'): ?>
+				<?php echo $this->fetch('inc/credit/credit_graducation_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_house'): ?>
+				<?php echo $this->fetch('inc/credit/credit_house_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_marriage'): ?>
+				<?php echo $this->fetch('inc/credit/credit_marriage_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_residence'): ?>
+				<?php echo $this->fetch('inc/credit/credit_residence_tip.html'); ?> 
+				<?php endif; ?>
+				<?php if ($this->_var['credit']['type'] == 'credit_identificationscanning'): ?>
+				<?php echo $this->fetch('inc/credit/credit_identificationscanning_tip.html'); ?> 
+				<?php endif; ?>
+	        </div>
+			<?php if ($this->_var['credit']['file_count'] > 0): ?>
+			<div class="credit_upload">
+				<div class="field">
+					<label>
+					<?php if ($this->_var['credit']['file_tip']): ?>
+					<span class="f_red b">*</span><?php echo $this->_var['credit']['file_tip']; ?>：
+					<?php else: ?>
+					&nbsp;
+					<?php endif; ?>
+					</label>
+					<div class="f_l pl10" id="upload_file_box">
+		       			<div class="plupload_header_text ">每张图片最大限制为3MB，图片格式为JPG,GIF,PNG</div>
+						<div class="blank5"></div>
+						<?php
+						for($i=1;$i<=$this->_var['credit']['file_count'];$i++){
+						
+						 echo show_ke_image("file".$i);
+						 if($i%2 == 0){
+						 	echo '<div class="blank5"></div>';
+						 }
+						}
+						?>
+					</div>
+				</div>
+				</div>
+			<?php endif; ?>
+	        <div class="blank20"></div>
+	        <div class="blank20"></div>
+	        <div style="text-align:left;margin-left:190px">
+				<input type="hidden" id="type" value="<?php echo $this->_var['credit']['type']; ?>" name="type"/>
+				<input type="hidden" id="is_ajax" value="<?php echo $this->_var['is_ajax']; ?>" name="is_ajax"/>
+	            <input type="submit" value="提交审核" class="sub_btn"/>
+	        </div>
+			<div class="blank20"></div>
+	        <div class="blank20"></div>
+		</div>
+	</form>
+</div>
+<?php if ($this->_var['credit']['type'] == 'credit_credit'): ?>
+<?php echo $this->fetch('inc/credit/credit_credit_tip.html'); ?> 
+<?php endif; ?>
+<?php if ($this->_var['credit']['type'] == 'credit_incomeduty'): ?>
+<?php echo $this->fetch('inc/credit/credit_incomeduty_tip.html'); ?> 
+<?php endif; ?>
+<script type="text/javascript">
+	jQuery(function(){
+		$("#uploadCreditForm_<?php echo $this->_var['credit']['type']; ?>").unbind("submit");
+		$("#uploadCreditForm_<?php echo $this->_var['credit']['type']; ?>").bind("submit",function(){
+			<?php if ($this->_var['credit']['type'] == 'credit_videoauth'): ?>
+			if($("#usemail:checked").length == 0){
+				$.showErr("请勾选'视频认证文件已发送'后提交。");
+				return false;
+			}
+			<?php endif; ?>
+			
+			<?php if ($this->_var['credit']['type'] == 'credit_contact'): ?>
+				if($.trim($("#settings-office").val()).length == 0){
+					$("#settings-office").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['OFFICE'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-jobtype").val()).length == 0){
+					$("#settings-jobtype").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['JOBTYPE'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($("select[name='province_id']").val()== 0||$("select[name='city_id']").val() == 0)
+				{
+					$("select[name='province_id']").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['WORK_REGION'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-officetype").val()).length == 0){
+					$("#settings-officetype").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['OFFICETYPE'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-officedomain").val()).length == 0){
+					$("#settings-officedomain").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['OFFICEDOMAIN'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-officecale").val()).length == 0){
+					$("#settings-officecale").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['OFFICECALE'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-position").val()).length == 0){
+					$("#settings-position").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['POSITION'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-salary").val()).length == 0){
+					$("#settings-salary").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['SALARY'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-workyears").val()).length == 0){
+					$("#settings-workyears").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['WORKYEARS'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				
+				if($.trim($("#settings-workphone").val()).length == 0){
+					$("#frphone").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['WORKPHONE'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-workemail").val()).length == 0){
+					$("#settings-workemail").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['WORKEMAIL'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				if($.trim($("#settings-officeaddress").val()).length == 0){
+					$("#settings-officeaddress").focus();
+					$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['OFFICEADDRESS'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+					
+					return false;
+				}
+				
+				var query = $("#uploadCreditForm_<?php echo $this->_var['credit']['type']; ?>").serialize();
+				$.ajax({
+					url: '<?php
+echo parse_url_tag("u:index|uc_account#savework|"."is_ajax=1".""); 
+?>',
+					data:query,
+					type:"post",
+					dataType:"json",
+					success:function(result){
+						if(result.status!=1){
+							$.showErr(result.info);
+							return false;
+						}
+						else{
+							
+							return submit_credit_form<?php echo $this->_var['credit']['id']; ?>();
+						}
+					}
+				});
+			<?php endif; ?>
+			
+			<?php if ($this->_var['credit']['type'] == 'credit_car'): ?>
+				if($.trim($("#carBrand").val())==""){
+					$.showErr("请输入汽车品牌。",function(){
+						$("#carBrand").focus();
+					});
+					return false;
+				}
+				if($.trim($("#carNumber").val())==""){
+					$.showErr("请输入车牌号码。",function(){
+						$("#carNumber").focus();
+					});
+					return false;
+				}
+			<?php endif; ?>
+			<?php if ($this->_var['credit']['type'] == 'credit_graducation'): ?>
+			if($.trim($("#validCode").val())=="" || $.trim($("#validCode").val()).length != 12 ){
+				$.showErr("请输入12位在线验证码。",function(){
+					$("#validCode").focus();
+				});
+				return false;
+			}
+			<?php endif; ?>
+			<?php if ($this->_var['credit']['type'] == 'credit_residence'): ?>
+			if($("select[name='province_id']").val()== 0||$("select[name='city_id']").val() == 0)
+			{
+				$("select[name='province_id']").focus();
+				$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => '目前所在省市',
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+				
+				return false;
+			}
+			if($("#settings-address").val() == ""){
+				$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['ADDRESS'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>",function(){
+					$("#settings-address").focus();
+				});
+				return false;
+			}
+			if($("#settings-postcode").val() == ""){
+				$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => '居住地邮编',
+);
+echo $k['name']($k['format'],$k['value']);
+?>",function(){
+					$("#settings-postcode").focus();
+				});
+				return false;
+			}
+			<?php endif; ?>
+			
+			<?php if ($this->_var['credit']['type'] == 'credit_identificationscanning'): ?>
+				if($.trim($("#settings-real_name").val())==""){
+					$.showErr("输入真实姓名。",function(){
+						$("#carBrand").focus();
+					});
+					return false;
+				}
+				if($.trim($("#settings-idno").val())==""){
+					$.showErr("身份证号。",function(){
+						$("#carNumber").focus();
+					});
+					return false;
+				}
+			<?php endif; ?>
+			
+			
+			return submit_credit_form<?php echo $this->_var['credit']['id']; ?>();
+		});
+	});
+	
+	function submit_credit_form<?php echo $this->_var['credit']['id']; ?>(){
+		<?php if ($this->_var['credit']['file_count'] > 0): ?>
+		var is_upload_file_<?php echo $this->_var['credit']['id']; ?> = false;
+		for(var i=1;i<=<?php echo $this->_var['credit']['file_count']; ?>;i++){
+			if($.trim($("#uploadCreditForm_<?php echo $this->_var['credit']['type']; ?> #upload_file_box #keimg_h_file"+i).val())!=""){
+				is_upload_file_<?php echo $this->_var['credit']['id']; ?> = true;
+			}
+		}
+		
+		if(!is_upload_file_<?php echo $this->_var['credit']['id']; ?>){
+			$.showErr("请完成文件上传后提交审核。");
+			return false;
+		}
+		<?php endif; ?>
+		<?php if ($this->_var['is_ajax'] == 1): ?>
+			var query = $("#uploadCreditForm_<?php echo $this->_var['credit']['type']; ?>").serialize();
+			$.ajax({
+				url: '<?php
+echo parse_url_tag("u:index|credit#credit_save|"."".""); 
+?>',
+				data:query,
+				type:"post",
+				dataType:"json",
+				success:function(result){
+					if(result.status!=1){
+						$.showErr(result.info);
+					}
+					else{
+						$.showSuccess(result.info,function(){
+							window.location.reload();
+						});
+					}
+				}
+			});
+			return false;
+		<?php else: ?>
+		return true;
+		<?php endif; ?>
+	}
+</script>
+<?php if ($this->_var['is_ajax'] == 0): ?>
+<?php echo $this->fetch('inc/credit/credit_footer.html'); ?> 
+<?php endif; ?>

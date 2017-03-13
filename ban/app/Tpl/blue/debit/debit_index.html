@@ -1,0 +1,122 @@
+{include file="debit/debit_header.html"} 
+<?php
+$this->_var['pjs'][] = $this->_var['TMPL_REAL']."/js/utils/adv.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$pjs" c="$pjs"}"></script>
+<div>
+	<!--{if $MODULE_NAME == 'debit'}-->
+    <div id="main_adv_box" class="main_adv_box">
+        <div id="main_adv_img" class="main_adv_img">
+            <span rel="1"><adv adv_id="白条首页广告位1" /></span>
+            <span rel="2"><adv adv_id="白条首页广告位2" /></span>
+            <span rel="3"><adv adv_id="白条首页广告位3" /></span>
+            <span rel="4"><adv adv_id="白条首页广告位4" /></span>	
+            <span rel="5"><adv adv_id="白条首页广告位5" /></span>					
+        </div>
+        <div id="main_adv_ctl" class="main_adv_ctl">
+            <ul>
+                <li rel="1">1</li>
+                <li rel="2">2</li>
+                <li rel="3">3</li>
+                <li rel="4">4</li>
+                <li rel="5">5</li>
+            </ul>
+        </div>
+    </div>
+    <!--{/if}-->
+	<div class="b_Gradual_change">
+		<div class="wrap Process">
+			<ul>
+				<li class="Process_0"></li>
+				<li class="Process_1"></li>
+				<li class="Process_2"></li>
+				<li class="Process_3"></li>
+			</ul>
+		</div>
+	</div>
+	<div class="b_white">
+		<div class="wrap choose_block ">
+			<h3></h3>
+			<div class="clearfix">
+				
+				<div class="f_l" style=" width:600px;">
+				<form id="form1" action="{url r="index" p="debit_deal"}" method="post">
+				<div class="type_name">白条类型</div>
+				<div class="type_choose clearfix">
+                {if $loan_type_list}
+                	{foreach from=$loan_type_list item=type key=key}
+                    	<label for="t{$type.id}" class="label">{$type.name}</label>
+                    	<input type="radio" name="type" id="t{$type.id}" value="{$type.id}" class="hidd"/>
+                    {/foreach}
+                {/if}
+				</div>
+				<div class="type_name">白条金额</div>
+				<div class="type_choose clearfix">
+                 {if $debit}
+                	{foreach from=$debit item=item key=key}
+                    	<label for="m{$item}" class="label">{$item}元</label>
+                    	<input type="radio" name="debit_money" value="{$item}" id="m{$item}" class="hidd"/>
+                    {/foreach}
+                 {/if}
+				</div>
+				<div class="type_name">分期月数</div>
+				<div class="type_choose clearfix">
+					<div class="select">
+						<div class="select_this">1个月</div><!--分期数取此值-->
+						<ul class="select_list">
+                        {foreach from="$replay_list" item="repaytime"}
+                        	{if $repaytime.1 neq 0}
+                        		<li value="{$repaytime.0}">{$repaytime.0}个月</li>
+                            {/if}
+                        {/foreach}
+                        <input type="hidden" id="repaytime" name="repaytime" />
+					 </ul>
+					</div>
+				</div>
+				<div class="clearfix">
+					<button class="type_but"></button>
+				</div>
+				</form>
+			    </div>
+                <div class="f_r video_block">
+					<adv adv_id="白条首页视频" />
+			    </div>
+			</div>
+			
+			
+		</div>
+	</div>
+	<div class="b_red ">
+		<div class="wrap clearfix pt50 pb40">
+			   <div class="show_block_0 f_l">
+			   	<ul class="show">
+			   		<li id='left_show' style="display:none;">
+                        <img src=""/>
+                        <p class="name"></p>
+                        <hr  style="width:345px;"/>
+                        <p class="for_what"><b>"</b><b>"</b></p>
+                        <p class="time"><b class="c_f7b652"></b>分钟</p>
+			   		</li>
+			   	</ul>
+			   </div>
+			   <div class="f_r get_num">
+			   	<h3></h3>
+				<div class="show_info" id="scrollDiv">
+					<ul>
+                    	{foreach from=$deal_list item=item name="deal_list"}
+                        <li>
+                            <img src="{$item.img}"/><div class="Vertical_line"></div>
+                            <p class="name" alt='{$item.user_name}'>来自{$item.school}的{$item.user_name}</p>
+                            <p class="num" alt='{$item.deal_name}'>领取到价值{$item.amount}的{$item.deal_name}</p>
+                            <p class='school hide'>{$item.school}</p>
+                            <p class='time hide'>{$item.l_time}</p>
+                        </li>
+                        {/foreach}
+					</ul>
+				</div>
+				<div class="Ellipsis"></div>
+			   </div>
+		</div>
+	</div>
+    <div class='blank20'></div>
+{include file="debit/debit_footer.html"}

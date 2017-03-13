@@ -1,0 +1,26 @@
+<div class="box-bd">
+	  <table class="data_table bdr5" border="0" cellspacing="1" style="width:100%; ">
+	    <tbody>
+	        <tr>
+	            <th >投资项目</th>
+	            <th width="20%">借款金额</th>
+				<th width="15%">借款时间</th>
+	        </tr>
+			{foreach from="$peizi_list" item="peizi" name="peizis"}
+			<tr>
+				<td class="f_blue">
+					<a href="{$peizi.url}">{$peizi.peizi_name}</a>
+				</td>
+				<td class=" f_red">
+					{function name="format_price" v="$peizi.borrow_money"}
+				</td>
+				<td>
+					{$peizi.time_limit_num_format}{$peizi.type_format}
+				</td>
+			</tr>
+			{/foreach}
+	    </tbody>
+	</table>
+</div>
+
+

@@ -1,0 +1,434 @@
+{include file="inc/header.html"}
+<!--轮播图区域-->
+<div class="pdcy-banner">
+    <div id="kinMaxShow">
+
+        <div  class="item active">
+            <adv adv_id="首页广告位1" />
+        </div>
+
+        <div class="item ">
+            <adv adv_id="首页广告位2" />
+        </div>
+
+        <div class="item ">
+            <adv adv_id="首页广告位3" />
+        </div>
+
+        <div class="item ">
+            <adv adv_id="首页广告位4" />
+        </div>
+
+    </div>
+    <div class="banner-form-wrap">
+        <div class="banner-form">
+            <div class="opacity-top">
+                <p class="fsz16"><span>平均年收益率</span></p>
+                <p class="fsz54 txt-b mgb20"><span id="avgloanrate"></span>%</p>
+                <p class="">100元起投，享受合理投资收益</p>
+                <span id="isdiv">
+            <a class="btn btn-warning banner-btn" href="{url x="index" u="user#register" }">免费注册</a>
+            <p class="banner-form-endP">已有账户？<a href="{url x="index" u="user#login" }">立即登录</a></p>
+            </span>
+            </div>
+            <div class="opacity"></div>
+        </div>
+    </div>
+    <div class="banner-lr">
+        <a class="prev" id="prev" href="#"></a>
+        <a class="next" id="next" href="#"></a>
+    </div>
+</div>
+<!--数据统计区-->
+<div class="index-sj-wrap">
+    <div class="content clear">
+        <div class="gg_l clear">
+            <h4>最新公告</h4>
+            <ul>
+
+                <li class="clear">
+                    <a href="{$notice_info.url}" id="ggid">{$notice_info.title}</a>
+                    <span id = "ggtime"></span>
+                </li>
+            </ul>
+            <a class="more" href="/index.php?ctl=notice&act=list">更多></a>
+        </div>
+        <div class="sj_r">
+            <ul>
+                <li class="sj1">
+                    <em>用户累计投资</em>
+                    <strong id="bidamount"><span class='timer' data-to="{$zmoney}"></span></strong>
+                    <span id="bidUNIT">万元</span>
+                </li>
+                <li class="sj2">
+                    <em>注册会员</em>
+                    <strong id="totalrece"><span class='timer' data-to="{$zuser}"></span></strong>
+                    <span id="totalUNIT"></span>
+                </li>
+            </ul>
+            <a class="more" href="#">更多></a>
+        </div>
+    </div>
+</div>
+<div class="indexaboutus">
+    <div class="content">
+        <ul class="clear">
+            <li class="sec_1 clear">
+                <span class="about_img1"></span>
+                <div>
+                        <h4>股东背景</h4>
+                        <p>金陵控股是上市公司控股股东<br>同时也是多家上市公司及北京<br>农商行主要股东。</p>
+                </div>
+            </li>
+            <li class="sec_2 clear">
+                <span class="about_img2"></span>
+                <div>
+                        <h4>资金存管</h4>
+                        <p>由华兴银行<br/>提供全程资金存管服务</p>
+                </div>
+            </li>
+            <li class="sec_3 clear">
+                <span class="about_img3"></span>
+                <div>
+                        <h4>安全透明</h4>
+                        <p>平台数据公开<br/>资金路径明晰可追溯</p>
+                </div>
+            </li>
+            <li class="sec_4 clear">
+                <span class="about_img4"></span>
+                <div>
+                        <h4>产品特色</h4>
+                        <p>专注农业产业细分领域<br/>借款用途明确<br/>还款来源有保障</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--首页投资列表区域-->
+<div class="content mgt20 clear">
+    <div class="i-con-l pull-left">
+        <!--借款项目，投资列表-->
+        <div class="touzi-tb-wp">
+            <div class="titlestyle clear">
+                <span class="titlename">借款项目</span>
+                <span class="tbTop-txt">发标提示：工作日<strong>9:00~18:00</strong>不定期发布新项目</span>
+                <a class="titleMore" href="{url x="index" u="deals" }">更多</a>
+            </div>
+            <table class="table index-Tb table-hover ">
+                <tbody id="investment_tab">
+
+                {foreach from=$deal_list item="deal" key=key name="deals"}
+                <tr>
+                    <td class="td1"><span><img class="nong" src="{$deal.cate_info.icon}" alt="农批贷"></span></td>
+                    <td class="td2 itemname">
+                        <div class="clear"><h6 class="itemstyle"><a href="{$deal.url}"
+                                                                    >{$deal.name}</a></h6>
+                            <p><a href="{$deal.url}">{$deal.deal_sn}</a></p></div>
+                    </td>
+                    <td class="td3"><span>{$deal.rate}</span>%+{$deal.user_bid_rebate}%</td>
+                    <td class="td4"><span>{$deal.repay_time}</span>{if $deal.repay_time_type eq 0}天{else}个月{/if}</td>
+                    <td class="td5"><span>{$deal.borrow_amount_format}</span></td>
+                    <td class="td6"><p>{$deal.loantype_format}</p>
+                        <div class="pat8 clear">
+                            <div class="progress jindu-w">
+                                <div class="progress-bar" style="width:{function name="round" v=$deal.progress_point f=2}%"></div>
+                            </div>
+                            <em>{function name="round" v=$deal.progress_point f=2}%</em></div>
+                    </td>
+                    <td>
+
+                            {if $deal.is_delete eq 2}
+                            <a class="btn btn-default tb-btn" href="{$deal.url}">待发布</a>
+                            {elseif $deal.is_wait eq 1}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">未开始</a>
+                            {elseif $deal.deal_status eq 5}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">还款完毕</a>
+                            {elseif $deal.deal_status eq 4}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">还款中</a>
+                            {elseif $deal.deal_status eq 0}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">{if $deal.need_credit eq 0}等待审核{else}等待材料{/if}</a>
+                            {elseif $deal.deal_status eq 1 && $deal.remain_time gt 0}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">马上投标</a>
+                            {elseif $deal.deal_status eq 2}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">已满标</a>
+                            {elseif $deal.deal_status eq 3}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">已流标</a>
+                            {elseif $deal.deal_status eq 1 && $deal.remain_time lte 0}
+                        <a class="btn btn-default tb-btn" href="{$deal.url}">已过期</a>
+                            {/if}
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+
+                </tbody>
+            </table>
+            <a class="more_item" href="{url x="index" u="deals" }">查看更多项目></a>
+        </div>
+        <!--<div class="touzi-tb-wp mgt20">
+            <div class="titlestyle clear">
+                <span class="titlename">债权转让</span>
+                <span class="tbTop-txt">灵活转让，快速收回资金，最快当天到账。　　发标提示：债转标自然日24小时内由转让人不定期发布。</span>
+                <a class="titleMore" href="/investment/investlist_0.html">更多</a>
+            </div>
+            <table class="table index-Tb table-hover ">
+                <tbody id="investment_tab_zz">
+                <tr>
+                    <td class="td1"><span class="yang"><img class="yang" src="{$TMPL}/newstyle/images/yang.png" alt="养殖贷"></span>
+                    </td>
+                    <td class="td2 itemname">
+                        <div class="clear"><h6 class="itemstyle"><a href="javascript:void(0)"
+                                                                    onclick="openUrl('1000000275',1)">农易转</a></h6><span
+                                class="itemlabel label-zhuan">转让</span>
+                            <p><a href="javascript:void(0)" onclick="openUrl('1000000275',1)">20151118022</a></p></div>
+                    </td>
+                    <td class="td3"><span>12.00</span>%</td>
+                    <td class="td4"><span>119</span>天</td>
+                    <td class="td5"><span>0.15</span>万</td>
+                    <td class="td6"><p>按月付息到期还本</p>
+                        <div class="pat8 clear">
+                            <div class="progress jindu-w">
+                                <div class="progress-bar" style="width:100.00%"></div>
+                            </div>
+                            <em>100.00%</em></div>
+                    </td>
+                    <td class="td7"><a class="btn btn-gray tb-btn" href="javascript:void(0)"
+                                       onclick="openUrl('1000000275',1)">已转让</a></td>
+                </tr>
+                <tr>
+                    <td class="td1"><span class="yang"><img class="yang" src="{$TMPL}/newstyle/images/yang.png" alt="养殖贷"></span>
+                    </td>
+                    <td class="td2 itemname">
+                        <div class="clear"><h6 class="itemstyle"><a href="javascript:void(0)"
+                                                                    onclick="openUrl('1000000279',1)">农易转</a></h6><span
+                                class="itemlabel label-zhuan">转让</span>
+                            <p><a href="javascript:void(0)" onclick="openUrl('1000000279',1)">20151120023</a></p></div>
+                    </td>
+                    <td class="td3"><span>12.00</span>%</td>
+                    <td class="td4"><span>118</span>天</td>
+                    <td class="td5"><span>0.30</span>万</td>
+                    <td class="td6"><p>按月付息到期还本</p>
+                        <div class="pat8 clear">
+                            <div class="progress jindu-w">
+                                <div class="progress-bar" style="width:100.00%"></div>
+                            </div>
+                            <em>100.00%</em></div>
+                    </td>
+                    <td class="td7"><a class="btn btn-gray tb-btn" href="javascript:void(0)"
+                                       onclick="openUrl('1000000279',1)">已转让</a></td>
+                </tr>
+                <tr>
+                    <td class="td1"><span class="yang"><img class="yang" src="{$TMPL}/newstyle/images/yang.png" alt="养殖贷"></span>
+                    </td>
+                    <td class="td2 itemname">
+                        <div class="clear"><h6 class="itemstyle"><a href="javascript:void(0)"
+                                                                    onclick="openUrl('1000000280',1)">农易转</a></h6><span
+                                class="itemlabel label-zhuan">转让</span>
+                            <p><a href="javascript:void(0)" onclick="openUrl('1000000280',1)">20151120024</a></p></div>
+                    </td>
+                    <td class="td3"><span>12.00</span>%</td>
+                    <td class="td4"><span>118</span>天</td>
+                    <td class="td5"><span>0.15</span>万</td>
+                    <td class="td6"><p>按月付息到期还本</p>
+                        <div class="pat8 clear">
+                            <div class="progress jindu-w">
+                                <div class="progress-bar" style="width:100.00%"></div>
+                            </div>
+                            <em>100.00%</em></div>
+                    </td>
+                    <td class="td7"><a class="btn btn-gray tb-btn" href="javascript:void(0)"
+                                       onclick="openUrl('1000000280',1)">已转让</a></td>
+                </tr>
+                <tr>
+                    <td class="td1"><span class="yang"><img class="yang" src="{$TMPL}/newstyle/images/yang.png" alt="养殖贷"></span>
+                    </td>
+                    <td class="td2 itemname">
+                        <div class="clear"><h6 class="itemstyle"><a href="javascript:void(0)"
+                                                                    onclick="openUrl('1000000282',1)">农易转</a></h6><span
+                                class="itemlabel label-zhuan">转让</span>
+                            <p><a href="javascript:void(0)" onclick="openUrl('1000000282',1)">20151126025</a></p></div>
+                    </td>
+                    <td class="td3"><span>12.00</span>%</td>
+                    <td class="td4"><span>43</span>天</td>
+                    <td class="td5"><span>7.14</span>万</td>
+                    <td class="td6"><p>按月付息到期还本</p>
+                        <div class="pat8 clear">
+                            <div class="progress jindu-w">
+                                <div class="progress-bar" style="width:100.00%"></div>
+                            </div>
+                            <em>100.00%</em></div>
+                    </td>
+                    <td class="td7"><a class="btn btn-gray tb-btn" href="javascript:void(0)"
+                                       onclick="openUrl('1000000282',1)">已转让</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="more_item" href="/investment/investlist_0.html?zz=1">查看更多项目></a>
+        </div>-->
+    </div>
+    <div class="i-con-r pull-right item_r_box">
+        <div class="side-column i-hot-list">
+            <div class="titlestyle clear">
+                <span class="titlename">最热认购</span>
+            </div>
+            <div class="i-hot-listCon">
+                <ul class='hotlist'>
+                    {foreach from="$near_deal_loads" item="load"}
+                    <li class="clear clone" style="height: 68px;">
+                        <div class="i-hot-toux"><img src="{$TMPL}/newstyle/images/user1.png"></div>
+                        <div class="i-hot-con"><p><span>{function name="utf_substr" v="$load.user_name"}</span>投资了{$load.money}元</p> <h5>{$load.name}收益{$load.rate}%</h5></div>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        <div class="side-column i-gonggao over-f">
+            <div class="titlestyle clear">
+                <span class="titlename">公告与动态</span>
+                <a class="titleMore" href="/index.php?ctl=notice&act=list">更多</a>
+            </div>
+            <div class="i-hot-talk">
+                <ul>
+                    {foreach from="$notice_list" item="voo"}
+                    <li class="clear" id="927">
+
+                        <a class="" href="{$voo.url}"><span id="ggid">{$voo.title}</span></a>
+
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        <!--<div class="side-column over-f index_huati">
+        <div class="titlestyle clear">
+            <span class="titlename">最热话题</span>
+            <a class="titleMore" href="http://bbs.9259.com/forum.php">更多</a>
+        </div>
+        <div class="i-hot-talk">
+            <ul>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=75" target="_blank">就爱金融网获任广东省“网金委”常务理事单位</a>
+                </li>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=29&extra=" target="_blank">支付宝推出“扶老人险”道德问题钱解决？</a>
+                </li>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=28&extra=" target="_blank">95后大学生现身互联网金融 比拼投资财商</a>
+                </li>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=27&extra=" target="_blank">八成网友反对转账收费 微信：不是我要收</a>
+                </li>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=8&extra=" target="_blank">就爱金融荣耀上线，邀您一起玩转金融</a>
+                </li>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=7&extra=" target="_blank">深圳互联网金融协会挂牌成立 百家企业加入</a>
+                </li>
+
+                <li>
+                    <input type ="hidden" id = "huati" value=""/>
+                    <a href="http://bbs.9259.com/forum.php?mod=viewthread&tid=6&extra=" target="_blank">政策大力扶持P2P发展产业资本竞相布局</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    -->
+    </div>
+</div>
+</div>
+<!--合作伙伴-->
+<div class="content aboutall">
+    <div class="i-aboutus clear">
+        <div class="titlestyle clear">
+            <span class="titlename">关于我们</span>
+            <a class="titleMore" href="/index.php?ctl=help&id=1">更多</a>
+        </div>
+        <div class="aboutRollcon clear">
+            <ul class="fCl-slide">
+                {foreach from="$about_list" item="voo"}
+                <li>
+                    <div class="rollimg">
+                        <a href="{$voo.url}"><img src="{$voo.icon}" alt="媒体报道" /></a>
+                    </div>
+                    <div class="rolltxt">
+                        <h4><a href="{$voo.url}">{$voo.title}</a></h4>
+                        <p><a href="{$voo.url}">{$voo.title}</a></p>
+                    </div>
+                </li>
+                {/foreach}
+
+            </ul>
+            <ul class="fCl-nav clear">
+                {foreach from="$about_list" item="voo"}
+                <li></li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+    <div class="aboutline"></div>
+    <div class="i-media">
+        <div class="titlestyle clear">
+            <span class="titlename">媒体报道</span>
+            <a class="titleMore" href="/index.php?ctl=acate&id=25">更多</a>
+        </div>
+        <div class="aboutRollcon clear">
+            <ul class="fCl-slide">
+                {foreach from="$mtbd_list" item="voo"}
+                <li>
+                    <div class="rollimg">
+                        <a href="{$voo.url}"><img src="{$voo.icon}" alt="媒体报道" /></a>
+                    </div>
+                    <div class="rolltxt">
+                        <h4><a href="{$voo.url}">{$voo.title}</a></h4>
+                        <p><a href="{$voo.url}">{$voo.title}</a></p>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+            <ul class="fCl-nav clear">
+                {foreach from="$mtbd_list" item="voo"}
+                <li></li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content i-partner">
+    <div class="titlestyle clear">
+        <span class="titlename">合作伙伴</span>
+        <a class="titleMore" href="#">更多</a>
+    </div>
+    <ul class="clear">
+        <li>
+            <a href="http://www.ghbank.com.cn/" target="_blank"><img src="{$TMPL}/newstyle/picture/i_hez4.jpg"  alt="华兴银行"/></a>
+        </li>
+        <li>
+            <a href="http://www.montnets.com/" target="_blank"><img src="{$TMPL}/newstyle/picture/i_hez1.jpg"  alt="鹏元征信"/></a>
+        </li>
+        <li>
+            <a href="http://www.wdzj.com/" target="_blank"><img src="{$TMPL}/newstyle/picture/i_hez5.jpg"  alt="网贷之家"/></a>
+        </li>
+        <li>
+            <a href="http://www.pycredit.cn/" target="_blank"><img src="{$TMPL}/newstyle/picture/i_hez2.jpg"  alt="梦网科技"/></a>
+        </li>
+    </ul>
+</div>
+<div id="goodcover" class="goodcover"></div>
+<div id="code" class="code">
+    <a class="close" href="javascript:void(0)" id="closebt"></a>
+    <a class="goact" href="#">查看详情</a>
+</div>
+{include file="inc/footer.html"}

@@ -1,0 +1,122 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll" data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="licai_uc_published_lc#index"}">
+<!--发起的理财-->
+<div class="licai_data_show">
+	<div class="w_b licai_data_top">
+		<div class="w_b_f_1 tc">
+			<p class="con">{$data.vo.licai_total_money_format}</p>
+			<p class="name">成交总额</p>
+		</div>
+		<div class="w_b_f_1 tc">
+			<p class="con">{$data.vo.licai_total_count}</p>
+			<p class="name">产品总数</p>
+		</div>
+		<div class="w_b_f_1 tc">
+			<p class="con">{$data.vo.licai_total_ing_money}</p>
+			<p class="name">进行的总额</p>
+		</div>
+		<div class="w_b_f_1 tc">
+			<p class="con">{$data.vo.total_people_count}</p>
+			<p class="name">购买的人数</p>
+		</div>
+	</div>
+	<div class="blank055"></div>
+	<div class="data_search">
+		<div class="height bb1 w_b search_box">
+			<span class="name">理财名称</span>
+			 <input id="deal_name" name="deal_name" value="{$data.search.deal_name}" class="w_b_f_1 search_input"  type="text" placeholder="请输入项目名称">
+			 <button  class="search_btn" rel="search_btn" id="submitt" type="submit">搜索</button>
+		</div>
+		<div class="height bb1 w_b">
+			<input class="w_b_f_1  jcDate search_time" data-toggle='date'  rel="input-text" value="{$data.search.buy_begin_time}" name="buy_begin_time" id="buy_begin_time" placeholder="选择购买开始时间">
+		    <span class="Cut_off"> — </span>
+			<input class="w_b_f_1  jcDate search_time" data-toggle='date' rel="input-text" value="{$data.search.buy_end_time}" name="buy_end_time" id="buy_end_time"  placeholder="选择购买结束时间">
+		</div>
+		<div class="height bb1 w_b">
+			    <input class="w_b_f_1  jcDate search_time" data-toggle='date' rel="input-text" value="{$data.search.begin_time}" name="begin_time" id="begin_time" placeholder="选择到期开始时间">
+                <span class="Cut_off"> — </span>
+				<input class="w_b_f_1  jcDate search_time" data-toggle='date' rel="input-text" value="{$data.search.end_time}" name="end_time" id="end_time" placeholder="选择到期结束时间">
+       </div>
+	</div>
+	<div class="blank055"></div>
+	
+	<div class="show_list">
+	<ul class="invest">
+		
+	{/if}
+<!-- 这里是页面内容区 -->
+<!--发起理财页-->
+
+  	{if $data.list}
+			{foreach from=$data.list item="item" key=key name="deal"}
+			<li>
+				<div class="first_f">
+					<div class="f_l name">{function name="msubstr" v="$item.name"}</div>
+					<a class="f_r see" href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_deal_lc" p="id=$item.id"}','#licai_uc_deal_lc',2);">查看详情<i class="icon iconfont">&#xe61a;</i></a>
+				</div>
+				<div class="second_f clearfix">
+					<dl>
+						<dd>
+							<span class="name">成交总额</span>
+							<span class="con">{$item.total_money_format}</span>
+						</dd>
+						<dd>
+							<span class="name">收益率</span>
+							<span class="con ea544a">{$item.average_income_rate_format}</span>
+						</dd>
+						<dd>
+							<span class="name">理财类型</span>
+							<span class="con">{$item.type_format}</span>
+						</dd>
+						<dd>
+							<span class="name">到期时间</span>
+							<span class="con">{$item.end_date}</span>
+						</dd>
+						<dd>
+							<span class="name">理财期限</span>
+							<span class="con">{$item.time_limit}个月</span>
+						</dd>
+						<dd>
+							<span class="name">状态</span>
+							<span class="con">{$item.licai_status_format}</span>
+						</dd>
+					</dl>
+				</div>
+				<div class="three_f w_b but_box_parent">
+					<div class="w_b_f_1 but_box">
+						<a class="l" href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_record_lc" p="id=$item.id"}','#licai_uc_record_lc',2);">购买记录</a>
+						
+					</div>
+					<div class="w_b_f_1 but_box">
+						<a class="r" href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_redeem_lc" p="id=$item.id&epage=licai_uc_published"}','#licai_uc_redeem_lc',2);">赎回管理</a>
+					</div>
+				</div>
+			</li>
+			{/foreach}
+			
+			{else}
+				<div class="no_data">
+				暂无数据
+				</div>
+			{/if}
+			
+{if $smarty.request.is_ajax neq 1}
+		</ul>
+	</div>
+
+ </div>
+ <!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}

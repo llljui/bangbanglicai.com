@@ -1,0 +1,497 @@
+
+	<div class="tabbox">
+		<div class="tab cur"><a href="<?php
+echo parse_url_tag("u:index|uc_account#index|"."".""); 
+?>"><?php echo $this->_var['LANG']['UC_ACCOUNT']; ?></a></div>
+	</div>
+	<div class="uc_box clearfix">
+	<style>
+		.field{width:520px}
+	</style>
+	<div class="blank"></div>
+	<form method="post" action="<?php
+echo parse_url_tag("u:shop|uc_account#save|"."".""); 
+?>" name="modify">
+			<table width="800px" class="user_info_table">
+				<tr>
+					<td colspan=2 class="tr">
+						<button type="button" class="true_btn" id="edit-account">编辑资料</button>
+					</td>
+				</tr>
+				<tr>
+					<td class="pt10" valign="top" style="width:120px; text-align:center">
+							<img id="avatar" src="<?php 
+$k = array (
+  'name' => 'get_user_avatar',
+  'uid' => $this->_var['user_info']['id'],
+  'type' => 'middle',
+);
+echo $k['name']($k['uid'],$k['type']);
+?>" />
+							<div class="blank"></div>
+							<div class="hide account-edit-box">
+								<label class="fileupload" onclick="upd_file(this,'avatar_file',<?php echo $this->_var['user_info']['id']; ?>);">
+								<input type="file" class="filebox" name="avatar_file" id="avatar_file"/>
+								
+								</label>
+								<label class="fileuploading hide" ></label>						
+							</div>	
+					</td>
+					
+					<td class="pt10" >
+						
+						<div class="field username">
+							<label for="settings-username"><span class="red">*</span><?php echo $this->_var['LANG']['USER_TITLE_USER_NAME']; ?></label>
+							<span class="f_l"><?php echo $this->_var['user_info']['user_name']; ?></span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field email">
+							<label for="settings-email-address"><span class="red">*</span>Email</label>
+							<span class="f_l"><?php 
+$k = array (
+  'name' => 'hideEmail',
+  'v' => $this->_var['user_info']['email'],
+);
+echo $k['name']($k['v']);
+?></span>
+							<?php if ($this->_var['user_info']['email'] != '' && $this->_var['user_info']['emailpassed'] == 1): ?>
+								<span class="passed yes">已绑定</span>
+							<?php elseif ($this->_var['user_info']['email'] != '' && $this->_var['user_info']['emailpassed'] == 0): ?>
+								<span class="passed yes">已设置</span>
+							<?php else: ?>
+								<span class="passed"><a href="<?php
+echo parse_url_tag("u:index|uc_account#security|"."".""); 
+?>">去设置</a></span>
+							<?php endif; ?>
+							
+						</div>
+						<div class="blank10"></div>
+													
+						<div class="field real_name">
+							<label for="settings-real_name"><span class="red">*</span><?php if ($this->_var['user_info']['user_type']): ?>法人姓名<?php else: ?><?php echo $this->_var['LANG']['REAL_NAME']; ?><?php endif; ?></label>
+							<span class="f_l"><?php 
+$k = array (
+  'name' => 'utf_substr',
+  'v' => $this->_var['user_info']['real_name'],
+);
+echo $k['name']($k['v']);
+?></span>
+							<?php if ($this->_var['user_info']['idcardpassed'] == 1): ?>
+								<span class="passed yes">已认证</span>
+							<?php else: ?>
+								<span class="passed"><a href="<?php
+echo parse_url_tag("u:index|uc_account#security|"."".""); 
+?>">去认证</a></span>
+							<?php endif; ?>
+						</div>
+						<div class="blank10"></div>
+						<div class="field idno">
+							<label for="settings-idno"><span class="red">*</span><?php if ($this->_var['user_info']['user_type']): ?>法人<?php endif; ?><?php echo $this->_var['LANG']['IDNO']; ?></label>
+							<span class="f_l"><?php 
+$k = array (
+  'name' => 'hideIdCard',
+  'v' => $this->_var['user_info']['idno'],
+);
+echo $k['name']($k['v']);
+?></span>
+							<?php if ($this->_var['user_info']['idcardpassed'] == 1): ?>
+								<span class="passed yes">已认证</span>
+							<?php else: ?>
+								<span class="passed"><a href="<?php
+echo parse_url_tag("u:index|uc_account#security|"."".""); 
+?>">去认证</a></span>
+							<?php endif; ?>
+						</div>
+						<div class="blank10"></div>
+						<div class="field mobile">
+							<label for="settings-mobile"><span class="red">*</span><?php echo $this->_var['LANG']['USER_TITLE_MOBILE']; ?></label>
+							<span class="f_l"><?php 
+$k = array (
+  'name' => 'hideMobile',
+  'v' => $this->_var['user_info']['mobile'],
+);
+echo $k['name']($k['v']);
+?></span>
+							<?php if ($this->_var['user_info']['mobilepassed'] == 1): ?>
+								<span class="passed yes">已绑定</span>
+							<?php else: ?>
+								<span class="passed"><a href="<?php
+echo parse_url_tag("u:index|uc_account#security|"."".""); 
+?>">去绑定</a></span>
+							<?php endif; ?>
+						</div>
+						<div class="blank10"></div>
+						<div class="field">
+							<label><span class="red">*</span><?php echo $this->_var['LANG']['USER_SEX']; ?></label>
+							<span class="f_l">
+							<?php if ($this->_var['user_info']['sex'] == 0): ?><?php echo $this->_var['LANG']['USER_SEX_0']; ?><?php endif; ?>
+							<?php if ($this->_var['user_info']['sex'] == 1): ?><?php echo $this->_var['LANG']['USER_SEX_1']; ?><?php endif; ?>
+							</span>
+						</div>
+						<div class="blank10"></div>
+						<div class="field clearfix">
+							<label for="settings-birthday"><span class="red">*</span><?php echo $this->_var['LANG']['USER_BIRTHDAY']; ?></label>
+							<div class="f_l">
+								<?php echo $this->_var['user_info']['byear']; ?>
+								-
+								<?php echo $this->_var['user_info']['bmonth']; ?>
+								-
+								<?php echo $this->_var['user_info']['bday']; ?>
+								
+							</div>
+						</div>
+						<!--显示框开始-->
+						<div class="account-view-box">
+							<div class="blank10"></div>
+							<div class="field graduation">
+								<label for="settings-graduation"><span class="red">*</span><?php echo $this->_var['LANG']['GRADUATION']; ?></label>
+								<span class="f_l">
+								<?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_1']): ?><?php echo $this->_var['LANG']['GRADUATION_1']; ?><?php endif; ?>
+								<?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_2']): ?><?php echo $this->_var['LANG']['GRADUATION_2']; ?><?php endif; ?>
+								<?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_3']): ?><?php echo $this->_var['LANG']['GRADUATION_3']; ?><?php endif; ?>
+								<?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_4']): ?><?php echo $this->_var['LANG']['GRADUATION_4']; ?><?php endif; ?>
+								</span>
+							</div>
+							<div class="blank10"></div>
+							<div class="field university">
+								<label for="university"><?php echo $this->_var['LANG']['UNIVERSITY']; ?></label>
+								<span class="f_l"><?php echo $this->_var['user_info']['university']; ?></span>
+							</div>
+							<div class="blank10"></div>
+							<div class="field marriage">
+								<label><span class="red">*</span><?php echo $this->_var['LANG']['MARRIAGE']; ?></label>
+								<span class="f_l"><?php echo $this->_var['user_info']['marriage']; ?></span>
+							</div>
+							
+							<?php $_from = $this->_var['field_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'field_item');if (count($_from)):
+    foreach ($_from AS $this->_var['field_item']):
+?>
+							<div class="blank10"></div>
+							<div class="field <?php echo $this->_var['field_item']['field_name']; ?>">
+								<label for="<?php echo $this->_var['field_item']['field_name']; ?>"><?php if ($this->_var['field_item']['is_must'] == 1): ?><span class="red">*</span><?php endif; ?><?php echo $this->_var['field_item']['field_show_name']; ?></label>
+								<span class="f_l"><?php echo $this->_var['field_item']['value']; ?></span>
+							</div>
+							<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+							
+							<div class="blank10"></div>
+							<div class="field">								
+								<label for="settings-region"><span class="red">*</span><?php echo $this->_var['LANG']['USER_REGION']; ?></label>
+								<span class="f_l">
+								<?php echo $this->_var['region_lv2_name']; ?>
+								<?php echo $this->_var['region_lv3_name']; ?>
+								</span>
+							</div>
+							<div class="blank10"></div>
+							<div class="field address">
+								<label for="settings-address"><span class="red">*</span><?php echo $this->_var['LANG']['ADDRESS']; ?></label>
+								<span class="f_l"><?php echo $this->_var['user_info']['address']; ?></span>
+							</div>
+							<div class="blank10"></div>
+							<div class="field phone">
+								<label for="settings-phone"><?php echo $this->_var['LANG']['PHONE']; ?></label>
+								<span class="f_l"><?php echo $this->_var['user_info']['phone']; ?></span>
+							</div>
+						</div>
+						<!--显示框结束-->
+						
+						<!--编辑框开始-->
+						<div class=" account-edit-box">
+							<div class="blank10"></div>
+							<div class="field graduation">
+								<label for="settings-graduation"><span class="red">*</span><?php echo $this->_var['LANG']['GRADUATION']; ?></label>
+								<select name="graduation" id="settings-graduation" class="f_l ui-select">
+									<option value="" <?php if ($this->_var['user_info']['graduation'] == ''): ?>selected="selected"<?php endif; ?>>=<?php echo $this->_var['LANG']['SELECT_PLEASE']; ?>=</option>
+									<option value="<?php echo $this->_var['LANG']['GRADUATION_1']; ?>" <?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_1']): ?>selected="selected"<?php endif; ?>><?php echo $this->_var['LANG']['GRADUATION_1']; ?></option>
+									<option value="<?php echo $this->_var['LANG']['GRADUATION_2']; ?>" <?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_2']): ?>selected="selected"<?php endif; ?>><?php echo $this->_var['LANG']['GRADUATION_2']; ?></option>
+									<option value="<?php echo $this->_var['LANG']['GRADUATION_3']; ?>" <?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_3']): ?>selected="selected"<?php endif; ?>><?php echo $this->_var['LANG']['GRADUATION_3']; ?></option>
+									<option value="<?php echo $this->_var['LANG']['GRADUATION_4']; ?>" <?php if ($this->_var['user_info']['graduation'] == $this->_var['LANG']['GRADUATION_4']): ?>selected="selected"<?php endif; ?>><?php echo $this->_var['LANG']['GRADUATION_4']; ?></option>
+								</select>
+							</div>
+							<div class="blank10"></div>
+							<div class="field university">
+								<label for="university"><?php echo $this->_var['LANG']['UNIVERSITY']; ?></label>
+								<input type="text" value="<?php echo $this->_var['user_info']['university']; ?>" class="f-input f_l ui-textbox" id="settings-university" name="university" size="30">
+							</div>
+							<div class="blank10"></div>
+							<div class="field marriage">
+								<label><span class="red">*</span><?php echo $this->_var['LANG']['MARRIAGE']; ?></label>
+								<span class="f_l">
+									<label class="ui-radiobox" rel="common_marriage">
+										<input type="radio" value="已婚" name="marriage" <?php if ($this->_var['user_info']['marriage'] == '已婚'): ?>checked="checked"<?php endif; ?>> 已婚
+									</label>
+									<label class="ui-radiobox" rel="common_marriage">
+										<input type="radio" value="未婚" name="marriage" <?php if ($this->_var['user_info']['marriage'] == '未婚'): ?>checked="checked"<?php endif; ?>> 未婚
+									</label>
+									<label class="ui-radiobox" rel="common_marriage">
+										<input type="radio" value="离异" name="marriage" <?php if ($this->_var['user_info']['marriage'] == '离异'): ?>checked="checked"<?php endif; ?>> 离异
+									</label>
+									<label class="ui-radiobox" rel="common_marriage">
+										<input type="radio" value="丧偶" name="marriage" <?php if ($this->_var['user_info']['marriage'] == '丧偶'): ?>checked="checked"<?php endif; ?>> 丧偶
+									</label>
+								</span>
+							</div>
+							
+							<?php $_from = $this->_var['field_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'field_item');if (count($_from)):
+    foreach ($_from AS $this->_var['field_item']):
+?>
+							<div class="blank10"></div>
+							<div class="field <?php echo $this->_var['field_item']['field_name']; ?>">
+									<label for="<?php echo $this->_var['field_item']['field_name']; ?>"><?php if ($this->_var['field_item']['is_must'] == 1): ?><span class="red">*</span><?php endif; ?><?php echo $this->_var['field_item']['field_show_name']; ?></label>
+									<?php if ($this->_var['field_item']['input_type'] == 0): ?>
+									<input type="text" value="<?php echo $this->_var['field_item']['value']; ?>" class="f-input f_l ui-textbox" id="settings-<?php echo $this->_var['field_item']['field_name']; ?>" name="<?php echo $this->_var['field_item']['field_name']; ?>" size="30">
+									<?php else: ?>
+									<select name ="<?php echo $this->_var['field_item']['field_name']; ?>" id="settings-<?php echo $this->_var['field_item']['field_name']; ?>" class="f_l ui-select">
+										<?php $_from = $this->_var['field_item']['value_scope']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'value_item');if (count($_from)):
+    foreach ($_from AS $this->_var['value_item']):
+?>
+										<option value="<?php echo $this->_var['value_item']; ?>" <?php if ($this->_var['value_item'] == $this->_var['field_item']['value']): ?>selected="selected"<?php endif; ?>><?php if ($this->_var['value_item'] == ''): ?>=<?php echo $this->_var['LANG']['SELECT_PLEASE']; ?>=<?php else: ?><?php echo $this->_var['value_item']; ?><?php endif; ?></option>
+										<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+									</select>
+									<?php endif; ?>
+							</div>
+							<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+							
+							<script type="text/javascript" src="<?php echo $this->_var['APP_ROOT']; ?>/system/region.js"></script>		
+							
+							<div class="blank10"></div>
+							<div class="field">
+																			
+								<label for="settings-region"><span class="red">*</span><?php echo $this->_var['LANG']['USER_REGION']; ?></label>
+								<span class="f_l">
+									<select name="province_id" class="ui-select" height="300">
+										<option value="0">=<?php echo $this->_var['LANG']['SELECT_PLEASE']; ?>=</option>
+										<?php $_from = $this->_var['region_lv2']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'lv2');if (count($_from)):
+    foreach ($_from AS $this->_var['lv2']):
+?>
+										<option <?php if ($this->_var['lv2']['selected'] == 1): ?>selected="selected"<?php endif; ?> value="<?php echo $this->_var['lv2']['id']; ?>"><?php echo $this->_var['lv2']['name']; ?></option>
+										<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+									</select>
+															
+									<select name="city_id" class="ui-select" height="300">
+										<option value="0">=<?php echo $this->_var['LANG']['SELECT_PLEASE']; ?>=</option>		
+										<?php $_from = $this->_var['region_lv3']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'lv3');if (count($_from)):
+    foreach ($_from AS $this->_var['lv3']):
+?>
+										<option <?php if ($this->_var['lv3']['selected'] == 1): ?>selected="selected"<?php endif; ?> value="<?php echo $this->_var['lv3']['id']; ?>"><?php echo $this->_var['lv3']['name']; ?></option>
+										<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+									</select>
+								</span>
+							</div>
+							<div class="blank10"></div>
+							<div class="field address">
+								<label for="settings-address"><span class="red">*</span><?php echo $this->_var['LANG']['ADDRESS']; ?></label>
+								<input value="<?php echo $this->_var['user_info']['address']; ?>" class="f-input f_l ui-textbox" name="address" id="settings-address">
+							</div>
+							<div class="blank10"></div>
+							<div class="field phone">
+								<?php $phone_s = explode("-",$this->_var['user_info']['phone']);?>
+								<label for="settings-phone"><?php echo $this->_var['LANG']['PHONE']; ?></label>
+								<input class="f-input ui-textbox w60" type="text" value="<?php echo $phone_s[0];?>" class="f-input f_l" id="frphone" onkeyup="setPhone();" onblur="setPhone();">
+								<span class="f_l">&nbsp;-&nbsp;</span>
+								<input class="f-input ui-textbox" type="text" value="<?php echo $phone_s[1];?>" class="f-input f_l" id="numphone" onkeyup="setPhone();" onblur="setPhone();">
+								<input type="hidden" value="<?php echo $this->_var['user_info']['phone']; ?>" name="phone" id="phone">
+							</div>
+						</div>
+						<!--编辑框结束-->
+					</td>
+					
+				</tr>
+				
+			</table>
+			<div class="blank20"></div>
+			<div class="tc">
+				<div class=" account-edit-box">
+					<input type="submit" class="sub_btn" id="settings-submit" name="commit" value="保存更改">
+				</div>
+			</div>
+			<div class="blank"></div>
+	</form>
+	</div>
+<script type="text/javascript" src="<?php echo $this->_var['TMPL']; ?>/js/ajaxupload.js"></script>
+<script type="text/javascript">
+function setPhone(){
+	var frphone = $.trim($("#frphone").val());
+	var numphone = $.trim($("#numphone").val());
+	if(frphone!=""&&numphone!=""){
+		$("#phone").val(frphone+"-"+numphone);
+	}
+	else{
+		$("#phone").val("");
+	}
+}
+$(document).ready(function(){
+	$(".account-edit-box").addClass("hide");
+	$("#settings-submit").click(function(){
+		<?php if ($this->_var['user_info']['email'] == ''): ?>
+		if($.trim($("#settings-email-address").val()).length == 0)
+		{
+			$("#settings-email-address").focus();
+			$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['USER_TITLE_EMAIL'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+			
+			return false;
+		}
+		
+		if(!$.checkEmail($("#settings-email-address").val()))
+		{
+			$("#settings-email-address").focus();			
+			$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['FORMAT_ERROR_TIP'],
+  'value' => $this->_var['LANG']['USER_TITLE_EMAIL'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+			return false;
+		}
+		<?php endif; ?>
+		
+		
+		var is_marriage = false;
+		$("input[name='marriage']").each(function(){
+			if($(this).attr("checked")=="checked" || $(this).attr("checked")==true){
+				is_marriage = true;
+			}
+		});
+		
+		if(!is_marriage){
+			$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['MARRIAGE'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+			return false;
+		}
+		
+		
+		if($.trim($("#settings-graduation").val()).length == 0){
+			$("#settings-graduation").focus();
+			$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['GRADUATION'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+			
+			return false;
+		}
+		
+		<?php $_from = $this->_var['field_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'field_item');if (count($_from)):
+    foreach ($_from AS $this->_var['field_item']):
+?>
+			<?php if ($this->_var['field_item']['is_must'] == 1): ?>
+			if($("#settings-<?php echo $this->_var['field_item']['field_name']; ?>").val()=='')
+			{
+				$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['field_item']['field_show_name'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");	
+				$("#settings-<?php echo $this->_var['field_item']['field_name']; ?>").focus();
+				return false;
+			}
+			<?php endif; ?>
+		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		
+		if($("select[name='province_id']").val()== 0||$("select[name='city_id']").val() == 0)
+		{
+			$("select[name='province_id']").focus();
+			$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['USER_REGION'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+			
+			return false;
+		}
+		
+		if($.trim($("#settings-address").val()).length == 0){
+			$("#settings-address").focus();
+			$.showErr("<?php 
+$k = array (
+  'name' => 'sprintf',
+  'format' => $this->_var['LANG']['EMPTY_ERROR_TIP'],
+  'value' => $this->_var['LANG']['ADDRESS'],
+);
+echo $k['name']($k['format'],$k['value']);
+?>");
+			
+			return false;
+		}
+
+	});
+});
+
+function upd_file(obj,file_id,uid)
+{	
+	$("input[name='"+file_id+"']").bind("change",function(){			
+		$(obj).hide();
+		$(obj).parent().find(".fileuploading").removeClass("hide");
+		$(obj).parent().find(".fileuploading").removeClass("show");
+		$(obj).parent().find(".fileuploading").addClass("show");
+		  $.ajaxFileUpload
+		   (
+			   {
+				    url:APP_ROOT+'/index.php?ctl=avatar&act=upload&uid='+uid,
+				    secureuri:false,
+				    fileElementId:file_id,
+				    dataType: 'json',
+				    success: function (data, status)
+				    {
+				   		$(obj).show();
+				   		$(obj).parent().find(".fileuploading").removeClass("hide");
+						$(obj).parent().find(".fileuploading").removeClass("show");
+						$(obj).parent().find(".fileuploading").addClass("hide");
+				   		if(data.status==1)
+				   		{
+				   			document.getElementById("avatar").src = data.middle_url+"?r="+Math.random();
+				   		}
+				   		else
+				   		{
+				   			$.showErr(data.msg);
+				   		}
+				   		
+				    },
+				    error: function (data, status, e)
+				    {
+						$.showErr(data.responseText);;
+				    	$(obj).show();
+				    	$(obj).parent().find(".fileuploading").removeClass("hide");
+						$(obj).parent().find(".fileuploading").removeClass("show");
+						$(obj).parent().find(".fileuploading").addClass("hide");
+				    }
+			   }
+		   );
+		  $("input[name='"+file_id+"']").unbind("change");
+	});	
+}
+
+//切换地区
+$(document).ready(function(){	
+	$("select[name='province_id']").bind("change",function(){
+			load_city($("select[name='province_id']"),$("select[name='city_id']"));
+		});
+		
+	});
+	
+	
+	
+</script>

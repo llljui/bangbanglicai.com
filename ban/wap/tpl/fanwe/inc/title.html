@@ -1,0 +1,46 @@
+{if $smarty.request.app neq '1'}
+<header class="bar bar-nav">
+	{if $hide_back neq 1}
+	<a class="button button-link button-nav pull-left" onclick="RouterBack('{$back_url}','{$back_page}','{$back_epage}');" data-transition='slide-out'>
+	  <span class="icon icon-left"></span>
+	</a>
+	{/if}
+	
+	<a class="button  button-link button-nav  pull-right open-panel  nobar" data-panel='#panel-left-box'>
+		 <i class="icon iconfont">&#xe650;</i>
+	</a>
+	{if $view_search eq 1}
+	<a class="button  button-link pull-right search_icon_size" href="#" onclick="RouterURL('{$search_url}','#{$search_act}');">
+		<i class="icon iconfont">&#xe614;</i>
+	</a>
+	{/if}
+	<h1 class="title pull-left">{$data.program_title}</h1>
+</header>
+{if $hide_footer neq 1}
+<nav class="bar bar-tab">
+	<a class="tab-item {if $data.act eq 'init'}active{/if}" href="#" onclick="RouterURL('{wap_url a="index" r="init"}','#init');">
+	  <i class="icon iconfont">&#xe63f;</i>
+	  <span class="tab-label">首页</span>
+	</a>
+	<a class="tab-item {if $data.act eq 'deals'}active{/if}" href="#" onclick="RouterURL('{wap_url a="index" r="deals"}','#deals')">
+	  <i class="icon iconfont">&#xe63b;</i>
+	  <span class="tab-label">投资</span>
+	</a>
+	<a class="tab-item {if $data.act eq 'transfer'}active{/if}" href="#" onclick="RouterURL('{wap_url a="index" r="transfer"}','#transfer')">
+	  <i class="icon iconfont">&#xe642;</i>
+	  <span class="tab-label">债权</span>
+	</a>
+	{if $is_login eq 0}
+		<a class="tab-item {if $data.act eq 'login'}active{/if}" href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if});">
+			<i class="icon iconfont">&#xe640;</i>
+			<span class="tab-label">登录</span>
+		</a>
+	{else}
+	<a class="tab-item {if $data.act eq 'uc_center'}active{/if}" href="#" onclick="RouterURL('{wap_url a="index" r="uc_center"}','#uc_center');">
+		<i class="icon iconfont">&#xe640;</i>
+		<span class="tab-label">我的账户</span>
+	</a>
+   {/if}
+</nav>
+{/if}
+{/if}

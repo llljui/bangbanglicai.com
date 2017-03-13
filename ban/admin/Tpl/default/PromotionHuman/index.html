@@ -1,0 +1,41 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+	{%USER_NAME}：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" style="width:100px;" />
+	<input type="hidden" value="PromotionHuman" name="m" />
+	<input type="hidden" value="index" name="a" />
+	<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+	</form>
+</div>
+<php>
+	function get_refuser($pidcount,$deal){
+		return '<a href="'.U("CreateRelevance/index",array("pid"=>$deal['id'])).'">'.$pidcount.'</a>';
+	}
+</php>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="deal" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,id|get_user_name_real:推广人
+		,pidcount|get_refuser=$deal:推广人数
+		,load_count:投资次数
+		,load_money|format_price:投资总额
+		,percentage|format_price:投资提成
+		,repay_deal_count:还款次数
+		,repay_amount|format_price:还款总额" 
+	actionwidth="100px"/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

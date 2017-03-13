@@ -1,0 +1,155 @@
+
+<div class="bor_1 w1000 h410 clearfix">
+        <div class="f_l w650 h410 bor_7">
+        	<!------------------------------>
+			<div method="post" action="{url x="index" r="user#dologin"}" name="ajax_login_form" id="ajax_login_form">
+        	<div class="pl28 pr67">
+        		<div class="clearfix bor_3 pb20 pt30 h30">
+        			<h2 class="f_l f29 lh30 no_bold">用户登录</h2>
+					<div class="f_r pt18 f12 lh12 f_999">
+						还没帐号？<a href="{url x="index" r="user#register"}">注册</a>
+					</div>
+        		</div>
+				<ul class="pt35">
+					<li class="clearfix pb15 pl55 h44">
+						<label class="f_l f12 lh42 ml-43 h42" for="login-email-address">账户</label>
+						<input type="text" class="f_l w300 h40 bor_1  f_a9a9a9 pl10 pr10 lh40" id="login-email-address" name="email" value="" placeholder="{$LANG.USER_TITLE_EMAIL}/{$LANG.USER_TITLE_USER_NAME}/{$LANG.MOBILE}" />
+					</li>
+					<li class="clearfix pb15 pl55 h44">
+						<label class="f_l f12 lh42 ml-43 h42" for="login-password">{$LANG.USER_TITLE_USER_PWD}</label>
+						<input type="password" class="f_l w300 h40 bor_1 f_a9a9a9 pl10 pr10 lh40"  id="login-password" name="user_pwd" value=""  placeholder="请输入{$LANG.USER_TITLE_USER_PWD}"/>
+						<a href="{url x="index" r="user#getpassword"}" class="f_l f12 lh42 f_ff9932 pl25">{$LANG.FORGET_PASSWORD}</a>
+					</li>
+						{if app_conf("VERIFY_IMAGE") eq 1}
+					<li class="clearfix pb15 pl55 h44">
+						<input type="text" class="f_l w196 h40 bor_1 f_a9a9a9 pl10 pr10" value="" name="verify" id="Jverify" placeholder="请输入四位数验证码"/>
+						<img class="ml15 f_l" maxlength="4" value=""style="margin-top:0" src="{$APP_ROOT}/verify.php?w=89&h=44&rand={function name="rand"}" onclick="this.src='{$APP_ROOT}/verify.php?w=89&h=44&rand='+ Math.random();" id="Jverify_img" title="看不清楚？换一张" />
+					</li>
+					{/if}
+					<li class="clearfix pb15 pl55 h21">
+						<label class="ui-checkbox mt5 f_l" rel="auto_login">
+						          <input type="checkbox" id="autologin" name="auto_login" value="1" tabindex="3" >
+						记住我（下次自动登录）
+					</label>		
+					</li>
+					<li class="clearfix pb15 pl55">
+						<input type="hidden" name="ajax" value="1">
+						<input type="submit" class="btn_red w172 f_white f18    lh40 b bdr3 reg-submit-btn"  id="ajax-login-submit" name="commit" value="{$LANG.LOGIN}">		
+					</li>
+				</ul>
+        	</div>
+			</div>
+			<!------------------------------>
+        </div>
+		<div class="f_r w349 h410 b_fcfcfc ">
+			   <div class="p-l-r-24 pt32">
+			   	       <h5 class="f12  lh38 bor_3 tc mb10">使用其他账号直接登录</h5>
+					   <div class="ajax_api_login_box">
+					   {function name="get_api_login"}
+					   </div>
+			   </div>
+		</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#ajax-login-submit").click(function(){
+			ajaxCheckLogin()
+		});	
+		
+		$("#ajax_login_form input,#ajax_login_form select").keydown(function(e){ 
+			var curKey = e.which; 
+			if(curKey == 13){
+				//ajaxCheckLogin();
+				return false;
+			} 
+		});
+	});
+		
+		function ajaxCheckLogin(){
+			
+				if($.trim($("#login-email-address").val()).length == 0)
+				{
+					$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_EMAIL}{$LANG.OR}{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_NAME}");
+					$("#login-email-address").focus();
+					return false;
+				}
+		
+				if(!$.minLength($("#login-password").val(),4,false))
+				{
+					$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_USER_PWD}");
+					$("#login-password").focus();
+					return false;
+				}
+				
+				var ajaxurl = $("div[name='ajax_login_form']").attr("action");
+				var query = new Object();
+				query.email = $("div[name='ajax_login_form'] #login-email-address").val();
+				query.user_pwd = FW_Password($("div[name='ajax_login_form'] #login-password").val());
+				
+				if($("#Jverify").length > 0)
+					query.verify = $("#Jverify").val();
+				query.auto_login = $("div[name='ajax_login_form'] #autologin:checked").val();
+				query.ajax = 1;
+
+				$.ajax({ 
+					url: ajaxurl,
+					dataType: "json",
+					data:query,
+					type: "POST",
+					success: function(ajaxobj){
+						if(ajaxobj.status==0)
+						{
+							if($("#Jverify_img").length > 0)
+								$("#Jverify_img").attr("src",'{$APP_ROOT}/verify.php?w=89&h=44&rand='+ Math.random());
+							$.showErr(ajaxobj.info);	
+						}
+						else
+						{
+							var integrate = $("<span id='integrate'>"+ajaxobj.data+"</span>");
+							$("body").append(integrate);														
+							close_pop();
+							
+							update_user_tip();
+							
+							$("#integrate").remove();
+							if(ajaxobj.status==1){
+								$.showSuccess(ajaxobj.info,function(){
+									window.location.reload();
+								});
+							}
+							else{
+								$.showCfm(ajaxobj.info,function(){
+									location.href = ajaxobj.jump1;
+								},function(){
+									window.location.reload();
+								});
+							}					
+						}
+					},
+					error:function(ajaxobj)
+					{
+//						if(ajaxobj.responseText!='')
+//						alert(ajaxobj.responseText);
+					}
+				});	
+				
+				return false;
+		}
+
+		function update_user_tip()
+		{
+			var ajaxurl = APP_ROOT+"/index.php?ctl=ajax&act=update_user_tip";
+			$.ajax({ 
+			url: ajaxurl,
+			type: "POST",
+			success: function(ajaxobj){
+				$("#user_head_tip").html(ajaxobj);
+			},
+			error:function(ajaxobj)
+			{
+//				if(ajaxobj.responseText!='')
+//				alert(ajaxobj.responseText);
+			}
+		});	
+		}
+</script>

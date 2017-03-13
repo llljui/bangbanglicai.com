@@ -1,0 +1,172 @@
+.w_540{ width:540px;}
+.w_590{ width:590px;}
+.deal_list_0 li{ float:left; color:#fff; width:33%; border-right:1px solid #fff; text-align:center;}
+.deal_list_0 li:last-child{ border-right:0px;}
+.deal_list_0 li span{  font-size:12px; list-height:18px;}
+.deal_list_0 li p{  font-size:15px; list-height:27px;}
+.deal_explanation_0{ color:#fff; line-height:30px; font-size:12px;  padding:0 30px;}
+.deal_detail_0 h2{ color:#333; font-size:22px; line-height:45px;}
+.deal_detail_0 h2 em{ color:#da3f3b;}
+.deal_detail_0 .explanation_p{  padding:6px 0px;  padding-left:80px;}
+.deal_detail_0 .explanation_p .name{ float:left; margin-left:-80px; color:#999999;}
+.deal_detail_0 .sub_btn{ width:250px;}
+.fixed_nav ul li{ float:left; width:20%; text-align:center; line-height:50px; font-size:16px; color:#666;}
+.fixed_nav ul li a em{ color:#ff524f;}
+.fixed_nav ul li a{ display:block; border:1px solid #e6e6e6; border-left:0px; background:#f9f9f9;}
+.fixed_nav ul li:first-child a{ border-left:1px solid #e6e6e6;}
+.fixed_nav ul .current { background:#fff; border-bottom:0px;}
+.fixed_nav_box{ height:52px;}
+.fixed_nav{ width:1200px;}
+.fixed_content_box .li{ background:#fff; border:1px solid #e6e6e6;}
+.li_0 .box-title {border-bottom: 1px solid #e6e6e6;}
+.li_0 .box-title h4 {font-family: "微软雅黑";font-size: 16px;color: #333333;padding-left: 8px;margin: 8px 0 8px 6px;border-left: 3px solid #ff524f; font-weight:200;}
+.li_0 .explanation_p {font-size: 14px;line-height: 28px;margin: 22px 0;}
+
+.li_0{ padding:50px 30px 20px 30px; margin-top:-1px;  border-top:0px solid #e6e6e6;}
+
+.li_0 .pro-flow{padding: 36px 0 0;}
+.li_0 .pro-flow span.a{
+  height: 46px;
+  display: block;
+  border: 1px solid #28A7E1;
+  background-color: #EAF5FA;
+  border-radius: 2px;
+	line-height:46px;
+	padding:0 22px;
+	float:left;
+}
+
+.li_0 .pro-flow span.b{
+  display: block;
+  float:left;
+  background: url("../images/peizi/icon-lg.png") no-repeat scroll 2px -396px transparent;
+  margin: 0 17px;
+  width: 34px;
+  height: 25px;
+  margin-top:12px
+}
+
+.li_0 .caopan-base-info{
+  border-bottom: 1px solid #e6e6e6;
+  padding: 25px 0;
+  margin-bottom: 40px;
+}
+
+.li_0 .caopan-base-info p label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  width: 152px;
+  text-align: right;
+  padding-right: 24px;
+  font-weight: normal;
+}
+
+.fixed{position:fixed;top:0px;_position:absolute;z-index:10000;}
+
+.box-t {border-bottom: 1px solid #e6e6e6;padding: 14px 25px;}
+.box-t h4 {
+font-weight:100;	
+font-family: "微软雅黑";
+font-size: 18px;
+color: #333333;
+padding-left: 32px;
+margin: 0;
+line-height: 24px;
+padding-top: 1px;
+background: url(../images/peizi/icon-lg.png) no-repeat 0 -456px;
+}
+
+.safty-info {
+padding: 40px 58px 30px;
+}
+.safty-info h3 {
+font-size: 24px;
+line-height: 24px;
+color: #333333;
+margin-bottom: 24px;
+margin-top: 0;
+}
+.safty-info h3 small {
+font-size: 14px;
+color: #666666;
+}
+.safty-info p {
+line-height: 30px;
+margin: 0;
+font-size: 14px;
+}
+.safty-info p.safty-img {
+padding: 30px 15px 0;
+}
+
+.law-info {
+padding: 34px 30px 17px;
+}
+.law-info h6 {
+font-size: 14px;
+color: #333333;
+margin: 0 0 8px;
+font-weight:100;
+}
+.law-info p {
+line-height: 16px;
+padding: 0 0 0 14px;
+margin-bottom: 27px;
+}
+.record-info {
+padding: 36px 32px;
+}
+.table {
+width: 100%;
+max-width: 100%;
+margin-bottom: 20px;
+}
+.table > thead > tr > th {
+vertical-align: bottom;
+border-bottom: 2px solid #dddddd;
+}
+.record-info table thead th {
+height: 40px;
+border-bottom: 0;
+border-top: 1px solid #e6e6e6 !important;
+width: 220px;
+text-align: center;
+background-color: #f5f5f5;
+font-size: 14px;
+font-weight: normal;
+line-height: 40px;
+}
+.record-info table tbody td {
+height: 56px;
+border: none;
+border-bottom: 1px solid #e6e6e6;
+text-align: center;
+}
+.record-info p {
+font-size: 14px;
+padding-left: 12px;
+margin: 0 0 10px;
+}
+.record-info table tbody td .icon-auto-invest {
+background: url("../images/peizi/icon-auth.png") no-repeat  5px -1012px ;
+width: 25px;
+height: 20px;
+display: inline-block;
+vertical-align: middle;
+margin-top: -1px;
+cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

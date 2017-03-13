@@ -1,0 +1,58 @@
+.w_250{ width:250px;}
+.padd{padding: 28px 31px;}
+.w_250 .padd img {
+width: 180px;
+height: 110px;
+border: 1px solid #e6e6e6;
+vertical-align: middle;
+}
+.w_250 .padd p {
+text-align: center;
+}
+.w_250 .padd .name {
+font-weight: bold;
+font-size: 16px;
+color: #333333;
+margin: 10px 0 15px;
+}
+.w_250 .padd .name i {
+width:32px; height:20px;display: inline-block;
+background: url("../images/peizi/icon-auth.png") no-repeat  0 -795px;
+vertical-align: middle;background-position: 0 -818px;
+}
+.w_250 .padd .name i.gray{filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter:grayscale(100%);}
+
+.b_f9f9f9{  background:#f9f9f9;}
+.bor{ border:1px solid #e6e6e6;}
+.w_950{ width:948px;}
+.w_950 .padd h1{font-size: 22px;
+font-family: "微软雅黑";
+color: #333333;
+margin: 0 0 20px;
+font-weight:100;
+}
+.info-left{ width:560px}
+.info-right{ width:250px}
+.info-left li{ width:50%; float:left; line-height:44px; height:44px}
+.info-left li span.name{ color:#999999; float:left; width:80px}
+.info-left li span.bx{ float:left;}
+
+.info-right .prog{ height:32px; clear:both; padding-top:12px}
+.info-right li{ line-height:44px; height:44px; clear:both;}
+.info-right span.name{color:#999999;float:left; width:80px }
+
+.w_950 .padd .p{ line-height:34px;}
+.w_950 .padd .p .gray{ color:#999999;}
+
+.h265{ height:265px}
+
+.peizi-succ{ background:url(../images/peizi/peizi-succ.png) no-repeat 0 0; width:137px; height:110px; left:510px;top:90px}
+
+
+
+
+
+
+
+
+

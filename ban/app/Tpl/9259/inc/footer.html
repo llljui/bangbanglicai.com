@@ -1,0 +1,142 @@
+<!--{if $MODULE_NAME != 'index'}-->
+</div>
+
+<style>
+
+    .footer .footerlink {
+        width: 315px;
+    }
+
+    .footer .footerwx .wx1 {
+        width: 100px;
+    }
+
+    .footer .footerwx .wx2 {
+        width: 100px;
+    }
+</style>
+<!--{/if}-->
+<!--通用网站底部-->
+<div class="footer">
+    <div class="footersec1">
+        <div class="content footercon">
+            <div class="footerphone">
+                <p class="p1">客服热线（{function name="app_conf" v="ONLINE_TIME"}）</p>
+                <p class="p2">客服邮箱：kefu@9259.com<br/>企业QQ群：245884730<br/>企业微信群：jiuaijinrong（就爱金融全拼）</p>
+            </div>
+            <div class="fline"></div>
+            <div class="footerwx clear">
+                <p>投资有风险，入市需谨慎</p>
+                <div class="wx1">
+                    <span><img src="{$TMPL}/newstyle/picture/erwei-fuwu.jpg" alt="手机投资"/></span>
+                    <p>使用手机投资</p>
+                </div>
+                <div class="wx2">
+                    <span><img src="{$TMPL}/newstyle/picture/erwei-ding.jpg" alt="最新动态"/></span>
+                    <p>关注最新动态</p>
+                </div>
+            </div>
+            <div class="fline"></div>
+            <div class="footerlink clear">
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li class="la"><a href="#">平台介绍</a></li>
+                    <li class="la"><a href="#">管理团队</a></li>
+                    <li class="la"><a href="#">媒体报道</a></li>
+                    <li class="la"><a href="#">荣誉资质</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">安全保障</a></li>
+                    <li class="la"><a href="#">银行存管</a></li>
+                    <li class="la"><a href="#">严控风险</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">帮助中心</a></li>
+                    <li class="la"><a href="#">新手指南</a></li>
+                    <li class="la"><a href="#">常见问题</a></li>
+                    <li class="la"><a href="#">收费标准</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footersec2">
+        <div class="content clear">
+            <div class="i-link">
+                <p class="p1">{function name="app_conf" value="SHOP_FOOTER"} | {function name="app_conf" value="ICP_LICENSE"}{function name="app_conf" value="COUNT_CODE"}</p>
+                <p class="p2"><span>友情链接：</span>
+
+
+                    {foreach from=$f_link_data item=link_group}
+                    {if $link_group.name eq '友情链接'}
+
+                    {foreach from=$link_group.links item=link}
+
+                    <a href="http://{$link.url}" target="_blank"
+                       title="{if $link.description}{$link.description}{else}{$link.name}{/if}">{$link.name}</a>
+                    {/foreach}
+                <div class="blank1"></div>
+                {/if}
+                {/foreach}
+
+            </div>
+            <ul>
+                <li><a target="_blank" href="http://webscan.360.cn/index/checkwebsite/url/www.9259.com"><img
+                        src="{$TMPL}/newstyle/picture/360.png" alt="360认证"/></a></li>
+                <li><a target="_blank"
+                       href="https://trustsealinfo.websecurity.norton.com/splash?form_file=fdf%2Fsplash.fdf&sap=&dn=www.9259.com&zoneoff=&lang=zh_CN"><img
+                        src="{$TMPL}/newstyle/picture/nd.png" alt="诺顿安全联盟"/></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--{if $MODULE_NAME == 'index'}-->
+<!-- 右侧浮层 -->
+<div>
+    <div id="izl_rmenu" class="izl-rmenu"><a href="#" target="_blank" class="fubtn fubtn-qq"></a>
+        <div class="fubtn fubtn-phone">
+            <div class="phone" style="display: none;">{function name="app_conf" v="SHOP_TEL"}</div>
+        </div>
+        <div class="fubtn fubtn-top" style="display: block;"></div>
+    </div>
+
+</div>
+<!-- 右侧浮层 END -->
+<!--通用网站底部end-->
+<script src="{$TMPL}/newstyle/js/jquery-1.11.0.min.js"></script>
+<script src="{$TMPL}/newstyle/js/bootstrap.min.js"></script>
+<script src="{$TMPL}/newstyle/js/global.js"></script>
+<script src="{$TMPL}/newstyle/js/home.js"></script>
+<script src="{$TMPL}/newstyle/js/jquery.kinmaxshow-1.0.src.js"></script>
+<script src="{$TMPL}/newstyle/js/jquery.superslide.2.1.1.js"></script>
+<script src="{$TMPL}/newstyle/js/publicfinal.js"></script>
+<script src="{$TMPL}/newstyle/js/publicjs.js"></script>
+<script src="{$TMPL}/newstyle/js/index.js"></script>
+
+<script>
+    $(function () {
+        $("#kinMaxShow").css({display: 'none'});
+        $("#kinMaxShow").kinMaxShow();
+    });
+    jQuery(".aboutRollcon").slide({
+        titCell: ".fCl-nav li",
+        mainCell: ".fCl-slide",
+        effect: "left",
+        delayTime: 500,
+        autoPlay: true,
+        interTime: 5000
+    });
+</script>
+<!--{/if}-->
+<script>
+    /*导航悬浮*/
+    $(window).scroll(function () {
+        var targetTop = $(this).scrollTop();
+        if (targetTop >= 220) {
+            $(".header-Logo").addClass("fixedSubNav");
+        } else {
+            $(".header-Logo").removeClass("fixedSubNav");
+        }
+    });
+</script>
+</body>
+</html>

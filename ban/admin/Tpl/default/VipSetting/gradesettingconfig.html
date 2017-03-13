@@ -1,0 +1,78 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/deal.js' />
+<load href='__TMPL__Common/js/colorpicker.js' />
+<load href='__TMPL__Common/style/colorpicker.css' />
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+<script type="text/javascript">
+    window.onload = function()
+    {
+        init_dealform();
+    }
+	
+    function setting_trash()
+    {
+        location.href = ROOT+"?m=VipSetting&a=setting_trash";
+    }
+	
+	function vip_gift()
+    {
+        location.href = ROOT+"?m=VipGift&a=index";
+    }
+	
+	function vip_redenvelope()
+    {
+        location.href = ROOT+"?m=VipRedEnvelope&a=index";
+    }
+	function vip_festivals()
+    {
+        location.href = ROOT+"?m=VipFestivals&a=index";
+    }
+	function score_exchange()
+    {
+        location.href = ROOT+"?m=VipWelfare&a=score_exchange";
+    }
+
+</script>
+<div class="main">
+<div class="main_title">等级配置列表</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<div class="button_row">
+    <input type="button" class="button currentbtn" onclick="setting_trash();" value="回收站" />&nbsp;
+    <input type="button" class="button" onclick="vip_gift();" value="礼品管理" />&nbsp;  
+    <input type="button" class="button" onclick="vip_redenvelope();" value="非提现金管理" />&nbsp;   
+    <input type="button" class="button" onclick="vip_festivals();" value="节日积分表" />&nbsp;  
+    <input type="button" class="button" onclick="score_exchange();" rel="5" value="积分兑现" />&nbsp; 
+</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="button_row">
+    <input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+    <input type="button" class="button" value="{%RESTORE}" onclick="restore();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+    id="dataTable" 
+    style="dataTable" 
+    name="nav" 
+    checkbox="true" 
+    action="true" 
+    datasource="list" 
+    show="id:{%ID}|50px
+    ,vip_id|get_vip_id:VIP等级" 
+    
+    actionlist="foreverdel:{%FOREVERDEL},restore:{%RESTORE}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

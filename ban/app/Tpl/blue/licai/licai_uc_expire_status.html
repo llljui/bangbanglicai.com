@@ -1,0 +1,186 @@
+<?php
+$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/switch_city.js";
+$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/switch_city.js";
+$this->_var['dpagejs'][] = APP_ROOT_PATH."/system/region.js";
+$this->_var['dcpagejs'][] = APP_ROOT_PATH."/system/region.js";
+$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/add_consignee.js";
+$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/add_consignee.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$dpagejs" c="$dcpagejs"}"></script>
+
+<style type="text/css">
+	#Jbank_From .field {line-height: 30px;font-size: 12px;margin: 5px auto 5px;}
+	#Jbank_From .field label{ width:130px}
+	#Jbank_From .field input.f-input{ height:20px; line-height:20px; padding:5px}
+	#Jbank_From .field select{ height:30px; line-height:30px; }
+
+.control-group {
+	margin:0 0 5px 10px;
+	padding:5px 0;
+	overflow:hidden
+}
+.control-group .small-control-group{padding:0;}
+.control-group .control_label {
+	width:90px;
+	color:#666;
+	margin-right:15px;
+	text-align:right;
+	float:left;
+	font-size:14px;
+	height:41px;
+	line-height:41px;
+}
+.control-group .small_control_label{
+	width:90px;
+	color:#666;
+	margin-right:15px;
+	text-align:right;
+	float:left;
+	font-size:14px;
+	height:37px;
+	line-height:37px;
+}
+.control-group .smaller_control_label{
+	width:90px;
+	color:#666;
+	margin-right:15px;
+	text-align:right;
+	float:left;
+	font-size:14px;
+	height:26px;
+	line-height:26px;
+}
+.control-group .control_cont {
+	float:left;
+	height:41px;
+	line-height:41px;
+	color:#333;
+	font-size:14px;
+}
+.control-group .small_control_cont ,
+.control-group .small_control_cont *{
+	float:left;
+	height:37px;
+	line-height:37px;
+	color:#333;
+	font-size:14px;
+}
+.control-group .smaller_control_cont ,
+.control-group .smaller_control_cont *{
+	float:left;
+	height:26px;
+	line-height:26px;
+	color:#333;
+	font-size:14px;
+}
+.control-group .control-group .fileupload {
+	height:39px;
+	line-height:39px;
+}
+.control-group .control_unit{
+	height:41px;
+	line-height:41px;
+	display:block;
+	float:left;
+	font-size:14px;
+}
+.control-group .small_control_unit{
+	height:37px;
+	line-height:41px;
+	display:block;
+	float:left;
+	font-size:14px;
+}
+.control-group .smaller_control_unit{
+	height:26px;
+	line-height:26px;
+	display:block;
+	float:left;
+	font-size:14px;
+}
+.control-group a{
+	height:37px;
+	line-height:auto;
+}
+</style>
+<form id="form1">
+	<div class="form_row control-group">
+	    <label class="smaller_control_label">申请金额:</label>
+	    <div class="smaller_control_cont">
+	    	{$vo.money}
+	    </div>
+	    <div class="blank0"></div>
+	</div>
+	<div class="blank1"></div>
+ 	<div class="form_row control-group">
+	    <label class="small_control_label">
+	    	<span class="f_red b">*</span> 收益：
+	    </label>
+        <input type="text" class="small_textbox w250 mr10" name="earn_money" id="earn_money" value="{$vo.earn_money}" />
+	    <div class="blank0"></div>
+	</div>
+    
+    <div class="blank1"></div>
+ 	<div class="form_row control-group">
+	    <label class="small_control_label">
+	    	<span class="f_red b">*</span> 手续费：
+	    </label>
+        <input type="text" class="small_textbox w250 mr10" name="fee" id="fee" value="{$vo.fee}" />
+	    <div class="blank0"></div>
+	</div>
+    
+    <div class="form_row control-group">
+	    <label class="smaller_control_label">平台收益：</label>
+        {$vo.organiser_fee}
+	    <div class="blank0"></div>
+	</div>
+    
+   	<div class="blank20"></div>
+	<div class="button_row tc">
+		<input type="hidden" name="ajax" value="1">
+        <input type="hidden" name="id" value="{$vo.id}">
+		<input type="button" id='submit' value="确认" class="ui-button ui-center-button bg_red">
+		<input type="button" value="取消" class="ui_button ui-center-button bg_gray cancel">
+    </div>
+	<div class="blank20"></div>      
+</form>
+ 
+<script>
+	$(".cancel").click(function(){
+		close_pop();
+	});
+	
+	$("#submit").click(function(){
+	
+        var ajaxurl = '{url x="index" r="licai#set_status"}';
+		
+		var query = new Object();
+
+		query = $("#form1").serialize();
+		
+		$.ajax({
+			url:ajaxurl,
+			data:query,
+			type:"Post",
+			dataType:"json",
+			success:function(data)
+			{
+				if(data.status == 1){
+					$.showSuccess(data.info,function(){
+							location.href = location.href;	
+						});
+				}
+				else
+				{
+					$.showErr(data.info,function(){
+							//location.href = location.href;	
+					});
+				}	
+			}
+			,error:function()
+			{
+			   	alert("errer");
+			}
+		});
+	 });
+</script>

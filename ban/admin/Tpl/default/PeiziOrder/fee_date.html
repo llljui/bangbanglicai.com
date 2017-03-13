@@ -1,0 +1,92 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<script type="text/javascript">
+	function op_edits(id,yz,status)
+	{
+		window.location.href=ROOT+'?m=PeiziOrder&a=op_edits&id='+id+'&yanzheng='+yz+'&status='+status;
+	}
+	
+	function auto_charging_rate_money(){
+		$.ajax({
+			url:ROOT_PATH + "/index.php?ctl=ajax&act=auto_charging_rate_money",
+			cache:false,
+			success:function(result){
+				alert("当天管理费用已收取完成");
+				window.location.href=ROOT+'?m=PeiziOrder&a=fee_date';
+			},
+			error:function(result){
+				alert("处理数据失败");
+			}
+		});
+	}
+	
+	function export_csv()
+	{
+		var query = $("#search_form").serialize();
+		var url= ROOT+"?is_export=1&"+query;
+		//alert(url);
+		location.href = url;
+	}
+</script>
+<PHP>
+	function gets_status($id,$list){
+		return '<a href="javascript:op_edits('.$id.',true,'.$list['status'].');">详情</a>&nbsp;';
+	}
+</PHP>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" id = "search_form" action="__APP__" method="get">	
+
+		<label id="start_time_item_title">扣费开始日期:</label><input type="text" class="textbox" id="fee_start_date" name="fee_start_date" value="{$fee_start_date}" style="width:80px"  onfocus="return showCalendar('fee_start_date', '%Y-%m-%d', false, false, 'fee_start_date');" />
+		<label id="end_time_item_title">扣费结束日期:</label><input type="text" class="textbox" id="fee_end_date" name="fee_end_date" value="{$fee_end_date}" style="width:80px"  onfocus="return showCalendar('fee_end_date', '%Y-%m-%d', false, false, 'fee_end_date');" />
+		
+		
+		配资类型
+		<select name="peizi_conf_id">
+        	<option value="-1" <if condition="$peizi_conf_id eq '-1' || $type eq ''">selected="selected"</if>>全部</option>
+            <foreach name='type_list' item='item'>
+            	<option value="{$item.id}" <if condition="$peizi_conf_id eq $item['id']">selected="selected"</if>>{$item.name}</option>
+            </foreach>
+		</select>
+		
+		<input type="hidden" value="PeiziOrder" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		
+		<input type="button" class="button" value="点自动收取当天管理费" onclick="auto_charging_rate_money();" />
+		
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="list"
+	datasource="list"
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,user_name:会员
+		,invest_user_name:投资人
+		,borrow_money|format_price:借款金额 
+		,rate_money|format_price:利息费
+		,site_money|format_price:服务费
+		,site_commission_money|format_price:平台佣金
+		,invest_commission_money|format_price:投资人佣金
+		,fee_date:应扣日期
+		,create_date:实扣日期
+		,conf_type_name:配资类型 "
+	actionlist="id|gets_status=$list"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

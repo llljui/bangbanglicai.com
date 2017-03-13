@@ -1,0 +1,72 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","licai_deal#index",array("id"=>$this->_var['data']['licai']['id']));
+	$this->_var['back_page'] = "#licai_deal";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#licai_deal" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--理财详情页--》详细信息-->
+
+<div class="pro_detail">
+		<div class='mainborder mainblok'>
+            <div class="pro_detail_tit ">
+                <span><i class="fa fa-newspaper-o"></i></span>
+				{if $data.licai.type == 0}
+				余额宝规则
+				{else}
+				一键理财规则
+				{/if}
+            </div>
+            <div class="detail_article">
+                <p>{$data.licai.rule_info}</p>
+				<br>
+				<div class="blank">&nbsp;</div>
+            </div>
+       </div>
+       <div class='blank5'></div>
+			<div class="pro_detail_tit mainborder mainblok">
+                <span><i class="fa fa-newspaper-o"></i></span>
+                                            产品详情
+            </div>
+            <div class="mainblok">
+                <div class="detail_list">
+                     <ul>
+                        <li class="bb1"><label>产品名称</label><span class="list_con">{$data.licai.name}</span></li>
+                        <li class="bb1"><label>风险等级</label><span class="list_con">{$data.licai.risk_rank_format}</span></li>
+                        <li class="bb1"><label>认/申购费率</label>
+                        	<span class="list_con">
+                        	{if $data.licai.type>0}
+							 {function name="number_format" v="$data.licai.licai_interest.0.site_buy_fee_rate" f="2"}
+							{else}
+							 {function name="number_format" v="$data.licai.licai_interest.site_buy_fee_rate" f="2"}
+							{/if}% 
+							</span>
+					    </li> 
+                        <li class="bb1"><label>基金品牌</label><span class="list_con">{$data.licai.fund_brand_name}</span></li>
+                        <li class="bb1"><label>基金类型</label><span class="list_con">{if $data.licai.fund_type_id eq 1}货币型{elseif $data.licai.fund_type_id eq 2}股票型{elseif $data.licai.fund_type_id eq 3}债券型{elseif $data.licai.fund_type_id eq 4}混合型{elseif $data.licai.fund_type_id eq 5}理财型{elseif $data.licai.fund_type_id eq 6}指数型{elseif $data.licai.fund_type_id eq 7}QDII{else}其他型{/if}</span></li>
+                        <li class="bb1"><label>赎回到账时间</label><span class="list_con">{$data.licai.purchasing_time}</span></li>
+                        <li class="bb1"><label>默认分红方式</label><span class="list_con">现金分红</span></li>
+                        <li class="bb1"><label>收费方式</label><span class="list_con">线上</span></li>
+                        <li class="bb1"><label>成立时间</label><span class="list_con">{$data.licai.begin_buy_date}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class='blank5'></div>
+            <div class="pro_detail_tit mainborder mainblok">
+                <span><i class="fa fa-newspaper-o"></i></span>
+                                            理财详情
+            </div>
+            <div class="mainblok mainborder">
+                <div class="detail_list">
+                    <div class="basic_ifm">
+                        <br>
+                        <p>{$data.licai.description}</p>
+                       <br>
+                    </div>
+                </div>
+            </div><!--mainblok——end--> 
+
+{include file="./inc/footer.html"}

@@ -1,0 +1,230 @@
+body{  background: #fff;}
+.Process_pic{ padding: 30px 0;}
+.Process_pic ul li{float:left; overflow: hidden; font-size: 14px;}
+.Process_pic ul li b{
+font-family: "Arial";
+width: 18px;
+height: 18px;
+display:block;
+background: url(../images/peizi/steps_num.png) no-repeat;
+float: left;
+line-height: 18px;
+text-align: center;
+color: #fff;
+margin-right: 9px;
+}
+.Process_pic ul .current{ color:#323232;}
+.Process_pic ul .current b{background: url(../images/peizi/steps_current.png) no-repeat; }
+.Process_pic ul li span{ float: left; line-height: 18px;}
+.Process_pic ul li em{ float: left;
+display: block;
+background: url(../images/peizi/steps_arrow.png) no-repeat;
+width: 9px;
+height: 8px;
+margin: 6px 9px 0 9px;
+}
+{ }
+.box{ background: #fff; width:1200px;}
+.box .h{  position:relative}
+.box .h a{ display: block; width:16px; text-align:center;background-color: #39A1EA;font-size: 16px;color: #fff;padding: 20px 10px;border-radius: 4px 0 0 4px;margin-bottom: 10px; cursor: pointer; line-height:20px; position:absolute; left:-37px; top:40px;}
+.box .h .current{background: url(../images/peizi/tab-bg.png) repeat-x;border: 1px solid #D4D4D4;color: #B81912;font-weight: bold;}
+
+.box .h a:last-child{ border-right: 1px solid #D4D4D4;}
+
+.box .h a:first-child{ border-left: 1px solid #D4D4D4;}
+
+.box .content{background:#fff;border: 1px solid #D4D4D4; padding:0 50px;}
+.box .content .ddw_l{ width: 50%;}
+.box .content .ddw_r{ width: 50%;}
+.box .content  h5{ line-height: 70px;font-size: 20px;
+font-weight: bold;}
+
+.box .content  h5 a{
+font-size: 14px;
+font-weight: normal;
+margin-left: 20px;
+color: #0088CC;
+}
+
+.box .content .ddw_sel li{ 
+float: left;
+width: 150px;
+height: 120px;
+margin-right: 25px;
+margin-bottom: 30px;
+border: 1px solid #d7d7d7;
+text-align: center;
+cursor: pointer;
+border-radius:5px;
+padding:1px;
+}
+.box .content .ddw_sel li input{ width:0px; height:0px;}
+.box .content .ddw_sel li label{
+display:block;
+cursor: pointer;
+}
+.box .content .ddw_sel li p{ line-height:20px; font-size:15px;}
+.box .content .ddw_sel .hover_  p{ color:#39A1EA;}
+.box .content .ddw_sel li .m{ line-height: 40px;margin-top: 25px;}
+.box .content .ddw_sel  li em {
+color: #000;
+font-size:30px;
+}
+
+
+.box .content .ddw_sel .hover_{
+ border:1px solid #39A1EA;
+}
+.box .content .ddw_sel .hover_ em{
+color: #39A1EA;
+}
+.box .content .ddw_sel  .current em {
+color: #39A1EA;
+}
+.box .content .ddw_sel  .current  {
+color: #39A1EA;
+}
+.box .content .ddw_sel .current{border: 2px solid #39A1EA;background: url(../images/peizi/icon-curr.png) no-repeat right bottom; padding:0px;}
+
+.box .content .ddw_r .sure {border: 1px solid #d7d7d7; width: 100%;}
+.sure td {
+padding-left: 15px;
+border-bottom: 1px solid #e4e4e4;
+line-height: 50px;
+padding-right: 25px;
+
+}
+.box .content .ddw_r .sure .title {
+background: #fafafa;
+width: 102px;
+text-align: right;
+
+border-bottom: 1px solid #e4e4e4;
+border-right: 1px solid #e4e4e4;
+color: #676767;
+
+}
+.sure .limit_info{
+	line-height: 20px;
+	padding: 10px 15px;
+    min-height:40px;
+	height:40px;
+}
+table{
+width: 100%;
+border-spacing: 0px;
+}
+
+.sure td  em{
+color: #39A1EA;
+font-size: 20px;
+
+}
+.lever .only_one em{
+cursor: auto;
+}
+.lever em{
+cursor:pointer;
+}
+.sure td label input{
+	display: inline-block;
+	vertical-align:0px;
+	
+}
+.sure td  .only_one input{
+	display: none;
+	
+}
+
+.sure td label{
+	white-space:nowrap; 
+	float: left;
+	cursor: auto;
+	position:relative;
+	z-index:1;
+}
+.sure .time label{
+cursor:pointer;
+}
+.fs20 {
+font-size: 20px;
+}
+
+.grey1 {
+color: #AAAAAA;
+}
+.red {
+color: #f30a0a;
+}
+.btn-l{
+	width: 112px;
+height: 32px;
+line-height: 32px;
+font-size: 16px;
+font-weight: bold;
+background:#39A1EA;
+border-radius: 50px; 
+color: #fff;
+cursor:pointer;
+}
+
+
+
+.other-money{ 
+width: 250px;
+line-height: 50px;
+font-size: 24px;
+margin-top: 10px;
+padding-left: 14px;
+border-radius: 4px;
+border: 1px solid #dddddd;
+height:50px;
+}
+
+.Manually_input{ padding-left: 110px; padding-top: 140px;padding-bottom: 196px;}
+.go-back{ cursor: pointer;line-height:30px; color:#000;}
+.Switching{ cursor: pointer;}
+
+
+.disabled{
+	background: #ccc;
+}
+
+.sure  .rate_money_format{ line-height: 24px; padding: 14px 15px;}
+
+.box .content h5 a:hover{text-decoration: underline;}
+
+.cursor_pointer{
+ cursor:pointer;
+}
+
+
+
+.alert_title{position:relative; float:right; margin-right:-20px; width:13px; height:13px; background: url(../images/peizi/icon-help-s.png) no-repeat; margin-top:18px; cursor:pointer; *margin-top:-30px; _margin-right:-10px; z-index:2;}
+.alert_title .child{position:absolute; left:30px; width:365px; border: 1px solid #f9eabd;background-color: #fffae6; border-radius:5px; top:-10px; line-height:20px; padding:5px; text-align:left; font-size:12px; display:none; z-index:4;}
+
+.go-back{ cursor:pointer;}
+
+
+.icon_prompt{ line-height:17px;  color:#fff;background: url(../images/peizi/icon_prompt.png); position:absolute;  top:0px; right:-20px; display:block; width:36px; height:18px; text-align:center; font-size:12px; z-index:2; cursor:default;}
+
+.life select{
+padding-left: 6px;
+height: 28px;
+font-size: 16px;
+border: 1px solid #cfcfcf;background-color: #fff;
+resize: none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

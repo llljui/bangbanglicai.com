@@ -1,0 +1,102 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","init#index");
+	$this->_var['back_page'] = "#init";
+    $this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#init" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll" now_page="1" data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="integral_mall#index"}">
+<!-- 这里是页面内容区 -->
+
+<div class="integral_container">
+	<!--积分商城-->
+	<ul class="integral_nav_0">
+		<li class="type_0" onclick="viewintegralNav(0);">所有类别</li>
+		<li class="type_1" onclick="viewintegralNav(1);">积分范围</li>
+	</ul>
+	<div class="blank055"></div>
+	
+	<div class="integral_nav_1">
+		<table style=" width:100%;">
+		<tr>
+			{foreach from="$data.sort_url" item="sorts" key=key}
+			<th {if $sorts.id eq $data.sort} class="y"{/if} >
+				<a href="#" onclick="reloadpage('{$sorts.url}','#{$data.act}','.integral_container');">{$sorts.name}</a>
+			</th>
+			{/foreach}
+		</tr>
+	</table>
+	</div>
+	
+	<div class="blank055"></div>
+	<div>
+		<ul class="integral_goods">
+{/if}
+			{foreach from="$data.goods_list" item="goods"  name="goods"  key=key}
+			<li class="bb1 ">
+				<a class="w_b" href="#" onclick="RouterURL('{wap_url a="index" r="goods_information" p="id=$goods.id"}','#goods_information',2);" >
+				<div class="left_img"><img src="{$goods.img}" /></div>
+			    <div class="right_p w_b_f_1">
+			    	<h5>{$goods.name}</h5>
+					<p >所需积分：<span class="ea544a">{$goods.score}</span>分</p>
+					<p>购买人数：
+					{if $goods.invented_number gt 0}
+					{$goods.invented_number}
+					{else}
+					0
+					{/if}人
+					</p>
+			    </div>
+			    </a>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+	<div class="blank055"></div>				
+	<div class="float_block Object_0" style="display:none;">
+		<div class="float_background"></div>
+		<div class="integral_mall_nav">
+			<h5>所有类别<span class="close" onclick="closeIntegalNav(this);">关闭</span></h5>
+			<div class="b_blank"></div>
+			<ul>
+				{foreach from="$data.cates_url" item="cates" key=key}
+				<li {if $cates.id eq $data.cates} class="y"{/if}>
+					<a href="#" onclick="reloadpage('{$cates.url}','#{$data.act}','.integral_container');">
+					<span class="name f_l">{$cates.name}</span>
+					<span class="ico f_r"><i class="fa fa-check"></i></span>
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+			</div>
+		</div>
+	
+		<div class="float_block Object_1" style="display:none;">
+		<div class="float_background"></div>
+		<div class="integral_mall_nav">
+			<h5>积分范围<span class="close" onclick="closeIntegalNav(this);">关闭</span></h5>
+			<div class="b_blank"></div>
+			<ul>
+				{foreach from="$data.integral_url" item="integral" key=key}
+				<li {if $integral.id eq $data.integral} class="y"{/if}>
+					<a href="#" onclick="reloadpage('{$integral.url}','#{$data.act}','.integral_container');">
+					   <span class="name f_l">{$integral.name}</span>
+					   <span class="ico f_r"><i class="fa fa-check"></i></span>
+				    </a>
+				</li>
+				{/foreach}
+{if $smarty.request.is_ajax neq 1}
+			</ul>
+		</div>
+	</div>
+</div>	
+
+ <!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}

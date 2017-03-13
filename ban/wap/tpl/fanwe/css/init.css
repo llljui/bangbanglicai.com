@@ -1,0 +1,24 @@
+/*2015-12-23二次改版*/
+.page{ background:#f5f1f2;}
+
+.bgbox{
+    height: 140px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    opacity: 0;
+}
+.swiper-container{padding-bottom:0}
+.swiper-pagination-bullet-active{width:8px;border-radius:100%;opacity:0.8;}
+
+
+
+
+
+
+
+
+
+

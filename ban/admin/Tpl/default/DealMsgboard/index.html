@@ -1,0 +1,93 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_cate_name($cate_id)
+	{
+		return M("ArticleCate")->where("id=".$cate_id)->getField("title");
+	}
+    function limit_format($day,$unit)
+    {
+    	$str = "";
+    	if($unit == 0)
+        {
+        	$str = $day."天";
+        }
+        else
+        {
+        	$str = $day."月";
+        }
+    	return $str;
+    }
+    function format_status($status,$id)
+    {
+    	$str = "";
+    	if($status == 0)
+        {
+        	$str = "<a status='1' href='javascript:void(0);' onclick='set_status(this);' id='".$id."'>通过</a>&nbsp;<a  status='2' onclick='set_status(this);'  href='javascript:void(0);' id='".$id."'>拒绝</a>";
+        }
+        elseif($status == 1)
+        {
+        	$str = "已通过";
+        }
+        else
+        {
+        	$str = "已拒绝";
+        }
+        return $str;
+    }
+</php>
+<script>
+	function set_status(e){
+		obj = $(e);
+		$.getJSON(ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=set_effect",{"id":obj.attr("id"),"status":obj.attr("status")},
+			function(data){
+					if(data.status == "1")
+					{
+						if(obj.attr("status") == "1")
+						{
+							obj.parent().html("&nbsp;已通过");
+						}
+						else
+						{
+							obj.parent().html("&nbsp;已拒绝");
+						}
+					}
+					else
+					{
+						alert("修改失败");
+					}
+			});
+		return false;	
+	}
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		姓名：<input type="text" class="textbox" name="user_name" value="{:trim($_REQUEST['user_name'])}" />		
+		<input type="hidden" value="DealMsgboard" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="item" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,user_name:姓名,ID_NO:身份证号,mobile:电话,money:借款金额,time_limit|limit_format=$item['unit']:贷款期限,usefulness:借款用途,create_time:创建时间,status|format_status=$item['id']:状态" 
+	actionlist="del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

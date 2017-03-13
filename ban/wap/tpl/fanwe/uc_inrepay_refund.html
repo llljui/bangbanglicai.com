@@ -1,0 +1,101 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_borrowed#index",array("id"=>$this->_var['data']['status']));
+	$this->_var['back_page'] = "#uc_borrowed";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_borrowed" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content" status="{$data.status}" show_err="{$data.show_err}" back_url="{$back_url}" back_page="{$back_page}" back_epage="{$back_epage}">
+<!-- 这里是页面内容区 -->
+
+<!--偿还贷款 ==>还款列表 ===>提前还款-->
+<div class="uc_quick_refund">
+	<div class="detail">
+		<div class="mainblok mainborder">
+		            <div class="detail_tit">
+		                <h3>{$data.deal.name}</h3>
+		             </div>
+		            <div class="detail_list">
+		                <ul>
+		                	<li class="bb1">
+		                        <label>借款金额</label>
+		                        <div class="list_con">{$data.deal.borrow_amount_format}</div>
+		                    </li>
+		                    <li class="bb1">
+		                        <label>年利率</label>
+		                        <div class="list_con f_red">{$data.deal.rate_foramt_w}</div>
+		                    </li>
+		                    <li class="bb1">
+		                        <label>已还总额</label>
+		                        <div class="list_con f_red">{$data.deal.repay_money}</div>
+		                    </li>
+		                    <li class="bb1">
+		                        <label>期限</label>
+		                        <div class="list_con">{$data.deal.repay_time}个月</div>
+		                    </li>
+							<li class="bb1">
+		                        <label>管理费</label>
+		                        <div class="list_con">{$data.deal.month_manage_money_format}</div>
+		                    </li>
+							{if $data.deal.is_mortgage}
+							<li class="bb1">
+		                        <label>抵押物管理费</label>
+		                        <div class="list_con">{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$data.true_all_mortgage_fee f=2}</div>
+		                    </li>
+							{/if}
+							<li class="bb1">
+		                        <label>罚息</label>
+		                        <div class="list_con">{$data.impose_money_format}</div>
+		                    </li>
+							<li >
+		                        <label>应还本息</label>
+		                        <div class="list_con ">
+		                        	<span class="f_red">{$data.total_repay_money_format}</span>
+									<span class="main_font">(应还本金+当期利息)</span>
+								</div>
+								
+		                    </li>
+		                </ul>
+		            </div>
+					
+		        </div>
+				<div class="blank15"></div>
+				<div class="detail_list bg_fff">
+					<ul>
+						<li class="bb1">
+							<label>合计还款</label>
+							 <div class="list_con ">
+								<span class="money specialfont" price="{$data.true_total_repay_money_format}"></span>
+							</div>
+						</li>
+						<li >
+	                        <label>支付密码</label>
+	                        <div class="list_con">
+		                        <input id="pay_inmoney_password" class="ipt pull-left" type="password" placeholder="请输入您的支付密码" style="width:55%" />
+		                        {if $is_login eq 0}
+								<a href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if});" class="linkbtn pull-right ">设置支付密码</a>
+								{else}
+								<a href="#" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd"}','#reset_pay_pwd',2)" class="linkbtn pull-right">设置支付密码</a>
+								{/if}
+							</div>
+						 </li>
+					</ul>
+					
+				</div>
+          </div> 
+		  
+
+	<div class="blank0"></div>
+		<div class="w_b but_box_parent padding">
+			<div class="w_b_f_1 but_box">
+			    <a href="#" onclick="RouterURL('{wap_url a="index" r="uc_incharge"}','uc_incharge',2)" class=" but_this">充值</a>
+			</div>
+			<div class="w_b_f_1 but_box">    
+			    <input id="deal_id" type="hidden" value="{$data.deal.id}" />
+			    <a href="#" id="submitt" class="bg_ea544a but_this">确认还款</a>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="./inc/footer.html"}

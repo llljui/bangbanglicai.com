@@ -1,0 +1,53 @@
+.apply_box{ position: relative;}
+.apply_box .h_box{ float: left; margin-left: -36px; position: absolute; margin-top:40px;}
+.apply_box .h_box ul li{ width:16px; text-align:center;background-color: #c2c8cc;font-size: 16px;color: #fff;padding: 20px 10px;border-radius: 4px 0 0 4px;margin-bottom: 10px; cursor: pointer; line-height:20px;}
+.apply_box .content_box ul .li_box{ display: none;}
+.apply_box .h_box ul li:hover{color: #fff;text-decoration: none;background-color: #aab0b5;}
+.apply_box .content_box ul .current{ display: block;}
+.apply_box .h_box ul .current{background-color: #39A1EA !important;}
+
+.process_img{ width:1200px; height:100px;background: url(../images/peizi/apply_steps.png) no-repeat 232px 30px;}
+
+.slogan{ width:1200px; color:#333; padding:10px 0px 30px 0px; height:90px;}
+.slogan ul li{ float:left; width:220px; overflow:hidden;padding:5px 5px 5px 75px;  cursor:pointer; height:80px; padding-top:20px;transition: padding-top 0.6s;
+-moz-transition: padding-top 0.6s;
+-webkit-transition: padding-top 0.6s;
+-o-transition: padding-top 0.6s;}
+.slogan ul li span{ display:block; float:left; margin-left:-70px; width:50px; height:50px; background:url(../images/peizi/slogan_bg.png) no-repeat;}
+.slogan ul li div{ font-size:22px; line-height:30px;}
+.slogan ul li p {line-height:20px; width:180px; color:#999; margin-top:5px; font-size:12px;}
+.slogan ul li .one{ background-position:0px 1px;}
+.slogan ul li .two{ background-position:-63px 0px;}
+.slogan ul li .three{ background-position:-121px 0px;}
+.slogan ul li .four{ background-position:-170px 0px;}
+.fff_bg{ background:#fff;}
+
+.slogan ul  li:hover{
+padding-top: 15px;
+transition: padding-top 0.6s;
+-moz-transition: padding-top 0.6s;
+-webkit-transition: padding-top 0.6s;
+-o-transition: padding-top 0.6s;}
+.slogan ul  li:hover p{color:#39A1EA;}
+
+
+.life select{
+padding-left: 6px;
+height: 28px;
+font-size: 16px;
+border: 1px solid #cfcfcf;background-color: #fff;
+resize: none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

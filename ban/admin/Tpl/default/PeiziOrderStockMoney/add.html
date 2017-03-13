@@ -1,0 +1,86 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/school.js' />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{$back_url}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	
+	<td class="item_title">日期 :</td>
+		<td class="item_input">
+		<input type="text" class="textbox require"  id="stock_date" name="stock_date" value="{$stock_date}" onfocus="return showCalendar('stock_date', '%Y-%m-%d', false, false, 'stock_date');" style="width:130px" />
+		<span class="tip_span"></span>
+	</td>
+							
+    <tr>
+		<td class="item_title">总资产 :</td>
+		<td class="item_input"><input type="text" class="textbox require" name="stock_money" value="{$vo.stock_money}"/>
+		<span class="tip_span"></span>
+		</td>
+	</tr>
+	
+    <tr>
+		<td class="item_title">亏损警戒线:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="warning_line" value="{$warning_line}"/>
+		<span class="tip_span"></span>
+		</td>
+	</tr>
+	
+    <tr>
+		<td class="item_title">亏损平仓线:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="open_line" value="{$open_line}"/>
+		<span class="tip_span"></span>
+		</td>
+	</tr>	
+
+    <tr>
+		<td class="item_title">计息金额:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="trade_money" value="0"/>
+		<span class="tip_span">按每天的实际交易金额,收取利率时生效【导入homs交割查询时,会自动计算】</span>
+		</td>
+	</tr>	
+	
+    <tr>
+		<td class="item_title">买入金额:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="buy_money" value="0"/>
+		<span class="tip_span">【导入homs交割查询时,会自动计算】</span>
+		</td>
+	</tr>	
+	
+	<tr>
+		<td class="item_title">卖出成本金额:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="sell_money" value="0"/>
+		<span class="tip_span">按先进先出法,计算股票成本【导入homs交割查询时,会自动计算】</span>
+		</td>
+	</tr>	
+	
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="peizi_order_id" value="{$peizi_order_id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziOrderStockMoney" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	
+</form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,122 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll" data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="licai_uc_expire_lc#index"}">
+<!-- 这里是页面内容区 -->
+<!--快到期的理财发放-->
+<div class="licai_data_show">
+	<div class="w_b licai_data_top">
+		<div class="w_b_f_1 tc">
+			<p class="con">{$data.vo.licai_all_money}</p>
+			<p class="name">今日到期理财产品总额</p>
+		</div>
+		<div class="w_b_f_1 tc">
+			<p class="con">{$data.vo.licai_total_count}个</p>
+			<p class="name">今日到期</p>
+		</div>
+	</div>
+	<div class="blank055"></div>
+	<div class="data_search">
+		<div class="height bb1 w_b search_box">
+			<span class="name">理财名称</span>
+			 <input id="deal_name" name="deal_name" value="{$data.search.deal_name}" class="w_b_f_1 search_input"  type="text" placeholder="请输入项目名称">
+			 <button  class="search_btn" rel="search_btn" id="submitt" type="submit">搜索</button>
+		</div>		
+		<div class="height bb1 w_b search_box">
+			<span class="name">购 买  人</span>
+			 <input id="user_name" name="user_name" value="{$data.search.user_name}" class="w_b_f_1 search_input"  type="text" placeholder="请输入购买人">			
+		</div>
+		<div class="height bb1 w_b">
+			<input class="w_b_f_1  jcDate search_time" data-toggle='date'  rel="input-text" value="{$data.search.begin_time}" name="begin_time" id="begin_time" placeholder="选择到期开始时间">
+		    <span class="Cut_off"> — </span>
+			<input class="w_b_f_1  jcDate search_time" data-toggle='date' rel="input-text" value="{$data.search.end_time}" name="end_time" id="end_time"  placeholder="选择到期结束时间">
+		</div>		
+	</div>
+	<div class="blank055"></div>
+	
+	<div class="show_list">
+	<ul class="invest">
+		
+	{/if}
+<!-- 这里是页面内容区 -->
+<!--发起理财页-->
+
+  	{if $data.list}
+			{foreach from=$data.list item="item" key=key name="deal"}
+			<li>
+				<div class="first_f">
+					<div class="f_l name">{function name="msubstr" v="$item.licai_name"}</div>
+				</div>
+				<div class="second_f clearfix">
+					<dl>
+						<dd>
+							<span class="name">购买人</span>
+							<span class="con">{$item.user_name}</span>
+						</dd>
+						<dd>
+							<span class="name">持有本金</span>
+							<span class="con ea544a">{$item.money_format}</span>
+						</dd>
+						
+						<dd>
+							<span class="name">理财类型</span>
+							<span class="con">{$item.type_format}</span>
+						</dd>
+						<dd>
+							<span class="name">购买时间</span>
+							<span class="con">{$item.create_time}</span>
+						</dd>
+						<dd>
+							<span class="name">到期时间</span>
+							<span class="con">{$item.end_interest_date}</span>
+						</dd>
+						<dd style=" width:100%;">
+							<span class="name">收益率</span>
+							<span class="con">
+                                {if $item.licai_type > 0}
+								预热: {$item.before_rate_format}
+		                        理财: {$item.interest_rate_format}
+		                        {else}
+		                            {$item.rate_format}
+		                        {/if}
+                            </span>
+						</dd>
+					</dl>
+				</div>
+				<div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<a class="but_this" href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_deal_lc" p="id=$item.licai_id&epage=licai_uc_expire_lc"}','#licai_uc_deal_lc',2);">查看详情</a>
+					</div>
+					{if $item.status==1 || $item.status==2}
+					<div class="w_b_f_1 but_box">
+						<a class="bg_ea544a but_this" href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_expire_status" p="id=$item.id"}','#licai_uc_expire_status',2);">发放理财</a>
+					</div>
+					{/if}
+				</div>
+			</li>
+			{/foreach}
+			
+			{else}
+				<div class="no_data">
+				暂无数据
+				</div>
+			{/if}
+			
+{if $smarty.request.is_ajax neq 1}
+		</ul>
+	</div>
+
+ </div>
+ <!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}

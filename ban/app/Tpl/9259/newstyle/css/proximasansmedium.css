@@ -1,0 +1,9 @@
+﻿@font-face {
+    font-family: 'ProximaSansMedium';
+    src: url('../fonts/proximasansmedium.eot');
+    src: url('../fonts/proximasansmedium.eot') format('embedded-opentype'),
+         url('../fonts/proximasansmedium.woff2') format('woff2'),
+         url('../fonts/proximasansmedium.woff') format('woff'),
+         url('../fonts/proximasansmedium.ttf') format('truetype'),
+         url('../fonts/proximasansmedium.svg#proximasansmedium') format('svg');
+}

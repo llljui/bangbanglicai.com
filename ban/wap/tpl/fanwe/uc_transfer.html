@@ -1,0 +1,177 @@
+{if $smarty.request.is_ajax neq 1}	
+{include file="./inc/header.html"}	
+<div class="page" id="{$data.act}">
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll "  data-distance="{$data.rs_count}" now_page="1">
+<!-- 这里是页面内容区 -->
+<!--债权转让和购买记录列表-->
+<div class="attorncreditor {$data.act}-box"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="uc_transfer#index" p="status=$data.status"}">
+
+	<div class="blank055"></div>
+	<div class="choose">
+		<table>
+			<tr>
+				<th {if $data.status eq 0}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_transfer" p="status=0"}','#uc_transfer','.{$data.act}-box')">债权转让</a></th>
+				<th {if $data.status eq 1}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_transfer" p="status=1"}','#uc_transfer','.{$data.act}-box')">购买记录</a></th>
+            </tr>
+		</table>
+	</div>
+    <div class="invest">
+{/if}
+        {if $data.status eq 0}
+       	{foreach from=$data.item item=transfer key=k}
+			<div class="creditor_blok">
+                <div class="invest_tit gindex_Rep_timeray">
+                    <span class="{if $transfer.tras_status eq 0 || 1}bg_gray{else}bg_blue{/if}">{$transfer.tras_status_format}</span>
+                    <i>{$transfer.name}</i>
+                </div>
+                <div class="index_content">
+                    <div class="creditor_con1">
+                    <ul>
+                        <li>
+	                        <h3>{$transfer.how_much_month}/{$transfer.repay_time}</h3>
+	                        <span>待还/总期</span>
+                        </li>
+                        <li>
+	                        <h3 class="orange">{$transfer.left_benjin_format}</h3>
+	                        <span>待收本金</span>
+                        </li>
+                        <li>
+	                        <h3>{$transfer.left_lixi_format}</h3>
+	                        <span>待收利息</span>
+                        </li>
+                        <li>
+	                        <h3>{$transfer.transfer_amount_format}</h3>
+	                        <span>转让价格</span>
+                        </li>
+                        <li></li>
+                    </ul>
+                    <div class="blank"></div> 
+                    </div>
+					
+                    <div class="index_content2">
+                    <div class="con2_bd">
+                        <div class="index_Rep_time">到期时间&nbsp;:&nbsp;{$transfer.final_repay_time_format}</div>
+                        <div class=" btn_creditor 
+						       {if $transfer.tras_status_op eq 0}btn_gray
+							   {elseif $transfer.tras_status_op eq 1}btn_orange
+							   {elseif $transfer.tras_status_op eq 2}btn_gray
+							   {elseif $transfer.tras_status_op eq 3}btn_gray
+							   {elseif $transfer.tras_status_op eq 4}btn_orange
+							   {elseif $transfer.tras_status_op eq 5}btn_gray
+							   {elseif $transfer.tras_status_op eq 6}btn_main{/if}">
+                        	
+							   {if $transfer.tras_status_op eq 0}无操作
+								   {elseif $transfer.tras_status_op eq 1}
+								        <a href="{wap_url a="index" r="uc_to_transfer" p="id=$transfer.dlid"}" class="a_fixed">转让</a>
+								   {elseif $transfer.tras_status_op eq 2}已还款
+								   {elseif $transfer.tras_status_op eq 3}逾期
+								   {elseif $transfer.tras_status_op eq 4}
+								   		<a href="{wap_url a="index" r="uc_to_transfer" p="id=$transfer.dlid"}" class="a_fixed">重转让</a>
+								   {elseif $transfer.tras_status_op eq 5}
+								        {$transfer.tras_status_format}
+								   {elseif $transfer.tras_status_op eq 6}
+									    <input id="dltida" type="hidden" value="{$transfer.dltid}"  />
+									    <span  id="" class="block">撤销</span> 
+							   {/if}
+							 
+                        </div>
+                        <div class="blank0"></div> 
+                    </div>
+                    </div>   
+               </div>
+            </div>
+			{/foreach}
+            {/if}
+
+
+
+            {if $data.status eq 1}
+           	{foreach from=$data.items item=re_trans key=k}
+               <div class="creditor_blok">
+
+                <div class="invest_tit gray">
+                    <h6 class="subname">{$re_trans.name}</h6>
+                </div>
+                <div class="index_content">
+                    <div class="creditor_con1">
+                    <ul>
+                       
+                        <li>
+	                        <h3 class="orange">{$re_trans.how_much_month}/{$re_trans.repay_time}</h3>
+	                        <span>待还/总期数</span>
+                        </li>
+                        <li>
+	                        <h3>{$re_trans.left_benjin_format}</h3>
+	                        <span>待收本金</span>
+                        </li>
+                        <li>
+	                        <h3>{$re_trans.left_lixi_format}</h3>
+	                        <span>待收利息</span>
+                        </li>
+                        <li>
+	                        <h3>{$re_trans.transfer_amount_format}</h3>
+	                        <span>转让价格</span>
+                        </li>
+                        <li></li>
+                    </ul>
+                    <div class="blank"></div> 
+                    </div>
+
+                    <div class="index_content2">
+                    <div class="con2_bd">
+                    <div class="index_Rep_time2">
+                    	转让时间：{$re_trans.transfer_time_format}
+						<br/>
+						到期时间：{$re_trans.final_repay_time_format}
+						</div>
+                        <div class="btn_creditor btn_main">
+                         		{if $re_trans.tras_status eq ''}
+								<span class="btn_del btn_green" dataid="{$re_trans.dlid}">转让</span>
+								{elseif $re_trans.tras_status eq 0}
+									{if $re_trans.how_much_month eq 0}
+									还款完毕,无法转让
+									{else}
+									{if $re_trans.next_repay_time +24*3600-1 - TIME_UTC lt 0}
+									逾期还款,无法转让
+									{else}
+									<span  class="btn_del btn_orange" dataid="{$re_trans.dlid}" datatid="{$re_trans.dltid}">重转让</span>
+									{/if}
+									{/if}
+								{elseif $re_trans.tras_status eq 1}
+								 {if $re_trans.t_user_id gt 0}
+								 	<a href="{wap_url a="index" r="deal" p="id=$re_trans.id"}">查看详情</a><br>
+								 	
+								 {else}
+									 <span class="btn_del block" dataid="{$re_trans.dltid}">撤销</span>
+								 {/if}
+								{/if}
+                        </div>
+                        <div class="blank0"></div> 
+                    </div>
+                    </div>   
+                </div>
+            	{/foreach}
+				{/if}
+				
+{if $smarty.request.is_ajax neq 1}	
+        </div>
+    </div>
+</div>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+
+

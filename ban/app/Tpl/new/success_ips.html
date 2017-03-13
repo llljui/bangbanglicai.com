@@ -1,0 +1,34 @@
+{include file="inc/header.html"} 
+{if $stay eq 0}
+<meta http-equiv="refresh" content="800" />
+{/if}
+<div class="msg_box success_box mt10 mb10">
+<h2>
+    <div class="icon"><i></i></div>
+    <span class="tip">{$LANG.SUCCESS_TITLE}</span>
+</h2>
+
+<div class="notice">
+    <p>
+    {if $integrate_result}
+    {$integrate_result}
+    {/if}
+    {$msg}  
+    </p>
+	<br/>
+    <p>
+        {if $stay eq 0}
+        <div>
+			<a href="javascript:void(0);" class="btn_blue w80 f_white f14 b p8 bdr3"  id="J_bind_ips">去绑定</a>&nbsp;&nbsp;
+            <a class="btn_blue w150 f_white f14 b p8 bdr3" href="{url x="index" r="uc_center"}" >跳过，以后设置</a>    
+        </div>
+		 {/if}
+    </p>
+</div>
+
+
+</div>
+</div>                      
+<div style="background:#f2f2f2; padding:30px;text-align: center">
+    {function name="app_conf" value="SHOP_FOOTER"} 
+</div>

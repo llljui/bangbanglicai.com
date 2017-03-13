@@ -1,0 +1,46 @@
+
+<div class="tabbox clearfix">
+	<div class="tab {if $status eq 1}cur{/if}">
+		<a href="{url x="index" r="uc_vip_buy#index" p="status=1" }">VIP等级购买</a>
+	</div>
+	<div class="tab {if $status eq 0}cur{/if}">
+		<a href="{url x="index" r="uc_vip_buy#vip_buy_log" p="status=0" }">VIP购买日志</a>
+	</div>
+
+</div>	
+<div class="uc_box ">
+	<div class="blank20"></div>
+	<div class=" clearfix ">
+		<table width="100%;" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+			<tr>
+				<th>购买等级</th>
+				<th>购买时间</th>
+				<th>购买期限</th>
+				<th>购买价格</th>
+				<th>到期时间</th>
+			</tr>
+			{foreach from=$vip_buy_log_list item=item key=key}
+			<tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+				<td >
+					{$item.vip_grade}
+				</td>
+				<td >
+					{function name="to_date" v=$item.vip_buytime f="Y-m-d"}
+				</td>
+				<td >
+					{$item.buy_limit} 年
+				</td>
+				
+				<td >
+					{function name="number_format" v=$item.buy_fee f="2"} 元
+				</td>
+				<td >
+					{function name="to_date" v=$item.vip_end_time f="Y-m-d"}
+				</td>
+				
+			</tr>
+			{/foreach}
+		</table>
+		<div class="pages">{$pages}</div>			
+	</div>
+</div>

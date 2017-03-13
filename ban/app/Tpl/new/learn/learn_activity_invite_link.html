@@ -1,0 +1,114 @@
+{include file="inc/header.html"}
+
+<?php
+	$this->_var['lpagecss'][] = $this->_var['TMPL_REAL']."/css/uc.css";
+	$this->_var['lpagecss'][] = $this->_var['TMPL_REAL']."/css/index.css";
+	$this->_var['lpagecss'][] = $this->_var['TMPL_REAL']."/css/learn/learn.css";
+	$this->_var['lpagejs'][] = $this->_var['TMPL_REAL']."/js/utils/adv.js";
+	$this->_var['clpagejs'][] = $this->_var['TMPL_REAL']."/js/utils/adv.js";
+?>
+
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$lpagecss"}" />
+<div class="wrap">
+<div class="cp_con_top main conTyjTop">
+    <h3>新手体验区</h3>
+    <ul>
+        <li><a class="" href="{url x="index" r="learn_activity#index" }">体验首页</a></li>
+		{if $user_id}
+			<li><a class="current" href="{url x="index" r="learn_activity#invite_link" }">体验账户</a></li>
+		{else}
+			<li><a class="" href="{url x="index" r="user#register" }">体验账户</a></li>
+		{/if}
+        <li><a class="" href="{url x="index" r="learn_activity#rule" }">活动规则</a></li>
+    </ul>
+</div>
+<style type="text/css">
+.logo_nav .r ul li a.current {
+	color: #ff9206;
+}
+</style>
+
+<div class="uc_box bdd bt0" style="margin-top:-37px;" >
+	<div class="referer_box">
+		<div class="item referer_number">
+			<span>邀请好友总数</span>
+			{$referral_user}
+		</div>
+		<div class="item referer_money">
+			<span>邀请获得体验金</span>
+			{function name="format_price" v=$learn_invite}
+		</div>
+	</div>	
+	<div class="blank"></div>
+	<div class="uc-table">
+		<div id="referrals" class="pl30">
+				<div class="im refers">
+					{if $user_info.mobile}
+						<h4>手机号码推荐：</h4>
+						<textarea type="text"  onclick="this.select()" class="f-text f_l ui-textarea mr5" id="share-copy-text-0" style="width:700px; height:70px">我朋友推荐我一个非常不错的理财方式，年化18.2%，多重安全保障！我试过了，很快就能回款，挺安全的，你也试试吧！{$share_url_mobile}</textarea>
+						<input type="button" class="formbutton f_l" id="share-copy-button-0" value="{$LANG.COPY}内容">
+						<div class="blank"></div>
+					{/if}
+						<h4>用户名推荐 ：</h4>
+						<textarea type="text"  onclick="this.select()" class="f-input f_l ui-textarea mr5" id="share-copy-text-1" style="width:700px; height:70px">我朋友推荐我一个非常不错的理财方式，年化18.2%，多重安全保障！我试过了，很快就能回款，挺安全的，你也试试吧！{$share_url_username}</textarea>
+						<input type="button" class="formbutton f_l" id="share-copy-button-1" value="{$LANG.COPY}内容">
+				
+				</div>
+		</div>
+		<div class="blank"></div>
+		<div class="pt10 pb10 pr15 pl15">
+			<div class="bddf p10">
+				<h4>{$info.title}</h4>
+				<div class="p10">
+					 {$info.content}
+				</div>
+				
+		  </div>
+		</div>
+		<div class="blank"></div>
+	</div>
+</div>
+<script type="text/javascript" src="{$TMPL}/js/utils/ZeroClipboard.js"></script>
+<script type="text/javascript">
+	var client = new ZeroClipboard( $('#share-copy-button-0') );
+
+	  client.on( 'load', function(client) {
+	  
+	    client.on( 'datarequested', function(client) {
+	      client.setText($('#share-copy-text-0').val());
+	    } );
+	
+	    client.on( 'complete', function(client, args) {
+	      alert(LANG.JS_COPY_SUCCESS);
+	    } );
+	  });
+	  
+	  client.on( 'wrongflash noflash', function() {
+	  		ZeroClipboard.destroy();
+	  });
+	
+	var client1 = new ZeroClipboard( $('#share-copy-button-1') );
+
+	  client1.on( 'load', function(client1) {
+	  
+	    client1.on( 'datarequested', function(client1) {
+	      client.setText($('#share-copy-text-1').val());
+	    });
+	
+	    client1.on( 'complete', function(client1, args) {
+	      alert(LANG.JS_COPY_SUCCESS);
+	    });
+	  });
+	
+	  client1.on( 'wrongflash noflash', function() {
+	    ZeroClipboard.destroy();
+	  });
+		
+	
+</script>
+
+<div class="nav_footer" id="footer_links_view">
+	
+</div>
+</div>
+{include file="inc/footer.html"}

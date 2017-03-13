@@ -1,0 +1,28 @@
+<?php if ($this->_var['MODULE_NAME'] == 'user' || ( $this->_var['MODULE_NAME'] == 'manageagency' && in_array ( $this->_var['ACTION_NAME'] , array ( "login" , "regsiter" , "getpassword" , "steptwo" ) ) ) || ( $this->_var['MODULE_NAME'] == 'authorized' && in_array ( $this->_var['ACTION_NAME'] , array ( "login" , "regsiter" , "getpassword" , "steptwo" ) ) )): ?>
+<div class="no-nav-text"><?php echo $GLOBALS['lang'][strtolower(MODULE_NAME."_".ACTION_NAME)];?></div>
+ <?php if ($this->_var['MODULE_NAME'] == 'user' && $this->_var['ACTION_NAME'] == "login"): ?>
+ <div class="f_r pt30 mt20">
+ 	<a href="<?php
+echo parse_url_tag("u:index|user#register|"."".""); 
+?>" class="f_blue">立即注册</a>
+ </div>
+ <?php endif; ?>
+<?php else: ?>
+	<div class="no-nav-text f_r pt20 mt10">
+		<?php if ($this->_var['MODULE_NAME'] == 'manageagency' || $this->_var['MODULE_NAME'] == 'agency_money'): ?>
+		<?php 
+$k = array (
+  'name' => 'agency_info',
+);
+echo $this->_hash . $k['name'] . '|' . base64_encode(serialize($k)) . $this->_hash;
+?>
+		<?php elseif ($this->_var['MODULE_NAME'] == 'authorized'): ?>
+		<?php 
+$k = array (
+  'name' => 'authorized_info',
+);
+echo $this->_hash . $k['name'] . '|' . base64_encode(serialize($k)) . $this->_hash;
+?>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>

@@ -1,0 +1,78 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll" now_page="1"  data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="uc_interestrate#index"}">
+<!-- 这里是页面内容区 -->
+<!--我的加息券-->
+<div class="blank15"></div>
+<div class="doexchange_block">
+	<div class="add_address">
+		<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_interestrate_exchange"}','#uc_interestrate_exchange',2);">
+			<i class="fa fa-plus-square-o"></i>
+			<span>兑换加息券</span>
+		</a>
+	</div>
+	
+</div>
+<div class="blank15"></div>
+<div class="invest">
+	{/if}
+{foreach from=$data.item item=ecv key=key}
+<div class="voucher_block" id="ir_block_{$key}" onclick="ItRexChageview('#ir_detail_{$key}')">
+	<ul>
+		<li class="f_l ecv_name">
+         	{$ecv.name} <span class="f_red">x{if $ecv.use_limit eq 0}无限{else}{$ecv.use_limit}{/if}</span> 	
+		</li>
+		<li class="exlimit">
+			<span class="name">使用期限:</span>
+            {$ecv.limit_time}
+		</li>
+		<li class="price-box price-box-{$ecv.status} f_r ">
+			<span class="price">
+			{$ecv.rate_format}
+			</span>
+			<span>已使用:{$ecv.use_count}次</span>
+			<span class="status status_{$ecv.status}"></span>
+		</li>
+	</ul>
+</div>
+<div class='ir_detail' id="ir_detail_{$key}">
+	   <div class='ir_item'>
+        	说明：{if $ecv.detail}{$ecv.detail}{else}无{/if}
+            {if $ecv.to_user_id eq 0}
+       		<a class='i_send' onclick="ItRexChageview1('#ir_detail_{$key}')" href="#">转赠</a>
+            {/if}
+       </div>
+       {if $ecv.to_user_id eq 0}
+       <div class='ir_send '>
+        	转赠用户名：<input name="user_name" class='f-input mainborder'/>
+            <input type="hidden" name="id" value="{$ecv.i_id}"/>
+            <a class='i_ok' href="#" onclick="ItRexChageview3(this,{$key});">确定</a>
+       		<a class='i_send' rel="ir_detail_{$key}" onclick="ItRexChageview2('#ir_detail_{$key}');" href="#">取消</a>
+       </div>
+       {/if}
+</div>
+<div class="blank15"></div>
+{/foreach}
+
+{if $smarty.request.is_ajax neq 1}
+</div>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+
+
+

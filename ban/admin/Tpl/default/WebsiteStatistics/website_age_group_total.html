@@ -1,0 +1,132 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<script src="__TMPL__Common/js/highcharts/jquery-1.8.3.min.js"></script>
+
+<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '性别比例'
+        },
+        
+        xAxis: {
+            categories: ['男', '女'],
+           
+        },
+                                                                    
+        plotOptions: {                                                     
+            bar: {                                                         
+                dataLabels: {                                              
+                    enabled: true                                          
+                }                                                          
+            }                                                              
+        },
+        legend: {                                                          
+            layout: 'vertical',                                            
+            align: 'right',                                                
+            verticalAlign: 'top',                                          
+            x: -40,                                                        
+            y: 100,                                                        
+            floating: true,                                                
+            borderWidth: 1,                                                
+            backgroundColor: '#FFFFFF',                                    
+            shadow: true                                                   
+        },      
+       
+        series: [{
+            name: '人数 ',
+            data: [{$boy},{$girl}]
+        }]
+    });
+});
+
+$(function () {
+    $('#container2').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '年龄分布'
+        },
+        
+        xAxis: {
+            categories: ['50岁以上','40-49岁','30-39岁','20-29岁','10-20岁'],
+            
+        },
+        plotOptions: {                                                     
+            bar: {                                                         
+                dataLabels: {                                              
+                    enabled: true                                          
+                }                                                          
+            }                                                              
+        },
+       legend: {                                                          
+            layout: 'vertical',                                            
+            align: 'right',                                                
+            verticalAlign: 'top',                                          
+            x: -40,                                                        
+            y: 100,                                                        
+            floating: true,                                                
+            borderWidth: 1,                                                
+            backgroundColor: '#FFFFFF',                                    
+            shadow: true                                                   
+        },      
+        series: [{
+            name: '人数 ',
+            data: [{$age5},{$age4},{$age3},{$age2},{$age1}]
+        }]
+    });
+});
+        
+$(function () {
+    $('#container3').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '学历分布'
+        },
+        
+        xAxis: {
+            categories: ['高中或以下','大专','本科','研究生或以上'],
+        },
+        plotOptions: {                                                     
+            bar: {                                                         
+                dataLabels: {                                              
+                    enabled: true                                          
+                }                                                          
+            }                                                              
+        },                                                              
+        legend: {                                                          
+            layout: 'vertical',                                            
+            align: 'right',                                                
+            verticalAlign: 'top',                                          
+            x: -40,                                                        
+            y: 100,                                                        
+            floating: true,                                                
+            borderWidth: 1,                                                
+            backgroundColor: '#FFFFFF',                                    
+            shadow: true                                                   
+        },                                                                 
+       
+        series: [{
+            name: '人数 ',
+            data: [{$gra1},{$gra2},{$gra3},{$gra4}]
+        }]
+    });
+});
+        </script>       
+    </head>
+    <body>
+<script src="__TMPL__Common/js/highcharts/highcharts.js"></script>
+<script src="__TMPL__Common/js/highcharts/exporting.js"></script>
+
+<div id="container" style="min-width: 310px; max-width: 1000px;  height: 350px; margin: 0 auto"></div>
+<div id="container2" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+<div id="container3" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+<include file="Public:footer" />

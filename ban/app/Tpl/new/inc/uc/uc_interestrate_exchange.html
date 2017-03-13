@@ -1,0 +1,50 @@
+<div class="tabbox ">
+	<div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index" r="uc_interestrate#index"}">我的加息券</a></div>
+	<div class="tab {if $ACTION_NAME eq 'exchange'}cur{/if}"><a href="{url x="index" r="uc_interestrate#exchange"}">兑换加息券</a></div>
+</div>
+<div class="uc_box bdd bt0 clearfix">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+			<tbody>
+			<tr >
+				<th class="tl pl10">加息券名称</th>
+				<th style="width:20%">利率</th>
+				<th style="width:20%">使用范围</th>
+				<th style="width:20%">{$LANG.EXCHANGE_SCORE_VOUCHER}</th>
+				<th style="width:20%">{$LANG.DO_EXCHANGE}</th>
+			</tr>
+			{foreach from=$list item=voucher key=key}
+			<tr class="item {if $key mod 2 eq  0}item_1{/if}">
+				<td class="tl pl10">
+					{$voucher.name}
+				</td>
+				<td>{$voucher.rate_format} </td>
+				<td>{$voucher.use_type_name} </td>
+				<td>{function name="format_score" value=$voucher.exchange_score}</td>
+				<td class="pr10"><a class="exchange" href="javascript:void(0);" url="{url x="index" r="uc_voucher#do_exchange" p="id=$voucher.id"}">{$LANG.DO_EXCHANGE}</a></td>
+			</tr>
+			{/foreach}
+			</tbody>
+		</table>
+		<div class="pages">{$pages}</div>
+		
+		<!--voucher exchange-->
+		<div class="blank"></div>
+		<div class="bdd">	
+			<div class="f14 bddfa bb1 pl10 lh36 b">序列号兑换加息券</div>
+			<div class="clearfix p15">	
+				<form name="sn_exchange" id="sn_exchange"  method="post" action="{url x="index" r="uc_interestrate#do_snexchange"}">
+					
+					<div class="field pt10 pb10">
+						<label>序列号</label>
+						<input class="f-input ui-textbox bdr3" name="sn" holder="请输入加息券兑换的序列号" />
+					</div>			
+					<div class="blank10"></div>
+					<div class="field pt10 pb10">
+						<label>&nbsp;</label>
+						<button class="btn_blue f_white w100 lh30 b f_l" type="submit">立即兑换</button>
+					</div>
+				</form>
+			</div><!--end content-->
+		</div>
+		<!--end exchange-->
+</div>

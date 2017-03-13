@@ -1,0 +1,56 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<script type="text/javascript">
+	function op_edits(id,yz,status)
+	{
+		window.location.href=ROOT+'?m=PeiziOrder&a=op_edits&id='+id+'&yanzheng='+yz+'&status='+status;
+	}
+</script>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+
+		<label id="start_time_item_title">开始日期:</label><input type="text" class="textbox" name="start_time" value="{$start_time}" style="width:100px" id="p_start_time"  onfocus="return showCalendar('p_start_time', '%Y-%m-%d', false, false, 'p_start_time');" />
+		<label id="end_time_item_title">至</label><input type="text" class="textbox" name="end_time" value="{$end_time}" style="width:100px" id="p_end_time" onfocus="return showCalendar('p_end_time', '%Y-%m-%d', false, false, 'p_end_time');" />
+		
+		
+		投资者推荐人
+		<input type="text" class="textbox J_autoUserName" name="user_name" value = "{$user_name}" />
+					
+		<input type="hidden" value="PeiziRate" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="list"
+	datasource="list"
+	show="id:{%ID}|50px
+		,order_sn:实盘单号
+		,user_name:配资者
+        ,invest_user_name:投资者
+        ,p_invest_user_name:投资者推荐人
+		,invite_invest_interest_money|format_price:利息收益返利
+		,invite_invest_commission_money|format_price:佣金收益返利
+		,fee_date:日期
+		,memo:备注"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

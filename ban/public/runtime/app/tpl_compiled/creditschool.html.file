@@ -1,0 +1,13 @@
+<?php $_from = $this->_var['creditschool_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['item']):
+?>
+<li><i class="iconfont f_red f20">&#xe621;</i>&nbsp;<a href="<?php echo $this->_var['item']['url']; ?>" target=_blank title="<?php echo $this->_var['item']['title']; ?>"><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['item']['title'],
+  's' => '0',
+  'e' => '8',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></a></li>
+<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>

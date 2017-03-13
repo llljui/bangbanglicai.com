@@ -1,0 +1,69 @@
+
+<tr>
+	<th rowspan="2">编号</th>
+    <th rowspan="2">会员</th>
+    <th colspan="4">前期余额</th>
+    <th colspan="3">当期收入</th>
+    <th colspan="4">当期支出</th>
+    <th colspan="4">期末余额</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+</tr>
+<tr>
+	<th>投资总额</th>
+    <th>账户余额</th>
+    <th>投资冻结</th>
+    <th>资金总额</th>
+    <th>充值</th>
+    <th>本金返还</th>
+    <th>利息收入</th>
+    <th>提现</th>
+    <th>当期投资</th>
+    <th>投资冻结</th>
+    <th>手续费</th>
+    <th>投资总额</th>
+    <th>账户余额</th>
+    <th>投资冻结</th>
+    <th>资金总额</th>
+    <th>信用</th>
+    <th>额度</th>
+    <th>等级</th>
+    <th>推荐人</th>
+    <th>状态</th>
+    <th>黑名单</th>
+    <th>第三方</th>
+</tr>
+
+<foreach name="list" item="item">
+<tr>
+	<td>{$item.id}</td>
+	<td>{$item.user_name}<if condition="$item['real_name'] neq ''">[{$item.real_name}]</if></td>
+	<td>{$item.bf_load_money|number_format=2}</td>
+    <td>{$item.bf_account_money|number_format=2}</td>
+    <td>{$item.bf_lock_money|number_format=2}</td>
+    <td>{$item.bf_all_money|number_format=2}</td>
+    <td>{$item.incharge|number_format=2}</td>
+    <td>{$item.self_money|number_format=2}</td>
+    <td>{$item.interest|number_format=2}</td>
+    <td>{$item.carry_money|number_format=2}</td>
+    <td>{$item.load_money|number_format=2}</td>
+    <td>{$item.lock_money|number_format=2}</td>
+    <td>{$item.carry_fee|number_format=2}</td>
+    <td>{$item.all_loads|number_format=2}</td>
+    <td>{$item.all_account_money|number_format=2}</td>
+    <td>{$item.all_lock_money|number_format=2}</td>
+    <td>{$item.all_money|number_format=2}</td>
+    <td>{$item.point}</td>
+    <td><if condition="$item['user_name'] neq '合计' && $item['id'] gt 0 ">{$item.quota|number_format=2}</if></td>
+    <td>{$item.level_name}</td>
+    <td>{$item.ref_user_name}<if condition="$item['ref_real_name'] neq ''">[{$item.ref_real_name}]</if></td>
+    <td><if condition="$item['is_effect'] eq 1">是<else />否</if></td>
+    <td><if condition="$item['is_black'] eq 1">是<else />否</if></td>
+    <td><if condition="$item['ips_acct_no'] neq ''">是<else />否</if></td>
+</tr>
+</foreach>

@@ -1,0 +1,718 @@
+<?php echo $this->fetch('inc/header.html'); ?> 
+<div class="blank0"></div>
+</div>
+<div class="claerfix b_white bor_1" id="xj_box" style="width: 1190px;overflow: hidden;border: 1px solid #F9F9F9!important;">
+<!-- 	<div class="blank18"></div> -->
+	<div class="wrap">
+		<div class="f_l w862">
+			<div class=" f_l spread_block mr20 pr" id="slideTxtBox1">
+				<div class="new_people ps"></div>
+				<div class="hd ps">
+					<span class="arrow ">
+						<a class="prev noticentn">&lt;</a>
+						<a class="next noticentn">&gt;</a>
+					</span>
+				</div>
+				<div class="bd1">
+					<ul class="ovhide cf" style="">
+						<?php $_from = $this->_var['new_deal_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'deal');if (count($_from)):
+    foreach ($_from AS $this->_var['deal']):
+?>
+						<li>
+							<div class=" top">
+								<p class="name"><a href="<?php echo $this->_var['deal']['url']; ?>"><?php echo $this->_var['deal']['sub_name']; ?></a></p>
+								<p class="con"><?php echo $this->_var['deal']['name']; ?></p>
+							</div>
+						
+							<div class="item w104 bor_2">
+								<span class="name">年化收益率</span>
+								<p class="b f_red">
+									<i class="b f18"><?php echo $this->_var['deal']['rate']; ?></i><i class="f12">%</i><?php if ($this->_var['deal']['user_bid_rebate'] > 0): ?><span class="f12" title="投资返利:<?php echo $this->_var['deal']['user_bid_rebate']; ?>%">+<?php echo $this->_var['deal']['user_bid_rebate']; ?>%</span><?php endif; ?>
+								</p>
+							</div>
+							<div class="item w90 bor_2">
+								<span class="name">投资期限</span>
+								<p class="b">
+									<i class="b f18"><?php echo $this->_var['deal']['repay_time']; ?></i>
+									<i class="f12"><?php if ($this->_var['deal']['repay_time_type'] == 0): ?>天<?php else: ?>月<?php endif; ?></i>
+								</p>
+							</div>
+							<div class="item w93">
+								<span class="name">筹款金额</span>
+								<p class="b f_red">
+									<i class="b f18"><?php echo number_format($this->_var['deal']['borrow_amount']/10000,2); ?></i>
+									<i class="f12">万元</i>
+								</p>
+							</div>
+							<div class="item">
+								<span class=" f_r  w96  ml11 mt2">
+									<a class="listbtn" href="<?php echo $this->_var['deal']['url']; ?>">
+										<?php if ($this->_var['deal']['is_delete'] == 2): ?>
+											<span class="btn_gray f_white">待发布</span>
+										<?php elseif ($this->_var['deal']['is_wait'] == 1): ?>
+											<span class="btn_gray f_white">未开始</span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 5): ?>
+											<span class="btn_blue f_white">还款完毕</span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 4): ?>
+											<span class="btn_green f_white">还款中</span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 0): ?>
+											<span class="btn_gray f_white"><?php if ($this->_var['deal']['need_credit'] == 0): ?>等待审核<?php else: ?>等待材料<?php endif; ?></span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0): ?>
+											<span class="btn_red f_white">立即投资</span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 2): ?>
+											<span class="btn_yellow f_white" style=" position:relative;">已满标</span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 3): ?>
+											<span class="btn_gray f_white">已流标</span>
+										<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] <= 0): ?>
+											<span class="btn_gray f_white">已过期</span>
+										<?php endif; ?>
+									</a>
+						     </span>
+							</div>
+						</li>
+						<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+					</ul>
+				</div>
+			</div>
+			<script type="text/javascript">
+			<?php if (count ( $this->_var['new_deal_list'] ) > 1): ?>
+				$(document).ready(function(){
+					jQuery("#slideTxtBox1").slide({mainCell:".bd1 ul",autoPage:true,effect:"leftLoop",autoPlay:true});
+				});
+			<?php else: ?>
+				jQuery("#slideTxtBox1 .arrow").hide();
+			<?php endif; ?>
+			</script>
+			<div class=" f_l spread_block pr" id="slideTxtBox2">
+				<div class="week_advn ps"></div>
+				<div class="hd ps">
+					<span class="arrow ">
+						<a class="prev noticentn">&lt;</a>
+						<a class="next noticentn">&gt;</a>
+					</span>
+				</div>
+				<div class="bd2">
+					<ul class="ovhide cf">
+						<?php $_from = $this->_var['advance_deal_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'deal');if (count($_from)):
+    foreach ($_from AS $this->_var['deal']):
+?>
+						<li>
+							<div class=" top">
+								<p class="name"><a href="<?php echo $this->_var['deal']['url']; ?>"><?php echo $this->_var['deal']['sub_name']; ?></a></p>
+								<p class="con"><?php echo $this->_var['deal']['name']; ?></p>
+							</div>
+						
+							<div class="item w104 bor_2">
+								<span class="name">年化收益率</span>
+								<p class="b f_red">
+									<i class="b f18"><?php echo $this->_var['deal']['rate']; ?></i><i class="f12">%</i><?php if ($this->_var['deal']['user_bid_rebate'] > 0): ?><span class="f12" title="投资返利:<?php echo $this->_var['deal']['user_bid_rebate']; ?>%">+<?php echo $this->_var['deal']['user_bid_rebate']; ?>%</span><?php endif; ?>
+								</p>
+							</div>
+							<div class="item w90 bor_2">
+								<span class="name">投资期限</span>
+								<p class="b">
+									<i class="b f18"><?php echo $this->_var['deal']['repay_time']; ?></i>
+									<i class="f12"><?php if ($this->_var['deal']['repay_time_type'] == 0): ?>天<?php else: ?>月<?php endif; ?></i>
+								</p>
+							</div>
+							<div class="item w93">
+								<span class="name">筹款金额</span>
+								<p class="b f_red">
+									<i class="b f18"><?php echo number_format($this->_var['deal']['borrow_amount']/10000,2); ?></i>
+									<i class="f12">万元</i>
+								</p>
+							</div>
+							<div class="item">
+								<span class=" f_r  w96  ml11 mt2">
+									<a class="listbtn" href="<?php echo $this->_var['deal']['url']; ?>">
+										<span class="btn_red f_white">去看看</span>
+									</a>
+						     </span>
+							</div>
+						</li>
+						<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+					</ul>
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+			<?php if (count ( $this->_var['advance_deal_list'] ) > 1): ?>
+				$(document).ready(function(){
+					jQuery("#slideTxtBox2").slide({mainCell:".bd2 ul",autoPage:true,effect:"leftLoop",autoPlay:true});
+				});
+			<?php else: ?>
+				jQuery("#slideTxtBox2 .arrow").hide();
+			<?php endif; ?>
+			</script>
+		</div>
+		<div class="f_r w316" style="position: relative;right: 15px;">
+            <?php echo $this->_var['small_adv_src']['code']; ?>
+		</div>
+	</div>
+	<!-- <div class="blank18"></div>  -->
+</div>
+<div class="blank18"></div>
+<div class="wrap">
+<div class="blank1"></div>
+<div class="clearfix">
+<div class="f_l w862" style="margin-left:7px!important;">
+	
+	<div class="bg_2 relative">
+		<div class="nav clearfix pr18">
+			<ul class="f_l nav_list_0">
+				<li class="f_l ">活动标<!--全部--></li>
+				<!--
+				<li class="f_l  current">已售馨</li>
+				<li class="f_l ">已还款</li>
+				-->
+			</ul>
+			<a class="f_r more" href="<?php
+echo parse_url_tag("u:index|deals|"."".""); 
+?>" title="<?php echo $this->_var['LANG']['MORE']; ?>">更多&gt; </a>
+		</div>
+		<ul class="licai_case_list ">
+			<?php $_from = $this->_var['active_deal_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'deal');$this->_foreach['deals'] = array('total' => count($_from), 'iteration' => 0);
+if ($this->_foreach['deals']['total'] > 0):
+    foreach ($_from AS $this->_var['key'] => $this->_var['deal']):
+        $this->_foreach['deals']['iteration']++;
+?>
+			<?php if (($this->_foreach['deals']['iteration'] - 1) < 5): ?>
+			<li class="clearfix" style="overflow: hidden">
+				<img class=" f_l pt18 pr20" src="<?php echo $this->_var['TMPL']; ?>/images/<?php echo $this->_var['deal']['user']['point_level']; ?>.png" align="absmiddle" title="<?php echo $this->_var['deal']['user']['point_level']; ?>" alt="<?php echo $this->_var['deal']['user']['point_level']; ?>" height="30" />
+				<span class="f_l name nowrap w140 pr15"><a href="<?php echo $this->_var['deal']['url']; ?>" title="<?php echo $this->_var['deal']['name']; ?>"><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['deal']['name'],
+  's' => '0',
+  'e' => '8',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></a></span>
+				<span class="f_l rate b f_red w80"><?php echo $this->_var['deal']['rate']; ?>%<?php if ($this->_var['deal']['user_bid_rebate'] > 0): ?><span class="f12" title="投资返利:<?php echo $this->_var['deal']['user_bid_rebate']; ?>%">+<?php echo $this->_var['deal']['user_bid_rebate']; ?>%</span><?php endif; ?></span>
+				<span class="f_l  date w60"><?php echo $this->_var['deal']['repay_time']; ?><?php if ($this->_var['deal']['repay_time_type'] == 0): ?>天<?php else: ?>个月<?php endif; ?></span>
+				<span class="f_l money w100"><?php echo $this->_var['deal']['borrow_amount_format']; ?></span>
+				<span class="f_l  w50">
+					
+					<div class="info  textaligncenter mt10">
+						<?php if ($this->_var['deal']['deal_status'] >= 4): ?>
+						<strong class="iepng ui-progressbar-mid " style="background-position: -5400px 0;" >100%</strong>
+						<?php else: ?>
+	                        <?php
+	                            $rate_img =  round($this->_var['deal']['progress_point'],0)*54;
+	                        ?>
+					  		<strong class="iepng ui-progressbar-mid " style="background-position: -<?php echo $rate_img;?>px 0;" ><?php 
+$k = array (
+  'name' => 'round',
+  'v' => $this->_var['deal']['progress_point'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%</strong>    
+		                
+						<?php endif; ?>
+					</div>
+				</span>
+				<span class="f_r  w98 mt16 mr26"  style="line-height:normal;">
+							<a class="listbtn lh30" href="<?php echo $this->_var['deal']['url']; ?>">
+							<?php if ($this->_var['deal']['is_delete'] == 2): ?>
+								<span class="btn_gray f_white">待发布</span>
+							<?php elseif ($this->_var['deal']['is_wait'] == 1): ?>
+								<span class="btn_gray f_white">未开始</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 5): ?>
+								<span class="btn_green f_white">还款完毕</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 4): ?>
+								<span class="btn_green f_white">还款中</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 0): ?>
+								<span class="btn_gray f_white"><?php if ($this->_var['deal']['need_credit'] == 0): ?>等待审核<?php else: ?>等待材料<?php endif; ?></span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0): ?>
+								<span class="btn_red f_white">马上投标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 2): ?>
+								<span class="btn_yellow f_white" style=" position:relative;">已满标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 3): ?>
+								<span class="btn_gray f_white">已流标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] <= 0): ?>
+								<span class="btn_gray f_white">已过期</span>
+							<?php endif; ?>
+						</a>
+				</span>
+			</li>
+			
+			<?php endif; ?>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</ul>
+		
+		<div class="position_bor"></div>
+	</div>
+
+    <?php if (new_deal_list): ?>
+	<div class="bg_3 relative" style="top:10px">
+		<div class="nav clearfix pr18">
+			<ul class="f_l nav_list_0">
+				<li class="f_l ">新手标<!--全部--></li>
+				<!--
+				<li class="f_l  current">已售馨</li>
+				<li class="f_l ">已还款</li>
+				-->
+			</ul>
+			<a class="f_r more" href="<?php
+echo parse_url_tag("u:index|deals|"."".""); 
+?>" title="<?php echo $this->_var['LANG']['MORE']; ?>">更多&gt; </a>
+		</div>
+		<ul class="licai_case_list ">
+			<?php $_from = $this->_var['new_deal_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'deal');$this->_foreach['deals'] = array('total' => count($_from), 'iteration' => 0);
+if ($this->_foreach['deals']['total'] > 0):
+    foreach ($_from AS $this->_var['key'] => $this->_var['deal']):
+        $this->_foreach['deals']['iteration']++;
+?>
+			<?php if (($this->_foreach['deals']['iteration'] - 1) < 5): ?>
+			<li class="clearfix" style="overflow: hidden">
+				<img class=" f_l pt18 pr20" src="<?php echo $this->_var['TMPL']; ?>/images/<?php echo $this->_var['deal']['user']['point_level']; ?>.png" align="absmiddle" title="<?php echo $this->_var['deal']['user']['point_level']; ?>" alt="<?php echo $this->_var['deal']['user']['point_level']; ?>" height="30" />
+				<span class="f_l name nowrap w140 pr15"><a href="<?php echo $this->_var['deal']['url']; ?>" title="<?php echo $this->_var['deal']['name']; ?>"><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['deal']['name'],
+  's' => '0',
+  'e' => '8',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></a></span>
+				<span class="f_l rate b f_red w80"><?php echo $this->_var['deal']['rate']; ?>%<?php if ($this->_var['deal']['user_bid_rebate'] > 0): ?><span class="f12" title="投资返利:<?php echo $this->_var['deal']['user_bid_rebate']; ?>%">+<?php echo $this->_var['deal']['user_bid_rebate']; ?>%</span><?php endif; ?></span>
+				<span class="f_l  date w60"><?php echo $this->_var['deal']['repay_time']; ?><?php if ($this->_var['deal']['repay_time_type'] == 0): ?>天<?php else: ?>个月<?php endif; ?></span>
+				<span class="f_l money w100"><?php echo $this->_var['deal']['borrow_amount_format']; ?></span>
+				<span class="f_l  w50">
+					
+					<div class="info  textaligncenter mt10">
+						<?php if ($this->_var['deal']['deal_status'] >= 4): ?>
+						<strong class="iepng ui-progressbar-mid " style="background-position: -5400px 0;" >100%</strong>
+						<?php else: ?>
+	                        <?php
+	                            $rate_img =  round($this->_var['deal']['progress_point'],0)*54;
+	                        ?>
+					  		<strong class="iepng ui-progressbar-mid " style="background-position: -<?php echo $rate_img;?>px 0;" ><?php 
+$k = array (
+  'name' => 'round',
+  'v' => $this->_var['deal']['progress_point'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%</strong>    
+		                
+						<?php endif; ?>
+					</div>
+				</span>
+				<span class="f_r  w98 mt16 mr26"  style="line-height:normal;">
+							<a class="listbtn lh30" href="<?php echo $this->_var['deal']['url']; ?>">
+							<?php if ($this->_var['deal']['is_delete'] == 2): ?>
+								<span class="btn_gray f_white">待发布</span>
+							<?php elseif ($this->_var['deal']['is_wait'] == 1): ?>
+								<span class="btn_gray f_white">未开始</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 5): ?>
+								<span class="btn_green f_white">还款完毕</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 4): ?>
+								<span class="btn_green f_white">还款中</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 0): ?>
+								<span class="btn_gray f_white"><?php if ($this->_var['deal']['need_credit'] == 0): ?>等待审核<?php else: ?>等待材料<?php endif; ?></span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0): ?>
+								<span class="btn_red f_white">马上投标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 2): ?>
+								<span class="btn_yellow f_white" style=" position:relative;">已满标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 3): ?>
+								<span class="btn_gray f_white">已流标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] <= 0): ?>
+								<span class="btn_gray f_white">已过期</span>
+							<?php endif; ?>
+						</a>
+				</span>
+			</li>
+			
+			<?php endif; ?>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</ul>
+		
+		<div class="position_bor"></div>
+	</div>
+    <?php endif; ?>
+
+    <?php if ($this->_var['ding_deal_list']): ?>
+	<div class="bg_2 relative" style="top:10px">
+		<div class="nav clearfix pr18">
+			<ul class="f_l nav_list_0">
+				<li class="f_l ">定期标<!--全部--></li>
+				<!--
+				<li class="f_l  current">已售馨</li>
+				<li class="f_l ">已还款</li>
+				-->
+			</ul>
+			<a class="f_r more" href="<?php
+echo parse_url_tag("u:index|deals|"."".""); 
+?>" title="<?php echo $this->_var['LANG']['MORE']; ?>">更多&gt; </a>
+		</div>
+		<ul class="licai_case_list ">
+			<?php $_from = $this->_var['ding_deal_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'deal');$this->_foreach['deals'] = array('total' => count($_from), 'iteration' => 0);
+if ($this->_foreach['deals']['total'] > 0):
+    foreach ($_from AS $this->_var['key'] => $this->_var['deal']):
+        $this->_foreach['deals']['iteration']++;
+?>
+			<?php if (($this->_foreach['deals']['iteration'] - 1) < 5): ?>
+			<li class="clearfix" style="overflow: hidden">
+				<img class=" f_l pt18 pr20" src="<?php echo $this->_var['TMPL']; ?>/images/<?php echo $this->_var['deal']['user']['point_level']; ?>.png" align="absmiddle" title="<?php echo $this->_var['deal']['user']['point_level']; ?>" alt="<?php echo $this->_var['deal']['user']['point_level']; ?>" height="30" />
+				<span class="f_l name nowrap w140 pr15"><a href="<?php echo $this->_var['deal']['url']; ?>" title="<?php echo $this->_var['deal']['name']; ?>"><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['deal']['name'],
+  's' => '0',
+  'e' => '8',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></a></span>
+				<span class="f_l rate b f_red w80"><?php echo $this->_var['deal']['rate']; ?>%<?php if ($this->_var['deal']['user_bid_rebate'] > 0): ?><span class="f12" title="投资返利:<?php echo $this->_var['deal']['user_bid_rebate']; ?>%">+<?php echo $this->_var['deal']['user_bid_rebate']; ?>%</span><?php endif; ?></span>
+				<span class="f_l  date w60"><?php echo $this->_var['deal']['repay_time']; ?><?php if ($this->_var['deal']['repay_time_type'] == 0): ?>天<?php else: ?>个月<?php endif; ?></span>
+				<span class="f_l money w100"><?php echo $this->_var['deal']['borrow_amount_format']; ?></span>
+				<span class="f_l  w50">
+					
+					<div class="info  textaligncenter mt10">
+						<?php if ($this->_var['deal']['deal_status'] >= 4): ?>
+						<strong class="iepng ui-progressbar-mid " style="background-position: -5400px 0;" >100%</strong>
+						<?php else: ?>
+	                        <?php
+	                            $rate_img =  round($this->_var['deal']['progress_point'],0)*54;
+	                        ?>
+					  		<strong class="iepng ui-progressbar-mid " style="background-position: -<?php echo $rate_img;?>px 0;" ><?php 
+$k = array (
+  'name' => 'round',
+  'v' => $this->_var['deal']['progress_point'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%</strong>    
+		                
+						<?php endif; ?>
+					</div>
+				</span>
+				<span class="f_r  w98 mt16 mr26"  style="line-height:normal;">
+							<a class="listbtn lh30" href="<?php echo $this->_var['deal']['url']; ?>">
+							<?php if ($this->_var['deal']['is_delete'] == 2): ?>
+								<span class="btn_gray f_white">待发布</span>
+							<?php elseif ($this->_var['deal']['is_wait'] == 1): ?>
+								<span class="btn_gray f_white">未开始</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 5): ?>
+								<span class="btn_green f_white">还款完毕</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 4): ?>
+								<span class="btn_green f_white">还款中</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 0): ?>
+								<span class="btn_gray f_white"><?php if ($this->_var['deal']['need_credit'] == 0): ?>等待审核<?php else: ?>等待材料<?php endif; ?></span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0): ?>
+								<span class="btn_red f_white">马上投标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 2): ?>
+								<span class="btn_yellow f_white" style=" position:relative;">已满标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 3): ?>
+								<span class="btn_gray f_white">已流标</span>
+							<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] <= 0): ?>
+								<span class="btn_gray f_white">已过期</span>
+							<?php endif; ?>
+						</a>
+				</span>
+			</li>
+			
+			<?php endif; ?>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</ul>
+		
+		<div class="position_bor"></div>
+	</div>
+    <?php endif; ?>
+	
+	<?php if ($this->_var['transfer_list']): ?>
+	<div class="blank18"></div>
+	<div class="bg_3">
+		<div class="nav clearfix pr18">
+			<p class="f_l">转让项目全部来自“<?php 
+$k = array (
+  'name' => 'app_conf',
+  'v' => 'SITE_TITLE',
+);
+echo $k['name']($k['v']);
+?>投资区”</p>
+			<a class="f_r more" href="<?php
+echo parse_url_tag("u:index|transfer|"."".""); 
+?>" title="<?php echo $this->_var['LANG']['MORE']; ?>">更多 &gt;</a>
+		</div>
+		<ul class="zhaiquan_case_list">
+			<?php $_from = $this->_var['transfer_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'transfer');$this->_foreach['transfer'] = array('total' => count($_from), 'iteration' => 0);
+if ($this->_foreach['transfer']['total'] > 0):
+    foreach ($_from AS $this->_var['key'] => $this->_var['transfer']):
+        $this->_foreach['transfer']['iteration']++;
+?>
+				<?php if (($this->_foreach['transfer']['iteration'] - 1) < 6): ?>
+			<li class="clearfix">
+				<span class="f_l name pl13 w160 nowrap"><a href="<?php echo $this->_var['transfer']['url']; ?>" title="<?php echo $this->_var['transfer']['name']; ?>"><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['transfer']['name'],
+  's' => '0',
+  'e' => '8',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></a></span>
+				<span class="f_l rate  w90 b f_orange "><?php echo $this->_var['transfer']['rate']; ?> %</span>
+				<span class="f_l   w145 ">折价率<i class="b f_orange "><?php echo ($this->_var['transfer']['left_benjin']+$this->_var['transfer']['left_lixi']) > 0 ? round((($this->_var['transfer']['left_benjin'] + $this->_var['transfer']['left_lixi'] - $this->_var['transfer']['transfer_amount'])/($this->_var['transfer']['left_benjin']+$this->_var['transfer']['left_lixi']))*100,2) : 0; ?>%</i></span>
+				<span class="f_l   w115 "><?php if ($this->_var['transfer']['t_user_id'] > 0): ?>履约中<?php else: ?>未转让<?php endif; ?></span>
+				<span class="f_l   w98  mt10" style="line-height:normal;">
+					<a class="listbtn lh30" href="<?php echo $this->_var['transfer']['url']; ?>" >
+					        <?php if ($this->_var['transfer']['t_user_id'] > 0): ?>
+								<span class="btn_gray f_white" style="">已转让</span>
+							<?php else: ?>
+								<?php if ($this->_var['transfer']['status'] == 0): ?>
+									<span class="btn_gray f_white">已撤销</span>
+								<?php else: ?>
+									<?php if ($this->_var['transfer']['remain_time'] < 0): ?>
+									  	<span class="btn_gray f_white">逾期还款</span>
+									<?php else: ?>
+										<span class="btn_red f_white">我要承接</span>
+									<?php endif; ?>
+								<?php endif; ?>
+							<?php endif; ?>
+						</a>
+				</span>
+			</li>
+			<?php endif; ?>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</ul>
+	</div>
+	<?php endif; ?>
+</div>
+<div class="f_r w316">
+	<div class="blank10"></div>
+	<div class="article_block b_white bor_0 pr15 pl15 pt20 pb10" >
+	     <div class="clearfix h_block">
+	     	<h3 class="f_l">网站公告</h3>
+			<a href="<?php
+echo parse_url_tag("u:index|notice#list_notice|"."".""); 
+?>" title="<?php echo $this->_var['LANG']['MORE']; ?>" class="f_r see_m">更多 </a>
+	     </div>
+		<ul>
+			<?php $_from = $this->_var['notice_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'notice');if (count($_from)):
+    foreach ($_from AS $this->_var['notice']):
+?>
+			<li class="article_li clearfix ">
+				<a href="<?php echo $this->_var['notice']['url']; ?>" title="<?php echo $this->_var['notice']['title']; ?>">
+					<span class="f_l content nowrap "><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['notice']['title'],
+  's' => '0',
+  'e' => '18',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></span>
+				    <span class="f_r time "><?php 
+$k = array (
+  'name' => 'to_date',
+  'v' => $this->_var['notice']['create_time'],
+  'f' => 'Y-m-d',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+				</a>
+			</li>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</ul>
+	</div>
+	<div class="blank10"></div>
+	<div class="article_block b_white bor_0 pr15 pl15 pt20 pb10" >
+    <div class="clearfix h_block">
+        <h3 class="f_l">媒体报道</h3>
+        <a href="<?php
+echo parse_url_tag("u:index|acate&id=25|"."".""); 
+?>" title="<?php echo $this->_var['LANG']['MORE']; ?>" class="f_r see_m">更多 </a>
+    </div>
+    <ul>
+        <?php $_from = $this->_var['mtbd_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'mtbd');if (count($_from)):
+    foreach ($_from AS $this->_var['mtbd']):
+?>
+        <li class="article_li clearfix ">
+            <a href="<?php echo $this->_var['mtbd']['url']; ?>" title="<?php echo $this->_var['mtbd']['title']; ?>">
+                <span class="f_l content nowrap "><?php 
+$k = array (
+  'name' => 'msubstr',
+  'v' => $this->_var['mtbd']['title'],
+  's' => '0',
+  'e' => '18',
+);
+echo $k['name']($k['v'],$k['s'],$k['e']);
+?></span>
+                <span class="f_r time "><?php 
+$k = array (
+  'name' => 'to_date',
+  'v' => $this->_var['mtbd']['create_time'],
+  'f' => 'Y-m-d',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+            </a>
+        </li>
+        <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+    </ul>
+	</div>
+	<div class="blank18"></div>
+	<div class="article_block b_white bor_0 pr list_block" id="txtScroll-top">
+	     <div class="clearfix h_block b_f9f9f9">
+	     	<h4 class="f_l  pl20">他们正在投资</h4>
+		 </div>
+		<div class="hd hide">
+			<span class="arrow ">
+				<a class="prev ">&lt;</a>
+				<a class="next ">&gt;</a>
+			</span>
+		</div>
+		<div class="bg_0 pr list_this ovhide bd3" style="height: 344px!important;">
+			<ul class="licai_now">
+				<?php $_from = $this->_var['near_deal_loads']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'load');if (count($_from)):
+    foreach ($_from AS $this->_var['load']):
+?>
+				<li class="show_li clearfix ">
+					<a href="<?php
+echo parse_url_tag("u:index|deal#index|"."id=".$this->_var['load']['deal_id']."".""); 
+?>">
+						<i class="icon f_l"></i>
+						<p>投资：<i class="f_red"><?php echo $this->_var['load']['money']; ?>元</i></p>
+						<p>用户：<?php 
+$k = array (
+  'name' => 'utf_substr',
+  'v' => $this->_var['load']['user_name'],
+);
+echo $k['name']($k['v']);
+?> &nbsp; 年化收益：<i class="f_red"><?php echo $this->_var['load']['rate']; ?>%</i></p>
+					</a>
+				</li>
+				<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			</ul>
+		</div> 
+	</div>
+	<div class="blank18"></div>
+	<div id="loadtop" class="r-block">
+		<div class="gray_title clearfix pr">
+			<div class="f_l pl10 f16">投资排行榜</div>
+			<div id="rightTitls">
+				<ul>
+					<li class="t"><a rel="1" >周</a></li>
+					<li class=""><a rsel="2">月</a></li>
+					<li class="current"><a rel="3">总</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="J_conbox" class="bdd bt0 pt5 pb5 pl10 pr10">
+			<ul class="clearfix hide" rel="1">
+											</ul>
+			<ul class="clearfix hide" rel="2">
+																<li class="dot">
+					<span class="nums nums_1 tc f_l">
+					01					</span>
+					<span class="uname f_l">a***1</span>
+					<span class="f_r">￥14,800.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_2 tc f_l">
+					02					</span>
+					<span class="uname f_l">t***1</span>
+					<span class="f_r">￥50.00</span>
+				</li>
+																				<li>
+					<span class="nums nums_3 tc f_l">
+					03					</span>
+					<span class="uname f_l">t***2</span>
+					<span class="f_r">￥50.00</span>
+				</li>
+															</ul>
+			<ul class="clearfix " rel="3">
+																<li class="dot">
+					<span class="nums nums_1 tc f_l">
+						01					</span>
+					<span class="uname f_l">f***1</span>
+					<span class="f_r">￥50,000.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_2 tc f_l">
+						02					</span>
+					<span class="uname f_l">f***e</span>
+					<span class="f_r">￥50,000.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_3 tc f_l">
+						03					</span>
+					<span class="uname f_l">f***e</span>
+					<span class="f_r">￥33,139.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_4 tc f_l">
+						04					</span>
+					<span class="uname f_l">a***1</span>
+					<span class="f_r">￥14,800.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_5 tc f_l">
+						05					</span>
+					<span class="uname f_l">t***2</span>
+					<span class="f_r">￥7,750.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_6 tc f_l">
+						06					</span>
+					<span class="uname f_l">易***烊</span>
+					<span class="f_r">￥5,000.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_7 tc f_l">
+						07					</span>
+					<span class="uname f_l">t***1</span>
+					<span class="f_r">￥150.00</span>
+				</li>
+																				<li class="dot">
+					<span class="nums nums_8 tc f_l">
+						08					</span>
+					<span class="uname f_l">t***n</span>
+					<span class="f_r">￥50.00</span>
+				</li>
+																															</ul>
+		</div>
+	</div>
+		<script type="text/javascript">
+		$("#rightTitls ul li").click(function(){
+			$("#rightTitls ul li").removeClass('current');
+			$(this).addClass('current');
+			var roles=$(this).index()+1;
+			$('#J_conbox ul').addClass('hide');
+			$('#J_conbox ul[rel='+roles+']').removeClass('hide');
+		})
+
+		</script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			jQuery("#txtScroll-top").slide({titCell:".hd ul",mainCell:".bd3 ul",autoPage:true,effect:"top",autoPlay:true,vis:4});
+		});
+	</script>
+	<div class="blank18"></div>
+		<div class="clearfix">
+			<adv adv_id="首页广告位_推广1" />
+		</div>
+		<div class="blank18"></div>
+		<div class="clearfix">
+			<adv adv_id="首页广告位_推广2" />
+		</div>
+</div>
+</div>
+<!---
+<script>
+	$(document).ready(function(){
+		$(".nav_list_0 li").click(function(){
+			var index_rel=$(this).index();
+			$(this).addClass("current").siblings().removeClass("current");
+			$(".licai_case_list").siblings(".licai_case_list").hide();
+			$(".licai_case_list").eq(index_rel).show();
+		});
+	});
+</script>
+-->
+<?php echo $this->fetch('inc/footer.html'); ?>

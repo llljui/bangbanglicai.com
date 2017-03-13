@@ -1,0 +1,132 @@
+.pro_detail_tit{
+	line-height: 1.3333rem;
+	border-bottom: 0.0333rem solid @border_color;
+	font-weight: bold;
+	font-size: 0.76rem;
+}
+.pro_detail_tit span{
+	padding-left:0.5333rem; 
+	font-weight: bold;
+	color: #b3b3b3;
+	ffont-size: 0.76rem;
+}
+.detail_article{
+	padding: 0.3333rem 0.5px;
+}
+.detail_article p{
+	text-indent:1rem;
+	line-height:0.6666rem;
+}
+
+.basic_ifm ul {
+	padding: 0.3333rem 0;
+}
+.basic_ifm ul li {
+	line-height: 1rem;
+	position: relative;
+	font-size: 0.5rem;
+}
+.basic_ifm ul li label{
+	position: absolute;
+	color: @font_main;
+}
+.basic_ifm ul li span{
+	margin-left: 4rem;
+	
+}
+
+.basic_ifm ul.Borrow_record  li{
+	border-bottom: 1px dashed @border_color;
+}
+.audit_records{
+	padding-bottom: 3px;
+}
+.audit_records ul{
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.audit_records ul li{
+	width: 33%;
+	float: left;
+	font-size: 13px;
+	line-height: 33px;
+}
+.audit_records ul li:nth-child(2){
+	text-align: center;
+}
+.audit_records ul li:nth-child(3){
+	text-align: right;
+}
+
+.audit_records_tit{
+	line-height: 32px;
+background: @thin_color;
+border-radius: 3px;
+
+font-size: 14px;
+margin: 8px 0;
+}
+.audit_records_tit ul{
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.audit_records_tit ul li{
+	width: 33%;
+	float: left;
+	font-size: 13px;
+}
+.audit_records_tit ul li:nth-child(2){
+	text-align: center;
+}
+.audit_records_tit ul li:nth-child(3){
+	text-align: right;
+	padding-right: 10px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+
+.investment_records{
+	padding: 9px 0;
+}
+
+.investment_records ul{
+	padding: 9px 0;
+}
+.investment_records ul li:nth-child(1){
+	float: left;
+	font-size: 14px;
+	
+}
+.investment_records ul li:nth-child(2){
+	text-align: right;
+	font-size: 8px;
+}
+.investment_records ul li h1{
+	color: @contrast_color;
+}
+.investment_records ul li span{
+	color:@font_main;
+}
+
+
+.pro_detail_foot{
+	line-height: 50px;
+	height: 50px;
+	text-align: center;
+	color: #fff;
+	font-size: 17px;
+}
+
+.sxpd5{
+	padding-top: 6px;
+	padding-bottom:6px;
+}
+

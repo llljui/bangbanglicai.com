@@ -1,0 +1,223 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","deals#index");
+	$this->_var['back_page'] = "#deals";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#init" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--投资借款简单详情-->
+<div class="detail">
+<div class="mainblok mainborder">
+            <div class="detail_tit ">
+                <h3>{$data.deal.name}{if $data.deal.is_new}<em>新</em>{/if}</h3>
+            </div>
+            <div class="detail_rate">
+            	<span>{$data.deal.rate_foramt}<em>%</em></span>
+            	<h4>年化收益率</h4>
+            </div>
+            <div class="detail_row">
+            	<div class="it">{function name="loantypename" v="$data.deal.loantype" type=1}</div>
+            	<div class="it">{$data.deal.min_loan_money_format}起投</div>
+            	<div class="it last">期限{$data.deal.repay_time}{if $data.deal.repay_time_type eq 0}天{else}个月{/if}</div>
+            </div>
+            
+           	<div class="detail_process" id="detail_process" data="{function name="round" v=$data.deal.progress_point f=2}">
+           		<div class="bg">
+           			<div class="tip_bar" style="padding-left:0%">
+	           			<div class="tip" >
+	           				<em>0%</em>
+	           				<span></span>
+	           			</div>
+	           		</div>
+           			<div class="pros" style="width:0%"></div>
+           		</div>
+           		
+           	</div>
+           	<div class="detail_hs_nd">
+           		<div class="f_l tl">
+           			已认购
+           			{if $data.deal.uloadtype eq 1}
+           			<em>{$data.deal.buy_portion}笔</em>
+           			{else}
+           			<em>{function name="format_price" v=$data.deal.load_money" f=2}</em>
+           			{/if}
+           		</div>
+           		<div class="f_r tr">
+           			{if $data.deal.uloadtype eq 1}
+           			可投份数
+           			<em>{$data.deal.need_portion}</em>
+           			{else}
+           			可投金额
+           			<em>{$data.deal.need_money}</em>
+           			{/if}
+           		</div>
+           		
+           	</div>
+            
+        </div><!--mainblok——end--> 
+		<div class="blank10"></div>
+           
+        <div class="mainblok mainborder">
+            <div class="detail_list">
+                <ul>
+                    
+          			<li class="bb1">
+                		<label>借款编号</label>
+                		<div class="list_con">{$data.deal.deal_sn}</div>
+                	</li>
+                    <li class="bb1">
+                        <label>借款金额</label>
+                        <div class="list_con">{$data.deal.borrow_amount_format}</div>
+                    </li> 
+					
+                    <li class="bb1">
+                        <label>风险等级</label>
+                        <div class="list_con">
+                        	{if $data.deal.rish_rank eq 0}低{elseif $data.deal.rish_rank eq 1}中{elseif $data.deal.rish_rank eq 2}高{/if}
+						</div>
+                    </li>
+                    <li >
+                        <label>剩余时间</label>
+                        <div class="list_con">{$data.deal.remain_time_format}</div>
+                    </li>
+                </ul>
+            </div>
+        </div><!--mainblok——end--> 
+
+		<div class="blank10"></div>
+       
+        <div class="mainblok mainborder">
+         {if $data.deal.deal_status eq 1}
+            <div class="detail_list">
+                <ul>
+                    <li class="bb1">
+                        <label>可用余额</label>
+                        <div class="list_con">
+                        	<em class="f_red">{function name="format_price" v=$data.user_money" f=2}</em>元
+							{if $is_login eq 0}
+							<a href="{wap_url a="index" r="login"}" class="linkbtn {if $is_weixin}external{/if}">我要充值</a>
+							{else}
+							<a href="{wap_url a="index" r="uc_incharge"}" class="linkbtn">我要充值</a>
+							{/if}
+						</div>
+                    </li>
+					{if $data.deal.uloadtype eq 1}
+					 <li class="bb1">
+                        <label>投标金额</label>
+                        <div class="list_con">
+                        	
+							 	<div class="nun_choose ">
+									<div id="deal-intro" class="c_number-box" max="{if $data.deal.max_portion gt 0}<?php echo $this->_var['data']['deal']['max_portion'] - $this->_var['data']['has_bid_portion'];  ?>{else}{$data.deal.need_portion}{/if}" >
+										<a class="c_number Minus pull-left" rel="-">-</a>
+										<input id="deal_id" type="hidden" value="{$data.deal.id}"  />
+										<input id="buy_number" name="buy_number" type="hidden" value="{$data.deal.min_loan_money}" >
+									    <input type="text" value="1" class="nuns pull-left"  autocomplete="off" name="pay_inmoney" id="pay_inmoney"/>
+									    <a class="c_number Plus pull-left" rel="+">+</a>
+									</div>
+								</div>
+                        </div>
+                     </li>	
+					<li class="bb1">
+                     	 <label>预计收益</label>
+                     	<div class="list_con "><span class="J_u_money_sy f_red">0.00</span></div>
+                     </li>
+					{else}
+					 <li class="bb1">
+                        <label >投标金额</label>
+                        <div class="list_con ">
+                        	<input id="deal_id" type="hidden" value="{$data.deal.id}"  />
+            				<input id="pay_inmoney" name="pay_inmoney" class="ipt pull-left" placeholder="请输入投资金额" type="text" style="width:50%"/>
+                        	
+                        </div>
+                     </li>
+                     <li class="bb1">
+                     	 <label>预计收益</label>
+                     	<div class="list_con "><span class="J_u_money_sy f_red">0.00</span></div>
+                     </li>
+					{/if}
+                    {if $data.interestrate_list}
+                     <li class="bb1">
+                        <label>使用加息券</label>
+                        <div class="list_con">
+                            <label class="ui-checkbox " rel="use_interestrate" >
+                                <input type="checkbox" class='mt' value="1" name="use_interestrate" id="use_interestrate"/>
+                            </label>
+							<span class="f_red">加息券与红包不可同时使用</span>
+                        </div>
+                    </li>
+                    {/if}
+					{if $data.ecv_list}
+					<li class='ecv_row bb1'>
+                        <label>使用红包</label>
+                        <div class="list_con" style="height:5rem">
+                        	<select name="ecv_id" id="ecv_id" class="select">
+                        		<option value="0">选择红包</option>
+								{foreach from="$data.ecv_list" item="ecv"}
+								<option value="{$ecv.id}">{$ecv.name}[抵{$ecv.money}元]</option>
+								{/foreach}
+                        	</select>
+							<span class="f_red">超出部分不返还</span>
+                        </div>
+                     </li>
+					{/if}
+                    
+                    {if $data.interestrate_list}
+                    <li class='interestrate_row bb1' style="display:none;">
+                        <label>选择加息券</label>
+                        <div class="list_con">
+                            <select name="interestrate_id" id='interestrate_id' class="select">
+                                <option>选择加息券</option>
+                                {foreach from=$data.interestrate_list item="interestrate"}
+                                <option value="{$interestrate.id}">{$interestrate.name}[{$interestrate.rate_format}]</option>
+                                {/foreach}
+                            </select>
+						</div>
+                    </li>
+                   {/if}
+					<li >
+                        <label>支付密码</label>
+                        <div class="list_con">
+                        <input id="pay_inmoney_password" class="ipt pull-left" type="password" placeholder="请输入您的支付密码" style="width:55%" />
+                        {if $is_login eq 0}
+							<a href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if});" class="linkbtn pull-right ">设置支付密码</a>
+							{else}
+							<a href="#" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd"}','#reset_pay_pwd',2)" class="linkbtn pull-right">设置支付密码</a>
+							{/if}
+						</div>
+					 </li>
+                </ul>
+            </div>
+			{/if}
+        </div><!--mainblok——end--> 
+   </div>
+   <div class="blank0"></div>
+	<div class="w_b but_box_parent padding">
+		<div class="w_b_f_1 but_box">
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="deal_mobile" p="id=$data.deal.id"}','#deal_mobile',2);"  class=" but_this" >查看详情</a>
+		</div>
+		<div class="w_b_f_1 but_box">
+			 {if $data.deal.deal_status eq 1 && $data.deal.remain_time gt 0}
+			    {if $is_login eq 1}
+				     <div id="pay_deal" class="bg_ea544a but_this">我要投资</div>
+			   	{else}
+				      <a href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if});" class="bg_ea544a but_this">我要投资</a>
+				{/if}
+			{/if}
+			{if $data.deal.deal_status eq 1 && $data.deal.remain_time lte 0}<span class="bg_dbdbdb but_this" >已过期</span>{/if}
+			{if $data.deal.deal_status eq 2}<span class="bg_dbdbdb but_this" >满标</span>{/if}
+			{if $data.deal.deal_status eq 3}<span class="bg_dbdbdb but_this" >流标</span>{/if}
+			{if $data.deal.deal_status eq 4}<span class="bg_dbdbdb but_this" >还款中</span>{/if}
+			{if $data.deal.deal_status eq 5}<span class="bg_dbdbdb but_this" >已还款</span>{/if}
+			{if $data.deal.deal_status eq 0}<span class="bg_dbdbdb but_this" >等待材料</span>{/if}
+		</div>
+	</div>
+    
+
+
+{include file="./inc/footer.html"}
+
+
+

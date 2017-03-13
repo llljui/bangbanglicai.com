@@ -1,0 +1,52 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<if condition="$is_mymanager neq 1">
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+<div class="search_row">
+	成员：
+	<input type="text" class="textbox" name="adm_name"  value="{$adm_name}" />
+	
+	<input type="hidden" value="MyManager" name="m" />
+	<input type="hidden" value="index" name="a" />
+	<input type="submit" class="button" value="{%SEARCH}" />
+	<input type="button" class="button" onclick="export_csv()" value="导出" />
+</div>
+</if>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="customer"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,adm_name:成员
+		,real_name:姓名
+		,mobile:手机
+		,pid|get_admin_name:所属部门
+		,role_id:所属角色
+		,referrals_rate:提成系数(%)
+		,referrals_count:底下投资人
+		,referrals_money:提成
+		,is_effect|get_is_effect=$customer['id']:{%IS_EFFECT}
+		,login_time|to_date:最后登录时间|150px
+		,login_ip:最后登录IP|130px
+		"
+	actionlist="edit:{%EDIT}, del:{%DEL}"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

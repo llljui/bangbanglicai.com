@@ -1,0 +1,121 @@
+.everwin_confirm{ border: 1px solid #d4d4d4;  padding-right: 30px;}
+.everwin_confirm h5{ line-height: 31px; padding: 15px 0px 15px 30px;}
+.everwin_confirm h5 .title{ font-size: 24px; border-right:3px solid #39A1EA; padding-right: 20px; float: left; }
+.everwin_confirm h5 .small_title{ color: #969696; padding-left: 14px; float: left; font-weight: 100;}
+
+.everwin_confirm .content{ margin: 20px 0 0 30px;}
+
+.orange {
+color: #39A1EA;
+}
+
+.everwin_confirm .con{ text-align: center; margin: 20px 0 0 30px; padding-bottom: 35px;border-bottom:1px solid #dfdfdf ; font-size: 12px;}
+
+.l1 .r1,.l1 .r3{ background: #fafafa; border: 1px solid #dfdfdf; line-height: 34px; font-size: 18px;  color: #000;}
+.l1 .r1{ width: 35%;}
+.l1 .r3{ width: 55%;}
+
+
+.l2 .r1{ height: 80px; font-size: 18px;border-right: 1px solid #dfdfdf; border-left:1px solid #dfdfdf ;}
+.l2 .r3{ height: 80px; font-size: 18px;border-right: 1px solid #dfdfdf; border-left:1px solid #dfdfdf ;}
+.l2 .r1 strong{ font-size: 24px; }
+.l2 .r3 strong{ font-size: 24px; }
+.l3 .r1{ border:1px solid #dfdfdf; border-top: none;  padding-bottom: 25px;}
+.l3 .r3{ border:1px solid #dfdfdf; border-top: none;  padding-bottom: 25px;}
+
+
+
+#cate {
+display: inline-block;
+height: 26px;
+line-height: 26px;
+text-align: left;
+width: 92px;
+position: relative;
+vertical-align: -4px;
+font-size: 12px;
+*position:absolute;
+*left:54%;
+}
+#cate .cate_wrp {
+overflow: hidden;
+width: 92px;
+height: 26px;
+}
+
+#cate .cate_inp {
+padding-left: 15px;
+height: 24px;
+width: 50px;
+border: 1px solid #dfdfdf;
+border-right: none;
+background: #fff;
+float: left;
+cursor:pointer;
+}
+
+#cate a.cate_tri:link, #cate a.cate_tri:visited {
+width: 26px;
+height: 26px;
+float: left;
+background: transparent url('../images/peizi/select_right.png') no-repeat center center;
+}
+
+
+
+#cate .cate_drop {
+background: #fff;
+width: 90px;
+border: 1px solid #dfdfdf;
+border-radius: 2px;
+position: absolute;
+display: none;
+}
+
+#cate .cate_drop li {
+padding-left: 15px;
+width: 74px;
+}
+
+
+#cate .cate_drop li:hover {
+background: #39A1EA;
+color: #fff;
+cursor: pointer;
+}
+
+.in-all{ text-align: right; font-weight: bold; font-size: 20px; line-height: 80px;}
+
+.button{
+background-color: #39A1EA;
+width: 154px;
+line-height: 40px;
+color: #fff;
+font-size: 16px;
+border: 0 none;
+border-radius: 4px;
+float: right;
+text-align: center;
+cursor: pointer;
+}
+
+.disabled{
+	background: #ccc;
+}
+.but_block{ 
+padding-bottom: 50px;}
+
+
+.history_go{
+	 line-height:13px; margin-top:20px; margin-right:50px; color:#969696;float: right;
+}
+
+.in-all span{ padding: 0 10px;}
+
+
+
+
+
+
+
+

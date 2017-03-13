@@ -1,0 +1,104 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<script type="text/javascript">
+	function op_edits(id,yz,status)
+	{
+		window.location.href=ROOT+'?m=PeiziOrder&a=op_edits&id='+id+'&yanzheng='+yz+'&status='+status;
+	}
+	function makedeals(){
+		if($("input[name='key']:checked").length == 0){
+			alert("请选择要生成理财包的配资");
+			return false;
+		}
+		
+		var ids = "";
+		$("input[name='key']:checked").each(function(){
+			ids += ","+$(this).val();
+		});
+		
+		ids =  ids.substr(1,ids.length);
+		window.location.href = ROOT+'?m=PeiziOrder&a=makedeals&ids='+ids;
+	}
+</script>
+<PHP>
+	function get_deal_name($deal_id){
+		if($deal_id > 0){
+			$deal = D("Deal")->where("id=".$deal_id)->find();
+			$ext ="";
+			if($deal['publish_wait']>0){
+				$ext = "【审核中】" ;
+			}
+			return '<a href="__ROOT__/index.php?ctl=deal&id='.$deal_id.'" target="_blank">'.$deal["name"].$ext.'</a>';
+		}
+		else
+			return '未分配';
+	}
+</PHP>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		配资类型
+		<select name="deal_status">
+           <option value="-1" <if condition="$deal_status eq '-1' || $deal_status eq ''">selected="selected"</if>>全部</option>
+           <option value="0" <if condition="$deal_status eq 0">selected="selected"</if>>未分配</option>
+           <option value="1" <if condition="$deal_status eq 1">selected="selected"</if>>已分配</option>
+		</select>
+		配资类型
+		<select name="peizi_conf_id">
+        	<option value="-1" <if condition="$peizi_conf_id eq '-1' || $type eq ''">selected="selected"</if>>全部</option>
+            <foreach name='type_list' item='item'>
+            	<option value="{$item.id}" <if condition="$peizi_conf_id eq $item['id']">selected="selected"</if>>{$item.name}</option>
+            </foreach>
+		</select>
+		
+		投资人
+		<input type="text" class="textbox J_autoUserName" name="invest_user_name" value = "{$invest_user_name}" />
+		<input type="hidden" class="textbox J_autoUserId" name="invest_user_id" value = "{$invest_user_id}" />
+					
+		<input type="hidden" value="PeiziOrder" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		
+		<input type="button" class="button" onclick="makedeals();"" value="所选生成理财包" />
+		
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="list"
+	checkbox="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,deal_id|get_deal_name:理财产品
+		,invest_user_id|get_user_name_real:投资人
+		,total_money|format_price:总操盘资金
+		,borrow_money|format_price:借款金额
+		,cost_money|format_price:保证金
+		,lever:倍率
+		,rate_money|format_price:利息费
+		,site_money|format_price:服务费
+		,time_limit_num_format:期限
+		,create_time:申请时间 
+		,is_today_format:开始交易时间
+		,begin_date:预计开始日
+		,conf_type_name:配资类型 		
+		,status_format:状态" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

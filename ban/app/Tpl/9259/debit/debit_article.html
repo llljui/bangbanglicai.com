@@ -1,0 +1,72 @@
+{if $ajax==0}
+{include file="debit/debit_header.html"} 
+{/if}
+<?php
+$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/debit_help_center.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+{if $ajax==0}
+<div style=" background:#ff3f44; height:2px;"></div>
+{/if}
+<div class="help_center">
+
+	{if $ajax==0}
+    <div class="blank20"></div>
+	<div class=" wrap clearfix">
+    	{if $cate_name == '公司动态'}
+    	<adv adv_id="白条文章页广告_公司动态" />
+        {elseif $cate_name == '注意事项'}
+        <adv adv_id="白条文章页广告_注意事项" />
+        {elseif $cate_name == '如何还款'}
+        <adv adv_id="白条文章页广告_如何还款" />
+        {elseif $cate_name == '如何领白条'}
+        <adv adv_id="白条文章页广告_如何领白条" />
+        {elseif $cate_name == '关于我们'}
+        <adv adv_id="白条文章页广告_关于我们" />
+        {elseif $cate_name == '白条'}
+		<adv adv_id="白条文章页广告_白条" />
+        {/if}
+	</div>
+    <div class="blank20"></div>
+	<div class=" wrap clearfix">
+    	<div class="f_l Article_nav">
+			<ul>
+            	{if $article_list}
+                {foreach from=$article_list  item=item}
+                    <li class="nav_0 {if $item.id==$article.id}y{/if}"  alt="{$item.title}"><a href="javascript:void(0)">{$item.title}</a>
+                    </li>
+                {/foreach}
+                {else}
+                    <li class="nav_0 y"  alt="{$item.title}"><a href="javascript:void(0)">{$article.title}</a>
+                    </li>
+                {/if}
+			</ul>
+		</div>
+		<div class="f_r Article_p">{/if}
+        	<div class='Acticle_content'>
+			<h5>{$article.title}</h5>
+			<p>
+				  {$article.content}
+			</p>
+            </div>{if $ajax==0}
+		</div>
+
+	</div>
+	<div class="blank20"></div>
+	{/if}
+</div>
+{if $ajax==0}
+<script language="javascript">
+$(function() {
+	$(".nav_0").click(function(){
+		$(".y").removeClass("y");
+		$(this).addClass("y");
+		$(".Article_p").load('{url x="debit" r="debit_article#index"}&title='+encodeURI($(this).attr("alt"))+" .Acticle_content");
+	});
+});
+</script>
+{/if}
+
+{if $ajax==0}
+{include file="debit/debit_footer.html"}
+{/if}

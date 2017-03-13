@@ -1,0 +1,226 @@
+
+<div class="p20 ucindex">
+	<div class="p15">
+		<div class="f_l uc_mbox">
+			<h1>可用余额（元）</h1>
+			<h2 class=' J_u_money_0'>{function name="number_format" v="$user_data.money" f=2}</h2>
+		</div>
+		<div class="f_l uc_mbox">
+			<h1>账户余额（元）</h1>
+			<h2 class=' J_u_money_1'>{function name="number_format" v="$user_data.total_money" f=2}</h2>
+		</div>
+		<div class="f_l uc_mbox">
+			<h1>冻结余额（元）</h1>
+			<h2 class='J_u_money_2'>{function name="number_format" v="$user_data.lock_money" f=2}</h2>
+		</div>
+		<div class="blank20"></div>
+		<div class="f_l f14">
+			{if intval(app_conf("OPEN_IPS")) gt 0}
+                	第三方管理账号：
+                    {if $user_data.ips_acct_no neq ''}<span class="f_red">已绑定</span>{else}<a href="javascript:void(0);" onclick="new_window = window.open();" id="J_bind_ips" class="f_blue">去绑定</a>{/if}&nbsp;&nbsp;&nbsp;
+                
+            {/if}
+			 我的红包：<a href="{url x="index" r="uc_voucher"}" class="f_red">{$voucher_count}</a> 个
+		</div>
+		<div class="tc f_r pr10">
+            <a href="{url x="index" r="uc_money#incharge"}"  class="btn_red blue f_white lh30  w90 ">充值</a>
+            <a href="{url x="index" r="uc_money#bank"}" class=" btn_blue  f_white lh30  w90  ">提现</a>
+		</div>
+		<div class="blank0"></div>
+	</div>
+	<div class="blok2"></div>
+	<div class="p15">
+		<div class="p60 ">
+			<span class="f16 f_333 b">账户详情</span>
+			<a class='f14 pl10 f_red' href="{url x="index" r="uc_deal#borrow_stat"}">查看详情</a>
+			<div class="blank0"></div>
+			<div class="clearfix us_boxs pt10">
+        	<ul>
+                <li>贷款总额：<span>{function name="format_price" value="$user_statics.borrow_amount"}</span></li>
+                <li>借款笔数：<span>{$user_statics.success_deal_count}笔</span></li>
+                <li>已还本息：<span>{function name="format_price" value="$user_statics.repay_amount"}</span></li>
+                <li>待还本息：
+				<span>
+                	{function name="app_conf" value="CURRENCY_UNIT"}{$user_statics.need_repay_money}
+				</span>
+				</li>
+                <li>已付管理费：<span>{function name="format_price" value="$user_statics.repay_manage_amount"}</span></li>
+                <li>待付管理费：<span>{function name="format_price" value="$user_statics.need_manage_amount"}</span></li>
+                <li>逾期本息：<span>{function name="format_price" value="$user_statics.yuqi_amount"}</span></li>
+                <li>逾期费用：<span>{function name="format_price" value="$user_statics.yuqi_impose"}</span></li>
+            </ul>
+        </div>
+		</div> 
+	</div>
+	<div class="blok2"></div>
+	<div class="p15">
+		<div class="p60 ">
+			<span class="f16 f_333 b">投资统计</span>
+			<a class='f14 pl10 f_red' href="{url x="index" r="uc_earnings"}">查看详情</a>
+			<div class="blank0"></div>
+			<div class="clearfix us_boxs pt10">
+        	<ul>
+                <li>投资总额：<span>{function name="format_price" value="$user_statics.load_money"}</span></li>
+                <li>投资笔数：<span>{$user_statics.load_count}笔</span></li>
+                <li>充值总额：<span>{function name="format_price" value="$user_statics.incharge_money"}</span></li>
+                <li>提现总额：<span>{function name="format_price" value="$user_statics.carry_money"}</span></li>
+                <li>已挣利息：<span>{function name="format_price" value="$user_statics.load_earnings"}</span></li>
+                <li>已挣奖励：<span>{function name="format_price" value="$user_statics.referrals_money"}</span></li>
+                <li>待收利息：<span>{function name="format_price" value="$user_statics.load_wait_earnings"}</span></li>
+                <li>待收本金：<span>{function name="format_price" value="$user_statics.load_wait_self_money"}</span></li>
+                <li>待付管理费：<span>{function name="format_price" value="$user_statics.load_wait_manage"}</span></li>
+                <li>已付管理费：<span>{function name="format_price" value="$user_statics.load_manage_money"}</span></li>
+            </ul>
+        	</div>
+		</div> 
+	</div>
+	<div class="blok2"></div>
+	<div class="p15">
+		<div class="p60 ">
+			<span class="f16 f_333 b">近期待还款</span>
+			<div class="blank0"></div>
+		</div> 
+	</div>
+	{if $day_deal_repay}
+		<div class="uc_box clearfix pt10">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<tbody>
+					
+					<tr border="0">
+						<th>贷款名称</th>
+						<th style="width:10%">第几期</th>
+						<th style="width:15%">还款金额</th>
+						<th style="width:12%">待还本金</th>
+						<th style="width:12%">待还利息</th>
+						<th style="width:10%">还款日</th>
+						<th style="width:10%">还款状态</th>
+					</tr>
+					{foreach from="$day_deal_repay" item="item" key=key}
+				
+					<tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+						<td class="tl">
+							<div class=" pl10">
+							<a href="{url x="index" r="deal" p="id=$item.deal_id"}" class="f_blue" target="_blank">{$item.name}</a>
+		           	    	</div>
+						</td>
+						<td>
+							{$item.l_key_index}
+						</td>
+							<td>{$item.repay_money_format}</td>
+							<td>{$item.self_money_format}</td>
+							<td>{$item.interest_money_format}</td>
+						<td>
+							{function name="to_date" v=$item.repay_time f="Y-m-d"}     
+						</td>
+						<td>
+							{$item.status_format} 
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		{else}	
+		<div align="center" style="padding:20px 0">暂无记录</div>
+	{/if}
+	<div class="blank20"></div>
+	<div class="blok2"></div>
+	<div class="p15">
+		<div class="p60 ">
+			<span class="f16 f_333 b">近期待收款</span>
+			<div class="blank0"></div>
+		</div> 
+	</div>
+	{if $day_repay_list}
+		<div class="uc_box clearfix pt10">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<tbody>
+					
+					<tr border="0" >
+						<th>贷款名称</th>
+						<th style="width:10%">第几期</th>
+						<th style="width:15%">待收款</th>
+						<th style="width:12%">预期收益</th>
+						<th style="width:12%">实际收益</th>
+						<th style="width:10%">还款日</th>
+						<th style="width:10%">还款状态</th>
+					</tr>
+				
+					
+					{foreach from="$day_repay_list" item="item" key=key}
+				
+					<tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+						<td class="tl">
+							<div class=" pl10">
+							<a href="{url x="index" r="deal" p="id=$item.deal_id"}" class="f_blue" target="_blank">{$item.name}</a>
+		           	    	</div>
+						</td>
+						<td>
+							{$item.l_key_index}
+						</td>
+							<td>{$item.repay_money_format}</td>
+							<td>{$item.interest_money_format}</td>
+							<td>{if $item.has_repay eq 1}{$item.shiji_money} {else} 0 {/if}</td>
+						<td>
+							{function name="to_date" v=$item.repay_time f="Y-m-d"}     
+						</td>
+						<td>
+							{$item.status_format} 
+						</td>
+					</tr>
+					
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		{else}	
+		<div align="center" style="padding:20px 0">暂无记录</div>
+	{/if}
+	<div class="blank30"></div>	
+</div>
+
+
+
+<style type="text/css">
+	.joke{font-size: 16px;}
+</style>
+<script type="text/javascript">
+	jQuery(function(){
+		{if $user_data.ips_acct_no neq '' && intval(app_conf("OPEN_IPS")) gt 0}
+		checkIpsBalance(0,{$user_data.id},function(result){
+			if(result.pErrCode=="0000"){
+				$(".J_u_money_0").html($(".J_u_money_0").html() + "<div class='blank0'></div><span class='joke'>+" + formatNum(result.pBalance) +"[绑]</span>");
+				$(".J_u_money_1").html($(".J_u_money_1").html() + "<div class='blank0'></div><span class='joke'>+" + formatNum(result.pBalance + result.pLock + result.pNeedstl) +"[绑]</span>");
+				$(".J_u_money_2").html($(".J_u_money_2").html() + "<div class='blank0'></div><span class='joke'>+" + formatNum(result.pLock) +"[绑]</span>");
+				
+				$("#s_total_money").html(formatNum(result.pBalance + result.pLock + result.pNeedstl));
+				$("#s_moeny").html(formatNum(result.pBalance));
+				$("#s_lock_money").html(formatNum(result.pLock));
+			}
+		});
+		{/if}
+	});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			

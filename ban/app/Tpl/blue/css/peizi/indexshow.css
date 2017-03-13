@@ -1,0 +1,153 @@
+/* info 综合信息 */
+.info {
+  background-color: #ffffff;
+    color:#333;
+	margin-bottom: -20px;
+}
+.info table{
+    color:#333;
+}
+.info .inner {
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  
+}
+.info .line-bg {
+  display: block;
+  width: 1200px;
+  height: 10px;
+  background: url(../images/line_bg.png) no-repeat center;
+}
+.info a {
+  color: #6c88c4;
+}
+.info a:hover {
+  color: #39A1EA;
+}
+/* - ranklist 排行榜 - */
+.rankings {
+
+}
+.rankings-title {
+  position: relative;
+  padding: 0 10px;
+  margin-bottom:12px;
+
+}
+.rankings .switch-tab-wrap {
+/*
+  position: absolute;
+  right: -20px;
+  top: 0px;
+  */
+  float:right;
+}
+.rankings .switch-tab-wrap li {
+  float: left;
+  line-height: 30px;
+  text-align: center;
+  margin:0 15px;
+}
+.rankings .switch-tab {
+  display: block;
+ 
+  font-size: 14px;
+  color: #000;
+  float: left;
+}
+.rankings .switch-tab:hover {
+  color: #39A1EA;
+  border-bottom: 3px solid #39A1EA;
+  text-decoration: none;
+}
+.rankings .switch-tab.curr {
+  color: #39A1EA;
+  text-decoration: none;
+  border-bottom: 3px solid #39A1EA;
+}
+
+/* -- ranklist 排行列表 -- */
+.ranklist th {
+  border-top: 1px solid #d8d7d7;
+  border-bottom: 1px solid #d8d7d7;
+}
+.ranklist td {
+  line-height: 45px;
+  border-bottom: 1px solid #d8d7d7;
+}
+.ranklist th {
+  font-weight: normal;
+  text-align: left;
+  line-height: 50px;
+  background-color: #f8f8f8;
+}
+.ranklist th, .ranklist td, .ranklist a, .ranklist span {
+  font-size: 14px;
+}
+
+.rank-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+  line-height: 24px;
+  color: #fff;
+  text-align: center;
+  background: url(../images/peizi/top_3.png) no-repeat 0 0;
+}
+.rank-gray {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin-left: 24px;
+  text-align: center;
+  line-height: 16px;
+  color: #fff;
+  background-color: #c2c8cc;
+}
+/* -- sort 排序样式 -- */
+.sort.a {
+  cursor: pointer;
+  position: relative;
+}
+.sort.b {
+  cursor: pointer;
+  position: relative;
+}
+.sort.pre{
+  cursor: pointer;
+  position: relative;
+}
+.sort-icon {
+  display: block;
+  width: 11px;
+  height: 12px;
+  background: url(../images/peizi/sort.png) no-repeat right 0;
+}
+span.sort-icon.red {
+  background: url(../images/peizi/sort.png) no-repeat left 0;
+}
+span.sort-icon.sort-icon-hover {
+  background: url(../images/peizi/sort.png) no-repeat left 0;
+}
+.sort.a .sort-icon {
+  position: absolute;
+  left: 105px;
+  top: 20px;
+}
+.sort.b .sort-icon {
+  position: absolute;
+  left: 50px;
+  top: 20px;
+}
+.sort.pre .sort-icon {
+  position: absolute;
+  left: 50px;
+  top: 20px;
+}
+.f-22{ font-size:22px;}
+
+.cl-blue{ color:#39A1EA;}
+.cl-153{ color:#999}

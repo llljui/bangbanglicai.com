@@ -1,0 +1,329 @@
+<div class="blank20"></div>
+<div class="tabbox " style="border-left:0">
+	<div class="tab cur"><?php if ($this->_var['act_type'] == 0): ?>贷款描述<?php else: ?>投标详情<?php endif; ?></div>
+</div>
+<div class="bdd  bddf bt0" >
+	<div class="clearfix pt5 pb5 pl5 pr5">
+		<div class="clearfix p5"   style="line-height:50px">
+			<div class="clearfix">
+				<?php if ($this->_var['borrowpay'] == 1): ?>
+				<p class="f_l" style="width: 250px; padding-left:100px">
+					<?php if ($this->_var['act_type'] == 0): ?>每月需还利息<?php else: ?>每月回报利息<?php endif; ?>： <span class="f_red">￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['repayamount'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+				</p>
+				<?php endif; ?>
+				<p class="f_l" style="width: 250px; padding-left:100px">
+					<?php if ($this->_var['borrowpay'] == 2 || $this->_var['repaytimetype'] == 0): ?>
+					<?php if ($this->_var['act_type'] == 0): ?>到期需还本金<?php else: ?>到期收回本金<?php endif; ?>：  <span class="f_red">￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['borrowamount'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+					<?php endif; ?>
+					<?php if ($this->_var['borrowpay'] != 2): ?>
+						<?php if ($this->_var['act_type'] == 0): ?>每月需还<?php else: ?>每月回收<?php endif; ?><?php if ($this->_var['borrowpay'] == 0 || $this->_var['borrowpay'] == 3): ?>本<?php else: ?>利<?php endif; ?>息： <span class="f_red">￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['repayamount'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+					<?php endif; ?>
+				</p>
+				<p class="f_l" style="width: 250px; padding-left:100px">
+					您将在<span class="f_red"> <?php echo $this->_var['repaytime']; ?> </span> <?php if ($this->_var['repaytimetype'] == 1): ?>个月<?php else: ?>天<?php endif; ?>后<?php if ($this->_var['act_type'] == 0): ?>还清贷款<?php else: ?>回收借款<?php endif; ?>
+				</p>
+			
+				<p class="f_l" style="width: 250px ; padding-left:100px">
+					<span style="margin-left: 35px"><?php if ($this->_var['repaytimetype'] == 1): ?>月<?php else: ?>天<?php endif; ?>利率：</span> 
+					<span class="f_red">
+					<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['rate'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%</span>
+				</p>
+				<p class="f_l" style="width: 250px; padding-left:100px">
+					<?php if ($this->_var['act_type'] == 0): ?>您需还本息共<?php else: ?>您的回报本息共<?php endif; ?> <span class="f_red">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['repayallamount'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+				</p>
+				<?php if ($this->_var['act_type'] == 0): ?>
+				<p class="f_l" style="width: 250px; padding-left:100px">
+					借款服务费 <span class="f_red">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['services_fee'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+				</p>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</div>
+<?php if ($this->_var['list']): ?>
+<div class="blank20"></div>
+
+<div class="tabbox " style="border-left:0">
+	<div class="tab cur"><?php if ($this->_var['act_type'] == 0): ?>本息偿还时间表<?php else: ?>本息回报时间表<?php endif; ?></div>
+</div>
+<div class="bdd bddf bt0">
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+	<div class="pt10 pb10 bdd"  style="width:1000px">
+		<div class="clearfix">
+			<div class="clearfix tc  pb5"  style="line-height:50px">
+				<div class="f_l f_dgray b" style="width: 100px">第几期</div>
+				<div class="f_l f_dgray b" style="width: 150px">月还本息</div>
+				<div class="f_l f_dgray b" style="width: 150px">月还本金</div>
+				<div class="f_l f_dgray b" style="width: 120px">月还利息</div>
+				<div class="f_l f_dgray b" style="width: 120px">借款管理费</div>
+				<div class="f_l f_dgray b" style="width: 115px">本息余额</div>
+				<div class="f_l f_dgray b" style="width: 100px">逾期金额</div>
+				<div class="f_l f_dgray b" style="width: 100px">逾期管理费</div>
+			</div>
+			<div class="dot"></div>
+		</div>
+		<div class="clearfix">
+			<div class="clearfix tc odd" style="line-height:50px">
+				<div class="f_l f_dgray b" style="width: 100px">&nbsp;</div>
+				<div class="f_l f_dgray b" style="width: 150px">&nbsp;</div>
+				<div class="f_l f_dgray b" style="width: 150px">&nbsp;</div>
+				<div class="f_l f_dgray b" style="width: 120px">&nbsp;</div>
+				<div class="f_l f_dgray b" style="width: 120px">&nbsp;</div>
+				<div class="f_l f_dgray" style="width: 115px">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['repayallamount'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				
+			</div>
+			<div class="dot"></div>
+		</div>
+		<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'item');$this->_foreach['lists'] = array('total' => count($_from), 'iteration' => 0);
+if ($this->_foreach['lists']['total'] > 0):
+    foreach ($_from AS $this->_var['item']):
+        $this->_foreach['lists']['iteration']++;
+?>
+		<div class="clearfix">
+			<div class="clearfix tc wb" style="line-height:50px">
+				<div class="f_l f_dgray" style="width: 100px; ">
+					第 <?php echo $this->_foreach['lists']['iteration']; ?> 期
+				</div>
+				<div class="f_l f_dgray" style="width: 150px; ">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['repay_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 150px; ">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['self_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 120px; ">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['interest_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 120px; ">
+					 ￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['manage_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 115px; ">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['left_repay_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 100px; ">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['impose_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 100px; ">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['manage_impose_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+			</div>
+			<div class="dot"></div>
+		</div>
+		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	</div>
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+</div>
+<?php endif; ?>
+<?php if ($this->_var['tq_list']): ?>
+<div class="blank20"></div>
+<div class="tabbox " style="border-left:0">
+	<div class="tab cur">提前偿还罚息表</div>
+</div>
+<div class="bdd bddf bt0">
+	
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+	<div class="pt10 pb10 bdd"  style="width:1000px">
+		<div class="clearfix">
+			<div class="clearfix tc  pb5"  style="line-height:50px">
+				<div class="f_l f_dgray b" style="width: 150px">在第几期提前</div>
+				<div class="f_l f_dgray b" style="width: <?php if ($this->_var['act_type'] == 0): ?>150px<?php else: ?>270px<?php endif; ?>">当月本息</div>
+				<div class="f_l f_dgray b" style="width: 150px">当月管理费</div>
+				<div class="f_l f_dgray b" style="width: 150px">提前本金</div>
+				<div class="f_l f_dgray b" style="width: 150px">提前本息</div>
+				<?php if ($this->_var['act_type'] == 0): ?>
+				<div class="f_l f_dgray b" style="width: 120px">提前管理费</div>
+				<?php endif; ?>
+				<div class="f_l f_dgray b" style="width: 100px">提前罚息</div>
+			</div>
+			<div class="dot"></div>
+		</div>
+		
+		<?php $_from = $this->_var['tq_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'item');$this->_foreach['tqlists'] = array('total' => count($_from), 'iteration' => 0);
+if ($this->_foreach['tqlists']['total'] > 0):
+    foreach ($_from AS $this->_var['item']):
+        $this->_foreach['tqlists']['iteration']++;
+?>
+		<div class="clearfix">
+			<div class="clearfix tc wb" style="line-height:50px">
+				<div class="f_l f_dgray" style="width: 150px; ">
+					第 <?php echo $this->_foreach['tqlists']['iteration']; ?> 期
+				</div>
+				<div class="f_l f_dgray" style="width: <?php if ($this->_var['act_type'] == 0): ?>150px<?php else: ?>270px<?php endif; ?>; ">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['month_repay_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 150px; ">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['manage_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 150px; ">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['true_self_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<div class="f_l f_dgray" style="width: 150px; ">
+					￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['true_repay_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<?php if ($this->_var['act_type'] == 0): ?>
+				<div class="f_l f_dgray" style="width: 120px; ">
+					 ￥ <?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['true_manage_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+				<?php endif; ?>
+				<div class="f_l f_dgray" style="width: 100px; ">
+					￥<?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['item']['impose_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>
+				</div>
+			</div>
+			<div class="dot"></div>
+		</div>
+		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	</div>
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+	<div class="blank20"></div>
+</div>
+<?php endif; ?>

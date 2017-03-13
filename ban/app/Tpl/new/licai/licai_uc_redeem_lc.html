@@ -1,0 +1,160 @@
+<?php
+$this->_var['repaycss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.core.js";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.widget.js";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.datepicker.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$repaycss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$repayjs" c="$repayjs"}"></script>
+
+<script type="text/javascript">
+jQuery(function(){
+	$("input#begin_time").datepicker({showAnim:'fadeIn'});
+	$("input#end_time").datepicker({showAnim:'fadeIn'});
+	$("input#buy_begin_time").datepicker({showAnim:'fadeIn'});
+	$("input#buy_end_time").datepicker({showAnim:'fadeIn'});
+	
+	$("form#search-form").submit(function(){
+		var val = $("input#begin_time").val();
+		$("input[name='begin_time']").val(val.replace(/-/g,""));
+		
+		var val = $("input#end_time").val();
+		$("input[name='end_time']").val(val.replace(/-/g,""));
+		
+		var val = $("input#buy_begin_time").val();
+		$("input[name='buy_begin_time']").val(val.replace(/-/g,""));
+		
+		var val = $("input#buy_end_time").val();
+		$("input[name='buy_end_time']").val(val.replace(/-/g,""));
+		
+	});	
+	account_more_search("#more_search_btn","#more_search");
+});
+function set_status(id)
+{
+	$.weeboxs.open(APP_ROOT + "/index.php?ctl=licai&act=uc_redeem_lc_status&id="+id, {boxid:"lc_status",contentType:'ajax',showButton:false,title:"发放理财",width:450});
+}
+</script>
+<!--中间开始-->
+<div class="tabbox clearfix">
+	<div class="tab cur"><a href="{url x="index" r="licai#uc_redeem_lc"}">赎回管理</a></div>
+</div>
+<div class="dlmain Myhomepage licai_uc bdd bt0 uc_box">
+	{include file="inc/account_left.html"} 
+	<div class="homeright pageright f_r">
+		<div class="list_content uc_buyed_finance">
+			<div class="licai_total_box">
+				<div class="lf">
+					<div>待处理赎回总额</div>
+					<span>{$vo.licai_wait_money_format}</span>
+				</div>
+				<div class="rt">
+					<ul>
+						<li>
+							<div>待处理赎回申请</div>
+							<div class="text">{$vo.licai_wait_count}个</div>
+						</li>
+						<li>
+							<div>已赎回本金</div>
+							<div class="text">{$vo.licai_pass_money_format}</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="account_search" id="account_search">
+				<div class="blank10"></div>
+				<div class="form_row f_l">
+					<form method="get"  id="account_project">
+				<div class="blank10"></div>
+				<div class="form_row f_l">
+					<label class="form_lable small_form_lable">理财名称：</label>
+					<div class="pr f_l">
+						<input type="text" name="deal_name" value="{$search.deal_name}" class="small_textbox textbox w200 mr10" />
+						<span class="holder_tip">请输入项目名称</span>
+					</div>
+					<label class="form_lable small_form_lable">申请时间：</label>
+					<div class="small_form_text">
+						<input readonly="" type="text" class="small_textbox w100 jcDate" rel="input-text" value="{$search.begin_time}" name="begin_time" id="begin_time" placeholder="开始时间">
+						<span class="f_l pl10 pr10">-</span>
+						<input readonly="" type="text" class="small_textbox w100 jcDate mr20" rel="input-text" value="{$search.end_time}" name="end_time" id="end_time" placeholder="结束时间">
+					</div>
+				</div>
+				<input type="submit" value="搜索" class="true_btn select_btn f_l" />
+				<input type="hidden" name="ctl" value="licai">
+				<input type="hidden" name="act" value="uc_redeem_lc">
+				<a href="javascript:void(0);" id="more_search_btn" class="more_search_btn f_red">更多筛选</a>
+				<div id="more_search" style="display:none;">
+					<div class="blank0"></div>
+					<div class="form_row f_l">
+						<label class="form_lable small_form_lable">购买人：</label>
+						<div class="pr f_l">
+							<input type="text" name="user_name" value="{$seartch.user_name}" class="small_textbox textbox w200 mr10" />
+							<span class="holder_tip">请输入购买人</span>
+						</div>
+						<div class="blank0"></div>
+					</div>
+                    <label class="form_lable small_form_lable ml20">类型：</label>
+                    <select name="licai_type" id='licai_type' class="ui-select">
+                        <option value="-1" {if $search.licai_type eq -1} selected="selected"{/if}>全部</option>
+                        <option value="0" {if $search.licai_type eq 0} selected="selected"{/if}>余额宝</option>
+                        <option value="1" {if $search.licai_type eq 1} selected="selected"{/if}>固定定存</option>
+                    </select>
+				</div>
+                </form>
+					
+				</div>
+			</div>
+			<div class="blank20"></div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<thead>
+					<tr>
+						<th>理财名称</th>
+						<th width="12%">购买人</th>
+						<th width="10%">持有本金</th>
+						<th width="8%">提前收益率</th>
+						<th width="10%">赎回金额</th>
+						<th width="12%">申请时间</th>
+						<th width="8%">状态</th>
+                        <th width="10%">类型</th>
+                        <th width="10%">理财类型</th>
+						<th width="10%">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+                	{if $list}
+                    {foreach from=$list item=item key=key name=deal}
+					<tr class='item {if $key mod 2 eq 1}item_1{/if}' {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+						<td><a href="{url r="licai#deal" p="id=$item.licai_id"}" target="_blank" title="{$item.licai_name}">{function name="msubstr" v="$item.licai_name"}</a></td>
+						<td>{$item.user_name}</td>
+						<td>{$item.have_money_format}</td>
+						<td>{$item.rata_format}</td>
+						<td>{$item.money_format}</td>
+						<td>{$item.create_date}</td>
+                        <td>{$item.status_format}</td>
+						<td>{$item.type_format}</td>
+                        <td>{$item.licai_type_format}</td>
+						<td>
+							<a href="{url x="index" r="licai#uc_deal_lc" p="id=$item.licai_id"}" target="_blank">查看详情</a>
+                            <br />
+                            {if $item.status==0}
+                            	<a href="javascript:void(0);" onclick="return set_status({$item.id});">审核通过</a>
+                            {/if}
+						</td>
+					</tr>
+					{/foreach}
+					{else}
+					<tr>
+						<td colspan="9" align="center">无任何记录</td>
+					</tr>
+                    {/if}
+				</tbody>
+			</table>
+			<div class="blank20"></div>
+			<div class="pages">{$pages}</div>
+			<div class="blank20"></div>
+		</div>
+		<div class="blank0"></div>
+	</div>
+	<div class="blank0"></div>
+</div>
+<div class="blank0"></div>

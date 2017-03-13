@@ -1,0 +1,36 @@
+<?php echo $this->fetch('inc/header.html'); ?> 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".paybutton,.payLink").bind("click",function(){
+			$.weeboxs.open(APP_ROOT+"/index.php?ctl=payment&act=tip&id=<?php echo $this->_var['payment_notice']['id']; ?>", {contentType:'ajax',showButton:false,title:LANG['PAYMENT_TIP'],width:460,height:150,type:'wee'});	
+		});
+	});
+</script>
+<div class="blank"></div>
+
+<div class="bdd bddf  p20">	
+				<div class="msg_box">
+					<p style="padding: 20px 0pt; text-align: center;">
+					<?php echo $this->_var['LANG']['PAY_NOW']; ?> 
+					[&nbsp;&nbsp;<?php echo $this->_var['LANG']['NOTICE_SN']; ?> ：<span class="red"><?php echo $this->_var['payment_notice']['notice_sn']; ?></span>&nbsp;&nbsp;]
+					</p>
+					
+					<div style="padding: 20px 0pt; text-align: center;" class="order-check-form">
+					<?php echo $this->_var['payment_code']; ?>	
+					</div>
+					<div style="padding: 20px 0pt; text-align: center;">
+					<a href="<?php
+echo parse_url_tag("u:index|uc_money#incharge|"."".""); 
+?>">
+						» <?php echo $this->_var['LANG']['MODIFY_PAYMENT_TYPE']; ?>
+					</a>&nbsp;&nbsp;&nbsp;					
+					<a href="<?php
+echo parse_url_tag("u:index|uc_money#incharge_log|"."".""); 
+?>">» <?php echo $this->_var['LANG']['MY_ORDERS']; ?></a>
+					</div>				
+				</div>
+
+</div>
+
+
+<?php echo $this->fetch('inc/footer.html'); ?>

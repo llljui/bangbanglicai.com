@@ -1,0 +1,57 @@
+<div class="uc_box trader">        
+        <div class="tabbox f14 pl20">
+			历史操作的实盘
+		</div>        
+		{if $trader_list}
+		<div class="clearfix tra_box p10">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<tbody>
+					<tr border="0">
+						<th style="width:12%">实盘单号</th>
+						<th style="width:12%">开始时间</th>
+						<th style="width:12%">结束时间</th>
+						<th style="width:10%">实盘金额</th>
+						<th style="width:10%">盈亏金额</th>
+						<th style="width:12%">返还保证金</th>
+                        <th style="width:16%">订单状态</th>
+                        <th style="width:6%">操作</th>
+					</tr>
+					{foreach from="$trader_list" item="item" key=key}
+			  <tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+						<td >{$item.order_sn}</td>
+						<td>{$item.begin_date}</td>
+						<td>{$item.end_date}</td>
+						<td>{$item.trader_money}</td>
+						<td>{$item.loss_money_format} </td>
+                        <td>{$item.re_cost_money}</td>
+						<td style="color:#39A1EA">{$item.status} </td>
+                        <td><a href="{url x="index" r="uc_trader#history_detail" p="id=$item.id&from=history"}">详情</a></td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		{else}	
+		<div align="center" class='tra_box' style="padding:20px 0">暂无记录</div>
+		{/if}
+		
+		
+</div>
+<div class="pages">{$pages}</div>
+<style type="text/css">
+	.joke{font-size: 16px;}
+	.long_uc .tabbox{ border-left:1px solid #ddd}
+</style>
+<script type="text/javascript">
+	jQuery(function(){
+		{if $user_data.ips_acct_no neq ''}
+		checkIpsBalance(0,{$user_data.id},function(result){
+			if(result.pErrCode=="0000"){
+				$(".J_u_money_0").html($(".J_u_money_0").html() + "<br><span class='joke'>+" + formatNum(result.pBalance) +"[绑]</span>");
+				$(".J_u_money_1").html($(".J_u_money_1").html() + "<br><span>+</span>" + formatNum(result.pBalance + result.pLock + result.pNeedstl) +"<span>[绑]</span>");
+				$(".J_u_money_2").html($(".J_u_money_2").html() + "<br><span>+</span>" + formatNum(result.pLock) +"<span>[绑]</span>");
+			}
+		});
+		{/if}
+	});
+</script>

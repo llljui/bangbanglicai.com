@@ -1,0 +1,95 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","goods_information#index",array("id"=>$this->_var['data']['goods_id']));
+	$this->_var['back_page'] = "#goods_information";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#goods_information" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--确认兑换-->
+<ul class="goods_exchange">
+	{if $data.goods.is_delivery eq 1}
+	<li>
+		<h5 class="clearfix y">
+			<span class="order_nun f_l">收货地址</span>
+			<span class="order_nun f_r">
+			<a href="{wap_url a="index" r="goods_address" }" style="color: #FFFFFF;">	
+			变更地址
+			</a>
+			</span>
+		</h5>
+		<div class="order_content clearfix">
+			
+			<div>
+			{if $data.is_address eq 1}
+				<b><span class="name">姓名：</span>{$data.user_address.name}</b>
+				<dl>
+					<dd>
+						<b><span class="name">手机号码：</span>{$data.user_address.phone}</b>
+					</dd>
+					<dd>
+						<b><span class="name">省市：</span>{$data.user_address.provinces_cities}</b>
+					</dd>
+					<dd class="clearfix" style=" padding-left:76px;">
+						<b><span class="name f_l" style=" margin-left:-76px;">详细地址：</span>{$data.user_address.address}</b>
+					</dd>
+					<dd>
+						<b><span class="name">邮编：</span>{$data.user_address.zip_code}</b>
+					</dd>
+					
+			</dl>
+			{else}
+			
+				<dl>
+					<dd>
+						<a href="{wap_url a="index" r="goods_address" }"> <h6>+ 添加收货人信息</h6></a>
+					</dd>
+				</dl>
+			{/if}
+			</div>
+		</div>
+	</li>
+	{/if}
+	<li>
+		<h5 class="clearfix y">
+			<span class="order_nun f_l">兑换信息</span>
+			
+		</h5>
+		<div class="order_content clearfix">
+			<div>
+				
+				<dl>
+					<dd class="clearfix" style=" padding-left:76px;">
+						<span class="name f_l" style=" margin-left:-76px;">商品：</span>{$data.goods.name}
+						
+					</dd>
+					<dd>
+						<span class="name">所需积分：</span>{$data.needscore}
+						
+					</dd>
+					<dd>
+						<span class="name">兑换数量：</span>{$data.number}
+						
+						
+					</dd>
+			</dl>
+			</div>
+		</div>
+	</li>
+</ul>
+
+<div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<input id="address_id" name="address_id" type="hidden" value="{$data.user_address.id}" />	
+						<input id="goods_id" name="goods_id" type="hidden" value="{$data.goods_id}" />	
+						<input id="is_delivery" name="is_delivery" type="hidden" value="{$data.goods.is_delivery}" />
+						<input id="number" name="number" type="hidden" value="{$data.number}" />	
+						<button id="submitt" class=" but_this">立即兑换</button> 
+					</div>
+					
+				</div>
+
+
+{include file="./inc/footer.html"}

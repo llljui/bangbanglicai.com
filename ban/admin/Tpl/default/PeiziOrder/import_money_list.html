@@ -1,0 +1,39 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		<input type="hidden" value="PeiziOrder" name="m" />
+		<input type="hidden" value="do_import_money_list" name="a" />
+		<input type="submit" class="button" value="确认更新数据" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="dealshow" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,user_name:会员
+		,invest_user_name:投资人		
+		,借资账户:借资账户
+		,借资客户姓名:借资客户姓名
+		,borrow_money|format_price:借款金额 
+		,warning_line|format_price:亏损警戒线
+		,open_line|format_price:亏损平仓线
+		,总市值|format_price:总市值
+		,总资产|format_price:总资产
+		,日期:日期 "
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

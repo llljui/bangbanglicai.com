@@ -1,0 +1,59 @@
+<div class="blank5"></div>
+<div class="field lh30">
+	<label>投资金额：</label>{function name="format_price" v=$bidmoney}
+</div>
+{if $deal.use_interestrate eq 1 && $interestrate_list}
+<div class="field">
+	<label>使用加息券</label>
+    <label class="ui-checkbox mt5" rel="use_interestrate" style="float:left!important;">
+        <input type="checkbox" value="1" name="use_interestrate" class="ui-checkbox" id="use_interestrate"/>
+    </label>
+	<div class="blank0"></div>
+</div>
+{/if}
+{if $deal.use_ecv eq 1 && $ecv_list}
+<div class="blank5"></div>
+<div class="field">
+	<label>使用红包：</label>
+	<select name="ecv_id" class="f_l ui-select w250 select-w250" height="140">
+		<option>选择红包</option>
+		{foreach from=$ecv_list item="ecv"}
+		<option value="{$ecv.id}">{$ecv.name}[抵{$ecv.money}元]</option>
+		{/foreach}
+	</select>
+	<div class="blank0"></div>
+	<span class="hint" style="margin-left:90px">超出部分不返还</span>
+</div>
+{/if}
+{if $deal.use_interestrate eq 1 && $interestrate_list}
+<div class="field interestrate_row"  style="display:none;">
+	<label>使用加息券</label>
+	<select name="interestrate_id" class="f_l ui-select w250 select-w250" height="140">
+		<option>选择加息券</option>
+		{foreach from=$interestrate_list item="interestrate"}
+		<option value="{$interestrate.id}">{$interestrate.name}[{$interestrate.rate_format}]</option>
+		{/foreach}
+	</select>
+	<div class="blank0"></div>
+    <span class="hint" style="margin-left:90px">加息券与红包不可同时使用</span>
+</div>
+<div class="blank5"></div>
+<div class="blank5 interestrate_row" style="display:none;"></div>
+{/if}
+<div class="blank5"></div>
+<div class="field">
+	<label>支付密码：</label><input type="password" class="f-input ui-textbox w240" id="J_bid_password" />
+</div>
+<div class="blank5"></div>
+<div class="field">
+	<label>&nbsp;</label>
+	{if $user_info.paypassword eq ''}还未设置！{else}忘记了？{/if}
+	<a href="{url x="index" r="uc_account#security"}" target="_blank" class="f_blue">点这里</a>
+</div>
+<div class="blank5"></div>
+<div class="field">
+	<label>&nbsp;</label>
+	<input type="button" class="sub_btn btn_red" id="J_bindpassword_btn" value="确定">
+	&nbsp;&nbsp;
+	<input type="button" class="reset_btn"  id="J_bindpassword_rbtn" value="取消"></div>
+</div>

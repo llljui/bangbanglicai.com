@@ -1,0 +1,162 @@
+<?php
+$this->_var['repaycss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.core.js";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.widget.js";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.datepicker.js";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$repaycss"}" />
+<script type="text/javascript" src="{function name="parse_script" v="$repayjs" c="$repayjs"}"></script>
+
+<script type="text/javascript">
+jQuery(function(){
+	$("input#begin_time").datepicker({showAnim:'fadeIn'});
+	$("input#end_time").datepicker({showAnim:'fadeIn'});
+	$("input#buy_begin_time").datepicker({showAnim:'fadeIn'});
+	$("input#buy_end_time").datepicker({showAnim:'fadeIn'});
+	
+	$("form#search-form").submit(function(){
+		var val = $("input#begin_time").val();
+		$("input[name='begin_time']").val(val.replace(/-/g,""));
+		
+		var val = $("input#end_time").val();
+		$("input[name='end_time']").val(val.replace(/-/g,""));
+		
+		var val = $("input#buy_begin_time").val();
+		$("input[name='buy_begin_time']").val(val.replace(/-/g,""));
+		
+		var val = $("input#buy_end_time").val();
+		$("input[name='buy_end_time']").val(val.replace(/-/g,""));
+		
+	});	
+	account_more_search("#more_search_btn","#more_search");
+});
+function closeWeeboxs(){
+		$.weeboxs.close();
+	}
+</script>
+<!--中间开始-->
+<div class="tabbox clearfix">
+	<div class="tab cur"><a href="{url x="index" r="licai#uc_published_lc"}">购买记录</a></div>
+    <div class="tab"><a href="javascript:history.go(-1)" >返回列表</a></div>
+</div>
+<div class="dlmain Myhomepage licai_uc bdd bt0 uc_box">
+	<div class="homeright pageright f_r">
+		<div class="list_content uc_buyed_finance">
+			<div class="licai_total_box">
+				<div class="lf">
+						<div>成交总额</div>
+						<span>{$vo.licai_total_money_format}</span>
+					</div>
+					<div class="rt">
+						<ul>
+							<li>
+								<div>订单数量</div>
+								<div class="text">{$vo.licai_order_total_count}个</div>
+							</li>
+							<li>
+								<div>正在进行的总额</div>
+								<div class="text">{$vo.licai_total_ing_money}</div>
+							</li>
+							<li>
+								<div>购买人数</div>
+								<div class="text">{$vo.total_people_count}</div>
+							</li>
+							<li class="last">
+								<div></div>
+								<div class="text"></div>
+							</li>
+						</ul>
+					</div>
+			</div>
+			<div class="account_search" id="account_search">
+				<div class="blank10"></div>
+				<div class="form_row control-group f_l">
+                	<form method="get" id="account_project">
+					<label class="form_lable small_form_lable">购买时间：</label>
+					<div class="small_form_text">
+						<input readonly="" type="text" class="small_textbox w100 jcDate" rel="input-text"  name="buy_begin_time" id="buy_begin_time" placeholder="开始时间" value="{$search.buy_begin_time}">
+						<span class="f_l pl10 pr10">-</span>
+						<input readonly="" type="text" class="small_textbox w100 jcDate mr10" rel="input-text" name="buy_end_time" id="buy_end_time" placeholder="结束时间" value="{$search.buy_end_time}">
+					</div>
+					<label class="form_lable small_form_lable">到期时间：</label>
+					<div class="small_form_text">
+						<input readonly="" type="text" class="small_textbox w100 jcDate" rel="input-text" name="begin_time" id="begin_time" placeholder="开始时间" value="{$search.begin_time}">
+						<span class="f_l pl10 pr10">-</span>
+						<input readonly="" type="text" class="small_textbox w100 jcDate mr10" rel="input-text"  name="end_time" id="end_time" placeholder="结束时间" value="{$search.end_time}">
+					</div>
+				</div>
+				<input type="submit" value="搜索" class="true_btn select_btn f_l" />
+                <input type="hidden" name="ctl" value="licai">
+				<input type="hidden" name="act" value="uc_record_lc">
+                <input type="hidden" name="id" value="{$vo.id}" />
+				<!--<a href="javascript:void(0);" id="more_search_btn" class="more_search_btn f_red">更多筛选</a>
+				<div id="more_search" style="display:none;">
+					<div class="blank0"></div>
+					<div class="form_row control-group f_l">
+						<label class="form_lable small_form_lable">状态：</label>
+						<select name="licai_status" id='licai_status' class="ui-select field_select small">
+							<option value="1" {if $licai_status eq 1} selected="selected"{/if}>预热期</option>
+							<option value="2" {if $licai_status eq 2} selected="selected"{/if}>理财期</option>
+							<option value="3" {if $licai_status eq 2} selected="selected"{/if}>已到期</option>
+							<option value="4" {if $licai_status eq 2} selected="selected"{/if}>部分赎回</option>
+							<option value="4" {if $licai_status eq 2} selected="selected"{/if}>已结清</option>
+						</select>
+						<div class="blank0"></div>
+					</div>
+				</div>-->
+                </form>
+			</div>
+			<div class="blank20"></div>
+			<div class="uc_table_common">
+				<div class="f_l tl">
+					<span>{function name="msubstr" v=$vo.name b=0 e=32}</span>
+				</div>
+				<div class="f_r tr">
+					<span class="mr20">收益率：{$vo.average_income_rate_format}</span>
+					<span>理财期限：{$vo.time_limit}个月</span>
+				</div>
+			</div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<thead>
+					<tr>
+						<th>购买人</th>
+						<th width="15%">持有本金</th>
+						{if $vo.type>0}<th width="15%">收益率</th>{/if}
+						<th width="20%">购买时间</th>
+						<th width="15%">状态</th>
+						<th width="15%">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+                	{if $list}
+                    {foreach from=$list item=item key=key name=deal}
+					<tr class='item {if $key mod 2 eq 1}item_1{/if}' {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+						<td>{$item.user_name}</td>
+						<td>{$item.have_money_format}</td>
+						{if $vo.type>0}<td>{$item.interest_rate_format}</td>{/if}
+						<td>{$item.create_date}</td>
+                        <td>{$item.status_format}</td>
+						<td>
+							<a href="{url x="index" r="licai#uc_deal_lc" p="id=$item.licai_id"}" target="_blank">查看详情</a><br />
+                            <a href="javascript:void(0);" onclick="openWeeboxFrame('{url x="index" r="licai#i_contract" p="id=$item.id"}','电子协议',1000,658);">查看电子协议</a>
+                            <br/>
+                            <a href="{url x="index" r="licai#uc_u_buyed_deal_lc" p="id=$item.id"}">审核管理</a>
+						</td>
+					</tr>
+					{/foreach}
+					{else}
+					<tr>
+						<td colspan="6">无任何记录</td>
+					</tr>
+                    {/if}
+				</tbody>
+			</table>
+			<div class="blank20"></div>
+			<div class="pages">{$pages}</div>
+			<div class="blank20"></div>
+		</div>
+		<div class="blank0"></div>
+	</div>
+	<div class="blank0"></div>
+</div>
+<div class="blank0"></div>

@@ -1,0 +1,74 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_learn_deal_invest#index");
+	$this->_var['back_page'] = "#uc_learn_deal_invest";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_learn_deal_invest" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--使用体验金-->
+
+<div class="float_block Object_0"  >
+    <div class="float_background"></div>
+    <div class="float_content">
+        <div class="set_pw_block">
+            <h5>使用体验金<div class="close_but"><a href="#" onclick="RouterURL('{wap_url a="index" r="uc_learn_deal_invest"}','#uc_learn_deal_invest',2);"><i class="fa fa-close"></i></a></div></h5>
+            <div class="blank10"></div>
+            <div class="full_li">
+                <ul>
+                	<li>
+                        <div class="paddingbr">
+                        <label>体验金：</label>
+                        <div class="list_con ">
+                        <select id="learn_id" name="learn_id"  class="f_l select_prefix"  style="line-height:30px; height:30px; width:90%;" >
+                            <option>选择体验金</option>
+                            {foreach from=$data.lecv_list item="lecv"}
+                            <option value="{$lecv.id}">体验金[加{$lecv.money}元]</option>
+                            {/foreach}
+                        </select>
+                        </div>
+                        <div class="blank"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="paddingbr">
+                            <label>投资金额：</label>
+                            <div class="list_con">
+                            <div class="lh35">
+							<input type="text" name="bid_money" class="ui-button_login ui_width f_l brinput" id="bid_money" style=" height:30px;line-height: 30px;" />
+                            <input type="hidden" name="deal_id" value="{$data.id}"   id="deal_id" />
+							</div>
+                            </div>
+                        <div class="blank"></div>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="paddingbr">
+                        <label>支付密码：</label>
+                        <div class="list_con">
+                        <input name="bid_paypassword" id="bid_paypassword" class="ui-button_login ui_width f_l brinput" style=" height:30px;line-height: 30px;" type="password" >
+                        </div>
+                        <div class="blank"></div>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+
+			<div class="w_b but_box_parent padding">
+				<div class="w_b_f_1 but_box">					
+				    <a href="#" id="submitt" class="but_this">确认</a>
+				</div>
+				<div class="w_b_f_1 but_box">	
+                    <a href="#" onclick="RouterURL('{wap_url a="index" r="uc_learn_deal_invest"}','#uc_learn_deal_invest',2);" class="bg_dbdbdb but_this">取消</a>										    
+				</div>
+			</div>
+        </div>
+    </div>
+    </div>
+  
+
+{include file="./inc/footer.html"}

@@ -1,0 +1,334 @@
+<style type="text/css">
+a { text-decoration: none; }
+#showtext2 { cursor: hand; cursor:pointer;}
+#contentid2 {width: 100%;  }
+.none { display: none; }
+</style>
+<div class="tabbox clearfix">
+	<div class="tab cur"><a href="{url x="index" r="uc_learn#index"}">理财体验金</a></div>
+	<div class="f_r ">
+		<!--<a href="{url x="index" r="learn_activity#index"}">新手体验区</a>&nbsp;&nbsp;-->
+		<a class="sub_btn f_r mt5 mr15 lh34" href="{url x="index" r="learn_activity#index"}">新手体验区</a>
+	</div>
+</div>
+<div class="blank15"></div>
+<div style="background:#EDEDEE;">
+	<table width="100%">
+		<tr align=center>
+			<td width="20%">
+				体验金余额<br>
+				<span style="font-size:18px;">￥{function name="number_format" v=$learn_balance f=2}</span>
+			</td>
+			<td style="padding:8px;"><img id="u48_line" class="img " src="{$TMPL}/images/learn/u48_line.png" alt="u48_line"/></td>
+			<td width="20%">
+				已领收益<br>
+				<span style="font-size:18px;">￥{function name="number_format" v=$has_lead_interest f=2}</span>
+			</td>
+			<td><img id="u48_line" class="img " src="{$TMPL}/images/learn/u48_line.png" alt="u48_line"/></td>
+			<td width="20%">
+				待领取收益<br>
+				<span style="font-size:18px;">￥{function name="number_format" v=$no_lead_interest f=2}</span>
+			</td>
+			{$i}
+			<td width="35%">
+				{if $no_lead_interest neq 0}
+				    <input type="button" class="btn_blue f16 b f_white w100 lh36 bdr3 j_do_interest" value="领取收益">
+				{else}
+					<input type="button" class="btn_gray f16 b f_white w100 lh36 bdr3" value="领取收益">
+				{/if}
+				
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="blank15"></div>
+<div class="uc_box trader">      
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+			<tbody>
+				<tr border="0">
+                	<th align="left" style="width:14%;padding-left:20px;">{$learn_info.name}</th>
+				</tr>
+			</tbody>
+		</table>	
+		<div class="clearfix tra_box p10">
+		<table width="100%">
+			<tr align=center>
+				<td width="20%">
+					融资规模<br>
+					{if $learn_info}
+					<div style="font-size:18px;font-weight:bold;padding-top:10px;">{if $learn_info.load_money gt 0}￥{$learn_info.load_money}{else}不限制{/if}</div>
+					{else}
+					<div style="font-size:14px;padding-top:10px;">暂无数据</div>
+					{/if}
+				</td>
+				<td style="padding:8px;"><img id="u48_line" class="img " src="{$TMPL}/images/learn/u48_line.png" alt="u48_line"/></td>
+				<td width="20%">
+					年化收益率<br>
+					{if $learn_info}
+					<div style="font-size:18px;color:#FF6600;font-weight:bold;padding-top:10px;">{$learn_info.rate}% </div>
+					{else}
+					<div style="font-size:14px;padding-top:10px;">暂无数据</div>
+					{/if}
+					
+				</td>
+				<td style="padding:8px;"><img id="u48_line" class="img " src="{$TMPL}/images/learn/u48_line.png" alt="u48_line"/></td>
+				<td width="20%">
+					投资期限<br>
+					{if $learn_info}
+					<div style="font-size:18px;font-weight:bold;padding-top:10px;">{$learn_info.time_limit} 天</div>
+					{else}
+					<div style="font-size:14px;padding-top:10px;">暂无数据</div>
+					{/if}
+					
+				</td>
+				<td width="35%" style="padding:10px;" >
+					<div style="background:{$TMPL}/images/learn/u131.png" >
+						体验金余额 &nbsp;￥{function name="number_format" v=$learn_balance f=2}<br>
+						预期收益&nbsp;<span style="color:#FF6600;">￥{function name="number_format" v=$uc_interest f=2}</span><br>
+						<div style="padding-top:10px;">
+						{if $learn_info}
+							{if $learn_balance neq 0}
+								<input type="hidden" name="learn_id" id="learn_id" value="{$learn_info.id}" />
+								<input type="hidden" name="money" id="money" value="{$learn_balance}" />
+								{if $learn_info.load_money eq 0 ||  ($learn_info.load_money gt 0 && $learn_info.load_money gt $has_send_money) }
+								  <input type="button" class="btn_blue f16 b f_white w100 lh36 bdr3 J_do_invest" value="立即投资">
+								{else}
+								  <input type="button" class="btn_gray f16 b f_white w100 lh36 bdr3" value="立即投资">
+								{/if}
+								
+							{else}
+								<input type="button" class="btn_gray f16 b f_white w100 lh36 bdr3" value="立即投资">
+							{/if}
+						{else}
+							<input type="button" class="btn_gray f16 b f_white w100 lh36 bdr3" value="立即投资">
+						{/if}
+						</div>
+						
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan=6 style="padding:0px;">
+					<div id="contentid2" class="none">
+					<img id="u126_line" class="img " src="{$TMPL}/images/learn/u126_line.png" alt="u126_line"/>
+					
+					<p style="padding-top:20px; padding-bottom:10px;">
+						{if $learn_info}
+							{$learn_info.description}
+						{else}
+							暂无数据
+						{/if}
+					</p>
+					</div>
+				</td>
+			</tr>
+			
+		</table> 
+		</div>
+		<div align=center style="margin-top:-1px;">
+			<div>
+				<div class=" Arrow-but-down"><a id="showtext2" onClick="showdiv('contentid2','showtext2')"><img id="u122_img" class="img " src="{$TMPL}/images/learn/d122.png"/></a></div>
+				<div class="tc c_3b95d3 Arrow-but-up" style="display:none;"><a id="showtext2" onClick="showdiv('contentid2','showtext2')"><img id="u122_img" class="img " src="{$TMPL}/images/learn/u122.png"/></a></div>
+			</div>
+		</div>
+		
+        <div class="uc_box trader">
+			&nbsp;
+		</div>   
+		<div class="sub_nav pl10">
+			<span {if $t eq ''}class="act"{/if}><a href="{url x="index" r="uc_learn#index"}">获取记录</a></span>&nbsp;
+			<span {if $t eq 'load'}class="act"{/if}><a href="{url x="index" r="uc_learn#index" p="t=load"}">投资记录</a></span>
+		</div>     
+		{if $t eq ''}
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<tbody>
+					<tr>
+						<td>获取时间</td>	
+						<td>获取金额(¥)</td>
+						<td>获取来源</td>
+						<td>有效期</td>
+						<td>状态</td>
+					</tr>
+					<tr>
+						<td colspan=5 style="padding:6px;">
+							<img id="u64_line" class="img " src="{$TMPL}/images/learn/u64_line.png" alt="u64_line"/>
+						</td>
+					</tr>
+					{foreach from="$learn_send_list" item="learn"  name="name"}
+			  		<tr class="item " style="border-bottom:0">
+						<td>
+							{$learn.begin_time}
+						</td>
+                        <td>{$learn.money}</td>
+						<td>
+							{if $learn.type eq 0} 
+								注册赠送
+							{/if}
+							{if $learn.type eq 1} 
+								邀请赠送
+							{/if}
+							{if $learn.type eq 2} 
+								管理员发放
+							{/if}
+						</td>
+						<td>
+							{$learn.begin_time} 至 
+							{$learn.end_time}
+						</td>
+						<td>{if $learn.is_use eq 0}未投资{else}已投资{/if} </td>
+					</tr>
+					<tr>
+						<td colspan=5 style="padding:6px;">
+							<img id="u64_line" class="img " src="{$TMPL}/images/learn/u64_line.png" alt="u64_line"/>
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+				
+			</table>
+		{else}
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<tbody>
+					<tr>
+						<td>投资时间</td>	
+						<td>投资金额(¥)</td>
+						<td>产品名称</td>
+						<td>期限</td>
+						<td>年化收益率</td>
+						<td>预期收益(¥)</td>
+						<td>状态</td>
+					</tr>
+					<tr>
+						<td colspan=7 style="padding:6px;">
+							<img id="u64_line" class="img " src="{$TMPL}/images/learn/u64_line.png" alt="u64_line"/>
+						</td>
+					</tr>
+					{foreach from="$learn_load_list" item="learn"  name="name"}
+			  		<tr class="item " style="border-bottom:0">
+						<td>{$learn.create_date}</td>
+                        <td>{$learn.money}</td>
+						<td>{$learn.name} </td>
+						<td>{$learn.time_limit} 天</td>
+						<td>{$learn.rate} % </td>
+						<td style="color:#FF6600;">
+							{function name="number_format" v=$learn.interest f=2}
+						</td>
+						<td>{$learn.state}</td>
+					</tr>
+					<tr>
+						<td colspan=7 style="padding:6px;">
+							<img id="u64_line" class="img " src="{$TMPL}/images/learn/u64_line.png" alt="u64_line"/>
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		{/if}
+		
+</div>
+<div class="uc_box trader"> 
+<div class="pages">{$pages}</div>
+<div class="blank15"></div>
+</div>
+
+<style type="text/css">
+	.joke{font-size: 16px;}
+	.long_uc .tabbox{ border-left:1px solid #ddd}
+</style>
+<script>
+	$(document).ready(function(){
+		$(".Arrow-but-up").click(function(){
+			$(this).siblings(".content").height(90);
+			$(this).siblings(".Arrow-but-down").show();
+			$(this).hide();
+		});
+		$(".Arrow-but-down").click(function(){
+			$(this).siblings(".content").height('auto');
+			$(this).siblings(".Arrow-but-up").show();
+			$(this).hide();
+		});
+	});
+</script>
+<script type="text/javascript">
+
+function showdiv(targetid,objN){
+   
+  var target=document.getElementById(targetid);
+  var clicktext=document.getElementById(objN)
+
+        if (target.style.display=="block"){
+            target.style.display="none";
+        } else {
+            target.style.display="block";
+        }
+   
+}
+</script>
+<script type="text/javascript">
+	
+	jQuery(function(){
+			$(".j_do_interest").click(function(){
+			var dltid = $(this).attr("dataid");	
+			$.showCfm("确定领取收益？",function(){
+				$.ajax({
+					url:'{url x="index" r="uc_learn#do_interest"}',
+					data:"&dltid="+dltid,
+					type:"post",
+					dataType:'json',
+					success:function(result){
+						if(result.status==1){
+							$.showSuccess("领取收益成功",function(){
+									window.location.reload();
+							});
+						}
+						else{
+							$.showErr(result.info);
+						}
+					},
+					error:function(){
+						$.showErr("请求数据失败");
+					}
+				});
+			});
+		});
+		
+		$(".J_do_invest").click(function(){
+			if(confirm("确定投资吗？"))
+			{
+				var ajaxurl = '{url x="index" r="uc_learn#do_invest"}';
+				var learn_id =  $.trim($("#learn_id").val());
+				var money =  $.trim($("#money").val());
+				var query = new Object();
+				query.learn_id = $.trim($("#learn_id").val());
+				query.money = $.trim($("#money").val());
+				query.post_type = "json";
+				$.ajax({
+					url:ajaxurl,
+					data:query,
+					type:"Post",
+					dataType:"json",
+					success:function(result){
+						if(result.status==1){
+							$.showSuccess("投资成功",function(){
+								window.location.href = '{url x="index" r="uc_learn#index" p="t=load"}';
+							});
+						}
+						else{
+							$.showErr(result.info);
+						}
+						
+					},
+					error:function(){
+						$.showErr("请求数据失败");
+					}
+				
+				});
+			}	
+
+		});
+
+	});
+
+</script>

@@ -1,0 +1,3 @@
+{foreach from="$insert_deals_list" item="item"}
+ <li class="list-group-item"><a href="{$item.url}" target=_blank title="{$item.title}"><i></i>{function name="msubstr" v=$item.title s=0 e=15}</a></li>
+	{/foreach}

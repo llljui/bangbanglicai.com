@@ -1,0 +1,40 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","init#index");
+	$this->_var['back_page'] = "#init";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#init" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll pull-to-refresh-content article_list_content"  data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="article_list#index"}">
+<!-- 这里是页面内容区 -->
+<!--文章列表-->
+<div class="content-inner">
+	<div class="list-block">
+	   <ul>
+{/if}
+<!-- 默认的下拉刷新层 -->
+    <div class="pull-to-refresh-layer" all_page="{$data.page.page_total}" >
+        <div class="preloader"></div>
+        <div class="pull-to-refresh-arrow"></div>
+    </div>
+			{foreach from=$data.list item="item"}
+			<li>
+	            <a href="#" onclick="RouterURL('{wap_url a="index" r="show_article" p="id=$item.id"}','#show_article',2);" class="item-link item-content">
+	              <div class="item-inner w_b">
+	                <div class="item-title w_b_f_1">{$item.title}</div>
+	              </div>
+	            </a>
+	         </li>
+			{/foreach}			 
+{if $smarty.request.is_ajax neq 1}
+		</ul>
+	</div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+

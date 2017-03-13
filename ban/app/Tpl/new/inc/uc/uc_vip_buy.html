@@ -1,0 +1,136 @@
+<div class="tabbox clearfix">
+	<div class="tab {if $status eq 0}cur{/if}">
+		<a href="{url x="index" r="uc_vip_buy#index" p="status=0" }">VIP等级购买</a>
+	</div>
+	<div class="tab {if $status eq 1}cur{/if}">
+		<a href="{url x="index" r="uc_vip_buy#vip_buy_log" p="status=1" }">VIP购买日志</a>
+	</div>
+
+</div>	
+<div class="uc_box  bdd bt0">
+    
+	<div class="blank20"></div>
+	<div class="m_number clearfix">
+		<form name="Jvip_From" id="Jvip_From" action="{url x="index" r="uc_vip_buy#savevipbuy"}" method="post">
+			<div class="pr">
+				
+				 <div class="field">
+	                <label>现有VIP等级：</label>
+	                {if $user_info.vip_id gt 0}
+		                <span class="f_l">{$now_vip_grade.vip_grade}</span>&nbsp;
+						<span><img src="{$TMPL}/images/vip/{$user_info.vip_id}.png" title="{function name="get_vip_name" id=$user_info.vip_id}"></span>
+	            	{else}
+	            		<span class="f_l">您现在还不是VIP会员</span>
+	            	{/if}
+				</div>
+				<div class="blank10"></div>
+				<div class="field">
+	                <label>可购买VIP等级：</label>
+	                {if $can_buy_count gt 0}
+					<select name="vip_id" id="vip_id" class="ui-select w180 select-w180">
+						{foreach from=$vip_list item="item" key=key }
+						{if $item.sort gt $now_vip_grade.sort}
+						<option value="{$item.id}">{$item.vip_grade}</option>
+						{/if}
+						{/foreach}
+					</select>
+	                {else}
+	                没有可购买的VIP等级
+	                {/if}
+	            </div>
+				<div class="blank10"></div>
+	            
+				<div class="field">
+	                <label>购买期限：</label>
+					<select name="years" class="f_l ui-select" id="Jvip_years">
+						<option value="1">1年</option>
+						<option value="2">2年</option>
+						<option value="3">3年</option>
+						<option value="4">4年</option>
+						<option value="5">5年</option>
+					</select>
+	            </div>
+				
+				<div class="blank10"></div>
+	            <div class="field">
+	                <label>原价：</label>
+	                <span id="Jvip_original_price" class="f_l"></span><br>
+	            </div>
+				<div class="blank10"></div>
+	            <div class="field">
+	                <label>现价：</label>
+	                <span id="Jvip_site_pirce" class="f_l"></span>
+	                <br>
+	            </div>
+				<div class="blank10"></div>
+				{if $can_buy_count gt 0}
+			   <div class="blank10"></div>
+			  <div class="field">
+					 <label>支付密码：</label>
+					<span>
+						<input type="password" autocomplete="off" class="f-input ui-textbox w100" name="paypassword" id="J_PAYPASSWORD" />
+						&nbsp;&nbsp;{if $user_info.paypassword eq ''}还未设置！{else}忘记了？{/if}<a href="{url x="index" r="uc_account#security"}" target="_blank" class='f_blue'>点这里</a>
+					</span>
+				</div>
+				<div class="blank10"></div>
+				{/if}
+	        </div>
+		{if $can_buy_count gt 0}
+		<div class="f_red tc f14">警告：购买VIP会员必须高于本身的VIP等级，购买期限单位为年，可用账户金额进行购买。</div>
+		<div class="blank10"></div>
+		<div class="tc">
+			<input type="submit" class="btn_red f18 b f_white w110 lh38 bdr3" value="VIP购买">
+	    </div>
+	    {/if}
+	</form>
+	</div>
+</div>	
+<script type="text/javascript">
+	
+var Jcash_From_Lock = false;
+
+var vip_data = {$vip_data};
+	
+jQuery(function(){
+	
+	$("#Jvip_years").change(function(){
+		setCashResult()
+	});
+	
+	$("#vip_id").change(function(){
+		//getVip_id();
+		setCashResult();
+	});
+		
+	$("#Jvip_From").submit(function(){
+		if(Jcash_From_Lock){
+			return false;
+		}
+		Jcash_From_Lock = true;
+		if($.trim($("#Jvip_years").val())=="" || !$.checkNumber($("#Jvip_years").val()) || parseFloat($("#Jvip_years").val())<=0){
+			Jcash_From_Lock = false;
+			$.showErr(LANG.CARRY_MONEY_NOT_TRUE,function(){
+				$("#Jvip_years").focus();
+			});
+			return false;
+		}
+		
+		$("#J_PAYPASSWORD").val(FW_Password($.trim($("#J_PAYPASSWORD").val())));
+		return true;
+	});
+	
+	setCashResult();
+});
+
+
+function setCashResult(){
+	var vip_id =  $("#vip_id").val() == undefined ? 0 : parseInt($("#vip_id").val());
+	var years =  parseInt($("#Jvip_years").val());
+	
+	var site_pirce = vip_data[vip_id] == undefined ? 0 : vip_data[vip_id].site_pirce ;
+	var original_price = vip_data[vip_id] == undefined ? 0 : vip_data[vip_id].original_price ;
+	
+	$("#Jvip_site_pirce").html(formatNum(site_pirce*years) + "元");
+	$("#Jvip_original_price").html(formatNum(original_price*years) + "元");
+}	
+</script>

@@ -1,0 +1,27 @@
+<?php
+return array (
+  0 => 'id',
+  1 => 'deal_id',
+  2 => 'load_id',
+  3 => 'user_id',
+  4 => 'transfer_amount',
+  5 => 'load_money',
+  6 => 'last_repay_time',
+  7 => 'near_repay_time',
+  8 => 'transfer_number',
+  9 => 't_user_id',
+  10 => 'transfer_time',
+  11 => 'create_time',
+  12 => 'status',
+  13 => 'callback_count',
+  14 => 'lock_user_id',
+  15 => 'lock_time',
+  16 => 'ips_status',
+  17 => 'ips_bill_no',
+  18 => 'pMerBillNo',
+  19 => 'create_date',
+  20 => 'transfer_date',
+  '_autoinc' => true,
+  '_pk' => 'id',
+);
+?>

@@ -1,0 +1,88 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<script type="text/javascript">
+	function op_edits(id,yz,status)
+	{
+		window.location.href=ROOT+'?m=PeiziOrder&a=op_edits&id='+id+'&yanzheng='+yz+'&status='+status;
+	}
+	
+	function export_csv()
+	{
+		var query = $("#search_form").serialize();
+		var url= ROOT+"?is_export=1&"+query;
+		//alert(url);
+		location.href = url;
+	}
+	
+</script>
+<PHP>
+	function gets_status($id,$list){
+		return '<a href="javascript:op_edits('.$id.',true,'.$list['status'].');">详情</a>&nbsp;';
+	}
+</PHP>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" id = "search_form" action="__APP__" method="get">	
+
+		<label id="start_time_item_title">开始日期:</label><input type="text" class="textbox" name="start_time" value="{$start_time}" style="width:100px" id="q_start_time"  onfocus="return showCalendar('q_start_time', '%Y-%m-%d', false, false, 'q_start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input type="text" class="textbox" name="end_time" value="{$end_time}" style="width:100px" id="q_end_time"  onfocus="return showCalendar('q_end_time', '%Y-%m-%d', false, false, 'q_end_time');" />
+		
+		
+		配资类型
+		<select name="peizi_conf_id">
+        	<option value="-1" <if condition="$peizi_conf_id eq '-1' || $type eq ''">selected="selected"</if>>全部</option>
+            <foreach name='type_list' item='item'>
+            	<option value="{$item.id}" <if condition="$peizi_conf_id eq $item['id']">selected="selected"</if>>{$item.name}</option>
+            </foreach>
+		</select>
+		
+		投资人
+		<input type="text" class="textbox J_autoUserName" name="invest_user_name" value = "{$invest_user_name}" />
+		<input type="hidden" class="textbox J_autoUserId" name="invest_user_id" value = "{$invest_user_id}" />
+					
+		<input type="hidden" value="PeiziOrder" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+		<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="list"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,user_id|get_user_name_real:会员
+		,total_money|format_price:总操盘资金
+		,cost_money|format_price:保证金
+		,lever:倍率
+		,rate_money|format_price:利息费
+		,site_money|format_price:服务费
+		,invest_user_id|get_user_name_real:投资人
+		,time_limit_num_format:期限
+		,create_time:申请时间 
+		,is_today_format:开始交易时间
+		,begin_date:预计开始日
+		,conf_type_name:配资类型 		
+		,status_format:状态"
+	actionlist="id|gets_status=$list"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

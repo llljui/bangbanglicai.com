@@ -1,0 +1,64 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add_index();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del_index();" />
+</div>
+<div class="blank5"></div>
+<PHP>
+	function op_edit($id,$conf){
+		//if($conf['id'] != 3)
+		return '<a href="javascript:op_edit('.$id.');">倍率配置</a>&nbsp;';
+	}
+	
+</PHP>
+<script type="text/javascript">
+	function lever_coe_edit(id){
+		var url = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=lever_coe_edit&pid="+id;
+		window.location.href = url;
+	}
+
+	function op_edit(id){
+		var url = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=op_edit&pid="+id;
+		window.location.href = url;
+	}
+	function edits(id){
+		var url = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=edits&id="+id;
+		window.location.href = url;
+	}
+	function add_index(id){
+		var url = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=add_index";
+		window.location.href = url;
+	}
+	function del_index(id){
+		var url = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=del_index&id="+id;
+		window.location.href = url;
+	}
+</script>
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="conf"
+	action="true"
+	checkbox="true"
+	datasource="peiziconf"	
+	show="id:{%ID}|50px
+		,type:模块名
+		,money_list:申请借款资金/倍率
+		,min_money|format_price:最小借款(本金)
+		,max_money|format_price:最大借款(本金)
+		,manage_money|format_price:业务审核费
+		,is_holiday_fee:假日免管理费
+		,day_month_list:日(月)份
+		,is_effect|get_is_effect=$conf['id']:{%IS_EFFECT}
+		"
+	actionlist="edit:{%EDIT},op_edit:倍率配置,lever_coe_edit:预警系数配置,edits:利息及服务费配置 ,del_index:删除"
+	actionwidth="100px"/>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,37 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="dealshow" 
+	datasource="list" 
+	show="id:{%ID}|50px		
+		,trade_date:交易日期
+		,stock_type:证券类别
+		,trade_type:交易类别
+		,stock_code:证券代码
+		,stock_name:证券名称
+		,buy_sell:买卖方向
+		,num:成交数量
+		,price|format_price:成交价格
+		,money|format_price:成交金额
+		,stamp_tax|format_price:印花税
+		,transfer_fee|format_price:过户费
+		,commission_money|format_price:佣金
+		,commission_diff_money|format_price:佣金差
+		,commission_invest_money|format_price:投资人佣金
+		,commission_site_money|format_price:平台佣金"
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

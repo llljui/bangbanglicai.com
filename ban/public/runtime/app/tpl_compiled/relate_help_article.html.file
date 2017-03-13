@@ -1,0 +1,18 @@
+<div class="tree-box clearfix">
+	<?php $_from = $this->_var['deal_help']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'cate');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['cate']):
+?>
+	<?php if ($this->_var['cate']['id'] == $this->_var['article']['cate_id']): ?>
+		<?php if ($this->_var['cate']['help_list']): ?>
+		<div class="tree">
+			<div class="hd"><?php echo $this->_var['cate']['title']; ?></div>
+			<?php $_from = $this->_var['cate']['help_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['item']):
+?>
+			<div class="item <?php if ($this->_var['item']['id'] == $this->_var['article']['id']): ?>act<?php endif; ?>"><a href="<?php echo $this->_var['item']['url']; ?>" <?php if ($this->_var['item']['new'] == 1): ?>target="_blank"<?php endif; ?>><?php echo $this->_var['item']['title']; ?></a></div>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</div>
+		<?php endif; ?>
+	<?php endif; ?>
+	<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+</div>

@@ -1,0 +1,64 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_vip_id($vip_id)
+    {
+    	return M("VipType")->where(" id=".$vip_id)->getField("vip_grade");
+    }
+	
+</php>
+<script type="text/javascript">
+    
+    function vip_config(id){
+		location.href = ROOT + '?m=VipSetting&a=config';
+	}
+	function modify_vip_config(vip_id){
+		location.href = ROOT + '?m=VipSetting&a=config&vip_id='+vip_id;
+	}
+	function modify_recharge_config(id){
+		location.href = ROOT + '?m=VipSetting&a=recharge_config';
+	}
+	function vip_recharge_config(vip_id){
+		location.href = ROOT + '?m=VipSetting&a=recharge_config&vip_id='+vip_id;
+	}
+	function setting_trash()
+    {
+        location.href = ROOT+"?m=VipSetting&a=setting_trash";
+    }
+    
+
+</script>
+<div class="main">
+<div class="main_title">VIP配置列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+    <input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+	<input type="button" class="button currentbtn" onclick="setting_trash();" value="回收站" />&nbsp;
+	<input type="button" class="button" value="VIP提现配置" onclick="vip_config()" />
+	<input type="button" class="button" value="VIP充值配置" onclick="modify_recharge_config()" />
+</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%FOREVERDEL}" onclick="foreverdel();" />
+	<input type="button" class="button" value="{%RESTORE}" onclick="restore();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="nav" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+	,vip_id|get_vip_id:VIP等级" 
+	
+	actionlist="foreverdel:{%FOREVERDEL},restore:{%RESTORE}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

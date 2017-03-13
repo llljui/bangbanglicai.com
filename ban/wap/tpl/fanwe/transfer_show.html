@@ -1,0 +1,127 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","transfer#index");
+	$this->_var['back_page'] = "#transfer";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#init" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<!--债权转让简单详情-->
+<div class="detail">
+<div class="mainblok mainborder">
+
+            <div class="detail_list">
+                <ul>
+                
+              		<li class="bb1">
+                        <label>转让者</label>
+                        <div class="list_con"><a href="{$transfer.user.url}">{$data.transfer.user.user_name}</a></div>
+                    </li>
+                    <li class="bb1">
+                        <label>剩余期限</label>
+                        <div class="list_con">{$data.transfer.how_much_month}</b>个月</div>
+                    </li>
+                    <li class="bb1">
+                        <label>总期限</label>
+                        <div class="list_con "><b class="f_red f14">{$data.transfer.repay_time}</b>个月</div>
+                    </li>
+                    <li class="bb1">
+                        <label>下还款日</label>
+                        <div class="list_con">{$data.transfer.next_repay_time_format}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>转让金额</label>
+                        <div class="list_con">
+                      <em class="f_red"> {$data.transfer.transfer_amount_format}</em></div>
+                    </li>
+                    <li class="bb1">
+                        <label>剩余本金</label>
+                        <div class="list_con">{$data.transfer.left_benjin_format}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>剩余利息</label>
+                        <div class="list_con">{$data.transfer.left_lixi_format}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>受让收益</label>
+                        <div class="list_con"><em class="f_red">{$data.transfer.transfer_income_format}</em>元</div>
+                    </li>
+                </ul>
+            </div>
+        </div><!--mainblok——end--> 
+		<div class="blank15"></div>
+        <div class="mainblok mainborder">
+            <div class=""></div>
+            <div class="detail_list">
+            
+             {if $data.transfer.t_user_id gt 0}
+                <ul>
+                    <li class="bb1">
+                        <label>承接人</label>
+                        <div class="list_con">{$data.transfer.tuser.user_name}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>承接时间</label>
+                        <div class="list_con">{$data.transfer.transfer_time_format}</div>
+                    </li>
+                </ul>
+                
+            {else}    
+               <!--  {if $user_info}{else} 请先登录或注册{/if} -->
+               <ul>
+                    <li class="bb1">
+                        <label>可用余额</label>
+                        <div class="list_con">
+                        	<em class="f_red">{function name="format_price" v="$data.user_money"}</em>元
+							{if $is_login eq 0}
+							<a href="{wap_url a="index" r="login" p="epage=transfer_show"}" class="linkbtn {if $is_weixin}external{/if}">我要充值</a>
+							{else}
+							<a href="{wap_url a="index" r="uc_incharge" p="epage=transfer_show"}" class="linkbtn">我要充值</a>
+							{/if}
+						</div>
+						
+                    </li>
+                
+                    <li >
+                        <label>支付密码</label>
+                        <div class="list_con">
+                        <input id="pay_password" class="ipt pull-left pay_password" type="password" placeholder="请输入您的支付密码" style="width:55%" />
+                        {if $is_login eq 0}
+							<a href="#" onclick="RouterURL('{wap_url a="index" r="login" p="epage=transfer_show"}','#login'{if $is_weixin},1{/if});" class="linkbtn pull-right ">设置支付密码</a>
+							{else}
+							<a href="#" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd" p="epage=transfer_show"}','#reset_pay_pwd',2)" class="linkbtn pull-right">设置支付密码</a>
+							{/if}
+						</div>
+					 </li>
+                </ul>
+			{/if}                
+            </div>
+        </div><!--mainblok——end--> 
+
+    </div>
+<div class="w_b but_box_parent padding">
+		<div class="w_b_f_1 but_box">
+	    	<a href="#" onclick="RouterURL('{wap_url a="index" r="transfer_mobile" p="id=$data.deal_id&transfer_id=$data.transfer.id"}','#transfer_mobile',2);" class=" but_this" >查看详情</a>
+		</div>
+		<div class="w_b_f_1 but_box">
+	    {if $data.transfer.t_user_id gt 0}
+	  		  <span class="bg_dbdbdb but_this" >已转让</span>
+	      {else}
+	     
+	   	 	{if $data.transfer.tras_status eq 0}
+			 <span class="bg_dbdbdb but_this" >已撤销转让</span>
+	 		 {else}
+	    		 <input id="trans_id" type="hidden" value="{$data.transfer.id}"  />
+	    	     <div class="bg_ea544a but_this" id="pay_transfer">我要承接</div>
+	    	 {/if}
+	    {/if}
+    	</div>
+    	 
+</div>
+
+{include file="./inc/footer.html"}
+
+

@@ -1,0 +1,98 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+	<?php
+	$this->_var['back_url'] = wap_url("index","uc_transfer#index");
+	$this->_var['back_page'] = "#uc_transfer";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_transfer" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<?php
+	$this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/uc_to_transfer.css";		
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+<!--用户中心_债权购买-->
+<div class="detail">
+        <div class="mainblok mainborder">
+            <div class="detail_tit">
+                <h3>{$data.transfer.name}</h3>
+            </div>
+            <div class="detail_list">
+                <ul>
+                    <li>
+                        <label>下个还款日</label>
+                        <div class="list_con">{$data.transfer.next_repay_time_format}</div>
+                    </li>
+                    <li>
+                        <label>待还/总期数</label>
+                        <div class="list_con specialfont">{$data.transfer.how_much_month}/{$data.transfer.repay_time}</div>
+                    </li>
+                    <li>
+                        <label>剩余本金</label>
+                        <div class="list_con specialfont">{$data.transfer.left_benjin_format}</div>
+                    </li>
+					<li>
+                        <label>剩余利息</label>
+                        <div class="list_con">{$data.transfer.left_lixi_format}</div>
+                    </li>
+					<li>
+                        <label>最大转让金额</label>
+                        <div class="list_con">{$data.transfer.transfer_amount_format}</div>
+                    </li>
+					
+                </ul>
+            </div>
+        </div><!--mainblok——end--> 
+        
+        
+<div class="blank15"></div>
+        <div class="mainblok mainborder">
+            <div class=""></div>
+            <div class="detail_list">
+                <ul>
+                    <li>
+                        <label>转让金额</label>
+                        <div class="list_con">
+	                        <input id="transfer_money" type="text" placeholder="请转让金额" class="transfer_money">
+	                        <a href="{wap_url a="index" r="uc_incharge"}" class="recharge">我要充值</a>
+                        </div>						
+                    </li>
+                    <li>
+                        <label>支付密码</label>
+                        <div class="list_con">
+                             <input id="pass_word" type="password" placeholder="请输入密码" class="password"  style=" width:90%; height:22px; line-height:20px;">
+                        </div>
+                    </li>
+                    <!-- 
+	                   	<li>
+	                   		<label>承接人</label>
+	                        <div class="list_con">
+	                        <label>andrewhsu</label>
+							</div>
+						</li>
+						<li>
+	                   		<label>承接时间</label>
+	                        <div class="list_con">
+	                        <label>2323</label>
+							</div>
+						</li>
+					-->
+                </ul>
+            </div>
+        </div><!--mainblok——end--> 
+
+    </div>
+    <input type="hidden" value="{$data.transfer.dlid}" name="dlid" id="dlid" />
+    <input type="hidden" value="{$data.transfer.dltid}" name="dltid" id="dltid" />
+	<div class='blank15'></div>
+	<div class="but_box_parent">
+    <div class='but_box'>
+    <div class="lookdetail" id="do_transfer" style=" width:100%;"><a href="#" class="but_this">确认转让</a></div>
+    </div>
+</div>
+{include file="./inc/footer.html"}
+
+
+
+

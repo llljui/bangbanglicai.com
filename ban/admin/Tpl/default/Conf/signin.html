@@ -1,0 +1,208 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript">
+function memcache()
+{
+	var cache = $("select[name='CACHE_TYPE']").val();
+	if(cache=='Memcached')
+	$("input[name='MEMCACHE_HOST']").parent().parent().show();
+	else
+	$("input[name='MEMCACHE_HOST']").parent().parent().hide();
+}
+$(document).ready(function(){
+	$("select[name='CACHE_TYPE']").bind("change",function(){
+		memcache();
+	});
+	memcache();
+});
+var maxlen_0 = 0;
+var maxlen_1 = 0;
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+	<foreach name="conf" item="conf_group">
+	<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="{$key}">
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<foreach name="conf_group" item="conf_item">
+		<tr <if condition="$conf_item['name'] eq 'DB_VOL_MAXSIZE'">style="display:none;"</if>>
+			<td class="item_title">{:l("CONF_".$conf_item['name'])}:</td>
+			<td class="item_input" id="J_{$conf_item.name}_BOX">
+				<div id="J_{$conf_item.name}_INFO_BOX">
+				<!--系统配置文本输入-->
+				<if condition="$conf_item['input_type'] eq 0">
+					<php>
+					if (($conf_item['name'] == 'USER_LOGIN_MONEY' &&  intval(M("Conf")->where("`name`='USER_LOGIN_MONEY_TYPE'")->getField("value"))  == 1) || ($conf_item['name'] == 'USER_LOGIN_KEEP_MONEY' &&  intval(M("Conf")->where("`name`='USER_LOGIN_KEEP_MONEY_TYPE'")->getField("value")) == 1)){
+					foreach($conf_item['value'] as $k=>$fitem){
+					</php>
+							<div class="rows">
+								从<input type="text" class="textbox " name="{$conf_item.name}[{$k}][minprice]" value="{$fitem.minprice}" size="10" />
+								到<input type="text" class="textbox " name="{$conf_item.name}[{$k}][maxprice]" value="{$fitem.maxprice}" size="10" />
+								奖励<input type="text" class="textbox " name="{$conf_item.name}[{$k}][money]" value="{$fitem.money}" size="10" />
+								<select name="{$conf_item.name}[{$k}][type]">
+									<option value="0" <php>echo ($fitem['type'] == 0 ? 'selected="selected"' : ""); </php>>&yen;</option>
+									<option value="1" <php>echo ($fitem['type'] == 1 ? 'selected="selected"' : ""); </php>>%</option>
+								</select>
+								<a href="javascript:void(0)" onclick="$(this).parent().remove();">移除</a>
+								<div class="blank5"></div>
+							</div>
+						<php>}</php>
+						<a href='javascript:void(0)' onclick='addRows(<php>echo ($conf_item['name'] == 'USER_LOGIN_MONEY' ? 0 : 1);</php>)' id='J_addRows_<php>echo ($conf_item['name'] == 'USER_LOGIN_MONEY' ? 0 : 1);</php>'>添加</a>
+						<script>maxlen_<php>echo ($conf_item['name'] == 'USER_LOGIN_MONEY' ? 0 : 1);</php> = {:count($conf_item['value'])};</script>
+					<php>}else{</php>
+					<input type="text" class="textbox " name="{$conf_item.name}" value="{$conf_item.value}" />
+					<php>}</php>
+				</if>
+				<!--系统配置文本输入-->
+				<if condition="$conf_item['input_type'] eq 5">
+					<textarea class="textbox " name="{$conf_item.name}"  style=" height:350px;width:98%;">{$conf_item.value}</textarea>
+				</if>
+				<!--系统配置密码框输入-->
+				<if condition="$conf_item['input_type'] eq 4">
+				<input type="password" class="textbox " name="{$conf_item.name}" value="{$conf_item.value}" />
+				</if>
+				<!--系统配置文本输入-->
+				
+				<!--系统配置下拉输入-->
+				<if condition="$conf_item['input_type'] eq 1">
+					<select name="{$conf_item.name}">
+					<foreach name="conf_item.value_scope" item="preset_value">
+						<option value="{$preset_value}" <if condition="$conf_item['value'] eq $preset_value">selected="selected"</if>>
+							<if condition="$conf_item['name'] eq 'TEMPLATE' or $conf_item['name'] eq 'SHOP_LANG'">{$preset_value}<else />{:l("CONF_".$conf_item['name']."_".$preset_value)}</if>
+						</option>
+					</foreach>
+					</select>
+				</if>
+				<!--系统配置下拉输入-->
+				<!--系统配置图片输入-->
+				<if condition="$conf_item['input_type'] eq 2">
+				
+				<html:imgUpload id="{$conf_item.name}" name="{$conf_item.name}" value='$conf_item.value' />
+
+				</if>
+				<!--系统配置图片输入-->
+				
+				<!--系统配置编辑器输入-->
+				<if condition="$conf_item['input_type'] eq 3">
+				<html:editor id="{$conf_item.name}" name="{$conf_item.name}" type="KINDEDITOR" content="{$conf_item.value}" style=" height:150px;width:750px;" />
+				</if>
+				
+				<if condition="$conf_item['tip'] neq ''">
+					<br>
+					<span class="tip_span">{$conf_item.tip}</span>
+				</if>
+				</div>
+			</td>
+		</tr>
+		</foreach>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table>
+	</foreach>	
+	<div class="blank5"></div>
+	<table class="form" cellpadding=0 cellspacing=0>
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Conf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update_signin" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+	</table> 
+</form>
+<div class="blank5"></div>
+</div>
+<div id="J_USER_LOGIN_MONEY_INFO_BOX_TMP" style="display:none">
+	<div class="rows">
+		从<input type="text" class="textbox " name="USER_LOGIN_MONEY[$num][minprice]" value="0" size="10" />
+		到<input type="text" class="textbox " name="USER_LOGIN_MONEY[$num][maxprice]" value="0" size="10" />
+		奖励<input type="text" class="textbox " name="USER_LOGIN_MONEY[$num][money]" value="0" size="10" />
+		<select name="USER_LOGIN_MONEY[$num][type]">
+			<option value="0">&yen;</option>
+			<option value="1">%</option>
+		</select>
+		<a href="javascript:void(0)" onclick="$(this).parent().remove();">移除</a>
+		<div class="blank5"></div>
+	</div>
+</div>
+<div id="J_USER_LOGIN_KEEP_MONEY_INFO_BOX_TMP" style="display:none">
+	<div class="rows">
+		从<input type="text" class="textbox " name="USER_LOGIN_KEEP_MONEY[$num][minprice]" value="0" size="10" />
+		到<input type="text" class="textbox " name="USER_LOGIN_KEEP_MONEY[$num][maxprice]" value="0" size="10" />
+		奖励<input type="text" class="textbox " name="USER_LOGIN_KEEP_MONEY[$num][money]" value="0" size="10" />
+		<select name="USER_LOGIN_KEEP_MONEY[$num][type]">
+			<option value="0">&yen;</option>
+			<option value="1">%</option>
+		</select>
+		<a href="javascript:void(0)" onclick="$(this).parent().remove();">移除</a>
+		<div class="blank5"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	jQuery(function(){
+		$("select[name='USER_LOGIN_MONEY_TYPE']").change(function(){
+			if($(this).val()==0)
+				$("#J_USER_LOGIN_MONEY_INFO_BOX").html('<input type="text" class="textbox " name="USER_LOGIN_MONEY" value="0">');
+			else{
+				addRows(0);
+			}
+				
+		});
+		
+		$("select[name='USER_LOGIN_KEEP_MONEY_TYPE']").change(function(){
+			if($(this).val()==0)
+				$("#J_USER_LOGIN_KEEP_MONEY_INFO_BOX").html('<input type="text" class="textbox " name="USER_LOGIN_KEEP_MONEY" value="0">');
+			else{
+				addRows(1);
+			}
+		});
+	});
+	
+	function addRows(t){
+		if(t==0){
+			var html=$("#J_USER_LOGIN_MONEY_INFO_BOX_TMP").html();
+			maxlen_0++;
+			var html = html.replace(/\$num/g,maxlen_0);
+			if($("#J_addRows_0").length == 0) {
+				$("#J_USER_LOGIN_MONEY_INFO_BOX").html(html);
+				$("#J_USER_LOGIN_MONEY_INFO_BOX").append("<a href='javascript:void(0)' onclick='addRows(0)' id='J_addRows_0'>添加</a>");
+			}
+			else{
+				$("#J_addRows_0").before(html);
+			}
+		}
+		else{
+			var html=$("#J_USER_LOGIN_KEEP_MONEY_INFO_BOX_TMP").html();
+			maxlen_1++;
+			var html = html.replace(/\$num/g,maxlen_1);
+			
+			if($("#J_addRows_1").length == 0) {
+				$("#J_USER_LOGIN_KEEP_MONEY_INFO_BOX").html(html);
+				$("#J_USER_LOGIN_KEEP_MONEY_INFO_BOX").append("<a href='javascript:void(0)' onclick='addRows(1)' id='J_addRows_1'>添加</a>");
+			}
+			else{
+				$("#J_addRows_1").before(html);
+			}
+		}
+	}
+	
+
+</script>
+<include file="Public:footer" />

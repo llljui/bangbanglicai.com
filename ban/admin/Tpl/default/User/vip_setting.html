@@ -1,0 +1,81 @@
+{// 引入标签库 }
+<tagLib name="html" />
+
+<load href='__TMPL__Common/js/datepicker/datepicker.css' />
+<load href='__TMPL__Common/js/datepicker/jquery.ui.core.js' />
+<load href='__TMPL__Common/js/datepicker/jquery.ui.widget.js' />
+<load href='__TMPL__Common/js/datepicker/jquery.ui.datepicker.js' />
+<script type="text/javascript">
+jQuery(function(){
+    $("input#vip_buytime").datepicker({showAnim:'fadeIn'});
+    $("input#vip_end_time").datepicker({showAnim:'fadeIn'});
+   
+});
+</script>
+<div class="main">
+<div class="main_title">{$user_info.user_name}</div>
+<div class="blank5"></div>
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+    <tr>
+        <td colspan=2 class="topTd"></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="item_title" style="text-align:center;"><b>VIP信息</b></td>
+    </tr>
+	<tr>
+        <td class="item_title">当前VIP等级:</td>
+        <td class="item_input">
+            {$vip_grade}
+        </td>
+    </tr>
+    <tr>
+        <td class="item_title">变更VIP等级:</td>
+        <td class="item_input">
+        	<select name="vip_id">
+        		<option value="0">请选择VIP等级</option>
+	            <foreach name="vip_list" item="vip_item">
+	                <option value="{$vip_item.id}" <if condition="$user_info.vip_id eq $vip_item['id']">selected="selected"</if> >{$vip_item.vip_grade}</option>
+	            </foreach>
+            </select>
+        </td>
+    </tr>
+	<tr>
+        <td class="item_title">开始时间:</td>
+        <td class="item_input">
+        	<input type="hidden"  name="user_id" value="{$user_info.id}"  />
+        	<input type="hidden"  name="buy_id" value="{$vip_buy.id}"  />
+			<input class="f-input ui-textbox w150" name="begin_time"  id="vip_buytime" type="text" value="{$vip_buy.vip_buytime}" style="width:158px;height:21px;">
+        </td>
+    </tr>
+	<tr>
+        <td class="item_title">结束时间:</td>
+        <td class="item_input">
+        	<input class="f-input ui-textbox w150" name="end_time"  id="vip_end_time" type="text" value="{$vip_buy.vip_end_time}" style="width:158px;height:21px;">
+        </td>
+    </tr>
+	<tr>
+        <td class="item_title">扣除用户资金:</td>
+        <td class="item_input">
+        	<input type="text" class="textbox " name="money" value="0" /> 
+			<span>0为不扣除用户资金</span>
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="item_title">&nbsp;</td>
+        <td class="item_input">
+            <input type="hidden" name="id" value="{$user_info.id}" />
+            <input type="hidden" name="{:conf("VAR_MODULE")}" value="User" />
+            <input type="hidden" name="{:conf("VAR_ACTION")}" value="save_vip_setting" />
+            <input type="submit" class="button" value="{%OK}" />
+            <input type="reset" class="button" value="{%RESET}" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan=2 class="bottomTd"></td>
+    </tr>
+</table>     
+</form>
+</div>
+

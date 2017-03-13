@@ -1,0 +1,37 @@
+.add_item_tip{ padding:10px; }
+.add_item_tip h1{ font-size:16px; font-family:"微软雅黑"; display:inline-block; height:30px;}
+.add_item_tip ul li{ font-size:14px;}
+
+.ui-button_green{ float:left; background:#12adff; height:32px; padding-left:5px;}
+.ui-button_green div{ float:left; background:#12adff; height:32px;border-radius: 5px;}
+.ui-button_green span{ background:none; white-space:nowrap; border:none; padding:0px 10px 0px 10px; height:30px;  color:#fff; font-size:14px; float:left;  line-height:30px; display:inline-block; cursor:pointer;}
+
+.item_preview{ background:#f5f5f5; padding:10px; margin-left:16px; line-height:30px; }
+#support_price_box{ font-size:16px; font-weight:bolder;}
+
+.image_item{ position:relative; float:left; width:50px; height:50px; overflow:hidden; display:inline-block; margin-right:10px; border:1px solid #ccc; }
+.image_item span{ position:absolute; right:0px; top:0px; width:15px; height:15px; display:block; background:url(../images/project/del_image.png); cursor:pointer; 
+_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/project/del_image.png', sizingMethod='scale');
+_background-image:none; }
+
+#add_item_row { margin-left:330px; }
+.add_item_btn { height:40px; overflow:hidden; margin:0; }
+.add_item_btn a{ float:left; width:80px; display:inline-block; height:41px; line-height:41px; color:#690; text-decoration:none; margin-left:10px;color:#12adff;}
+.add_item_btn a:hover{ float:left; width:80px; display:inline-block; height:41px; line-height:41px; color:#12adff; text-decoration:none;}
+
+
+/* control-group 开始 */
+.control-group{margin-bottom:5px;padding:5px 0;overflow:hidden}
+.control-group label{color:#666;}
+.control-group .control-label,.control-group .control_label,.control-group .form_lable{width:90px;float:left;text-align:right;font-size:14px;margin-right:10px;overflow:hidden;color:#666;}
+.control-group label,.control-group .form_lable,.control-group .control_label,.control-group .control-label,.control-group .control_name,.control-group .form_text,.control-group .control_name,.control-group .control_text,.control-group .control-text{height:41px;line-height:41px;font-size:14px;float:left;}
+.control-group .small_form_lable,.control-group .small_control_label,.control-group .small_form_text,.control-group .small_control_text{height:37px;line-height:37px;font-size:14px;float:left;}
+.small-control-group .control_label,.small-control-group .control-label,.small-control-group .control_text,.small-control-group .control-text{height:37px;line-height:37px;font-size:14px;float:left;}
+.control-group .smaller_form_lable,.control-group .smaller_control_label,.control-group .smaller_form_text,.control-group .smaller_control_text{height:26px;line-height:26px;font-size:14px;float:left;}
+.smaller-control-group .control_label,.smaller-control-group .control-label,.smaller-control-group .control_text,.smaller-control-group .control-text{height:26px;line-height:26px;font-size:14px;float:left;}
+.small-control-group label{height:26px;line-height:26px;}
+.control-group .form_cont{float:left;height:41px;line-height:41px;font-size:14px;}
+.small-control-group .form_cont,.small-control-group .form_cont *{height:26px;line-height:26px;}
+.control-group .fileupload{height:39px;line-height:39px;}
+.control-group .controls select{height:45px;width:180px;}
+/* control-group 结束 */

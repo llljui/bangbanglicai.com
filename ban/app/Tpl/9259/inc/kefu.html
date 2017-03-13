@@ -1,0 +1,36 @@
+<script src="{$TMPL}/js/new_scjb/cs_q.js"></script>
+
+<div id='qq_icon'></div>
+<div id='cs_online'>
+	<ul class='qq_context'>
+		<li>
+			<span class='span_t'>在线客服01：</span>
+			<span class='qq_num'></span>
+		</li>
+		<li>
+			<span class='span_t'>在线客服02：</span>
+			<span class='qq_num'></span>
+		</li>
+		<li>
+			<span class='span_t'>在线客服03：</span>
+			<span class='qq_num'></span>
+		</li>
+		<li>
+			<span class='span_t'>在线客服04：</span>
+			<span class='qq_num'></span>
+		</li>
+		<li>
+			<span class='span_t'>在线客服05：</span>
+			<span class='qq_num'></span>
+		</li>
+    </ul>
+</div>
+<script>
+	myEvent(window,'load',function(){
+		dealy('qq_icon',1);						//2秒后显示QQ图标，默认为2秒，可自行设置
+		settop('qq_icon','cs_online',150);		//设置在线客服的高度，默认150，可自行设置
+		var span_q = getbyClass('cs_online','qq_num');
+		setqq(span_q,['123456','123456','123456','123456','123456']);		//填写5个QQ号码
+		click_fn('qq_icon','cs_online');
+	});
+</script>

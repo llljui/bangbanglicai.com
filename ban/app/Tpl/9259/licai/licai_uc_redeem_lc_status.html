@@ -1,0 +1,80 @@
+<?php
+$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/switch_city.js";
+$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/switch_city.js";
+$this->_var['dpagejs'][] = APP_ROOT_PATH."/system/region.js";
+$this->_var['dcpagejs'][] = APP_ROOT_PATH."/system/region.js";
+$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/add_consignee.js";
+$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/add_consignee.js";
+?>
+<script type="text/javascript" src="{function name="parse_script" v="$dpagejs" c="$dcpagejs"}"></script>
+<form id='form1' class="ajax_form"  method="post">
+	<div class="blank20"></div>
+	<div class="control-group">
+	    <label class="control_label smaller_control_label">申请金额：</label>
+	    <div class="smaller_control_cont">{$vo.money}</div>
+	    <div class="blank0"></div>
+	</div>
+ 	<div class="control-group">
+	    <label class="control_label small_control_label">
+	    	<span class="f_red b">*</span> 收益：
+	    </label>
+        <input type="text" class="small_textbox w250 mr10" name="earn_money" id="earn_money" value="{$vo.earn_money}" />
+	    <div class="blank0"></div>
+	</div>
+ 	<div class="control-group">
+	    <label class="control_label small_control_label">
+	    	<span class="f_red b">*</span> 手续费：
+	    </label>
+        <input type="text" class="small_textbox w250 mr10" name="fee" id="fee" value="{$vo.fee}" />
+	    <div class="blank0"></div>
+	</div>
+    <div class="control-group">
+	    <label class="control_label smaller_control_label">平台收益：</label>
+        <div class="smaller_control_cont">{$vo.organiser_fee}</div>
+	    <div class="blank0"></div>
+	</div>
+   	<div class="blank10"></div>
+	<div class="button_row control-group">
+		<label class="control_label"></label>
+		<input type="hidden" name="ajax" value="1">
+        <input type="hidden" name="redempte_id" id='redempte_id' value="{$vo.id}">
+		<input type="button" id='submit' value="确认发放" class="ui-button bg_red mr10">
+		<input type="button" value="取消" class="ui-button bg_gray cancel" onclick="close_pop();">
+    </div>
+	<div class="blank20"></div>
+</form>
+
+<script>
+	$("#submit").click(function(){
+	
+        var ajaxurl = '{url x="index" r="licai#set_redeem_lc_status"}';
+		var query = new Object();
+		
+		query = $("#form1").serialize();
+		
+		$.ajax({
+			url:ajaxurl,
+			data:query,
+			type:"Post",
+			dataType:"json",
+			success:function(data)
+			{
+				if(data.status == 1){
+					$.showSuccess(data.info,function(){
+							location.href = location.href;	
+						});
+				}
+				else
+				{
+					$.showErr(data.info,function(){
+							//location.href = location.href;	
+					});
+				}	
+			}
+			,error:function()
+			{
+			   	alert("errer");
+			}
+		});
+	 });
+</script>

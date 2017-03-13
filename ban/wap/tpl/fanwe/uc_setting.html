@@ -1,0 +1,67 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='uc_setting'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+	{/if}
+<!-- 这里是页面内容区 -->
+
+<div class="uc_center">
+
+	<div class="uc_c_middle">
+		<ul class="uc_c_middle_content_list">
+			<li>
+				<a href="#" class="href_first w_b" onclick="RouterURL('{wap_url a="index" r="save_reset_pwd"}','#save_reset_pwd',2);">				
+					<i class="icon iconfont icon_left">&#xe627;</i>
+					<p class="w_b_f_1">修改密码</p>
+					<i class="icon iconfont icon_rigth">&#xe61a;</i>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="href_first w_b" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd"}','#reset_pay_pwd',2);">
+					<i class="icon iconfont icon_left">&#xe629;</i>
+					<p class="w_b_f_1">设置支付密码</p>
+					<i class="icon iconfont icon_rigth">&#xe61a;</i>
+				</a>	
+			</li>
+			{if $data.credit_status eq 0 || $data.credit_status eq 3}
+			<li>
+				<a href="#" class="href_first w_b" onclick="RouterURL('{wap_url a="index" r="uc_credit"}','#uc_credit',2);">
+					<i class="icon iconfont icon_left">&#xe634;</i>
+					<p class="w_b_f_1">身份认证</p>
+					<i class="icon iconfont icon_rigth">&#xe61a;</i>
+				</a>
+				<a href="#" class="href_second" onclick="RouterURL('{wap_url a="index" r="uc_credit"}','#uc_credit',2);">{$data.credit_show}</a>
+			</li>
+				{else}
+			<li>
+				<span  class="href_first w_b">
+					<i class="icon iconfont icon_left">&#xe634;</i>
+					<p class="w_b_f_1">身份认证</p>
+					<i class="icon iconfont icon_rigth">&#xe61a;</i>
+				</span>
+				<span  class="href_second pass">{$data.credit_show}</span>
+			</li>
+			{/if}
+			<li>
+				<a href="#" class="href_first w_b" onclick="RouterURL('{wap_url a="index" r="goods_address"}','#goods_address',2);">
+					<i class="icon iconfont icon_left">&#xe633;</i>
+					<p class="w_b_f_1">设置地址</p>
+					<i class="icon iconfont icon_rigth">&#xe61a;</i>
+				</a>
+			</li>
+		</ul>
+		<a href="#" data-url="{wap_url a="index" r="login_out" }" onclick="loginout();" id="login-out-btn"  class="out_login">退出当前账户</a>
+</div>
+</div>
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/footer.html"}
+{/if}
+
+
+

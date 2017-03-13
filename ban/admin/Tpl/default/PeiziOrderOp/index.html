@@ -1,0 +1,114 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<script type="text/javascript">
+	function op_edits(id)
+	{
+		window.location.href=ROOT+'?m=PeiziOrderOp&a=op_edits&id='+id;
+	}
+
+	function show_memo(id)
+	{
+		$.weeboxs.open('<div id="J_view_repay_plan">'+$("#memo"+id).html()+'</div>',{contentType:'text',showButton:false,title:"复审未通过原因",width:500,height:300});
+	}
+</script>
+<PHP>
+	function gets_op_status($id,$list){
+		
+		if($list['op_status'] ==0 ){
+			return '<a href="javascript:op_edits('.$id.');">审核</a>&nbsp;';
+		}elseif($list['op_status'] ==1){
+			return '<a href="javascript:op_edits('.$id.');">复审</a>&nbsp;';
+		}elseif($list['op_status'] ==2 ){
+			return '';
+		}elseif($list['op_status'] ==3){
+			return '<a href="javascript:op_edits('.$id.');">详细</a>&nbsp;';
+		}
+        elseif($list['op_status'] ==4){
+			return '';
+		}
+	}
+    function get_detail($id,$list)
+	{
+		if($list['op_status'] ==0 ){
+			return '';
+		}elseif($list['op_status'] ==1){
+			return '';
+		}elseif($list['op_status'] ==2 || $list['op_status'] ==4 ){
+			return '<div class="memo" style="display:none;" id="memo'.$id.'">'.$list["op_memo"].'</div><a href="javascript:void(0);" onclick="show_memo('.$id.')">查看原因</a>';
+		}elseif($list['op_status'] ==3){
+			return '';
+		}
+	}
+
+</PHP>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+
+		<label id="start_time_item_title">开始日期:</label><input type="text" class="textbox" name="start_time" id="start_time" value="{$start_time}" style="width:80px"  onfocus="return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" />
+		<label id="end_time_item_title">结束日期:</label><input type="text" class="textbox" name="end_time" id="end_time" value="{$end_time}" style="width:80px"  onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+		
+		
+		申请类型 
+		<select name="op_type">
+			<option value="-1" <if condition="$op_type eq '-1' || $op_type eq ''">selected="selected"</if>>全部</option>
+			<option value="0" <if condition="$op_type eq 0">selected="selected"</if>>追加保证金</option>
+			<option value="1" <if condition="$op_type eq 1">selected="selected"</if>>申请延期</option>
+			<option value="2" <if condition="$op_type eq 2">selected="selected"</if>>申请增资</option>
+			<option value="3" <if condition="$op_type eq 3">selected="selected"</if>>申请减资</option>
+			<option value="4" <if condition="$op_type eq 4">selected="selected"</if>>提取赢余</option>
+			<option value="5" <if condition="$op_type eq 5">selected="selected"</if>>申请结束配资</option>
+		</select>
+	
+		
+		配资类型
+		<select name="peizi_conf_id">
+        	<option value="-1" <if condition="$peizi_conf_id eq '-1' || $type eq ''">selected="selected"</if>>全部</option>
+            <foreach name='type_list' item='item'>
+            	<option value="{$item.id}" <if condition="$peizi_conf_id eq $item['id']">selected="selected"</if>>{$item.name}</option>
+            </foreach>
+		</select>
+		
+		<input type="hidden" value="PeiziOrderOp" name="m" />
+		<input type="hidden" value="<php>echo ACTION_NAME;</php>" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="item"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,user_name:会员
+		,invest_user_id|get_user_name_real:出资人
+		,total_money|format_price:总操盘资金
+		,cost_money|format_price:保证金
+		,op_begin_data:开始交易日
+		,conf_type_name:配资类型
+		,time_limit_num:期限		
+		,create_date:申请时间 
+		,op_type|get_peizi_op_type:申请类型 
+		,change_memo:变动描述
+		,op_status|get_peizi_op_status:状态"
+	actionlist="id|gets_op_status=$item,id|get_detail=$item"
+	actionwidth="100px" />
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

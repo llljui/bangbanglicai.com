@@ -1,0 +1,325 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/jquery.bgiframe.js' />
+<load href='__TMPL__Common/js/jquery.weebox.js' />
+<load href='__TMPL__Common/style/weebox.css' />
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+<script type="text/javascript">
+	var is_do_lock = false;
+	jQuery(function(){
+		$("input[name='deal_status']").click(function(){
+			var rel= parseInt($(this).val());
+			switch(rel){
+				case 0:
+					$("#success_loans_box").show();
+					$("#success_loans_pic_box").show();
+					$("#bad_loans_box").hide();
+					break;
+				case 1:
+					$("#success_loans_box").hide();
+					$("#success_loans_pic_box").hide();
+					$("#bad_loans_box").show();
+					break;
+			}
+		});
+	});
+	
+	function do_add_load(){
+		
+	}
+	
+	function nothingdo(){
+		$("input[name='deal_status']").attr("checked",false);
+		$("#success_loans_box").hide();
+		$("#bad_loans_box").hide();
+	}
+	/**
+	 * 满标放款
+	 */
+	function do_loans(id){
+		if(is_do_lock){
+			alert("请等待处理！");
+			return false;
+		}
+		is_do_lock = true;
+		var query=new Object();
+			query.repay_start_time = $("#repay_start_time").val();
+			query.id = id;
+			query.get_manage = $("#get_manage:checked").val();
+			query.loans_pic = $("input[name=loans_pic]").val();
+		$.ajax({
+			url:ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=do_loans", 
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				is_do_lock = true;
+				if(result.status ==1)
+				{
+					alert(result.info);
+					window.location.reload();
+				}
+				else if(result.status ==2){
+					window.location.href = result.jump;
+				}
+				else{
+					alert(result.info);
+				}
+			}
+			,
+			error:function(){
+				alert("执行出错");
+				is_do_lock = false;
+			}
+		});
+	}
+	
+	/**
+	 * 流标返还
+	 */
+	function do_received(id){
+		if(is_do_lock){
+			alert("请等待处理！");
+		}
+		is_do_lock = true;
+		var query=new Object();
+			query.bad_msg = $("#bad_msg").val();
+			query.id = id;
+			
+		$.ajax({
+			url:ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=do_received", 
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				is_do_lock = false
+				if(result.status ==1)
+				{
+					alert(result.info);
+					window.location.reload();
+				}
+				else if(result.status ==2){
+					window.location.href = result.jump;
+				}
+				else{
+					alert(result.info);
+				}
+			},
+			error:function(){
+				alert("执行出错");
+				is_do_lock = false;
+			}
+		});
+	}
+	
+	/**
+	*到导出投标列表
+	**/
+	function do_export_load(id){
+		window.location.href = ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=do_export_load"+"&id="+id;
+	}
+	
+	function do_add_load(id){
+		if(is_do_lock){
+			alert("请等待处理！");
+		}
+		is_do_lock = true;
+		var query=new Object();
+			query.id = id;
+			
+		$.ajax({
+			url:ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=add_load", 
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(result){
+				is_do_lock = false
+				if(result.status ==1)
+				{
+					$.weeboxs.open(result.info, {contentType:'text',showButton:false,title:'增加投资人',width:600});
+				}
+				else{
+					alert(result.info);
+				}
+			},
+			error:function(){
+				alert("执行出错");
+				is_do_lock = false;
+			}
+		});
+	}
+</script>
+<div class="main">
+
+<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title" style="width:200px;">配资编号:</td>
+		<td class="item_input">
+		{$vo.order_sn}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">借款人:</td>
+		<td class="item_input">
+			{$vo.user_id|get_user_name_real}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">总操盘资金:</td>
+		<td class="item_input">
+			{$vo.total_money|format_price}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">到期状态:</td>
+		<td class="item_input">
+			{$vo.status|get_peizi_status}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">需募集资金:</td>
+		<td class="item_input">
+			{$vo.need_money|format_price}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">已募集资金:</td>
+		<td class="item_input">
+			{$vo.has_money|format_price}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">还需募集多少:</td>
+		<td class="item_input">
+			{:format_price($vo['need_money'] - $vo['has_money'])}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">操作:</td>
+		<td class="item_input">
+			<if condition="$vo['status'] eq 7">
+				<label><input type="radio" name="deal_status" value="0" />满标放款</lable>
+			</if>	
+			
+			<if condition="$vo['status'] eq 4 || $vo['status'] eq 7 ">
+				<label><input type="radio" name="deal_status" value="1" />流标<if condition="$vo['has_money'] gt 0">返还</if></lable>
+			</if>
+			<if condition="$vo['status'] eq 4">
+				<input type="button" class="button" value="添加投资人" onclick="do_add_load({$vo.id});">
+			</if>
+			
+			<if condition="$loan_list">
+				<input type="button" class="button" value="导出投标列表" onclick="do_export_load({$vo.id});">
+			</if>
+		</td>
+	</tr>
+	
+	<tr id="success_loans_box" style="display:none;">
+		<td class="item_title">确认时间：</td>
+		<td class="item_input">
+        		<input type="text" class="textbox require" name="repay_start_time" id="repay_start_time" value="" onfocus="this.blur(); return showCalendar('repay_start_time', '%Y-%m-%d', false, false, 'btn_repay_start_time');" readonly="readonly" style="width:100px" />
+				<input type="button" class="button" id="btn_repay_start_time" value="{%SELECT_TIME}" onclick="return showCalendar('repay_start_time', '%Y-%m-%d', false, false, 'btn_repay_start_time');" />
+				<input type="button" class="button" value="确定" onclick="do_loans({$vo.id});">
+				<input type="button" class="button" value="取消" onclick="nothingdo();">
+				<div class="blank5"></div>
+	</tr>
+
+	<if condition="$vo.status eq 7">
+	<tr>
+		<td class="item_title">满标时间:</td>
+		<td class="item_input">
+			{$vo.update_time}
+		</td>
+	</tr>
+	</if>
+	
+	<if condition="$vo.status eq 8">
+	<tr>
+		<td class="item_title">流标时间:</td>
+		<td class="item_input">
+			{$vo.update_time}
+		</td>
+	</tr>
+	</if>
+	
+	<tr id="bad_loans_box" style="display:none">
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			{%DEAL_STATUS_3}原因：
+			<div class="blank1"></div>
+			<textarea type="text" class="textarea" name="bad_msg" id="bad_msg" value="" rows="3" cols="50" style="height:auto"></textarea>
+			<div class="blank1"></div>
+			<input type="button" class="button" value="确定流标" onclick="do_received({$vo.id});">
+			<input type="button" class="button" value="取消" onclick="nothingdo();">
+		</td>
+	</tr>
+	
+	
+	<if condition="$loan_list">
+	<tr>
+		<td class="item_title">投标列表:</td>
+		<td class="item_input">
+			<table id="dataTable" class="dataTable" cellpadding="0" cellspacing="0">
+				<tr class="row">
+					<th style="width:120px">投标人</th>
+					<th>投标金额</th>
+					<th style="width:130px">状态</th>
+					<th style="width:130px">是否转账</th>
+					<th style="width:130px">流标返还</th>
+					<th style="width:130px">是否有效</th>
+					<th style="width:150px">投标时间</th>
+					<th style="width:150px">启息时间</th>
+					<th style="width:150px">平仓时间</th>
+				</tr>
+				<foreach name="loan_list" item="loan">
+				<tr>
+					<td>{:get_user_name_real($loan['user_id'])}</td>
+					<td align="center">{$loan.money|format_price}</td>
+					<td align="center"><if condition="$loan['is_auto'] eq 1">自动<else />手动</if></td>
+					<td align="center">
+						<if condition="$loan['is_has_loans'] eq 1">
+							已转账
+						<else />
+						<font color=red>未转账</font>
+						</if>
+					</td>
+					<td align="center"><if condition="$loan['has_received'] eq 1">已返还</if></td>
+					<td align="center"><if condition="$loan['is_effect'] eq 1">有效<else />无效</if></td>
+					<td align="center">{$loan.create_date}</td>
+					<td align="center">{:to_date(to_timespan($loan['begin_date']),"Y-m-d")}</td>
+					<td align="center">{:to_date(to_timespan($loan['end_date']),"Y-m-d")}</td>
+				</tr>
+				</foreach>
+				<tr>
+					<td colspan="9">
+						<div class="blank5"></div>
+						<div class="page">{$page}</div>
+						</div>
+						</if>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>
+
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,101 @@
+
+.voucher_block{ background:#fff; padding:0.5225rem 0.825rem; position:relative;}
+.voucher_block .ecv_name{ font-size:0.715rem; color:#333; line-height:1.265rem;}
+.voucher_block .exlimit{ clear:both; font-size:0.66rem; color:#999;line-height:1.265rem;}
+.voucher_block .price-box{ width:5.0rem; background:#ea544a;color:#fff; position:absolute;  right:0; top:0px;bottom:0px;text-align:center;}
+.voucher_block .price{ font-size:1.1rem; display:block; clear:both; line-height:1.1ewm;height:1.1ewm; margin-top:0.275rem;}
+.voucher_block .used{ font-size:0.66rem; line-height:0.66rem; height:0.66rem;}
+.voucher_block .price-box-1,.voucher_block .price-box-2{ background:#ccc}
+.voucher_block .status{position:absolute; right:0; top:0; height:40px; width:40px}
+.voucher_block .status_1{ background:url(../images/uc_center/voucher_1.png) no-repeat 0 0; background-size:100% 100%}
+.voucher_block .status_2{ background:url(../images/uc_center/voucher_2.png) no-repeat 0 0; background-size:100% 100%}
+.voucher_block .border-img{position: absolute;right: 0;top: 0;bottom:0;width: 0.1375rem;background:url(../images/border-img.png) repeat-y;}
+
+
+
+.voucher_ex_block{ background: #fff; padding:10px 10px; color: #878787;}
+.voucher_ex_block li{ padding:5px 0; font-size:14px;}
+.voucher_ex_block .name{ display:inline-block; width:80px }
+.voucher_ex_block .ex{ text-align:center;}
+.tc{ text-align:center;}
+a.exchange,.snexchange{ border-radius: 5px;
+  display: inline-block;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  background: @main_color;
+  }
+ 
+ a.gq_exchange{ border-radius: 5px;
+  display: inline-block;
+  width: 90%;
+  height: 40px;
+  line-height: 40px;
+  color: #5F5F5F;
+  font-size: 18px;
+  text-align: center;
+  background: #EEEEEE;
+  }
+   
+  .f-input{width: 90%;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 5px;
+  padding: 0 10px;
+  border-width: 1px;
+  border-style: solid;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top:10px;
+  -webkit-appearance: none
+}
+  
+ .exbox{ background:#fff; padding:0 5px}
+.exbox .t{ background:#f9f9f9; font-size:15px; font-weight:700; padding:10px}
+  
+  .blank0{ height:0px; clear:both; overflow:hidden; overflow:visible;}
+
+.ir_detail{
+	background:#ccc;
+	color:#474747;
+	padding: 10px;
+	border: solid 1px #ccc;
+	border-top: none;	
+	display:none;
+	position:relative;
+}
+.ir_send{
+	display:none;
+}
+.ir_send .f-input{
+	width:100px;
+	height:25px;
+	line-height:25px;
+	margin:0;
+}
+
+.i_send,.i_ok{
+	position:absolute;
+	top:5px; 
+	right:20px;
+	padding:5px;
+	background:#f60;
+	color:#fff;
+}
+.i_ok
+{
+	right:75px;
+}
+.i_send_1,.i_send_2{
+	display:none;
+}
+
+.i_send a{
+	color:#f60;	
+}

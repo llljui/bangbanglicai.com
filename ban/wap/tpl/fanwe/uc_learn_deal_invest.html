@@ -1,0 +1,124 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_learn#index");
+	$this->_var['back_page'] = "#uc_learn";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_learn" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll">
+<!-- 这里是页面内容区 -->
+
+<div>
+    <div class="blank15"></div>
+	{foreach from=$data.deal_list item="deal" } 
+	<div class="uc_learn">
+    <table>
+        <tr>
+            <th>{$deal.name}</th>
+        </tr>
+    </table>
+    </div>
+	 <ul class="detail_list">
+        <li>
+        <div>
+            <div class="middle clearfix">
+            <table>
+                <tr>
+                    <td>
+                        <span class="c_ff8800">{$deal.borrow_amount_format}</span>
+                        <span class="name">借款金额</span>
+                    </td>
+                    <td>
+                        <span class="c_ff8800">{$deal.rate}%</span>
+                        <span class="name">年化利率</span>
+                    </td>
+                    <td>
+                        <span class="c_ff8800"><em>{$deal.repay_time}</em>{if $deal.repay_time_type eq 0}天{else}个月{/if}</span>
+                        <span class="name" >项目期限</span>
+                    </td>
+                    <td>
+                    <br>
+                    {if $data.learn_balance neq 0 && $deal.deal_status eq 1 && $deal.remain_time gt 0}
+                        <button type="button" class="sub_btn tz_link_btn" data-id="{$deal.id}" >马上投标</button>
+                    {else}
+                        <button type="button" class="sub_btn_gray" >马上投标</button>
+                    {/if}
+                    &nbsp;
+					
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+        </li>
+    </ul>
+	{/foreach}
+	
+	<div class="blank15"></div>
+    <div class="choose">
+        <table>
+            <tr>
+                <th {if $data.t eq ''}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url x="index" r="uc_learn_deal_invest#index"}','#{$data.act}','.detail_content');">获取记录</a></th>
+            </tr>
+        </table>
+    </div>
+    <div class="blank15"></div>
+ 
+	
+	<div style="padding-left:14px;padding-right:13px;">
+        <div class=" detail_content" now_page="1" all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="uc_learn_deal_invest#index"}">
+            <dl>
+            	{/if}
+                {foreach from="$data.learn_send_list" item="learn" }
+                <dd>
+                    <div class="list_bor">
+                        <div class="h clearfix">
+                            <span class="Installments">第 {$learn.key} 条</span>
+                            <div class="bor clearfix">
+                                <span class=" f_r tr">获取时间：{$learn.begin_time}</span>
+                            </div>
+                        </div>
+                        <div class="p">
+                            <div class="bor clearfix">
+                                <div class="child">获取金额(¥)：{$learn.money}</div>
+                                <div class="child">
+                                    获取来源：
+                                    {if $learn.type eq 0} 
+                                        注册赠送
+                                    {/if}
+                                    {if $learn.type eq 1} 
+                                        邀请赠送
+                                    {/if}
+                                    {if $learn.type eq 2} 
+                                        管理员发放
+                                    {/if}
+                                </div>
+                                
+                                <div>
+                                     有效期：{$learn.begin_time} 至  {$learn.end_time}
+                                </div>
+                                <div class="child">状态 &nbsp;：
+                                {if $learn.is_use eq 0}未投资{else}已投资{/if}
+                                </div>
+                                    
+                             </div>
+                        </div>
+                    </div>
+                </dd>
+                {/foreach}
+                {if $smarty.request.is_ajax neq 1}
+            </dl>
+        </div>  
+    </div>
+	<!-- 加载提示符 -->
+	<div class="infinite-scroll-preloader">
+	  <div class="preloader">
+	  </div>
+	</div>
+    <div class="blank15"></div>
+</div>
+
+{include file="./inc/footer.html"}
+{/if}

@@ -1,0 +1,176 @@
+<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;用户信息</div>
+    <?php if (! $this->_var['user_info']): ?>
+    <div class="tc">
+    	只有<a href="<?php
+echo parse_url_tag("u:index|user#register|"."".""); 
+?>" class="f_blue">注册</a>用户才可以查看借入者信用信息！现在<a href="javascript:void(0);" onclick="ajax_login();" class="f_blue">登录</a>
+	</div>
+    <?php else: ?>
+	
+	<div class="box-bd">
+	    <div class="attr_rows">
+	       <div class="attr_item">
+	        信用等级：<span><img src="<?php echo $this->_var['TMPL']; ?>/images/<?php echo $this->_var['u_info']['point_level']; ?>.png" align="absmiddle" alt="<?php echo $this->_var['u_info']['point_level']; ?>" title="<?php echo $this->_var['u_info']['point_level']; ?>" width="16" height="16">
+	        （<?php echo $this->_var['u_info']['point']; ?>分）</span>
+	        </div>
+	        <div class="attr_item" style="width:60%">信用额度：<span>
+	        <?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['u_info']['quota'],
+);
+echo $k['name']($k['v']);
+?>
+	        ( 借款后的可用额度：<?php echo $this->_var['can_use_quota']; ?> )
+			</span>
+	        </div>
+	   
+	    	<?php if ($this->_var['u_info']['sex'] >= 0): ?>
+	        <div class="attr_item">
+			性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<span><?php if ($this->_var['u_info']['idcardpassed'] == 1): ?><font class="f_red"><?php endif; ?><?php if ($this->_var['u_info']['sex'] == 1): ?>男<?php else: ?>女<?php endif; ?><?php if ($this->_var['u_info']['idcardpassed'] == 1): ?></font><?php endif; ?></span>
+	        </div>
+			<?php endif; ?>
+	        <div class="attr_item">
+			 年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：<span><?php if ($this->_var['u_info']['byear']): ?><?php if ($this->_var['u_info']['idcardpassed'] == 1): ?><font class="f_red"><?php echo to_date(get_gmtime(),"Y")-$this->_var['u_info']['byear'];?></font><?php else: ?><?php echo to_date(get_gmtime(),"Y")-$this->_var['u_info']['byear'];?><?php endif; ?><?php else: ?>未知<?php endif; ?></span>
+	        </div>
+	        <div class="attr_item">
+			 是否结婚：<span><?php if ($this->_var['u_info']['marrypassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['marriage']; ?></font><?php else: ?><?php echo $this->_var['u_info']['marriage']; ?><?php endif; ?></span>
+	        </div>
+	        <div class="attr_item">
+			工作城市：<span><?php if ($this->_var['u_info']['residencepassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['region_province']; ?>&nbsp;<?php echo $this->_var['u_info']['workinfo']['region_city']; ?></font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['region_province']; ?>&nbsp;<?php echo $this->_var['u_info']['workinfo']['region_city']; ?><?php endif; ?> <?php if ($this->_var['expire']['residencepassed_expire']): ?>（过期）<?php endif; ?></span>
+	        </div>
+	   
+			<div class="attr_item">
+			公司行业：<span><?php if ($this->_var['u_info']['workpassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['officedomain']; ?></font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['officedomain']; ?><?php endif; ?><?php if ($this->_var['expire']['workpassed_expire']): ?>（过期）<?php endif; ?></span>
+	     	</div>
+			<div class="attr_item">
+			公司名称：<span><?php if ($this->_var['u_info']['workpassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['office']; ?></font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['office']; ?><?php endif; ?></span>
+	     	</div>
+	     	<div class="attr_item">
+			公司规模：<span><?php if ($this->_var['u_info']['workpassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['officecale']; ?>人</font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['officecale']; ?><?php endif; ?></span>
+	      	</div>
+	        <div class="attr_item">
+			 职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：<span><?php if ($this->_var['u_info']['workpassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['position']; ?></font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['position']; ?><?php endif; ?></span>
+	        </div>
+	         <div class="attr_item">
+	         	职业状态：<span><?php if ($this->_var['u_info']['workpassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['jobtype']; ?></font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['jobtype']; ?><?php endif; ?></span>
+	        </div>
+	        <div class="attr_item">
+			工作收入：<span><?php if ($this->_var['u_info']['incomepassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['workinfo']['salary']; ?></font><?php else: ?><?php echo $this->_var['u_info']['workinfo']['salary']; ?><?php endif; ?><?php if ($this->_var['expire']['incomepassed_expire']): ?>（过期）<?php endif; ?></span>
+	        </div>
+	    
+	        <div class="attr_item">
+	         学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：<span><?php if ($this->_var['u_info']['edupassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['graduation']; ?></font><?php else: ?><?php echo $this->_var['u_info']['graduation']; ?><?php endif; ?></span>
+	        </div>
+	         <div class="attr_item">
+	        入学年份：<span><?php if ($this->_var['u_info']['edupassed'] == 1): ?><font class="f_red"><?php echo $this->_var['u_info']['graduatedyear']; ?></font><?php else: ?><?php echo $this->_var['u_info']['graduatedyear']; ?><?php endif; ?></span>
+	        </div>
+	        <div class="attr_item">
+	        工作时间：<span><?php echo $this->_var['u_info']['workinfo']['workyears']; ?></span>
+	        </div>
+	    
+	        <div class="attr_item">
+			 有无购房：<span><?php if ($this->_var['u_info']['housepassed'] == 1): ?><font class="f_red"><?php if ($this->_var['u_info']['hashouse'] == 1): ?>有<?php else: ?>无<?php endif; ?></font><?php else: ?><?php if ($this->_var['u_info']['hascar'] == 1): ?>有<?php else: ?>无<?php endif; ?><?php endif; ?></span>
+			</div>
+	        <div class="attr_item">
+			有无购车：<span><?php if ($this->_var['u_info']['carpassed'] == 1): ?><font class="f_red"><?php if ($this->_var['u_info']['hascar'] == 1): ?>有<?php else: ?>无<?php endif; ?></font><?php else: ?><?php if ($this->_var['u_info']['hascar'] == 1): ?>有<?php else: ?>无<?php endif; ?><?php endif; ?></span>
+	        </div>
+			<?php if ($this->_var['u_info']['car_brand']): ?>
+	        <div class="attr_item">
+			汽车品牌：<span><?php echo $this->_var['u_info']['car_brand']; ?></span>
+	        </div>
+			<?php endif; ?>
+			<?php if ($this->_var['u_info']['car_year']): ?>
+	        <div class="attr_item">
+			购车年份：<span><?php echo $this->_var['u_info']['car_year']; ?></span>
+	        </div>
+			<?php endif; ?>
+    	
+	        <div class="attr_item">
+			有无房贷：<span><?php if ($this->_var['u_info']['housepassed'] == 1): ?><font class="f_red"><?php if ($this->_var['u_info']['houseloan'] == 1): ?>有<?php else: ?>无<?php endif; ?></font><?php else: ?><?php if ($this->_var['u_info']['houseloan'] == 1): ?>有<?php else: ?>无<?php endif; ?><?php endif; ?></span>
+	        </div>
+	        <div class="attr_item">
+			有无车贷：<span><?php if ($this->_var['u_info']['carpassed'] == 1): ?><font class="f_red"><?php if ($this->_var['u_info']['carloan'] == 1): ?>有<?php else: ?>无<?php endif; ?></font><?php else: ?><?php if ($this->_var['u_info']['carloan'] == 1): ?>有<?php else: ?>无<?php endif; ?><?php endif; ?></span>
+	         </div>
+	    </div>
+		<div class="blank0"></div>
+</div>
+<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;借款记录</div>
+<div class="box-bd">
+    <div class="attr_rows">
+        <div class="attr_item">
+       借款笔数：<span><?php echo $this->_var['user_statics']['deal_count']; ?></span>
+        </div>
+        <div class="attr_item">
+        成功笔数：<span><?php echo $this->_var['user_statics']['success_deal_count']; ?></span>
+        </div>
+        <div class="attr_item">
+        还清笔数：<span><?php echo $this->_var['user_statics']['repay_deal_count']; ?></span>
+        </div>
+        <div class="attr_item">
+        共计借入：<span><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['user_statics']['borrow_amount'],
+);
+echo $k['name']($k['v']);
+?></span>
+        </div>
+    
+        <div class="attr_item">
+        逾期次数：<span><?php echo $this->_var['user_statics']['yuqi_count']; ?></span>
+        </div>
+        <div class="attr_item">
+        严重逾期：<span><?php echo $this->_var['user_statics']['yz_yuqi_count']; ?></span>
+        </div>
+        <div class="attr_item">
+        逾期金额：<span><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['user_statics']['yuqi_amount'],
+);
+echo $k['name']($k['v']);
+?></span>
+        </div>
+        <div class="attr_item">
+        待还本息：<span><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['user_statics']['need_repay_amount'],
+);
+echo $k['name']($k['v']);
+?></span>
+        </div>
+    
+        <div class="attr_item">
+        共计借出：<span><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['user_statics']['load_money'],
+);
+echo $k['name']($k['v']);
+?></span>
+        </div>
+        <div class="attr_item">
+        待收本息：<span><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['user_statics']['load_wait_repay_money'],
+);
+echo $k['name']($k['v']);
+?></span>
+        </div>
+    </div> 
+	<div class="blank0"></div>
+    <div class="prompt tc pt30 pb30">
+         <i></i>以下基本信息资料，经用户同意披露。其中<font class="f_red">红色字体</font>的信息，为通过<?php 
+$k = array (
+  'name' => 'app_conf',
+  'v' => 'SHOP_TITLE',
+);
+echo $k['name']($k['v']);
+?>审核之项目。
+    </div>
+	<div class="blank0"></div>
+</div>
+<?php endif; ?>

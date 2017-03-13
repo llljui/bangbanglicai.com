@@ -1,0 +1,61 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+ <script src="__TMPL__Common/js/highcharts/jquery-1.8.3.min.js"></script>
+
+        <script type="text/javascript">
+$(function () {
+    // Create the chart
+    $('#container').highcharts({
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: '地域分布统计'
+        },
+        
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}: {point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="font-size:11px">{point.name}</span><br><span >借款总额：{point.k}  占比</span>: <b>{point.y:.2f}%</b> <br/>'
+        },
+        series: [{
+			<foreach name="region_pie" item="item">
+			 name: "{$item.name}",
+			</foreach>
+           
+            colorByPoint: true,
+            data: [
+			<foreach name="region_pie" item="item">
+			     {
+	                name: "{$item.name}",
+	                y: {$item.point_region},
+	                k: {$item.borrow_money},
+	                drilldown: "{$item.name}"
+	            },
+			</foreach>
+			]
+        }],
+       
+    });
+});
+        </script>
+    </head>
+    <body>
+
+<script src="__TMPL__Common/js/highcharts/highcharts.js"></script>
+<script src="__TMPL__Common/js/highcharts/data.js"></script>
+<script src="__TMPL__Common/js/highcharts/drilldown.js"></script>
+
+<div id="container" style="min-width: 310px; max-width: 1000px; height: 500px; margin: 0 auto"></div>
+
+</body>
+</html>

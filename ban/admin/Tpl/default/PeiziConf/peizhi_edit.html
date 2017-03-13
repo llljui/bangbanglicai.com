@@ -1,0 +1,148 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript">
+</script>
+<div class="main">
+<div class="main_title">{$main_title} <a href='{:u("PeiziConf/edits",array("id"=>$list['pid']))}'>{%BACK_LIST}</a></div>
+
+<div class="blank5"></div>
+<form name="edit_".$k action="__APP__" method="post" enctype="multipart/form-data">
+	<table class="form conf_tab" cellpadding=0 cellspacing=0 >
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+				
+		<tr>
+			<td class="item_title">倍率区间:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="min_lever" value="{$list.min_lever}" />
+				~
+				<input type="text" class="textbox " name="max_lever" value="{$list.max_lever}" />
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+				
+		<if condition="$peizi['type'] eq 2" >
+		<tr>
+			<td class="item_title">月份区间:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="min_month" value="{$list.min_month}" />
+				~
+				<input type="text" class="textbox " name="max_month" value="{$list.max_month}" />
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+		</if>
+		
+		<tr>
+			<td class="item_title">借款资金区间:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="min_money" value="{$list.min_money}" />
+				~
+				<input type="text" class="textbox " name="max_money" value="{$list.max_money}" />
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+
+		<if condition="$peizi['type'] neq 1" >
+			<tr>
+				<td class="item_title">平台服务利率:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="site_rate" value="{$list.site_rate}" />
+					<span class="tip_span">平台按日或月收取的服务费利率（服务费 = 借款金额 * 利率),</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="item_title">利率1:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="rate1" value="{$list.rate1}" />
+					<span class="tip_span">出资人按日或月收取的利率（利息费 = 借款金额 * 利率),有多个利率时,应按利率1,利率2,利率3,利率4这样的顺序填写</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="item_title">利率2:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="rate2" value="{$list.rate2}" />
+					<span class="tip_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="item_title">利率3:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="rate3" value="{$list.rate3}" />
+					<span class="tip_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="item_title">利率4:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="rate4" value="{$list.rate4}" />
+					<span class="tip_span"></span>
+				</td>
+			</tr>		
+		</if>		
+		
+		<tr>
+			<td class="item_title">盈利分成比:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="payoff_rate" value="{$list.payoff_rate}" />
+				<span class="tip_span">盈利分成比;填入0.7则，实际盈利的70%归操盘者；30%归平台;默认值为:1;即： 盈利全归配资者</span>
+			</td>
+		</tr>		
+		<tr>
+			<td class="item_title">出资者与平台的分成比:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="invest_payoff_rate" value="{$list.invest_payoff_rate}" />
+				<span class="tip_span">出资者与平台的分成比【出资者获得=股票盈利*(1-盈利分成比)* 出资者与平台的分成比,剩下的为平台获得;】</span>
+			</td>
+		</tr>			
+													
+		<tr>
+			<td class="item_title">仓位限制消息:</td>
+			<td class="item_input">
+				<textarea type="text"  class="textarea" name="limit_info" >{$list.limit_info}</textarea>
+				<span class="tip_span">盈利分成比参数:{payoff_format},取 盈利分成比</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">显示开始时间:</td>
+			<td class="item_input">
+				<select name="is_show_today">
+					<option value="0" <if condition="intval($list['is_show_today']) eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="intval($list['is_show_today']) eq 1">selected="selected"</if>>是</option>
+				</select>
+				<span class="tip_span">开始交易时间，是否显示：今天(节假日，周末及下午1:30后，也不显示）</span>
+			</td>
+		</tr>
+		
+
+		
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$list.id}" />
+			<input type="hidden" name="pid" value="{$list.pid}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziConf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update_peizhi_edit" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+	</table>
+</form>
+<div class="blank5"></div>
+</div>
+<include file="Public:footer" />

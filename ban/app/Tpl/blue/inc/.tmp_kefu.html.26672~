@@ -1,0 +1,54 @@
+<!-- 右侧联系我们 -->
+<div style="right:-230px;" class="contactusdiyou">
+  <div class="hoverbtn">
+     <span>联</span><span>系</span><span>我</span><span>们</span>
+     <img class="hoverimg" src="{$TMPL}/images/hoverbtnbg.gif" height="9" width="13">
+  </div>
+  
+  <div class="conter" >
+
+  <div class="con1"> 
+    <dl class="fn_cle">
+         <dt><img src="{$TMPL}/images/tel.png" height="31" width="31"></dt>
+         <dd class="f1">财富热线：</dd>
+         <dd class="f2"><span class="ph_num">{function name="app_conf" value="SHOP_TEL"}</span></dd>
+     </dl>
+  </div> 
+    <div class="blank0"></div>
+  <div class="qqcall"> 
+    <dl class="fn_cle">
+         <dt><img src="{$TMPL}/images/zxkfqq.png" height="31" width="31"></dt>
+         <dd class="f1 f_s14">在线客服：</dd>
+         {foreach from="$online_qq" item="qq"}
+        <dd class="f2">
+          <span>{$qq.name}</span> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq.qq}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$qq.qq}:51" alt="点击这里给我发消息" title="点击这里给我发消息" width="77" height="22" /></a> 
+        </dd>
+       {/foreach}
+        
+               </dl>
+    <div class="blank0"></div>           
+  </div> 
+  {if app_conf("APPLE_DOWLOAD_URL") || app_conf("ANDROID_DOWLOAD_URL")}
+  <div class="blank0"></div>
+    <div class="weixincall"> 
+    <dl class="fn_cle">
+         <dt><img src="{$TMPL}/images/weixin.png" height="31" width="31"></dt>
+         <dd class="f1" >下载客户端：</dd>
+
+           <dd class="f3"><img src="{function name="gen_qrcode" v=$MOBILE_DOWN_PATH s=8}" height="73" width="73"></dd>
+
+     </dl>
+  </div> 
+  {/if}
+<div class="blank0"></div>
+  <div class="dytimer">
+     <span style="font-weight: bold;">服务时间：</span>
+     <span>{function name="app_conf" v="ONLINE_TIME"}</span>
+  </div>
+  
+  </div>
+
+</div>
+<div class="diyoumask"></div>
+<!-- 右侧联系我们 -->
+

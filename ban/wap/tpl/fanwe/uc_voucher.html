@@ -1,0 +1,64 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll" data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="uc_voucher#index"}">
+<!-- 这里是页面内容区 -->
+
+<!--我的红包-->
+<div class="blank055"></div>
+<div class="doexchange_block">
+	<div class="add_address">
+		<a href="{wap_url a="index" r="uc_voucher_exchange"}">
+			<i class="icon iconfont">&#xe643;</i>
+			<span>兑换红包</span>
+		</a>
+	</div>	
+</div>
+<div class="blank055"></div>
+<div class="invest">
+{/if}
+{foreach from=$data.item item=ecv key=key}
+<div class="voucher_block ">
+	<ul>
+		<li class="f_l ecv_name">
+         	{$ecv.name} 
+		</li>
+		<li class="exlimit">
+			<span class="name">使用期限:</span>
+            {$ecv.limit_time}
+		</li>
+		
+		<li class="price-box price-box-{$ecv.status} f_r ">
+			<span class="price">
+			{function name="number_format" value=$ecv.money f=1}
+			</span>
+			<span class="used">已使用:{$ecv.use_count}次</span>
+			<span class="status status_{$ecv.status}"></span>
+			<span class="border-img"></span>
+		</li>
+		
+	</ul>
+</div>
+
+<div class="blank055"></div>
+{/foreach}
+{if $smarty.request.is_ajax neq 1}
+</div>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+
+

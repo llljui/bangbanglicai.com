@@ -1,0 +1,127 @@
+<script type="text/javascript">
+$(document).ready(function(){
+	 lgdh1();
+});	
+function lgdh1(){
+	$(".login_block").animate({
+	    top:'20px'
+	  },800);
+	setTimeout("lgdh2()","100");  
+}	
+function lgdh2(){
+	$(".login_block").animate({
+	    top:'0px'
+	  },300);
+}	
+$(function(){ 
+$(".freebj").css("opacity","0.5"); //设置透明度 
+});
+</script>
+
+<div class="wrap " style="z-index:9; position:relative;">
+	<div class="login_block"> 
+	<!--
+	{if app_conf("APPLE_DOWLOAD_URL") || app_conf("ANDROID_DOWLOAD_URL")}
+	<a title="点我"><div class="logingchange"></div></a> 
+	   
+	{/if}
+	-->
+	<div class="freebj"></div>
+		<div class="freelogin" >
+			
+			<div class="freereg ">
+					{if !$user_info}
+					<div>
+						<h2 class="f13 lh32 f_white tc mt22">{function name="app_conf" v="SHOP_TITLE"}成立至今，100%投资者按时获取收益</h2>
+						<p class="tc f13 lh32 f_white">国有银行资金监管</p>
+						<a href="javascript:void(0);" onclick="ajax_login();" class="f_white btn_red w274  f20 b h40 lh40 bdr3 reg-submit-btn tc ml20 mt20">登录</a>
+						<div class="p_0_18">
+							<div class="clearfix pb8 bor_3">
+								<a href="{url x="index" u="user#register" }" class="f_l f_white f12 lh40">立即注册</a>
+								<a href="{url x="index" r="user#getpassword"}" class="f_r f_white f12 lh40">忘记密码</a>
+							</div>
+							<?php
+							$stats = site_statics();
+							$this->assign("stats",$stats);
+							?>
+							<div class="clearfix pt19  tc f12  lh20">
+								<div class="f_l w-60 ">
+									<div class="bor_4">
+										<p class="b f_white">{$stats.total_load_format}元</p>
+										<div class="blank10"></div>
+									    <p class="f_a39faf">成功投资</p>
+									</div>
+								</div>
+								<div class="f_r w-40">
+									<p class="b f_white">{$stats.user_count}人</p>
+									<div class="blank10"></div>
+									<p class="f_a39faf">成为{function name="app_conf" v="SITE_TITLE"}会员</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{else}
+					<div class="p_0_36">
+					<div class="after_login">
+						<div class="user_name">
+						     <span class="name">账户名：<span>{$user_info.user_name}</span></span>
+							 {if $user_info.vip_id gt 0}
+		                    <img src="{$TMPL}/images/vip/{$user_info.vip_id}.png" title="{function name="get_vip_name" id=$user_info.vip_id}">
+		                    {/if}
+						</div>
+						<div class="user_info ">
+							<div class="user_img"><img src="{function name="get_user_avatar" uid="$user_info.id" type="big"}"></div>
+							
+							<div class="user_info_d">
+								<a href="{url x="index" r="uc_center"}"><i class="iconfont">&#xe608;</i>账户中心</a>
+								<a href="{url x="index" r="uc_account"}"><i class="iconfont">&#xe614;</i>个人资料</a>
+								<a href="{url x="index" r="uc_money"}"><i class="iconfont">&#xe604;</i>资金记录</a>
+								<a href="{url x="index" r="uc_msg"}"><i class="iconfont">&#xe61d;</i>站内信息</a>
+							</div>
+						</div>
+						<div class="user_money">
+							<a href="{url x="index" r="uc_money#incharge"}">充值</a>
+							<a href="{url x="index" value="uc_money#carry"}">提现</a>
+							<a class="rrd-dimgray" href="{url x="index" r="user#loginout"}">退出</a>
+						</div>
+					</div>
+					</div>
+					{/if}
+				
+			</div>
+			{if app_conf("APPLE_DOWLOAD_URL") || app_conf("ANDROID_DOWLOAD_URL")}
+			<div class="freecord"  style="display:none;">
+				<div class="qrcordtit">移动客户端下载</div>
+				<div class="qrcordimg">
+					<img src="{function name="gen_qrcode" v=$MOBILE_DOWN_PATH s=8}"  />
+				</div>
+				<div class="qrcordfooter">手机扫描二维码下载IOS/安卓</div>
+			</div>
+			{/if}
+		</div>
+	</div>
+	
+</div>
+{if app_conf("APPLE_DOWLOAD_URL") || app_conf("ANDROID_DOWLOAD_URL")}
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".logingchange").bind('click',function(){
+     		$(".logingchange").toggleClass("changev"); 
+     		if ($(".logingchange").hasClass("changev")) {
+				$(".freereg").css("display","none");
+				$(".freereg").css("height","0px");
+				$(".freecord").css("display","block");
+				$(".freecord").animate({height:"290px"});
+     		}
+     		else{
+     			$(".freecord").css("display","none");
+				$(".freecord").css("height","0px");
+				$(".freereg").css("display","block");
+				$(".freereg").animate({height:"290px"});	
+     		}
+     	
+  });
+});
+
+</script>
+{/if}

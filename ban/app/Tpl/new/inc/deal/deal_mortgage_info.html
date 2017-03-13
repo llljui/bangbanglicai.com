@@ -1,0 +1,55 @@
+{if $deal.is_mortgage eq 1}
+{if $deal.mortgage_desc}
+<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;抵押信息</div>
+<div class="box-bd">
+	{$deal.mortgage_desc}
+</div>
+{/if}
+{/if}
+{if $deal.mortgage_infos_list || $deal.mortgage_contract_list}
+<link rel="stylesheet" type="text/css" href="{$TMPL}/css/jquery.lightbox-0.5.css" media="screen" />
+<script type="text/javascript" src="{$TMPL}/js/utils/jquery.lightbox-0.5.min.js"></script>
+	{if $deal.mortgage_contract_list}
+	<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;借款合同</div>
+	<div class="box-bd">
+	   <ul id="mortgage_contract">
+	  		{foreach from =$deal.mortgage_contract_list item="item" key=key}
+	      	<li class="f_l mr10 bdd">
+	       		<a href='{function name="get_spec_image" v="$item.img" w="800" h="800"}' rel="lightbox-myMor" title="{$item.name}">
+	       			<img src='{function name="get_spec_image" v="$item.img" w="100" h="100" g=1}' style="height: 100px" title="{$item.name}" alt="{$item.name}"/>
+	       		</a>
+	       	</li>
+	  		{/foreach}
+	   </ul>
+	</div>
+	<div class="blank10"></div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	 		$('#mortgage_contract a').lightBox();
+		});
+	</script>
+	{/if}
+	
+	{if $deal.is_mortgage eq 1}
+	<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;抵押物</div>
+	<div class="box-bd">
+	   <ul id="mortgage_infos">
+	  		{foreach from =$deal.mortgage_infos_list item="item" key=key}
+	      	<li class="f_l mr10 bdd">
+	       		<a href='{function name="get_spec_image" v="$item.img" w="800" h="800"}' rel="lightbox-myMor" title="{$item.name}">
+	       			<img src='{function name="get_spec_image" v="$item.img" w="100" h="100" g=1}' style="height: 100px" title="{$item.name}" alt="{$item.name}" />
+	       		</a>
+	       	</li>
+	  		{/foreach}
+	   </ul>
+	</div>
+	<div class="blank10"></div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	 		$('#mortgage_infos a').lightBox();
+		});
+	</script>
+	{/if}
+	
+	
+{/if}

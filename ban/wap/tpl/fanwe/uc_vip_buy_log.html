@@ -1,0 +1,46 @@
+	{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+	
+	<div class="b_white">
+		<ul class="n_version_ul_1">
+			{foreach from=$data.vip_buy_log_list item="item"}
+		    <li class="clearfix">
+		    	   <div class="f_l">
+		    	   	    <p>购买等级：<b>{$item.vip_grade}</b></p>
+						<p>使用期限：{$item.buy_limit} 年</p>
+						<p>购买时间：{function name="to_date" v=$item.vip_buytime f="Y-m-d"}</p>
+						<p>到期时间：{function name="to_date" v=$item.vip_end_time f="Y-m-d"}</p>
+					</div>
+					<div class=" f_r">
+						<p class="n_v_mnoney">
+							￥{function name="number_format" v=$item.buy_fee f="2"} 
+						</p>
+						
+					</div>
+		    </li>
+			{/foreach}
+		</ul>
+	</div>
+	
+	<div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<a href="#" class=" but_this" onclick="RouterURL('{wap_url a="index" r="uc_vip_buy"}','#uc_vip_buy',2);">VIP购买</a>
+						
+					</div>
+				</div>
+	{include file="./inc/footer.html"}
+
+
+
+
+
+
+

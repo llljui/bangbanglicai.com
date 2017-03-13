@@ -1,0 +1,93 @@
+{if $smarty.request.hasleftpanel neq 1}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-cover theme-fw " id='panel-left-box'>
+  <div class="content-block">
+  	<img 	src="{$TMPL}/images/left_bg.png" class="bg_img"/>
+	{if $is_login eq 1}
+	<div class="rela_user">
+		<div class="user_pic">
+			<img src="{function name="wap_user_avatar" uid="$data.user_id"}" style="width:2.4rem;height:2.4rem;"/>
+		</div>
+		<div class="use_name tc">您好，{$data.user_name}</div>
+		<div class="w_b user_but">
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_center" p="epage=$data.act"}','#uc_center');" class="w_b_f_1 tc"><i class="icon iconfont">&#xe60b;</i>&nbsp;&nbsp;&nbsp;账户</a>
+			<a href="#" data-url="{wap_url a="index" r="login_out" p="epage=$data.act"}" onclick="loginout();" id="login-out-btn"  class="w_b_f_1 tc"><i class="icon iconfont">&#xe60d;</i>&nbsp;&nbsp;&nbsp;退出</a>
+		 </div>
+	</div>
+	{else}
+	<div class="rela_user">
+		<div class="user_pic">
+			<img src="{$TMPL}/images/login_out.png" width="100%"/>
+		</div>
+		<div class="use_name tc">您好，您还未登录</div>
+		<div class="w_b user_but">
+			<a  class="w_b_f_1  tc"  href="#" onclick="RouterURL('{wap_url a="index" r="login" p="epage=$data.act"}','#login'{if $is_weixin},1{else},2{/if});" ><i class="icon iconfont">&#xe60b;</i>&nbsp;&nbsp;&nbsp;登录</a>
+			<a  class="w_b_f_1  tc"  href="#" onclick="RouterURL('{wap_url a="index" r="register" p="epage=$data.act"}','#register'{if $is_weixin},1{else},2{/if});" ><i class="icon iconfont">&#xe60f;</i>&nbsp;&nbsp;&nbsp;注册</a>
+		</div>
+	</div>
+	{/if}
+  </div>
+<div class="new_list_block">
+	<dl>
+		<dd >
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="init" p="epage=$data.act"}','#init');">
+				<div class="i_father"><i class="icon iconfont">&#xe608;</i></div>
+				<span>首页</span>
+			</a>
+		</dd>
+		<dd>
+			    {if $is_login eq 1}
+                <a href="#" onclick="RouterURL('{wap_url a="index" r="uc_invest" p="epage=$data.act",2}','#uc_invest',2);">
+                {else}
+                <a href="#" onclick="RouterURL('{wap_url a="index" r="login" p="epage=$data.act"}','#login'{if $is_weixin},1{/if});">
+                {/if}   
+				    <div class="i_father"><i class="icon iconfont">&#xe61f;</i></div>
+				    <span>我的投资</span>
+			    </a>
+		</dd>
+<!--		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="ewswin" p="epage=$data.act",2}','#ewswin',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe607;</i></div>
+				<span>股票配资</span>
+			</a>
+		</dd>-->
+		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="licai_deals" p="epage=$data.act" ,2}','#licai_deals',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe60c;</i></div>
+				<span>理财列表</span>
+			</a>
+		</dd>
+		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="transfer" p="epage=$data.act",2}','#transfer',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe61e;</i></div>
+				<span>债权转让</span>
+			</a>
+		</dd>
+		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="learn_activity" p="epage=$data.act",2}','#learn_activity',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe621;</i></div>
+				<span>体验区</span>
+			</a>
+		</dd>
+		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="integral_mall" p="epage=$data.act",2}','#integral_mall',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe603;</i></div>
+				<span>积分商城</span>
+			</a>
+		</dd>
+		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="article_list" p="epage=$data.act",2}','#article_list',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe602;</i></div>
+				<span>信息披露</span>
+			</a>
+		</dd>
+		<dd>
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="article_list" p="epage=$data.act",2}','#article_list',2);">
+				<div class="i_father"><i class="icon iconfont">&#xe60e;</i></div>
+				<span>帮助中心</span>
+			</a>
+		</dd>
+	</dl>
+</div> 
+{/if}

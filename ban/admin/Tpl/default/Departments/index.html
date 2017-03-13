@@ -1,0 +1,58 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+    function trash()
+    {
+        location.href = ROOT+"?m=Departments&a=trash";
+    }
+</script>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<if condition="$is_department neq 1">
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+	<input type="button" class="button" value="回收站" onclick="trash();" />
+</div>
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+<div class="search_row">
+	部门：
+	<input type="text" class="textbox" name="adm_name"  value="{$adm_name}" />
+	
+	<input type="hidden" value="Departments" name="m" />
+	<input type="hidden" value="index" name="a" />
+	<input type="submit" class="button" value="{%SEARCH}" />
+	<input type="button" class="button" onclick="export_csv()" value="导出" />
+
+</div>
+</form>
+<div class="blank5"></div>
+</if>
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="department"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,adm_name:部门
+		,real_name:姓名
+		,mobile:手机
+		,role_id_format:部门角色
+		,referrals_rate:提成系数(%)
+		,referrals_count:成员数
+		,referrals_money:提成
+		,is_effect|get_is_effect=$department['id']:{%IS_EFFECT}|120px
+		,login_time|to_date:最后登录时间|150px
+		,login_ip:最后登录IP|120px"
+	actionlist="edit:{%EDIT}, del:{%DEL}"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

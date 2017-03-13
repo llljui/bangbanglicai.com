@@ -1,0 +1,68 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_idcard_effect($effect)
+	{
+		return l("IS_EFFECT_".$effect);
+	}
+	function get_idcard_install($install)
+	{
+		return l("IS_INSTALL_".$install);
+	}
+
+</php>
+<script type="text/javascript">
+	function uninstall(id)
+	{
+		if(confirm("{%CONFIRM_DELETE}"))
+		{
+			location.href = ROOT + "?m=Idcard&a=uninstall&id="+id;
+		}
+	}
+</script>
+<div class="main">
+<div class="main_title">身份证认证接口</div>
+<div class="blank5"></div>
+
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+	<tbody>
+		<tr>
+			<td class="topTd" colspan="7">&nbsp; </td>
+			</tr>
+			<tr class="row">
+				<th>接口名称</th>
+				<th>{%IS_EFFECT}</th>
+				<th>{%IS_INSTALL}</th>
+				<th>{%SORT}</th>
+				<th>{%TAG_LANG_OPERATE}</th>
+				</tr>
+				<foreach name="service_list" item="idcard_item">
+				<tr class="row">
+					<td>{$idcard_item.name}
+					<if condition="$idcard_item['reg_url'] neq ''">
+						<a href="{$idcard_item['reg_url']}" target="_blank">
+							{%GO_TO_REG}
+						</a>
+					</if>
+					</td>
+					<td>{$idcard_item.is_effect|get_idcard_effect}</td>
+					<td>{$idcard_item.installed|get_idcard_install}</td>
+					<td>{$idcard_item.sort}</td>
+					<td>
+						<if condition="$idcard_item['installed'] eq 0">
+						<a href="{:u("Idcard/install",array("class_name"=>$idcard_item['class_name']))}">{%INSTALL}</a>
+						<else />
+						<a href="{:u("Idcard/edit",array("id"=>$idcard_item['id']))}">{%EDIT}</a>
+						<a href="javascript:uninstall({$idcard_item.id});" >{%UNINSTALL}</a>
+						</if>
+					</td>
+				</tr>
+				</foreach>
+				<tr><td class="bottomTd" colspan="7"> &nbsp;</td></tr>
+			</tbody>
+		</table>
+
+
+</div>
+<include file="Public:footer" />

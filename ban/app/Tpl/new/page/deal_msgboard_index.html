@@ -1,0 +1,231 @@
+{include file="inc/header.html"}
+<style type="text/css">
+	.borrow-info .field{ width:100%; margin:10px 0; padding-right:0;  float:none; padding-top:10px;}
+	.borrow-info .field label{ width:140px; padding-right:5px; }
+	.ke-toolbar td { padding:0}
+	.user_info_item span.w125{ display:inline-block;}
+	.ui-form-table {margin-top: 20px;text-align: left;border-bottom: 1px solid #e0e0e0;}
+	.ui-form-table tr {height: 50px;}
+	.ui-form-table th, .ui-form-table td {border-top: 1px solid #e0e0e0;font-weight: 500;font-style: normal;border-spacing: 2px;}
+	.sendsms_button{ height:36px; line-height:36px;}
+	.act{ padding-left:140px;}
+</style>
+<div class="blank"></div>
+<div class='bdd bddf'>
+<div class="blank"></div>
+<form action="{url x="index" r="deal_msgboard#savedeal"}" method="post" id="J_save_deal_form" id="signup-user-form" class="mr10 ml10">
+	
+	<div class="borrow-info p10 clearfix">
+		<div class="field">
+			<label>姓名：</label>
+			<input type="text" value="{$user_info.real_name}" class="f-input ui-textbox w280 " name="user_name" id="user_name" placeholder="请填写您的真实姓名">
+		</div>
+		<div class="blank0"></div>
+        <div class="field">
+			<label>身份证号码：</label>
+			<input type="text" value="{$user_info.idno}" class="f-input ui-textbox w280 " name="ID_NO" id="ID_NO" placeholder="请填写您的身份证号码">
+		</div>
+		<div class="blank0"></div>
+        <div class="field">
+			<label>手机号码：</label>
+			<input type="text" value="{$user_info.mobile}" class="f-input ui-textbox w280 " name="mobile" id="settings-mobile" placeholder="请填写有效手机号码">
+		</div>
+		<div class="blank0"></div>
+        <div class="field">
+			<label>手机验证码：</label>
+             <input type="text" value="" class="f-input ui-textbox" id="verify_code" name="verify_code" placeholder="请填写手机验证码">
+             <input type="button" value="获取验证码" class="sendsms_button f_l {if $user_info.mobile eq ''}btn_disable{/if} " id="get_regsms_code" class="ml5 f_l" />
+		</div>
+        
+		<div class="blank0"></div>
+        <div class="field">
+			<label>贷款金额：</label>
+			<input type="text" value="" class="f-input ui-textbox w280 " name="money" id="money" placeholder="请填写您想要申请的金额">
+		</div>
+		<div class="blank0"></div>
+        <div class="field">
+			<label>贷款期限：</label>
+			<input type="text" value="" class="f-input ui-textbox w100 mr10" name="time_limit" id="time_limit" placeholder="请填写贷款期限">
+            <select name="unit" id="unit" class="ui-select f_l w80 select-w80">
+				<option value="0">天</option>
+                <option value="1">月</option>
+			</select>
+		</div>
+		<div class="blank0"></div>
+        <div class="field">
+			<label>借款用途：</label>
+			<select id="usefulness" name="usefulness" class='ui-select w120 select-w120'>
+			{foreach from=$usefulness_type_list item=item}
+			<option value="{$item.id}">
+				{$item.name}
+			</option>
+			{/foreach}
+			</select>
+		</div>
+        <div class="blank10"></div>
+        <div class="act">
+            <input type="submit" class="btn_green w180 f_white f18 b p10 bdr3 reg-submit-btn" id="signup-mobile-submit" name="commit" value="下一步">				
+        </div>
+        <div class="blank20"></div>
+
+		</div>
+        </div>
+</form>
+<div class="blank"></div>
+<script>
+	var regsiter_vy_time = null;  	//定义时间
+	var is_lock_send_vy = false;	//解除锁定
+	var left_rg_time = 0;			//开始时间
+	
+	function left_time_to_send_regvy(){
+		clearTimeout(regsiter_vy_time);
+		if(left_rg_time > 0){
+			regsiter_vy_time = setTimeout(left_time_to_send_regvy,1000);
+			$("#get_regsms_code").val(left_rg_time+"秒后重新获取验证码");
+			$("#get_regsms_code").addClass("btn_disable");
+			left_rg_time -- ;
+		}
+		else{
+			is_lock_send_vy = false;
+			$("#get_regsms_code").removeClass("btn_disable");
+			$("#get_regsms_code").val("重新获取验证码");
+			
+			left_rg_time = 0;
+		}
+	}
+	
+$(document).ready(function(){
+	$("#get_regsms_code").click(function(){
+			if(is_lock_send_vy || $(this).hasClass(".btn_disable")){
+				return false;
+			}
+			is_lock_send_vy = true;
+			if(!$.maxLength($("#settings-mobile").val(),11,true))
+			{
+				is_lock_send_vy = false;
+				formError($("#settings-mobile"),"长度不能超过11位");
+				return false;
+			}
+			
+			if($.trim($("#settings-mobile").val()).length == 0)
+			{			
+				is_lock_send_vy = false;
+				formError($("#settings-mobile"),"{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");
+				return false;
+			}	
+			
+			if(!$.checkMobilePhone($("#settings-mobile").val()))
+			{
+				is_lock_send_vy = false;
+				formError($("#settings-mobile"),"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");	
+				return false;
+			}	
+			var ajaxurl = APP_ROOT+"/index.php?ctl=deal_msgboard&act=get_verify_code";
+			
+			
+			var query = new Object();
+			query.user_mobile =  $.trim($("#settings-mobile").val());
+			$.ajax({ 
+				url: ajaxurl,
+				data:query,
+				type: "POST",
+				dataType: "json",
+				success: function(result){
+					if(result.status==1)
+					{
+						left_rg_time = 60;
+						left_time_to_send_regvy();
+						to_send_msg = true;
+						$.showSuccess(result.info);
+					}
+					else
+					{	
+						is_lock_send_vy = false;
+						formError($("#settings-mobile"),result.info);
+						return false;
+					}
+				},error:function(){
+					is_lock_send_vy = false;
+				}
+			});	
+		}); 
+		
+		$("#settings-mobile").bind("blur",function(){
+		var obj = $(this);
+		$("#get_regsms_code").addClass("btn_disable");
+		if(!$.checkMobilePhone(obj.val()))
+		{
+			formError(obj,"{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");	
+			return false;
+		}	
+		if($.trim(obj.val()).length == 0)
+		{				
+			formError(obj,"{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");
+			return false;
+		}
+		
+		$("#get_regsms_code").removeClass("btn_disable");
+					
+	}); 
+	
+	
+	/***/
+	$("#signup-mobile-submit").click(function(){
+		
+		var obj = $(this).parent().parent();
+		
+		if(!$.minLength(obj.find("#user_name").val(),2,true))
+		{
+			obj.find("#user_name").focus();
+			$.showErr("请填写您的真实姓名");		
+			return false;
+		}
+		
+		if(!$.minLength(obj.find("#ID_NO").val(),15,true))
+		{
+			obj.find("#ID_NO").focus();
+			$.showErr("请填写您的身份证号码");		
+			return false;
+		}
+
+		if(!$.checkMobilePhone($("#settings-mobile").val()))
+		{
+			$("#settings-mobile").focus();			
+			$.showErr("{function name="sprintf" format=$LANG.FORMAT_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");	
+			return false;
+		}	
+		
+		if($.trim($("#settings-mobile").val()).length == 0)
+		{
+			$("#settings-mobile").focus();
+			$.showErr("{function name="sprintf" format=$LANG.EMPTY_ERROR_TIP value=$LANG.USER_TITLE_MOBILE}");
+			return false;
+		}
+		
+		if($.trim($("#verify_code").val()).length == 0)
+		{
+			$("#verify_code").focus();			
+			$.showErr("请填写验证码");
+			return false;
+		}
+		
+		if($.trim($("#money").val()).length == 0)
+		{
+			$("#money").focus();			
+			$.showErr("请填写贷款金额");
+			return false;
+		}
+		
+		if($.trim($("#time_limit").val()).length == 0)
+		{
+			$("#time_limit").focus();			
+			$.showErr("请填写贷款期限");
+			return false;
+		}
+		
+		return true;
+	});//单击提交
+	
+});
+</script>
+{include file="inc/footer.html"}

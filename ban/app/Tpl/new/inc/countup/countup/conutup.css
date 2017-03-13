@@ -1,0 +1,23 @@
+li{ list-style: none;}
+.l_box{background-color: white;width: 1190px;}
+._contain{width:1190px; }
+._contain0{width: 1190px;position: absolute;}
+._contain0 img{width: 42px;height: 42px;margin-top: 10px;position: relative;}
+._contain ul{width:1200px;margin:15px 25px;height: 46px;text-align: center;}
+._contain ul li{font-weight: bold; width:183px;height:45px; display:inline-block; margin:5px 15px ; font-size: 16px; border-right: 1px solid #BBB7BC;text-align: center;color: red;}
+._contain ul li:last-child{border-right: 0;}
+._contain ul li strong{color:#B1B1B1;font-size: 15px;}
+/* .icon-coin-yen:before {content: "\e93e";}
+.icon-loop2:before {content: "\ea2e";}
+.icon-stats-bars2:before {content: "\e99d";}
+.icon-shield:before {content: "\e9b4";}
+.icon-users:before {content: "\e972";} */
+._goodness{width: 1190px;height: 240px;margin: 25px auto; }
+._goodness ul {margin: 0 auto;width: 1186px;border: 6px solid #F9F8F8;}
+._goodness ul li{float: left;margin-left:10px;height: 240px;width: 210px;vertical-align: middle; text-align: center; }
+._goodness ul li:first-child{margin-left: 50px;}
+._goodness ul li span{display: block;margin-top: 10px;font-weight: bold;}
+._goodness ul li img{margin:15px auto;width: 85px;border-radius: 10px; height: 85px;background-color: blue;}
+._goodness ul li img:hover{transition: 2s;transform: rotateY(360deg); cursor: pointer;
+-ms-transform: rotateY(360deg);-moz-transform: rotateY(360deg);-webkit-transform: rotateY(360deg);-o-transform: rotateY(360deg);
+}

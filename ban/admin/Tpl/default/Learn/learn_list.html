@@ -1,0 +1,62 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_learn_type($type){
+		if($type==0)
+			return "注册送";
+		else if($type==1)
+			return "邀请送";
+		else if($type==2)
+			return "管理员发放";
+	}
+	
+</php>
+<script type="text/javascript">
+	
+	function add_learn(id){
+		location.href = ROOT + '?m=Learn&a=add_learn';
+	}
+	
+	function edit_learn(id){
+		location.href = ROOT + '?m=Learn&a=edit_learn&id='+id;
+	}
+	
+	function search(id){
+		location.href = ROOT + '?m=Learn&a=search_learn&id='+id;
+	}
+	
+	
+</script>
+<div class="main">
+<div class="main_title">理财产品列表</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add_learn()" />
+	<input type="button" class="button" value="{%DEL}" onclick="foreverdel();" />
+	
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="learn" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name:理财体验产品名
+		,load_money:活动金额(¥)
+		,rate:年利率
+		,time_limit:产品期限
+		,time_expire_limit:结算有效期限
+		,begin_time:开始时间
+		,end_time:结束时间
+		" 
+	actionlist="edit_learn:{%EDIT}, foreverdel:{%DEL},search:查看" 
+	actionwidth="100px"/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

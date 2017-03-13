@@ -1,0 +1,54 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<script type="text/javascript">
+    function trash()
+    {
+        location.href = ROOT+"?m=Article&a=trash";
+    }
+</script>
+<php>
+	function get_cate_name($cate_id)
+	{
+		return M("ArticleCate")->where("id=".$cate_id)->getField("title");
+	}
+</php>
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+	<input type="button" class="button" value="回收站" onclick="trash();" />
+</div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		名称：<input type="text" class="textbox" name="title" value="{:trim($_REQUEST['title'])}" />	
+		{%CATE_TREE}：
+		<select name="cate_id">
+			<option value="0">所有分类</option>
+			<foreach name="cate_tree" item="cate_item">
+				<option value="{$cate_item.id}" <if condition="$cate_item.id eq $cate_id">selected="selected"</if>>{$cate_item.title_show}</option>
+			</foreach>
+		</select>	
+		<input type="hidden" value="Article" name="m" />
+		<input type="hidden" value="index" name="a" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="article" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px,title:{%ARTICLE_TITLE}:edit,cate_id|get_cate_name:{%CATE_TREE},is_effect|get_is_effect=$article['id']:{%IS_EFFECT},create_time|to_date:{%CREATE_TIME},update_time|to_date:{%UPDATE_TIME},sort|get_sort=$article['id']:{%SORT},click_count:{%CLICK_COUNT}" 
+	actionlist="edit:{%EDIT}, del:{%DEL}" /> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

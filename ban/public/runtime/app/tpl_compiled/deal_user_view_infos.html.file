@@ -1,0 +1,70 @@
+<?php if ($this->_var['view_info_list']): ?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->_var['TMPL']; ?>/css/jquery.lightbox-0.5.css" media="screen" />
+	<script type="text/javascript" src="<?php echo $this->_var['TMPL']; ?>/js/utils/jcarousellite_1.js"></script>
+	<script type="text/javascript" src="<?php echo $this->_var['TMPL']; ?>/js/utils/jquery.lightbox-0.5.min.js"></script>
+	<div class="view-infos bdd bddf">
+		<div class="h_2">
+			<h2>借款方相关资料</h2>
+		</div>
+		<div class="blank40"></div>
+		<div class="flex-container pr" style="position: relative;">
+				<?php if ($this->_var['user_info']): ?>
+			    <a href="javascript:void(0);" class=" but prev">&nbsp;</a>
+			    <div class="jCarouselLite" style="width: 1050px">
+		           <ul id='carousel'>
+		          		<?php $_from = $this->_var['view_info_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'abc');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['abc']):
+?>
+		              	<li class="view-item">
+		               	<a href='<?php 
+$k = array (
+  'name' => 'get_spec_image',
+  'v' => $this->_var['abc']['img'],
+  'w' => '800',
+  'h' => '800',
+);
+echo $k['name']($k['v'],$k['w'],$k['h']);
+?>' rel="lightbox-myGroup" title="<?php echo $this->_var['abc']['name']; ?>">
+		               		<img src='<?php 
+$k = array (
+  'name' => 'get_spec_image',
+  'v' => $this->_var['abc']['img'],
+  'w' => '125',
+  'h' => '94',
+  'g' => '1',
+);
+echo $k['name']($k['v'],$k['w'],$k['h'],$k['g']);
+?>' style="height: 94px"/>
+		               	</a>
+		               	<div style="padding-top: 5px;"><?php echo $this->_var['abc']['name']; ?></div>
+		               	</li>
+		          		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		           </ul>
+			    </div>
+			    <a href="javascript:void(0);" class="but next ">&nbsp;</a>
+				<?php else: ?>
+				<p align="center">
+			    	只有<a href="<?php
+echo parse_url_tag("u:index|user#register|"."".""); 
+?>" class="f_blue">注册</a>用户才可以查看借入者信用信息！现在<a href="javascript:void(0);" onclick="ajax_login();" class="f_blue">登录</a>
+				</p>
+				<?php endif; ?>
+		</div>
+		<div class="blank10"></div>
+		<div class="blank20"></div>
+	</div>	
+<div class="blank20"></div>
+<?php if ($this->_var['user_info']): ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		<?php if (count ( $this->_var['view_info_list'] ) > 7): ?>
+	    $(".jCarouselLite").jCarouselLite({
+	        btnNext: ".next",
+	        btnPrev: ".prev"
+	    });
+	    <?php endif; ?>
+	    $('#carousel a').lightBox();
+	});
+	</script>
+	<?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,46 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+<div class="blank5"></div>
+<div class="blank5"></div>
+<div class="search_row">
+	<form name="search" action="__APP__" method="get">	
+		<input type="hidden" value="PeiziOrder" name="m" />
+		<input type="hidden" value="do_import_trade_list" name="a" />
+		<input type="submit" class="button" value="确认佣金分配" />
+	</form>
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="dealshow" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,order_sn:配资编号
+		,user_name:会员
+		,invest_user_name:投资人		
+		,借资账户:借资账户
+		,交易日期:交易日期
+		,业务标志:业务标志
+		,证券代码:证券代码
+		,证券名称:证券名称
+		,成交数量:成交数量
+		,成交价格|format_price:成交价格
+		,成交金额|format_price:成交金额
+		,avg_buy_price|format_price:买入成本
+		,印花税|format_price:印花税
+		,过户费|format_price:过户费
+		,佣金|format_price:佣金
+		,佣金差|format_price:佣金差
+		,投资人佣金|format_price:投资人佣金
+		,平台佣金|format_price:平台佣金"
+	/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

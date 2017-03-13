@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+
+.red{ color:red;}
+
+ /*错误样式*/
+/* input.error { border: 1px dashed red; }
+select.error { border: 1px dashed red; } */
+label.error {
+	padding-left: 16px; 
+	margin-left: 2px; 
+	color:red; 
+	background: url(unchecked.gif) no-repeat 0px 0px;
+}
+/*验证通过样式*/
+/* input.valid{ background:none;}
+select.valid{ background:#FFC; }
+.valid {
+	padding-left: 16px; 
+	margin-left: 2px;
+	背景图片(校验通过的’√’图标)
+	background: url(checked.gif) no-repeat 0px 0px;
+} */

@@ -1,0 +1,485 @@
+<div class="buttons-tab">
+  <a href="#tab1" class="tab-link button active">借款人</a>
+  <a href="#tab2" class="tab-link button">审核记录</a>
+  <a href="#tab3" class="tab-link button">投资记录</a>
+  <a href="#tab4" class="tab-link button">留言列表</a>
+</div>
+<div class="tabs">
+	<div id="tab1" class="tab active">
+		<div class="content-block-title"> 借款详情</div>
+		<div class="list-block row no-gutter">
+                <div class="item-box">
+					{$data.deal.description}
+				</div>
+		</div>
+				
+        <div class="content-block-title"> 基本信息</div>
+        <div class="list-block row no-gutter">
+            <ul class="no-border">
+                <li class=" guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	                		<div class="item-title">融资方</div>
+	                		<div class="item-content">{$data.u_info.user_name}</div>
+                		</div>
+                		<div class="col-50">
+                			<div class="item-title">性别</div>
+	                    	<div class="item-content">
+	                    		{if $data.u_info.sex gt 0}{if $data.u_info.sex eq 1}男{else}女{/if}{else}未知{/if}
+	                    	</div>
+                		</div>
+                	</div>
+                </li>
+                <li class=" guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	                    	<div class="item-title">年龄</div>
+	                    	<div class="item-content">
+	                    		{if $data.u_info.byear gt 0}<?php echo to_date(get_gmtime(),"Y")- $this->_var['data']['u_info']['byear'];?>岁{else}未知{/if}
+	                    	</div>
+                    	</div>
+                    	<div class="col-50">
+                    		<div class="item-title">是否结婚</div>
+		                    <div class="item-content">{$data.u_info.marriage}</div>
+		                </div>
+                    </div>
+                </li> 
+             
+                <li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	                    	<div class="item-title">工作城市</div>
+							<div class="item-content">
+	                        	{$data.u_info.workinfo.region_province}{$data.u_info.workinfo.region_city}
+							</div>
+						</div>
+						<div class="col-50">
+							<div class="item-title">公司行业</div>
+                    		<div class="item-content">{$data.u_info.workinfo.officedomain}</div>
+						</div>
+					</div>
+				</li>
+				
+                <li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	                    	<div class="item-title">公司规模</div>
+	                    	<div class="item-content">{$data.u_info.workinfo.officecale}</div>
+	                    </div>
+	                    <div class="col-50">
+	                    	<div class="item-title">工作收入</div>
+                    		<div class="item-content">{$data.u_info.workinfo.salary}</div>
+	                    </div>
+                    </div>
+                </li>
+           
+                <li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	                    	<div class="item-title">学历</div>
+	                    	<div class="item-content">{$data.u_info.graduation}</div>
+	                    </div>
+	                    <div class="col-50">
+	                    	<div class="item-title">有无购房</div>
+	                    	<div class="item-content">
+	                    		{if $data.u_info.hashouse eq 1}{if $data.u_info.housepassed eq 1}<font>有</font>{else}有{/if}{else}无{/if}
+	                    	</div>
+	                    </div>
+	                    
+                    </div>
+                </li>
+                
+ 			</ul>
+        </div>
+        
+        <div class="content-block-title">借贷记录</div>
+        <div class="list-block row no-gutter">
+            <ul>
+                <li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	            			<div class="item-title">借款笔数</div>
+	            			<div class="item-content">{$data.user_statics.deal_count}</div>
+	            		</div>
+	            		<div class="col-50">
+	            			<div class="item-title">成功笔数</div>
+            				<div class="item-content">{$data.user_statics.success_deal_count}</div>
+	            		</div>
+	            	</div>
+            	</li>
+            	
+            	 <li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	            			<div class="item-title">还清笔数</div>
+                			<div class="item-content">{$data.user_statics.repay_deal_count}</div>
+	            		</div>
+	            		<div class="col-50">
+	            			<div class="item-title">逾期次数</div>
+            				<div class="item-content">{$data.user_statics.yuqi_count}</div>
+	            		</div>
+	            	</div>
+            	</li>
+            	
+            	<li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	            			<div class="item-title">共计借入</div>
+            				<div class="item-content">{function name="format_price" v="$data.user_statics.borrow_amount"}</div>
+	            		</div>
+	            		<div class="col-50">
+	            			<div class="item-title">待还本息</div>
+            				<div class="item-content">{function name="format_price" v="$data. user_statics.need_repay_amount"}</div>
+	            		</div>
+	            	</div>
+            	</li>
+          		
+          		<li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	            			<div class="item-title">逾期金额</div>
+            				<div class="item-content">{function name="format_price" v="$data.user_statics.yuqi_amount"}</div>
+	            		</div>
+	            		<div class="col-50">
+	            			<div class="item-title">共计借出</div>
+            				<div class="item-content">{function name="format_price" v="$data.user_statics.load_money"}</div>
+	            		</div>
+	            	</div>
+            	</li>
+            	
+               <li class="guide-box">
+                	<div class="item-box">
+                		<div class="col-50">
+	            			<div class="item-title">待收本息</div>
+	            			<div class="item-content">
+	            				{function name="format_price" v="$data.user_statics.load_wait_repay_money"}
+	            			</div>
+	            		</div>
+	            		<div class="col-50">
+	            		</div>
+	            	</div>
+            	</li>
+              
+            </ul>
+        </div>
+	</div><!--tab1-->
+	<div id="tab2" class="tab">
+            <div class="content-block-title row no-gutter">
+				<div class="col-40 text-center">审核项目</div>
+				<div class="col-20 text-center">状态</div>
+				<div class="col-40 text-center">通过时间</div>
+			</div>
+            
+            <div class="list-block">
+          		<ul>
+          		{if $data.u_info.idcardpassed eq 1 || ($data.u_info.idcardpassed eq 0 && $data.credit_file.credit_identificationscanning.file_list)}
+	              <li class="row no-gutter">
+                	 <div class="item-box">
+                        <div class="col-33 text-center">身份证认证</div>
+                   
+                    	<div class="col-33 text-center">
+                    		{if $data.u_info.idcardpassed eq 1}<span class="Tick">已通过</span>{else}待审核{/if}
+                    	</div>
+                  
+                        <div class="col-33 text-center">
+                        	{if $data.u_info.idcardpassed eq 1}{function name="to_date" v="$data.u_info.idcardpassed_time" f="Y-m-d"}{/if}
+                    	</div>
+                    </div>
+                        		
+                </li> 
+                {/if}
+                
+                {if $data.u_info.workpassed eq 1 || ($data.u_info.workpassed eq 0 && $data.credit_file.credit_contact.file_list)}
+                 <li class="row no-gutter">
+                	 <div class="item-box">
+                        <div class="col-33 text-center">工作认证</div>
+                    	<div class="col-33 text-center">
+		                    {if $data.u_info.workpassed eq 1}
+					   		{if $data.expire.workpassed_expire}
+							已过期
+							{else}<span class="Tick">已通过</span>{/if}
+							{else}
+							待审核
+							{/if}
+						</div>
+                        <div class="col-33 text-center">
+	                    {if !$data.expire.workpassed_expire}
+		            	{if $data.u_info.workpassed eq 1}
+		                {function name="to_date" v="$data.u_info.workpassed_time" f="Y-m-d"}
+						{/if}{/if}
+						</div>
+					</div>
+                </li>
+                {/if}
+                
+                {if $data.u_info.creditpassed eq 1 || ($data.u_info.creditpassed eq 0 && $data.credit_file.credit_credit.file_list)}
+                  <li class="row no-gutter">
+                	 <div class="item-box">
+                        <div class="col-33 text-center">信用报告</div>
+                        <div class="col-33 text-center">{if $data.u_info.creditpassed eq 1}
+							{if $data.expire.creditpassed_expire}
+							已过期
+							{else}<span class="Tick">已通过</span>{/if}
+							{else}
+							待审核
+							{/if}
+						</div>
+                        <div class="col-33 text-center">
+                        	{if !$data.expire.creditpassed_expire}
+			            	{if $data.u_info.creditpassed eq 1}
+			                {function name="to_date" v="$data.u_info.creditpassed_time" f="Y-m-d"}
+							{/if}
+							{/if}
+						</div>
+					</div>
+                </li>
+                {/if}
+         <!-- xsz -->       
+                {if $data.u_info.incomepassed eq 1 || ($data.u_info.incomepassed eq 0 && $data.credit_file.credit_incomeduty.file_list)}
+                <li class="row no-gutter">
+                	 <div class="item-box">
+                        	<div class="col-33 text-center">收入认证</div>
+                        	<div class="col-33 text-center">{if $data.u_info.incomepassed eq 1}
+								{if $data.expire.incomepassed_expire}
+								已过期
+								{else}<span class="Tick">已通过</span>{/if}
+								{else}
+								待审核
+								{/if}
+							</div>
+                        	<div class="col-33 text-center">{if !$data.expire.incomepassed_expire}
+			             	{if $data.u_info.incomepassed eq 1}
+			                {function name="to_date" v="$data.u_info.incomepassed_time" f="Y-m-d"}
+						    {/if}
+							{/if}
+							</div>
+					</div>
+                </li>
+                {/if}
+                
+                {if $data.u_info.housepassed eq 1 || ($data.u_info.housepassed eq 0 && $data.credit_file.credit_house.file_list)}
+                 <li class="row no-gutter">
+                	 <div class="item-box">
+                        <div class="col-33 text-center">房产认证</div>
+                        <div class="col-33 text-center">
+                        	{if $data.u_info.housepassed eq 1}<span class="Tick">已通过</span>{else}
+							待审核
+							{/if}
+						</div>
+                        <div class="col-33 text-center"> {if $data.u_info.housepassed eq 1}
+			               {function name="to_date" v="$data.u_info.housepassed_time" f="Y-m-d"}
+						   {/if}
+						</div>
+				   </div>
+                </li>
+                 {/if}
+                 
+                {if $data.u_info.carpassed eq 1 || ($data.u_info.carpassed eq 0 && $data.credit_file.credit_car.file_list)}
+                 <li class="row no-gutter">
+                	 <div class="item-box">
+                        <div class="col-33 text-center">
+                        	购车证明
+                    	</div>
+                		<div class="col-33 text-center">
+	                		{if $data.u_info.carpassed eq 1}<span class="Tick">已通过</span>{else}
+							待审核
+							{/if}
+						</div>
+	                    <div class="col-33 text-center">
+	                    	{if $data.u_info.carpassed eq 1}
+			            	{function name="to_date" v="$data.u_info.carpassed_time" f="Y-m-d"}
+							{/if}
+						</div>
+					</div>
+                </li>
+                {/if}
+                
+                {if $data.u_info.marrypassed eq 1 || ($data.u_info.marrypassed eq 0 && $data.credit_file.credit_marriage.file_list)}
+               <li class="row no-gutter">
+                	 <div class="item-box">
+                    	<div class="col-33 text-center">结婚认证</div>
+                    	<div class="col-33 text-center">{if $data.u_info.marrypassed eq 1}<span class="Tick">已通过</span>{else}
+						待审核
+						{/if}</div>
+	                    <div class="col-33 text-center">{if $data.u_info.marrypassed eq 1}
+		            	{function name="to_date" v="$data.u_info.marrypassed_time" f="Y-m-d"}
+						{/if}
+						</div>
+					</div>
+                </li>
+                {/if}
+                
+                {if $data.u_info.edupassed eq 1 || ($data.u_info.edupassed eq 0 && $data.credit_file.credit_graducation.file_list)}
+                <li class="row no-gutter">
+                	 <div class="item-box">
+                        <div class="col-33 text-center">学历认证 </div>
+					
+                    	<div class="col-33 text-center">
+                    		{if $data.u_info.edupassed eq 1}<span class="Tick">已通过</span>{else}
+							待审核
+							{/if}
+						</div>
+					
+                        <div class="col-33 text-center">{if $data.u_info.edupassed eq 1}
+			            	{function name="to_date" v="$data.u_info.edupassed_time" f="Y-m-d"}
+							{/if}
+						</div>
+					</div>	
+				</li>
+                {/if}
+                
+                {if $data.u_info.skillpassed eq 1 || ($data.u_info.skillpassed eq 0 && $data.credit_file.credit_titles.file_list)}
+                <li class="row no-gutter">
+                	 <div class="item-box">
+                        	<div class="col-33 text-center">职称认证</div>	
+                        	<div class="col-33 text-center">
+                        		{if $data.u_info.skillpassed eq 1}<span class="Tick">已通过</span>{else}
+                        		待审核
+                        		{/if}
+                        	</div>	
+                        	<div class="col-33 text-center">
+                        		{if $data.u_info.skillpassed eq 1}
+                        		{function name="to_date" v="$data.u_info.skillpassed_time" f="Y-m-d"}
+                        		{/if}
+							</div>	
+						</div>	
+				 </li>
+                 {/if}
+                 
+                 {if $data.u_info.videopassed eq 1 || ($data.u_info.videopassed eq 0 && $data.u_info.has_send_video eq 1)}
+                 <li class="row no-gutter">
+                 	  <div class="item-box">
+                        	<div class="col-33 text-center">视频认证</div>	
+                        	<div class="col-33 text-center">
+                        		{if $u_info.videopassed eq 1}<span class="Tick">已通过</span>{else}
+                        		待审核
+                        		{/if}
+                        	</div>	
+                        	<div class="col-33 text-center">
+                        		{if $u_info.videopassed eq 1}
+                        		{function name="to_date" v="$data.u_info.videopassed_time" f="Y-m-d"}
+                        		{/if}
+							</div>	
+						</div>
+					</li>
+                 {/if}
+                
+                {if $data.u_info.mobiletruepassed eq 1 || ($data.u_info.mobiletruepassed eq 0 && $data.credit_file.credit_mobilereceipt.file_list)}
+                <li class="row no-gutter">
+                	 <div class="item-box">
+                    	<div class="col-33 text-center">手机实名认证</div>	
+                    	<div class="col-33 text-center">
+                    		{if $data.u_info.mobiletruepassed eq 1}<span class="Tick">已通过</span>{else}
+							待审核
+							{/if}
+						</div>	
+                       <div class="col-33 text-center">
+                       	{if $data.u_info.mobiletruepassed eq 1}
+                       	{function name="to_date" v="$data.u_info.mobiletruepassed_time" f="Y-m-d"}
+                       	{/if}
+						</div>
+					</div>	
+				</li>
+                {/if}   
+                
+                {if $data.u_info.residencepassed eq 1 || ($data.u_info.residencepassed eq 0 && $data.credit_file.credit_residence.file_list)}
+                <li class="row no-gutter">
+                    <div class="item-box">
+                    	<div class="col-33 text-center">居住地证明</div>
+                    	<div class="col-33 text-center">{if $data.u_info.residencepassed eq 1}
+							{if $data.expire.residencepassed_expire}
+							已过期
+							{else}<span class="Tick">已通过</span>{/if}
+							{else}
+							待审核
+							{/if}
+						</div>	
+	                   <div class="col-33 text-center">
+	                   		{if !$data.expire.residencepassed_expire}
+			            	{if $data.u_info.residencepassed eq 1}
+			            	{function name="to_date" v="$data.u_info.residencepassed_time" f="Y-m-d"}
+							{/if}
+							{/if}
+						</div>
+					</div>
+				</li>
+                {/if}
+               </ul>
+            </div>
+	</div><!--tab2-->
+	<div id="tab3" class="tab">
+		<div class="content-block-title row no-gutter">
+			<div class="col-20 text-center">投资人</div>
+			<div class="col-35 text-center">金额</div>
+			<div class="col-45 text-center">时间</div>
+		</div>
+        <div class="list-block">
+        	 <ul>
+         	 {foreach from="$data.load_list" item="load"}
+           
+                <li class="row no-gutter">
+                    <div class="item-box">
+                    	<div class=" col-20 text-center">{function name="utf_substr" v="$load.user_name"}</div>
+                    	<div class=" col-35 text-center">{function name="format_price" v="$load.money"}</div>
+                    	<div class=" col-45 text-center">{function name="to_date" v="$load.create_time" f="Y-m-d"}
+                    		{function name="to_date" v="$load.create_time" f="H:i"}
+						</div>
+					</div>
+                </li>
+            
+         	 {/foreach}
+          
+            </ul>
+        </div>
+	</div><!--tab3-->
+	<div id="tab4" class="tab">
+         <div class="contentblock">
+         	
+        	{if $data.message}
+	          <ul>
+	          	{foreach from="$data.message" item="load"}
+	          	<li class="w_b bb1">
+	          		<div class="img_block"><img src="{function name="wap_user_avatar" uid="$load.user_id"}" style="width:100%; height:100%;"/></div>
+					<div class="d_block w_b_f_1">
+						<div class="top clearfix">
+							<span class="name">{$load.user_name} </span>
+							<span class="time">{function name="to_date" v="$load.create_time" f="Y-m-d"}</span>
+						</div>
+						<p class="middle">{$load.content}</p>
+					</div>
+	          	</li>
+				{/foreach}
+			  </ul>
+			 {else}
+			 <div class="list-block row no-gutter">
+			 	<div class="item-box text-center">
+					暂无留言
+				</div>
+			 </div>
+			 {/if}
+        </div>
+		<div class="pro_detail_foot leave_word btn_leave_word but_box ">
+			<div class="bg_ea544a but_this">留言</div>
+		</div>
+		<div class="Leave_Word">
+			<div class="Leave_Word_block">	
+				 <input type="hidden" id="title" value="留言板">
+				 <textarea id="content" name="content"></textarea> 
+			</div>
+			<div class="lish_but clearfix" avatar="">
+				 	<div class="abolish  lish">取消</div>
+				 	{if $data.act eq 'transfer_mobile'}
+				 	<input type="hidden" id="rel_table" value="transfer">
+				 	<input type="hidden" id="rel_id" value="{$data.transfer_id}">
+				 	{else}
+				 	<input type="hidden" id="rel_table" value="deal">
+				 	<input type="hidden" id="rel_id" value="{$data.deal.id}">
+				 	{/if}
+				 	<input type="hidden" id="deal_id" value="{$data.deal.id}">
+					<div id="add_msg" class="publish  lish ">发表</div>
+			</div>
+		</div>
+	</div><!--tab4-->
+</div>
+
+

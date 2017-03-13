@@ -1,0 +1,120 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%EDIT} <a href="{:u("Learn/activity_setting")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">活动名:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" value="{$vo.name}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">开始时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox  require" name="begin_time" id="begin_time" value="{$vo.begin_time}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" style="width:130px" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" />	
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">结束时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox  require" name="end_time" id="end_time" value="{$vo.end_time}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" style="width:130px" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">发放方式:</td>
+		<td class="item_input">
+		<select name="type">
+			<option value="0" <if condition="$vo['type'] eq 0">selected="selected"</if>>注册送</option>
+			<option value="1" <if condition="$vo['type'] eq 1">selected="selected"</if>>邀请送</option>
+			<option value="2" <if condition="$vo['type'] eq 2">selected="selected"</if>>管理员发放</option>
+		</select>
+		</td>
+	</tr>
+    
+	<tr>
+        <td class="item_title">可用投资类型:</td>
+        <td class="item_input">
+        <select name="invest_type">
+            <option value="0" <if condition="$vo['invest_type'] eq 0">selected="selected"</if>>体验产品</option>
+            <option value="1" <if condition="$vo['invest_type'] eq 1">selected="selected"</if>>真实产品</option>
+        </select>
+        </td>
+    </tr>
+	
+	<tr>
+		<td class="item_title">体验金额度:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="money" value="{$vo.money}"  /></td>
+	</tr>
+	<tr id="max_money" <if condition="$vo['type'] eq 0">style="display:none"</if><if condition="$vo['type'] eq 2">style="display:none"</if> >
+		<td class="item_title">会员赠送最高金额:</td>
+		<td class="item_input">
+			<input type="text" class="textbox" name="max_money" value="{$vo.max_money}" />
+			<span class="tip_span">0为不限制</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">体验金有效天数:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="time_limit" value="{$vo.time_limit}" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">简介:</td>
+		<td class="item_input"><textarea class="textarea" name="brief" >{$vo.brief}</textarea></td>
+	</tr>
+	
+	<tr>
+        <td class="item_title">邀请返利的IP限制:</td>
+        <td class="item_input">
+        <select name="referral_ip_limit">
+            <option value="0" <if condition="$vo['referral_ip_limit'] eq 0">selected="selected"</if>>关闭</option>
+            <option value="1" <if condition="$vo['referral_ip_limit'] eq 1">selected="selected"</if>>开启</option>
+        </select>
+        </td>
+    </tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" <if condition="$vo['is_effect'] eq 1">checked="checked"</if> /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" <if condition="$vo['is_effect'] eq 0">checked="checked"</if> /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Learn" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="update_activity" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%EDIT}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<script>
+
+	$("select[name='type']").change(function(){
+		if($(this).val()==1){
+			$("#max_money").show();
+		}
+		else{
+			$("#max_money").hide();
+		}
+	});	
+</script>
+<include file="Public:footer" />

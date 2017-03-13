@@ -1,0 +1,758 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<load href='__TMPL__Common/js/jscharts_cr.js' />
+
+<load href='__TMPL__Common/style/jquery.autocomplete.css' />
+<load href='__TMPL__Common/js/jquery.autocomplete.min.js' />
+
+<div class="main">
+<div class="main_title">{$main_title}</div>
+
+<div class="blank5"></div>
+
+<div class="button_row">
+	<input type="button" class="button conf_btn" rel="1" value="基本信息" />&nbsp;
+	<if condition="$status eq 6 || $status eq 8">
+		<input type="button" class="button conf_btn" rel="2" value="操盘列表" />&nbsp;		
+		<input type="button" class="button conf_btn" rel="3" value="资金列表" />&nbsp;	
+	    <input type="button" class="button conf_btn" rel="4" value="历史金额" />&nbsp;	
+    </if>
+</div>
+
+<div class="blank5"></div>
+<form name="edit_".$k action="__APP__" method="post" enctype="multipart/form-data">
+	<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+		<tr>
+			<td colspan=4 class="topTd"></td>
+		</tr>
+		
+		
+		
+		<tr>
+				<td class="item_title">配资名称:</td>
+				<td class="item_input" colspan=3>
+					<if condition="$status eq 1">
+						<input type="text" class="textbox require" id = "peizi_name" name="peizi_name" value = "{$vo.peizi_name}" style="width:95%"  />
+					<else/>
+						{$vo.peizi_name}
+					</if>	
+				</td>
+		</tr>
+		
+		<tr>
+				<td class="item_title">展示图片:</td>
+				<td class="item_input" colspan=3>
+					<if condition="$old_imgdata_str">
+			            <foreach name="old_imgdata_str" item="img_item">
+							<p style="float:left">
+							<input style=" margin-top: 12px;"  type="radio" name="view_info" <if condition="$vo['view_info'] eq $img_item['img']">checked="checked"</if> value="{$img_item.img}">
+							<a href='{$img_item.img}' target="_blank" title="{$img_item.name}"><img width="35" height="35" style="float:left; border:#ccc solid 1px; margin-left:5px;" id="{$img_item.name}" src="{$img_item.img}"></a>
+							</p>
+						</foreach>
+		            </if>
+				</td>	
+		</tr>
+				
+		<tr>
+				<td class="item_title">配资编号:</td>
+				<td class="item_input">
+					{$vo.order_sn}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">会员:</td>
+				<td class="item_input">
+					{$vo.user_id|get_user_name_real}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+		<tr>
+				<td class="item_title">总操盘资金:</td>
+				<td class="item_input">
+					{$vo.total_money_format}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">保证金:</td>
+				<td class="item_input">
+					{$vo.cost_money_format}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+
+				
+		<tr>
+				<td class="item_title">亏损警戒线:</td>
+				<td class="item_input">
+					{$vo.warning_line_format}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">亏损平仓线:</td>
+				<td class="item_input">
+					{$vo.open_line_format}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+		
+		
+		<tr>
+				<td class="item_title">借款金额:</td>
+				<td class="item_input">
+					{$vo.borrow_money_format}
+					<span class="tip_span"></span>
+				</td>
+				
+				<td class="item_title">利率:</td>
+				<td class="item_input">
+					{$vo.rate_format}
+					<span class="tip_span"></span>
+				</td>				
+
+		</tr>
+			
+				
+		<tr>
+				<td class="item_title">期限:</td>
+				<td class="item_input">
+					{$vo.time_limit_num_format}
+					<span class="tip_span"></span>
+				</td>
+				
+				<td class="item_title">服务费:</td>
+				<td class="item_input">
+					{$vo.site_money_format}
+					<span class="tip_span">平台收取</span>
+				</td>			
+		</tr>
+						
+		<tr>
+				<td class="item_title">管理费预存款:</td>
+				<td class="item_input">
+					{$vo.first_rate_money_format}
+					<span class="tip_span"></span>
+				</td>
+										
+				<td class="item_title">倍率:</td>
+				<td class="item_input">
+					{$vo.lever}
+					<span class="tip_span"></span>
+				</td>
+
+		</tr>
+		
+		<tr>
+
+						
+				<td class="item_title">申请时间 :</td>
+				<td class="item_input">
+					{$vo.create_time}
+					<span class="tip_span"></span>
+				</td>
+		
+				<td class="item_title">用户盈利比:</td>
+				<td class="item_input">
+					{$vo.payoff_rate_format}
+					<span class="tip_span"></span>
+				</td>
+						
+
+
+		</tr>
+
+		<tr>
+				<td class="item_title">配资类型:</td>
+				<td class="item_input">
+					{$vo.conf_type_name}
+					<span class="tip_span"></span>
+				</td>
+						
+				<td class="item_title">业务审核费:</td>
+				<td class="item_input">
+					{$vo.manage_money_format}
+					<span class="tip_span">平台收取</span>
+				</td>
+
+		</tr>
+
+		<tr>
+
+					
+				<td class="item_title">状态 :</td>
+				<td class="item_input">
+					{$vo.status_format}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">开始交易时间:</td>
+				<td class="item_input">
+					{$vo.is_today_format}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+		
+		<tr>
+				<td class="item_title">周末节假日免费:</td>
+				<td class="item_input">
+					{$vo.is_holiday_fee_format}
+					<span class="tip_span"></span>
+				</td>
+				
+				<td class="item_title">投资者与平台分成比:</td>
+				<td class="item_input">
+					<if condition="$vo['status'] eq 0 || $vo['status'] eq 1 || $vo['status'] eq 2 || $vo['status'] eq 4">
+					<input type="text" name="invest_payoff_rate" class="textbox" size="5" value="{$vo.invest_payoff_rate}" />%
+					<else />
+					{$vo.invest_payoff_rate_format}
+					</if>
+					<span class="tip_span"></span>
+				</td>
+	
+		</tr>
+		
+		<tr>
+				<td class="item_title">投资者佣金差比率:</td>
+				<td class="item_input">
+					<if condition="$vo['status'] eq 0 || $vo['status'] eq 1 || $vo['status'] eq 2 || $vo['status'] eq 4">
+					<input type="text" name="invest_commission_rate" class="textbox" size="5" value="{$vo.invest_commission_rate}" />%
+					<else />
+					{$vo.invest_commission_rate}%
+					</if><br>
+					<span class="tip_span">如果填0,则所有的佣金差，都由平台获得;填:0.4则；40%投资者;60%平台</span>
+				</td>
+				<td class="item_title">投资者返利积分:</td>
+				<td class="item_input">
+					<if condition="$vo['status'] eq 0 || $vo['status'] eq 1 || $vo['status'] eq 2 || $vo['status'] eq 4">
+						<input type="text" name="load_score" class="textbox" size="10" value="{$vo.load_score}" />
+					<else />
+						{$vo.load_score}
+					</if>
+				</td>
+				
+	
+		</tr>
+		
+		
+		<tr>
+				<td class="item_title">配置者返利积分:</td>
+				<td class="item_input" colspan="3">
+					<if condition="$vo['status'] eq 0 || $vo['status'] eq 1 || $vo['status'] eq 2 || $vo['status'] eq 4">
+						<input type="text" name="score" class="textbox" size="10" value="{$vo.score}" />
+					<else />
+						{$vo.score}
+					</if>
+				</td>
+		</tr>
+
+	
+			<tr >
+				<td class="item_title">利息费:</td>
+				<td class="item_input">
+					{$vo.rate_money_format}
+					<span class="tip_span">投资人收取</span>
+				</td>
+				<td class="item_title">投资人:</td>
+				<td class="item_input">
+					<if condition="$status eq 2">
+						<input type="text" class="textbox require J_autoUserName" id = "invest_user_name" name="invest_user_name" value = "{$vo.invest_user_name}" />
+						<input type="hidden" class="textbox require J_autoUserId" name="invest_user_id" value = "{$vo.invest_user_id}" />					
+					<else/>
+						{$vo.invest_user_id|get_user_name_real}
+					</if>	
+				</td>
+			</tr>
+
+		<if condition="$status eq 1 || $status eq 4">
+				<tr >
+						<td class="item_title">交易开始时间:</td>
+						<td class="item_input">
+							<input type="text"  class="textbox require"  id="begin_date" name="begin_date" value="{$vo.begin_date}" onfocus="return showCalendar('begin_date', '%Y-%m-%d', false, false, 'begin_date');" style="width:130px" />
+							<span class="tip_span"></span>
+						</td>
+						<td class="item_title">交易结束时间 :</td>
+						<td class="item_input">
+							<input type="text" class="textbox require"  id="end_date" name="end_date" value="{$vo.end_date}" onfocus="return showCalendar('end_date', '%Y-%m-%d', false, false, 'end_date');" style="width:130px" />
+							<span class="tip_span"></span>
+						</td>
+				</tr>
+		<else/>
+					<tr>
+					<td class="item_title">交易开始时间 :</td>
+					<td class="item_input">
+						{$vo.begin_date}
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">交易结束时间:</td>
+					<td class="item_input">
+						{$vo.end_date}
+						<span class="tip_span"></span>
+					</td>
+				</tr>
+		</if>
+
+			
+		
+	
+			
+		<if condition="$status eq 4">
+			<tr >
+					<td class="item_title">股票帐户 :</td>
+					<td class="item_input">
+						<input type="text" class="textbox require" id="stock_sn" name="stock_sn" value="{$vo.stock_sn}" />
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">股票密码:</td>
+					<td class="item_input">
+						<input type="text" class="textbox require" id="stock_pwd" name="stock_pwd" value="{$vo.stock_pwd}" />
+						<span class="tip_span"></span>
+					</td>
+			</tr>
+		</if>	
+		
+		<if condition="$status eq 6 || $status eq 8">
+			<tr>
+				<td class="item_title">股票账户 :</td>
+				<td class="item_input">
+					{$vo.stock_sn}
+				</td>
+				<td class="item_title">股票账户密码 :</td>
+				<td class="item_input">
+					{$vo.stock_pwd}
+				</td>				
+			</tr>
+			
+			<tr>
+				<td class="item_title">最近一次扣费时间:</td>
+				<td class="item_input">
+					{$vo.last_fee_date}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">下次扣费时间:</td>
+				<td class="item_input">
+					{$vo.next_fee_date}
+					<span class="tip_span"></span>
+				</td>
+			</tr>
+	</if>		
+	
+		<if condition="$status eq 6">		
+			<tr>
+				<td class="item_title">总资产:</td>
+					<td class="item_input">
+						<input type="text" id="stock_money" class="textbox require" name="stock_money"  value="{$vo.stock_money}" />
+						<span class="tip_span">请先在HOMS平台,进行平仓操作</span>
+					</td>
+					<td class="item_title">资产统计日期:</td>
+					<td class="item_input">
+						<input type="text" class="textbox require" id="stock_date" name="stock_date" value="{$stock_date}" onfocus="return showCalendar('stock_date', '%Y-%m-%d', false, false, 'stock_date');" style="width:130px" />
+						<span class="tip_span"></span>
+					</td> 
+			</tr>		
+			<tr>
+				<td class="item_title">收取其他费用:</td>
+					<td class="item_input">
+						<input type="text" class="textbox" id="other_fee" name="other_fee"  value="" />
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">其他费用说明:</td>
+					<td class="item_input">
+						<input type="text" class="textbox" id="other_memo" name="other_memo"  value="" />
+						<span class="tip_span"></span>
+					</td> 
+			</tr>
+		</if>
+		
+		<if condition="$status eq 8">
+			<tr>
+				<td class="item_title">总资产:</td>
+					<td class="item_input">						
+						{$vo.stock_money_format}
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">资产统计日期:</td>
+					<td class="item_input">
+						{$vo.stock_date}						
+						<span class="tip_span"></span>
+					</td> 
+			</tr>		
+			<tr>
+				<td class="item_title">收取其他费用:</td>
+					<td class="item_input">						
+						{$vo.other_fee_format}
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">其他费用说明:</td>
+					<td class="item_input">
+						{$vo.other_memo}						
+						<span class="tip_span"></span>
+					</td> 
+			</tr>
+			<tr>
+					<td class="item_title">返还保证金:</td>
+					<td class="item_input">
+						{$vo.re_cost_money_format}
+						<span class="tip_span"></span>
+					</td>
+					
+					<td class="item_title">用户获利:</td>
+					<td class="item_input">
+						{$vo.user_payoff_fee_format}
+						<span class="tip_span"></span>
+					</td>
+			</tr>
+		
+			<tr>					
+					<td class="item_title">平台分利:</td>
+					<td class="item_input">
+						{$vo.site_payoff_fee_format}
+						<span class="tip_span"></span>
+					</td>
+					
+					<td class="item_title">投资者分利:</td>
+					<td class="item_input">
+						{$vo.invest_payoff_fee_format}
+						<span class="tip_span"></span>
+					</td>
+			</tr>
+		</if>
+		
+		<if condition="$status eq 1 || $status eq 2 || $status eq 4">
+			<tr>
+				<td class="item_title">审核操作 :</td>
+				<td class="item_input" colspan=3>
+					<if condition="$status eq 1">
+						<label for="status_2"><input type="radio" name="status" id="status_2" value="2"/>审核通过</label>
+						<label for="status_3"><input type="radio" name="status" id="status_3" value="3"/>审核失败</label>
+					<elseif condition="$status eq 2" />
+						<label for="status_4"><input type="radio" name="status" id="status_4" value="4"/>筹款成功</label>
+						<label for="status_5"><input type="radio" name="status" id="status_5" value="5"/>筹款失败</label>
+					<elseif condition="$status eq 4" />
+						<label for="status_6"><input type="radio" name="status" id="status_6" value="6"/>开户成功</label>
+						<label for="status_7"><input type="radio" name="status" id="status_7" value="7"/>开户失败</label>
+					</if>	
+						<span class="tip_span"></span>
+				</td>
+			</tr>
+			
+			<tr id="op_memo_tr" style="display:none;">
+				<td class="item_title">原因:</td>
+				<td class="item_input" colspan=3>
+					<textarea type="text" id="op_memo" class="textbox require"  name="op_memo" style="width:400px;height:100px" >{$vo.op_memo}</textarea>
+				</td>
+			</tr>
+			
+			<tr id="memo_tr" style="display:none;">
+				<td class="item_title">备注:</td>
+				<td class="item_input" colspan=3>
+					<textarea type="text" id="memo" class="textbox" name="memo" style="width:400px;height:100px" >{$vo.memo}</textarea>
+				</td>
+			</tr>
+
+		<else/>			
+			  <tr>
+                    <td class="item_title">备注 :</td>
+                    <td class="item_input" colspan=3>
+                        {$vo.memo}
+                        <span class="tip_span"></span>
+                    </td>
+               </tr>		
+		</if>	
+			
+		<if condition="$status eq 3 || $status eq 5 || $status eq 7">
+                <tr>
+                    <td class="item_title">失败原因 :</td>
+                    <td class="item_input" colspan=3>
+                        {$vo.op_memo}
+                        <span class="tip_span"></span>
+                    </td>
+                </tr>
+         </if>
+            
+		<tr>
+			<td colspan=4 class="bottomTd"></td>
+		</tr>
+		
+	<if condition="$status eq 1 || $status eq 2 || $status eq 4 || $status eq 6">
+
+			<tr>
+				<td class="item_title"></td>
+				<td class="item_input"  colspan=3>
+				<!--隐藏元素-->
+				<input type="hidden" name="id" value="{$vo.id}" />
+				<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziOrder" />
+				<input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+				<!--隐藏元素-->
+				<if condition="$status eq 6">
+					<input type="hidden" name="status" value="8" />
+					<input type="submit" class="button" value="平仓" />
+				<else />
+					<input type="submit" class="button" value="提交" />
+				</if>
+				<input type="reset" class="button" value="{%RESET}" />
+				</td>
+			</tr>
+		<else/>
+		<tr>
+				<td class="item_title"></td>
+				<td class="item_input"  colspan=3>
+				<!--隐藏元素-->
+				<input type="hidden" name="id" value="{$vo.id}" />
+				<!--隐藏元素-->
+				<input type="button" class="button" onclick="javascript:window.history.back();" value="返回" />
+				</td>
+			</tr>
+			
+		</if>
+				
+
+	</table>
+   
+</form>
+	 <!----->
+      <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="2">
+     <tbody>
+          <tr>
+                <td colspan=6 class="topTd"></td>
+            </tr>
+    
+                  <tr border="0">
+                      <th style="width:12%">申请时间</th>
+                      <th style="width:12%">申请类型</th>
+                      <th style="width:12%">申请描述</th>
+                      <th style="width:10%">审核状态</th>
+                      <th style="width:10%">变动描述</th>
+                      <th style="width:12%">审核时间</th>
+                  </tr>
+                  <foreach name="op_list" item="item">
+            <tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+                  <td>{$item.create_date}</td>
+                  <td >{$item.op_type_format}</td>
+                  <td>{$item.memo}</td>
+                  <td><if condition="$item.op_status == 2|| $item.op_status == 4">{$item.op_status_format}(原因:{$item.op_memo})<else/>{$item.op_status_format}</if></td>
+                  <td>{$item.change_memo} </td>
+                  <td>{$item.op_date}</td>
+              </tr>
+              </foreach>
+            
+		<tr>
+			<td colspan=6 class="bottomTd"></td>
+		</tr>
+          </tbody>
+      </table>
+      
+      <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+          <tbody>
+			<td colspan=7 class="bottomTd"></td>
+              <tr border="0">
+                  <th style="width:12%">日期</th>
+                  <th style="width:12%">利息费</th>
+                  <th style="width:12%">服务费</th>
+                  <th style="width:12%">买入</th>
+                  <th style="width:12%">卖出</th>
+                  <th style="width:12%">平台佣金</th>
+                  <th style="width:12%">投资人佣金</th>
+              </tr>
+              <foreach name="fee_list" item="item">
+        		<tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+                  <td >{$item.fee_date}</td>
+                  <td>{$item.rate_money}</td>
+                  <td>{$item.site_money}</td>
+                  
+                  <td>{$item.buy_money}</td>
+                  <td>{$item.sell_money}</td>
+                  <td>{$item.site_commission_money}</td>
+                  <td>{$item.invest_commission_money}</td>
+              </tr>
+              </foreach>
+              <tr>
+			<td colspan=7 class="bottomTd"></td>
+		</tr>
+          </tbody>
+      </table>
+      <table class="form conf_tab" cellpadding=0 cellspacing=0 rel="4">
+          <tbody>
+          	<tr>
+                <td  class="topTd"></td>
+            </tr>
+            <td>
+      <div class="clearfix tra_box p10 hide ml10" style="padding-left:50px;">
+          <div id="chartcontainer"></div>
+      </div>	
+      </td>
+       <tr>
+			<td  class="bottomTd"></td>
+		</tr>
+          </tbody>
+      </table>
+</div>
+<div class="blank20"></div>
+<script type="text/javascript">
+
+
+	jQuery(function(){
+		$("form").unbind("submit");
+		$("form").bind("submit",function(){
+			var doms = $(".require");
+			var check_ok = true;
+			$.each(doms,function(i, dom){
+				if($.trim($(dom).val())==''||($(dom).val()=='0'&& $(dom).is("select")))
+				{						
+						var title = $(dom).parent().prev(".item_title").html();
+						if(!title)
+						{
+							title = '';
+						}
+						if(title.substr(title.length-1,title.length)==':')
+						{
+							title = title.substr(0,title.length-1);
+						}
+						if($(dom).val()=='')
+						TIP = LANG['PLEASE_FILL'];
+						if($(dom).val()=='0')
+						TIP = LANG['PLEASE_SELECT'];						
+						alert(TIP+title);
+						$(dom).focus();
+						check_ok = false;
+						return false;						
+				}
+			});
+			if(!check_ok){
+				return false;
+			}
+			
+			check_ok = true;
+			$(".require_radio").each(function(){
+				if ($(this).find("input[type='radio']").length != 0) {
+					if ($(this).find("input[type='radio']:checked").length == 0) {
+						var title = $(this).parent().prev(".item_title").html();
+						if (!title) {
+							title = '';
+						}
+						if (title.substr(title.length - 1, title.length) == ':') {
+							title = title.substr(0, title.length - 1);
+						}
+						
+						alert(LANG['PLEASE_SELECT'] + title);
+						check_ok = false;
+						return false;
+					}
+				}
+			});
+			if(!check_ok){
+				return false;
+			}
+			
+			//有查询开始日期
+			if ($("#q_start_time").length == 1){
+				var date1 = $.trim($("#q_start_time").val());
+				if (IsDate(date1) == false){
+					alert('开始时间不是有效的时间格式(yyyy-mm-dd)');
+					$("#q_start_time").focus();
+					return false;
+				}
+			}
+			
+			//有查询结束日期
+			if ($("#q_end_time").length == 1){
+				var date1 = $.trim($("#q_end_time").val());
+				if (IsDate(date1) == false){
+					alert('结束时间不是有效的时间格式(yyyy-mm-dd)');
+					$("#q_end_time").focus();
+					return false;
+				}
+			}
+			
+			//结束时间不能大于开始时间
+			if ($("#q_start_time").length == 1 && $("#q_end_time").length == 1){
+				var date1 = $.trim($("#q_start_time").val());
+				var date2 = $.trim($("#q_end_time").val());
+				
+				if (dateCompare(date1,date2) == 1){
+					alert('开始时间不能大于结束时间');
+					$("#q_start_time").focus();
+					return false;			
+				}
+				
+				
+				//有查询日期间隔限制
+				if ($("#q_date_diff").length == 1 && $.trim($("#q_date_diff").val())!='' && $("#q_date_diff").val() !='0'){
+					if (GetDateDiff(date1,date2)+1 > $("#q_date_diff").val()){
+						alert("查询时间间隔不能大于 " + $("#q_date_diff").val() + " 天");
+						$("#q_end_time").focus();
+						return false;	
+					}
+				}
+			}
+		});
+		
+		$("input[name=status]").click(function(){
+			var rel= parseInt($(this).val());
+			switch(rel){
+				case 3:
+				case 5:
+				case 7:	
+					$("#op_memo_tr").show();
+					$("#op_memo").addClass("require");
+					
+					$("#memo_tr").hide();
+					$("#invest_user_name").removeClass("require");
+					$("#stock_sn").removeClass("require");
+					$("#stock_pwd").removeClass("require");
+					break;
+				default:
+					$("#memo_tr").show();
+					$("#op_memo_tr").hide();
+					$("#invest_user_name").addClass("require");
+					$("#stock_sn").addClass("require");
+					$("#stock_pwd").addClass("require");
+					
+					$("#op_memo").removeClass("require");
+					break
+			}
+		});
+		
+		/*
+		$("#shenhe select").change(function(){
+			if($(this).val()=="3" || $(this).val()=="5"){  
+				$(".bb").show();
+				
+				$("#op_memo").attr("disabled",false);
+			}else if($(this).val()=="2"){
+				$(".bb").hide();
+				
+				$("#op_memo").attr("disabled",true);
+			}else{
+				$(".bb").hide();
+				
+				$("#op_memo").attr("disabled",true);
+			}
+		});
+		*/
+	});
+
+	$(function(){
+		var myData = new Array(
+			[0,0]
+			<foreach name="history_list" item="item">
+				,['{$item.stock_date}',{$item.stock_money}]
+			</foreach>
+		);
+		myData.splice(0,1);
+		if(myData.length>0)
+		{
+			var myChart = new JSChart('chartcontainer', 'bar');
+			myChart.setDataArray(myData);
+			myChart.setTitle('');
+			myChart.setSize(950, 350);
+			myChart.setBarColor('#39a1ea');
+			myChart.draw();
+		}
+	});
+
+</script>
+<div class="blank5"></div>
+</div>
+<include file="Public:footer" />

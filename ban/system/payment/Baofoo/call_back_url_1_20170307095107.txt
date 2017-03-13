@@ -1,0 +1,7 @@
+Array
+(
+    [is_sj] => 1
+    [ctl] => payment
+    [act] => notify
+    [class_name] => Bfapp
+)

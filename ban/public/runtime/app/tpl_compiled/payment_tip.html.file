@@ -1,0 +1,24 @@
+
+			<div style="width:400px; padding:10px;">
+				
+				<p style="font-size:14px; font-weight:bold;">
+					<?php echo $this->_var['LANG']['PAYMENT_INFO_TIP']; ?>				
+				</p>
+				<div class="blank"></div>
+				<p class="notice">
+					<?php echo $this->_var['LANG']['PAYMENT_NOTICE_TIP_1']; ?>
+					<br />							
+					<?php echo $this->_var['LANG']['PAYMENT_NOTICE_TIP_2']; ?>		
+				</p>
+				<div class="blank"></div>
+				<p >
+					<input type="button" value="<?php echo $this->_var['LANG']['PAYMENT_HAS_DONE']; ?>" class="formbutton" onclick="location.href='<?php
+echo parse_url_tag("u:shop|payment#pay|"."id=".$this->_var['payment_notice']['id']."&check=1".""); 
+?>';" >
+					<input type="button" value="<?php echo $this->_var['LANG']['PAYMENT_ERROR']; ?>" class="formbutton" onclick="location.href='<?php
+echo parse_url_tag("u:shop|uc_order#modify|"."id=".$this->_var['payment_notice']['order_id']."".""); 
+?>';">
+				</p>
+				
+			</div>		
+

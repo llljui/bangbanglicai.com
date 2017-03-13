@@ -1,0 +1,68 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">导出财务数据</div>
+<div class="blank5"></div>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<script type="text/javascript">
+	function export_csv(){
+		
+		param = "&type="+$(".search_row #type").val();;
+		param +="&begin_time="+$(".search_row #begin_time").val();
+		param +="&end_time="+$(".search_row #end_time").val();
+		
+		var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_csv";
+		location.href = url+param;
+	}
+</script>
+<div class="main">
+	<div class="search_row">
+		<form name="search" action="__APP__" method="get">	
+			时间：
+			<input type="text" class="textbox" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" size="10" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'begin_time');" />
+				-
+			<input type="text" class="textbox" name="end_time" id="end_time" value="{:trim($_REQUEST['end_time'])}" size="10" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');"  />
+			
+			表类型：
+			<select name="type" id="type">
+				<option value="1" <if condition="$type eq 1">selected="selected"</if>>会员收计表</option>
+				<option value="2" <if condition="$type eq 2">selected="selected"</if>>标的借款明细表</option>
+				<option value="3" <if condition="$type eq 3">selected="selected"</if>>平台收支表</option>
+			</select>
+	        
+			<input type="hidden" value="ExportXls" name="m" />
+			<input type="hidden" value="index" name="a" />
+			<input type="submit" class="button" value="{%SEARCH}" />
+			<input type="button" class="button" value="{%EXPORT}" onclick="export_csv();" />
+		</form>
+	</div>
+<div class="blank5"></div>
+
+<table cellspacing="0" cellpadding="0" class="dataTable" id="dataTable">
+	<tbody>
+		<tr>
+			<td class="topTd" colspan="40">&nbsp; </td>
+		</tr>
+		<if condition="$type eq 1">	
+			<include file="list_1" />
+		</if>
+		<if condition="$type eq 2">	
+			<include file="list_2" />
+		</if>
+		<if condition="$type eq 3">	
+			<include file="list_3" />
+		</if>
+		<tr>
+			<td class="bottomTd" colspan="40"> &nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+
+
+</div>
+<!--借款 退款  提现-->
+</body>
+</html>

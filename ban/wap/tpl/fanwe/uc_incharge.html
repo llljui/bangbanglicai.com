@@ -1,0 +1,217 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#deal" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+
+<div class="content">
+	
+<!-- 这里是页面内容区 -->
+
+<!--账户充值-->
+<style>
+	.pay_detail{min-height:65px;}
+</style>
+{if $data.c_number eq 3 }
+<style>
+	.Menubox ul li {width: 33.333333333333333%;}
+	.Menubox ul li.hover {width: 33.33333333333333%;}	
+	.Menubox ul li:nth-child(3){ border-right:0px;}
+</style>
+{/if}
+{if $data.c_number eq 2 }
+<style>
+	.Menubox ul li {width: 50%;}
+	.Menubox ul li.hover {width: 50%;}	
+	.Menubox ul li:nth-child(2){ border-right:0px;}
+</style>
+{/if}
+{if $data.c_number eq 1 }
+<style>
+	.Menubox ul li {width: 100%;}
+	.Menubox ul li.hover {width: 100%;}	
+	.Menubox ul li:nth-child(1){ border-right:0px;}
+</style>
+{/if}
+
+<div class="Menubox">
+        <ul>
+        	{if $data.payment_list}
+            <li id="one1" onclick="setInChrgTab('one',1,{$data.c_number})" class="hover">线上支付</li>
+			{/if}
+			{if $data.below_payment}
+				{if $data.c_one eq 0}
+					<li id="one1" onclick="setInChrgTab('one',1,{$data.c_number})" class="hover">线下支付</li>
+				{else}
+					<li id="one2" onclick="setInChrgTab('one',2,{$data.c_number})">线下支付</li>
+				{/if}
+			{/if}
+			{if $data.ips_bank_list}
+				{if $data.c_one eq 0 && $data.c_two eq 0}
+					<li id="one1" onclick="setInChrgTab('one',1,{$data.c_number})" class="hover">第三方托管</li>
+				{else}
+					{if $data.c_one eq 1 && $data.c_two eq 1}
+						<li id="one3" onclick="setInChrgTab('one',3,{$data.c_number})">第三方托管</li>
+					{else}
+						<li id="one2" onclick="setInChrgTab('one',2,{$data.c_number})">第三方托管</li>
+					{/if}
+				{/if}
+            		
+            {/if}
+        </ul>
+</div>
+{if $data.payment_list}
+<div id="con_one_1" class="uc_incharge"><!--线上支付-->
+		<div class="figure">
+			<input id="money1" class="" type="text"  style="height:39px;" placeholder="请输入金额">
+		</div>
+		<div class="figure">
+			<div style="padding-top:10px;" id="Fee_t">充值费用 &nbsp; 0.00</div>
+		</div>
+		{if $data.payment_list}
+		<div class="bank_list in_line">
+			<ul>
+				{foreach from="$data.payment_list" item="item"}
+				<li>
+					<div class="pay_detail clearfix">
+						<div class="inline_pay_img_show">
+							{if $item.img}
+						      <img src="{$item.img}"  height="35px">
+						     {/if}
+						</div>
+						<div class="inline_pay_name">
+							{$item.class_name}
+						</div>
+					</div>
+					<input class="mt  dw" onclick="InchargeRes({$item.id})" type="radio" iclass="{$item.iclass_name}" value="{$item.id}" id="ufee" name="paypath1">
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+		{else}
+		<div class="no_data_block">
+    	暂无数据
+       </div>
+		{/if}
+		
+		<div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<button id="on_incharge_done"  class="but_this">确认</button>
+					</div>
+				</div>
+</div>
+{/if}
+{if $data.below_payment}
+{if $data.c_one eq 0}
+<div id="con_one_1" class="uc_incharge"  ><!--线下支付-->
+{else}
+<div id="con_one_2" class="uc_incharge"  style=" display:none;" ><!--线下支付-->
+{/if}
+	<div class="figure">
+		<input id="money2" class="" style="height:39px;" type="text" placeholder="请输入金额">
+	</div>
+	<div class="figure">
+		<input id="memo" class="" style="height:39px;" type="text" placeholder="请输入银行流水号">
+	</div>
+	<div class="figure">
+		<div style="padding-top:10px;" id="Fee_two">充值费用 &nbsp; 0.00</div>
+	</div>
+		
+	{if $data.below_payment}
+	<div class="bank_list out_line">
+		<ul>
+		{foreach from="$data.below_payment" item="item" key=key}
+			
+			<li>
+				<div class="pay_detail">
+					<h5>{$item.pay_name}</h5>
+					<div class="info">
+						<span class="peoplo">收款人:{$item.pay_account_name}</span>
+						<span>开户行:{$item.pay_bank}</span>
+					</div>
+					<p>账户：{$item.pay_account}</p>
+				</div>
+				<input class="mt dw" type="radio" value="{$item.bank_id}" name="paypath" onclick="InchargeRestwo({$item.pay_id})" >
+				{if $key eq 0}
+				<input id="payment_id" type="hidden" value="{$item.pay_id}"  />
+				{/if}
+			</li>
+		{/foreach}
+		</ul>
+	</div>
+	{else}
+		<div class="no_data_block">
+    	暂无数据
+       </div>
+		{/if}
+
+	 <div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<button id="incharge_done"  class="but_this">确认</button>
+					</div>
+				</div>
+</div>
+{/if}
+{if $data.ips_bank_list}
+<!-- <form action="{wap_url a="index" r="collocation" p="DoDpTrade"}" method="get" id="search_form" >  -->
+<input type="hidden" value="collocation" name="ctl">
+<input type="hidden" value="DoDpTrade" name="act">
+<input type="hidden" value="0" name="user_type">
+<input type="hidden" value="wap" name="from">
+<input type="hidden" value="{$data.user_id}" id="user_id" name="user_id">
+{if $data.c_one eq 0 && $data.c_two eq 0}
+		<div id="con_one_1" class="uc_incharge"><!--第三方支付-->
+{else}
+  {if $data.c_one eq 1 && $data.c_two eq 1}
+		<div id="con_one_3" class="uc_incharge" style=" display:none;"><!--第三方支付-->
+  {else}
+		<div id="con_one_2" class="uc_incharge" style=" display:none;"><!--第三方支付-->
+  {/if}
+{/if}
+		<div class="figure">
+			<input id="money3" name="pTrdAmt" class="" style="height:39px;" type="text" placeholder="请输入金额">
+		</div>
+		{if $data.ips_bank_list}
+		<div class="bank_list in_line">
+			<ul>
+				{foreach from="$data.ips_bank_list" item="item"}
+				<li>
+					<div class="pay_detail clearfix">
+						<div class="inline_pay_img_show">
+						      <img src="{$item.img}"  height="35px">
+						</div>
+						<div class="inline_pay_name">
+							{$item.name}({$item.sub_name})
+						</div>
+					</div>
+					<input class="mt  dw"  type="radio" value="{$item.id}" name="pTrdBnkCode">
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+		
+		{else}
+		<div class="no_data_block">
+    	暂无数据
+       </div>
+		{/if}
+
+		<div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<button id="other_incharge_done"  class="but_this">确认</button>
+					</div>
+				</div>
+</div>
+
+<!--</form> -->
+{/if}
+
+{include file="./inc/footer.html"}
+
+
+
+
+

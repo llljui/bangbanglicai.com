@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+<meta name="Generator" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+<meta name="Generator" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php if ($this->_var['page_title']): ?><?php echo $this->_var['page_title']; ?> - <?php endif; ?><?php if ($this->_var['show_site_titile'] == 1): ?><?php 
+$k = array (
+  'name' => 'app_conf',
+  'value' => 'SHOP_SEO_TITLE',
+);
+echo $k['name']($k['value']);
+?> - <?php endif; ?><?php echo $this->_var['site_info']['SHOP_TITLE']; ?></title>
+<link rel="stylesheet" type="text/css" href="app/Tpl/new/inc/countup/conutup.css">
+<link rel="icon" href="favicon.ico" type="/image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="/image/x-icon" />
+<meta name="keywords" content="<?php if ($this->_var['page_keyword']): ?><?php echo $this->_var['page_keyword']; ?><?php endif; ?><?php echo $this->_var['site_info']['SHOP_KEYWORD']; ?>" />
+<meta name="description" content="<?php if ($this->_var['page_description']): ?><?php echo $this->_var['page_description']; ?><?php endif; ?><?php echo $this->_var['site_info']['SHOP_DESCRIPTION']; ?>" />
+<?php echo $this->fetch('inc/common/load_css_js.html'); ?>
+</head>
+<style type="text/css">
+	#fp-nav ul li, .fp-slidesNav ul li{display: block;height: 23px;margin: 0 7px 15px;position: relative;width: 23px;background-color:#39a1ea;border-radius: 15px;margin-right: 42px;}
+	#fp-nav ul li, .fp-slidesNav ul li:visit{background-color:white;}
+	#fp-nav{margin-right: 35px;}
+	div[class="big_arr"]{margin-right: 35px;}
+li[style="margin-right:0;"]{margin-right: -1px!important;}
+div[class="tree-box clearfix"]{margin-top: 110px;}
+div[class="conter"]{}
+ul[class="hoverbtn"]{display: block!important;}
+.page5 .con .pic .pic2 img{margin:-40px auto!important;}
+</style>
+<script src="app/Tpl/new/inc/countup/jquery.min.js"></script>
+<script src="app/Tpl/new/inc/countup/jquery.waypoints.min.js"></script>
+<script type="text/javascript" src="app/Tpl/new/inc/countup/jquery.countup.min.js"></script>
+<!-- <script type="text/javascript" src='app/Tpl/new/inc/countup/trans/trans.js'></script> -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".counter").countUp();
+		document.getElementsByTagName('body')[0].style.overflow='hidden';
+
+	});
+
+</script>
+<body style="margin:0;overflow-x: hidden;" scroll="no" >
+<?php if ($this->_var['vote']): ?>
+<a id="vote" href="<?php
+echo parse_url_tag("u:index|vote|"."".""); 
+?>" target="_blank"></a>	
+<?php endif; ?>
+<div class="header" id="header">
+   <?php echo $this->fetch('inc/common/load_top2.html'); ?>
+	<div class="main_bars">
+		<div class="main_bar wrap" style="margin-left: 80px!important;">	
+			<div class="logo mr15">
+				<a class="link f_l" href="<?php echo $this->_var['APP_ROOT']; ?>/">
+					<?php
+						$this->_var['logo_image'] = app_conf("SHOP_LOGO");
+					?>
+					<?php 
+$k = array (
+  'name' => 'load_page_png',
+  'v' => $this->_var['logo_image'],
+);
+echo $k['name']($k['v']);
+?>
+				</a>
+			</div>     
+			<!--<?php if ($this->_var['MODULE_NAME'] <> 'user' && $this->_var['MODULE_NAME'] <> 'manageagency' && $this->_var['MODULE_NAME'] <> 'authorized' && $this->_var['MODULE_NAME'] <> 'agency_money'): ?>加载菜单-->
+			<ul class="main_nav">
+				<?php $_from = $this->_var['nav_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'nav_item');if (count($_from)):
+    foreach ($_from AS $this->_var['nav_item']):
+?>
+					<li class="<?php if ($this->_var['nav_item']['current'] == 1): ?>current<?php endif; ?> <?php if (count ( $this->_var['nav_item']['sub_nav'] ) > 0): ?>jcur<?php endif; ?> ml5 bdr3 pr" rel='<?php echo $this->_var['nav_item']['id']; ?>'>
+						<a href="<?php echo $this->_var['nav_item']['url']; ?>" target="<?php if ($this->_var['nav_item']['blank'] == 1): ?>_blank<?php endif; ?>" <?php if (count ( $this->_var['nav_item']['sub_nav'] ) > 0): ?>class="pr20"<?php endif; ?>><?php echo $this->_var['nav_item']['name']; ?> <?php if ($this->_var['nav_item']['sub_nav']): ?><i class="iconfont">&#xe61c;</i><?php endif; ?></a>
+						<?php if ($this->_var['nav_item']['sub_nav']): ?>
+                        <div class="sub_main_nav ps hide">
+						<?php $_from = $this->_var['nav_item']['sub_nav']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'sub_item');if (count($_from)):
+    foreach ($_from AS $this->_var['sub_item']):
+?>
+							<a href="<?php echo $this->_var['sub_item']['url']; ?>" <?php if ($this->_var['sub_item']['current'] == 1): ?>class="current"<?php endif; ?> target="<?php if ($this->_var['sub_item']['blank'] == 1): ?>_blank<?php endif; ?>"><?php echo $this->_var['sub_item']['name']; ?></a>
+						<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+						</div>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			</ul>
+			<!--加载菜单END<?php else: ?>-->
+			 <?php echo $this->fetch('inc/common/load_other_nav.html'); ?>
+			<!--<?php endif; ?>-->
+		</div>
+	</div>
+</div>
+<!--<?php if ($this->_var['MODULE_NAME'] == 'index'): ?>-->
+<?php 
+$k = array (
+  'name' => 'load_user_tip_index',
+);
+echo $this->_hash . $k['name'] . '|' . base64_encode(serialize($k)) . $this->_hash;
+?>
+<div id="main_adv_box" class="main_adv_box f_l b_white">
+	<div id="main_adv_img" class="main_adv_img">
+        <?php $_from = $this->_var['adv_src']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'adv');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['adv']):
+?>
+        <span rel="<?php echo $this->_var['adv']['key_id']; ?>"><?php echo $this->_var['adv']['code']; ?></span>
+        <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	</div>
+	<div id="main_adv_ctl" class="main_adv_ctl">
+		<ul>
+        <?php $_from = $this->_var['adv_src']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'adv');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['adv']):
+?>
+        <li rel="<?php echo $this->_var['adv']['key_id']; ?>"><?php echo $this->_var['adv']['key_id']; ?></li>
+        <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</ul>
+	</div>
+</div>
+
+
+<div class="blank0"></div>
+<!-- <div class="showcase">
+	<div class="wrap">
+		<div class="caseblok">
+			<span>累积投资金额：</span>
+			<em><?php echo $this->_var['VIRTUAL_MONEY_1_FORMAT']; ?>元</em>
+		</div>
+		<div class="caseblok">
+			<span>累计成交笔数：</span>
+			<em><?php echo $this->_var['stats']['deal_total_count']; ?>笔</em>
+		</div>
+		<div class="caseblok">
+			<span>为客户赚取收益：</span>
+			<em><?php echo $this->_var['VIRTUAL_MONEY_2_FORMAT']; ?>元</em>
+		</div>
+        		<div class="caseblok">
+			<span>累计用户数：</span>
+			<em><?php echo $this->_var['stats']['user_count_format']; ?>人</em>
+		</div>
+		<div class="caseblok">
+		<div class="back_img back_img_3"></div>
+    		<span>风险准备金：</span>
+			<em><?php echo $this->_var['VIRTUAL_MONEY_3_FORMAT']; ?>元</em>
+    	</div>
+	</div>
+</div> -->
+<div class="l_box">
+	<div class="_contain">
+	<div class="_contain0">
+		<img src="app/Tpl/new/inc/countup/static/1.png" style="left: 25px;">
+		<img src="app/Tpl/new/inc/countup/static/02.png" style="left:215px;">
+		<img src="app/Tpl/new/inc/countup/static/3.png" style="left: 430px;">
+		<img src="app/Tpl/new/inc/countup/static/4.png" style="left:630px;">
+		<img src="app/Tpl/new/inc/countup/static/5.png" style="left:795px;">
+	</div>
+	<ul>
+		<li>
+			<strong>累计投资</strong><br>
+            <span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -145px;" ><?php echo $this->_var['VIRTUAL_MONEY_1_FORMAT']; ?></span>元
+		</li>
+		<li>
+			<strong>累计成交</strong><br>
+			<span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -180px;"><?php echo $this->_var['stats']['deal_total_count']; ?></span>笔
+		</li>
+		<li>
+			<strong>累计收益</strong><br>
+            <span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -142px;;"><?php echo $this->_var['VIRTUAL_MONEY_2_FORMAT']; ?></span>元
+		</li>
+		<li>
+			<strong  style="margin-left: -140px;">累计用户</strong><br>
+			<span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -145px;;"><?php echo $this->_var['stats']['user_count_format']; ?></span>人
+		</li>
+		<li> 		
+			<strong  style="margin-left: -160px;" >风险储备金</strong><br>
+			<span class="counter" data-counter-time="4000" data-counter-delay="10" style="margin-left: -145px;;"><?php echo $this->_var['VIRTUAL_MONEY_3_FORMAT']; ?></span>元
+		</li>
+	</ul>	
+</div>
+<!--<?php endif; ?>-->
+<?php if ($this->_var['is_index'] == 1): ?>
+	<div class="_goodness">
+		<ul>
+			<li>
+				<img src="app/Tpl/new/inc/countup/static/安全.png" alt="图片找不到"  style="background-color:#28A7E1;">
+				<h3>更安全</h3>
+				<span style="font:12px; font-weight:100;">安全套阶层协议</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">128位加密技术,第三方资金监管</span>
+			</li>
+			<li>
+		        <img src="app/Tpl/new/inc/countup/static/高收益.png" alt="图片找不到"  style="background-color:#FC8600">
+				<h3>高收益</h3>
+				<span style="font:12px; font-weight:100;">40倍银行存款利息</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">4倍余额宝收益,7%-14%高收益</span>
+			</li>
+			<li>
+			    <img src="app/Tpl/new/inc/countup/static/低门槛.png" alt="图片找不到"  style="background-color: #64dca0;">
+				<h3>低门槛</h3>
+				<span style="font:12px; font-weight:100;">100元起步，零花钱即可</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">投资被誉为"屌丝们的理财神器"</span>
+			</li>
+			<li>
+				<img src="app/Tpl/new/inc/countup/static/易流通.png" alt="图片找不到"  style="background-color:#ffcd56;">
+				<h3>易流通</h3>
+				<span style="font:12px; font-weight:100;">突然想用钱收回投资</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">自主定价挂牌转让，流动性极强</span>
+			</li>
+			<li>
+
+				<img src="app/Tpl/new/inc/countup/static/资金存管.png" alt="图片找不到"  style="background-color:#bc67e7;">
+				<h3>资金存管</h3>
+				<span style="font:12px; font-weight:100;">资金更放心</span>
+				<span style="font:12px; font-weight:100; margin-top:-3px;">存取跟省心，服务更贴心</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>
+					
+<div class="wrap">

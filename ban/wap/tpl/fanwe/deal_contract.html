@@ -1,0 +1,32 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_quick_refund#index",array("id"=>$this->_var['data']['deal']['id']));
+	$this->_var['back_page'] = "#uc_quick_refund";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_borrowed" : "#".$_REQUEST['epage'];
+?>	
+{include file="./inc/title.html"}
+<div class="content">
+	<style type="text/css">
+		.div_1 {
+			width: 98%;
+			text-align: right;
+		}
+		.p_1 {
+			text-align: left;
+			font-weight: 600;
+		}
+		.table_1 {
+			margin: 0px auto;
+			width: 70%;
+			border-collapse: collapse;
+		}
+		.table_1 tr td {
+			border-collapse: collapse;
+			border: black solid 1px;
+		}
+	</style>
+	<div class="content-padded">
+		{$data.contract}
+	</div>
+{include file="./inc/footer.html"}

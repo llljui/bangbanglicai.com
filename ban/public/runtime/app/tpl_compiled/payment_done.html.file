@@ -1,0 +1,16 @@
+<?php echo $this->fetch('inc/header.html'); ?> 
+
+<div class="blank"></div>
+
+	<div class="bdd bddf p20">
+		<div class=" p10">		
+			<div class="msg_box">	
+					
+				<h2><?php echo $this->_var['LANG']['PAY_SUCCESS_CONGRATUATION']; ?></h2>
+				<div class="blank"></div>
+			</div>
+		</div>	
+	</div>
+
+
+<?php echo $this->fetch('inc/footer.html'); ?>

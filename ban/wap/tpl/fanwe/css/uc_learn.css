@@ -1,0 +1,52 @@
+.uc_learn{ margin:0 10px; border:1px solid @main_color; border-radius:7px; overflow:hidden;}
+.uc_learn table{ font-size:13px; line-height:30px;  width:100%; color:#878787;}
+.uc_learn table th{ background:@main_color;  color:#fff; border-right:1px solid #fff;}
+.uc_learn table tr:first-child th:first-child{ border-radius:5px 0px 0 0;}
+.uc_learn table tr:first-child th:last-child{ border-radius:0px 5px 0 0; border:none}
+.uc_learn table tr td{ background:#fff; font-size:11px; text-align:center; line-height:35px; border:1px solid @main_color; border-top:none;}
+.uc_learn table tr:last-child td{ border-bottom:none}
+.uc_learn table tr td:first-child{ border-left:none}
+
+
+.detail_content .list_bor{ border:1px solid #cbcbcb; border-radius:5px;margin:0 0 15px 0; overflow:hidden;}
+.detail_content .list_bor .h{padding:8px 0px; padding-left:68px; line-height:30px; color:#878787;   padding-right:8px; font-size:13px;}
+.detail_content .list_bor .h .Installments{ margin-left:-68px; float:left; font-size:15px;padding-left:8px;}
+.detail_content .list_bor .h .bor{ border-left:1px solid #cbcbcb; padding-left:8px;}
+.detail_content .list_bor .h .bor .Repayment_date{ display:block; }
+.detail_content .list_bor .h .bor  .Actual_Repayment{ display:block; width:50%;}
+.detail_content .list_bor .p{ background:#fff; border-top:1px solid #cbcbcb; padding:14px; padding-left:68px; padding-right:8px; line-height:30px; font-size:13px; color:#878787; position:relative;}
+.detail_content .list_bor .bor{border-left:1px solid #cbcbcb; padding-left:8px;}
+
+.detail_content .list_bor .p .child{ width:100%; float:left;}
+
+.sub_btn{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#39A1EA; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:32px; line-height:32px; padding:0 12px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+.sub_btn:hover{background-color:#0087E5;}
+
+.sub_btn_gray{cursor:pointer; margin:0; padding:0; background:none; border:none; background-color:#CCCCCC; color:#fff; cursor:pointer; font-size:14px; font-weight:bold; height:32px; line-height:32px; padding:0 12px; overflow:visible; -moz-border-radius:3px; -khtml-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+
+
+.formbutton{
+	border: none;
+	cursor: pointer;
+	color: #fff;
+	font: 16px "Microsoft YaHei";
+	height: 40px;
+	line-height: 40px;
+	padding:0 15px;
+	background-color: #39A1EA;
+}
+
+.formgraybutton{
+	border: none;
+	cursor: pointer;
+	color: #333;
+	font: 16px "Microsoft YaHei";
+	height: 40px;
+	line-height: 40px;
+	padding:0 15px;
+	background-color: #ddd;
+}
+
+
+/*version:2015-12-*/
+.xstyconTHIn{font-size:0.825rem; color:#333; padding:0 0.825rem; line-height:2.42rem;}

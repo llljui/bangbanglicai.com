@@ -1,0 +1,399 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript">
+</script>
+<div class="main">
+<div class="main_title">{$main_title} <a href="{:u("PeiziConf/index")}" class="back_list">{%BACK_LIST}</a></div>
+
+<div class="blank5"></div>
+
+<div class="button_row">
+	<input type="button" class="button conf_btn" rel="1" value="天天赢" />&nbsp;
+	<input type="button" class="button conf_btn" rel="2" value="周周盈" />&nbsp;	
+	<input type="button" class="button conf_btn" rel="3" value="月月赚" />&nbsp;	
+</div>
+<div class="blank5"></div>
+	<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="1">
+	<form name="edit_".$k action="__APP__" method="post" enctype="multipart/form-data">
+	
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+				
+		<tr>
+			<td class="item_title">名称:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="name" value="{$conf.name}" />
+			</td>
+		</tr>
+			
+
+		
+		<tr>	
+				<td class="item_title">申请借款资金:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " style="width: 429px;" name="money_list" value="{$conf.money_list}" />
+					<span class="tip_span">(2000, 3000,5000,10000 等)以逗号分割</span>
+				</td>
+		</tr>
+		
+		<tr>
+				<td class="item_title">预存管理费天数:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="day_month_list" value="{$conf.day_month_list}" />
+					<span class="tip_span">(1, 2,5,10,15,20,25,30 等)以逗号分割</span>
+				</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">最小申请借款资金:</td>
+			
+			<td class="item_input">
+				<input type="text" class="textbox " name="min_money" value="{$conf.min_money}" />
+				<span class="tip_span">0为不限制</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">最大申请借款资金:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="max_money" value="{$conf.max_money}" />
+				<span class="tip_span">0为不限制</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">协议:</td>
+			<td class="item_input">
+				<select name="contract_id">
+					<foreach name="contract" item="con">
+					<option value="{$con.id}" <if condition="$conf['contract_id'] eq $con.id">selected="selected"</if>>{$con.title}</option>
+					</foreach>
+				</select>
+				<span class="tip_span">我已阅读并同意 《操盘协议》</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">一次性业务审核费:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="manage_money" value="{$conf.manage_money}" />
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">是否节假日免费:</td>
+			<td class="item_input">
+				<select name="is_holiday_fee">
+					<option value="0" <if condition="$conf['is_holiday_fee'] eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="$conf['is_holiday_fee'] eq 1">selected="selected"</if>>是</option>
+				</select>
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+		
+			<tr>
+				<td class="item_title">按实际交易金额计息:</td>
+				<td class="item_input">
+					<select name="rate_type">
+						<option value="0" <if condition="$conf['rate_type'] eq 0">selected="selected"</if>>否</option>
+						<option value="1" <if condition="$conf['rate_type'] eq 1">selected="selected"</if>>是</option>
+					</select>
+					<span class="tip_span">利率计算方式： 按每天的实际交易金额,收取利率</span>
+				</td>
+			</tr>
+					
+			<tr>
+				<td class="item_title">前台合并利息展示:</td>
+				<td class="item_input">
+					<select name="merge_rate_show">
+						<option value="0" <if condition="$conf['merge_rate_show'] eq 0">selected="selected"</if>>否</option>
+						<option value="1" <if condition="$conf['merge_rate_show'] eq 1">selected="selected"</if>>是</option>
+					</select>
+					<span class="tip_span">利率与服务费合并; 0:分开展示;1:合并展示</span>
+				</td>
+			</tr>
+					
+		<tr>
+			<td class="item_title">是否有效:</td>
+			<td class="item_input">
+				<select name="is_effect">
+					<option value="0" <if condition="$conf['is_effect'] eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="$conf['is_effect'] eq 1">selected="selected"</if>>是</option>
+				</select>
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+				
+		<tr>
+			<td class="item_title">简介:</td>
+			<td class="item_input">
+				<textarea class="textarea " style="width: 429px;" name="brief" >{$conf.brief}</textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">预存款简介:</td>
+			<td class="item_input">
+				<textarea class="textarea " style="width: 429px;" name="pre_deposit_info">{$conf.pre_deposit_info}</textarea>
+			</td>
+		</tr>
+								
+		<tr>
+			<td class="item_title">排序:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="sort" value="{$conf.sort}" />
+				<span class="tip_span">从小到大</span>
+			</td>
+		</tr>
+				
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="type" value="0" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziConf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert_index" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+	</form>
+	</table>
+	
+	
+	<!-- --------------------------2------------------------------- -->
+	<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="2">
+	<form name="edit_".$k action="__APP__" method="post" enctype="multipart/form-data">
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">名称:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="name" value="{$conf.name}" />
+			</td>
+		</tr>
+
+				
+		<tr>
+			<td class="item_title">申请借款资金:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " style="width: 429px;" name="money_list" value="{$conf.money_list}" />
+				<span class="tip_span">(2000, 3000,5000,10000 等)以逗号分割</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">最小申请借款资金:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="min_money" value="{$conf.min_money}" />
+				<span class="tip_span">0为不限制</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">最大申请借款资金:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="max_money" value="{$conf.max_money}" />
+				<span class="tip_span">0为不限制</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">协议:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="contract_id" value="{$conf.contract_id}" />				
+				<span class="tip_span">我已阅读并同意 《操盘协议》,填入：文章ID</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">一次性业务审核费:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="manage_money" value="{$conf.manage_money}" />
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">是否有效:</td>
+			<td class="item_input">
+				<select name="is_effect">
+					<option value="0" <if condition="$conf['is_effect'] eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="$conf['is_effect'] eq 1">selected="selected"</if>>是</option>
+				</select>
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+				
+		<tr>
+			<td class="item_title">简介:</td>
+			<td class="item_input">
+				<textarea class="textarea " style="width: 429px;" name="brief" >{$conf.brief}</textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">预存款简介:</td>
+			<td class="item_input">
+				<textarea class="textarea " style="width: 429px;" name="pre_deposit_info">{$conf.pre_deposit_info}</textarea>
+			</td>
+		</tr>
+								
+		<tr>
+			<td class="item_title">排序:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="sort" value="{$conf.sort}" />
+				<span class="tip_span">从小到大</span>
+			</td>
+		</tr>
+				
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="type" value="1" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziConf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert_index" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+	</form>
+	</table>
+	<!-- --------------------------3------------------------------- -->
+	<table class="form conf_tab" cellpadding=0 cellspacing=0 rel="3">
+	<form name="edit_".$k action="__APP__" method="post" enctype="multipart/form-data">
+		<tr>
+			<td colspan=2 class="topTd"></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">名称:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="name" value="{$conf.name}" />
+			</td>
+		</tr>
+				
+		<tr>
+			<td class="item_title">配资倍数:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="money_list" value="{$conf.money_list}" />
+				<span class="tip_span">(1,2,3,4,5,6 等)以逗号分割</span>
+			</td>
+		</tr>
+		
+		<tr>
+				<td class="item_title">使用时长:</td>
+				<td class="item_input">
+					<input type="text" class="textbox " name="day_month_list" value="{$conf.day_month_list}" />
+					<span class="tip_span">月份(1,2,3,4,5,6 等)以逗号分割</span>
+				</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">最小投资本金:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="min_money" value="{$conf.min_money}" />
+				<span class="tip_span">0为不限制</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">最大投资本金:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="max_money" value="{$conf.max_money}" />
+				<span class="tip_span">0为不限制</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">协议:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="contract_id" value="{$conf.contract_id}" />				
+				<span class="tip_span">我已阅读并同意 《操盘协议》,填入：文章ID</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">一次性业务审核费:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="manage_money" value="{$conf.manage_money}" />
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">是否有效:</td>
+			<td class="item_input">
+				<select name="is_effect">
+					<option value="0" <if condition="$conf['is_effect'] eq 0">selected="selected"</if>>否</option>
+					<option value="1" <if condition="$conf['is_effect'] eq 1">selected="selected"</if>>是</option>
+				</select>
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+			
+			<tr>
+				<td class="item_title">前台合并利息展示:</td>
+				<td class="item_input">
+					<select name="merge_rate_show">
+						<option value="0" <if condition="$conf['merge_rate_show'] eq 0">selected="selected"</if>>否</option>
+						<option value="1" <if condition="$conf['merge_rate_show'] eq 1">selected="selected"</if>>是</option>
+					</select>
+					<span class="tip_span">利率与服务费合并; 0:分开展示;1:合并展示</span>
+				</td>
+			</tr>
+						
+		<tr>
+			<td class="item_title">简介:</td>
+			<td class="item_input">
+				<textarea class="textarea " style="width: 429px;" name="brief" >{$conf.brief}</textarea>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="item_title">预存款简介:</td>
+			<td class="item_input">
+				<textarea class="textarea " style="width: 429px;" name="pre_deposit_info">{$conf.pre_deposit_info}</textarea>
+			</td>
+		</tr>
+									
+		<tr>
+			<td class="item_title">排序:</td>
+			<td class="item_input">
+				<input type="text" class="textbox " name="sort" value="{$conf.sort}" />
+				<span class="tip_span">从小到大</span>
+			</td>
+		</tr>
+				
+		<tr>
+			<td colspan=2 class="bottomTd"></td>
+		</tr>
+		
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="type" value="2" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziConf" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert_index" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+	</form>
+	</table>
+<div class="blank5"></div>
+</div>
+<include file="Public:footer" />

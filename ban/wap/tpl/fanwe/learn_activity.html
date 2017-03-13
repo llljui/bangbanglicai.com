@@ -1,0 +1,129 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","init#index");
+	$this->_var['back_page'] = "#init";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#init" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--新手体验区-->
+
+<div class="learn_activity_box">
+	{if $data.rrruid eq 0 || $data.user_id gt 0}
+	<div class="blank055"></div>
+	<div class="choose">
+		<table>
+			<tr>
+				<th {if $data.status eq 0}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="learn_activity" p="status=0"}','#{$data.act}','.learn_activity_box')">体验首页</a></th>
+				{if $data.user_id}
+					<th {if $data.status eq 1}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="learn_activity" p="status=1&rrruid=$data.user_id"}','#{$data.act}','.learn_activity_box')">体验账户</a></th>
+				{else}
+					<th {if $data.status eq 1}class="y"{/if}><a href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if})">体验账户</a></th>
+				{/if}
+				<th {if $data.status eq 2}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="learn_activity" p="status=2"}','#{$data.act}','.learn_activity_box')">活动规则</a></th>
+			</tr>
+		</table>
+	</div>
+	{/if}
+	<div class="blank055"></div>
+	
+	{if $data.status eq 0}
+	<input id="money" type="hidden" value="{$data.learn_balance}" />
+		{foreach from=$data.learn_list item="learn"}
+	<div class="new_version">
+		<ul>
+			<li>
+				<div class="bb1 toptitle">
+					{if $learn.status eq 0}
+					<span class="state_ico">未开始</span>
+					<span class="name">{$learn.name}</span>
+					{/if}
+					{if $learn.status eq 1}
+					<span class="state_ico">在售</span>
+					<span class="name">{$learn.name}</span>
+					{/if}
+					{if $learn.status eq 2 || $learn.status eq 3 }
+					<span class="state_ico">已售完</span>
+					<span class="name">{$learn.name}</span>
+					{/if}
+				</div>
+				<div class="middlecon w_b">
+					<div class="w_b_f_1 tc">
+						<p class="name">预期年化收益率</p>
+						<p class="con"><span class="ea544a">{$learn.rate}</span>%</p>
+					</div>
+					<div class="w_b_f_1 tc">
+						<p class="name">产品期限</p>
+						<p class="con">{$learn.time_limit} 天</p>
+					</div>
+					<div class="w_b_f_1">
+						{if $learn.status eq 0}	
+							<input type="button" class="sub_b sub_b_gray f_r" value="未开始" >
+						{/if}
+						{if $learn.status eq 1}	
+							{if $data.learn_balance gt 0}
+							<input type="button" class="sub_b tz_link_btn" data-id="{$learn.id}" value="立即投资">
+							{else}
+							<input type="button" class="sub_b sub_b_gray f_r" value="立即投资" >
+							{/if}
+						{/if}
+	            		{if $learn.status eq 2 || $learn.status eq 3 }	
+						    <input type="button" class="sub_b sub_b_gray f_r" value="已结束" >
+						{/if}
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	{/foreach}
+	{/if}
+	
+	{if $data.status eq 1}
+	 	{if $data.rrruid eq 0 || $data.user_id gt 0}
+	 	<div style="padding-left:10px;padding-right:10px;">
+	 	<table width="100%">
+			<tr bgcolor="#fff">
+				<td width="130" style="padding-left:10px;height:35px;">邀请好友总数</td>
+				<td align="left">{$data.referral_user} 个</td>
+			</tr>
+			<tr bgcolor="#fff">
+				<td width="130" style="padding-left:10px;height:35px;">邀请获得体验金</td>
+				<td align="left">{function name="format_price" v=$data.learn_invite}</td>
+			</tr>
+			
+		</table>
+	 	</div>
+		{/if}
+		<div class="blank055"></div>
+		<div class="im refers" style="padding:10px;">
+			<div>
+				<h4>我的邀请二维码：</h4>
+				<div class="blank5"></div>
+				<div align="center"><img src="{$data.share_url_img}" width="300" /></div>
+				<div class="blank"></div>
+				<div style="background-color:#fff;padding-left:10px;padding-right:10px;">
+					{$data.activity_info.content}
+				</div>
+			</div>
+		</div>
+			
+	{/if}
+	
+	{if $data.status eq 2}
+	<div class="xstyconT main bg_fff">
+    <div class="xstyconTH">
+        <p class="xstyconTHIn">{$data.activity_info.title}</p>
+    </div>
+	<div class="article_info">
+	     {$data.activity_info.content}
+		</div>
+	</div>
+		
+	{/if}
+	
+	<div class="blank15"></div>
+</div>
+
+{include file="./inc/footer.html"}

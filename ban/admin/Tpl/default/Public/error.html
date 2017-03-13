@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>{:l("ERROR")}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<if condition="strpos($jumpUrl,'history.back')!==false">
+	<script type="text/javascript">
+		setTimeout(function(){
+			{:str_replace("javascript:","",$jumpUrl)};
+		},3000);
+	</script>
+<else />
+<meta http-equiv="refresh" content="{$waitSecond};URL={$jumpUrl}" />
+</if>
+<load href='__TMPL__Common/style/style.css' />
+</head>
+<body>
+<div class="message">
+<table cellpadding=0 cellspacing=0 class="form" >
+	<tr>
+		<td class="topTd"></td>
+	</tr>
+	<tr class="row" >
+		<th class="title_row">{$msgTitle}</th>
+	</tr>
+	
+
+	<tr class="row">
+		<td class="message_row">{$message}</td>
+	</tr>
+
+	<tr class="row">
+		<td  class="jump_row">
+			{:sprintf(l("JUMP_TIPS"),$waitSecond,$jumpUrl)}
+		</td>
+	</tr>
+	<tr>
+			<td class="bottomTd"></td>
+	</tr>
+	</table>
+</div>
+</body>
+</html>

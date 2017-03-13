@@ -1,0 +1,75 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_setting#index");
+	$this->_var['back_page'] = "#uc_setting";
+    $this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_setting" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<!--收货地址-->
+<div class="blank15"></div>
+<div class="list-block inset  ">
+	<ul>
+		<li >
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_address"}','#uc_address',2)" class="item-link item-content">
+				<div class="item-inner">
+					<div class="item-title-row">
+						<div class="item-title">
+							<i class="fa fa-plus-square-o"></i>
+							<span>添加地址</span>
+						</div>
+					</div>
+				</div>
+			</a>
+		</li>
+	</ul>
+	
+</div>
+<div class="blank15"></div>
+{foreach from=$data.user_address item=item key=key}
+<div class="list-block media-list inset  {if $item.is_default eq 1}y{/if} address-box-{$item.id}">
+	<ul>
+		<li >
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_address" p="id=$item.id"}','#uc_address',2)" class="item-link item-content">
+				<div class="item-inner">
+					<div class="item-title-row">
+						<div class="item-title">姓名:</div>
+				        <div class="item-after">{$item.name}</div>
+				    </div>
+			
+					<div class="item-title-row">
+						<div class="item-title">手机号码:</div>
+			             <div class="item-after">{$item.phone}</div>
+					</div>
+			
+					<div class="item-title-row">
+						<div class="item-title">省市:</div>
+			            <div class="item-after">{$item.provinces_cities}</div>
+					</div>
+			
+					<div class="item-title-row">
+						<div class="item-title">详细地址:</div>
+			           <div class="item-after">{$item.address}</div>
+					</div>
+			
+					<div class="item-title-row">
+						<div class="item-title">邮编:</div>
+			            <div class="item-after"> {$item.zip_code}</div>
+					</div>
+				</div>
+			</a>
+   		</li>
+    </ul>
+</div>
+<div class="blank15 address-box-{$item.id}"></div>
+{/foreach}
+{include file="./inc/footer.html"}
+
+
+
+
+
+

@@ -1,0 +1,247 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<load href='__TMPL__Common/js/conf.js' />
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">{$main_title}</div>
+
+<div class="blank5"></div>
+
+<form name="edit_".$k action="__APP__" method="post" enctype="multipart/form-data">
+	<table class="form" cellpadding=0 cellspacing=0 >
+		<tr>
+			<td colspan=4 class="topTd"></td>
+		</tr>
+		
+		<tr>
+				<td class="item_title">配资编号:</td>
+				<td class="item_input">
+					{$vo.order_sn}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">会员:</td>
+				<td class="item_input">
+					{$vo.user_name}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+		
+		<tr>
+				<td class="item_title">开始交易日:</td>
+				<td class="item_input">
+					{$vo.begin_date}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">期限:</td>
+				<td class="item_input">
+					{$vo.time_limit_num_format}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+		<tr>
+				<td class="item_title">申请时间:</td>
+				<td class="item_input">
+					{$vo.create_date}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">配资类型:</td>
+				<td class="item_input">
+					{$vo.conf_type_name}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+        <tr>
+				<td class="item_title">总操盘资金:</td>
+				<td class="item_input">
+					{$vo.total_money_format}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">保证金:</td>
+				<td class="item_input">
+					{$vo.cost_money_format}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+        <tr>
+				<td class="item_title">亏损警戒线:</td>
+				<td class="item_input">
+					{$vo.warning_line_format}
+					<span class="tip_span"></span>
+				</td>
+				<td class="item_title">亏损平仓线:</td>
+				<td class="item_input">
+					{$vo.open_line_format}
+					<span class="tip_span"></span>
+				</td>
+		</tr>
+        
+        <tr>
+			<td class="item_title">利息 :</td>
+			<td class="item_input" id="shenhe">
+            	{$vo.rate_money_format}
+			</td>
+            <td class="item_title">服务费:</td>
+            <td class="item_input">
+                {$vo.site_money_format}
+                <span class="tip_span"></span>
+            </td>
+		</tr>
+		
+      <tr>
+			<td class="item_title">出资人:</td>
+			<td class="item_input" id="shenhe">
+            	{$vo.invest_user_name}
+			</td>
+            <td class="item_title">状态:</td>
+            <td class="item_input">
+                {$vo.op_status_format}
+                <span class="tip_span"></span>
+            </td>
+		</tr>
+				
+        <if condition ="$vo.op_type eq 5 and $vo['op_status'] neq 3">
+        <tr>
+				<td class="item_title">股票帐户余额:</td>
+					<td class="item_input">
+						<input type="text" id="stock_money" name="stock_money"  value="{$vo.stock_money}" />
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">股票市值日期:</td>
+					<td class="item_input">
+						<input type="text" class="textbox"  id="stock_date" name="stock_date" value="{$stock_date}" onfocus="return showCalendar('stock_date', '%Y-%m-%d', false, false, 'stock_date');" style="width:130px" />
+						<span class="tip_span"></span>
+					</td> 
+			</tr>		
+			<tr>
+				<td class="item_title">收取其他费用:</td>
+					<td class="item_input">
+						<input type="text" id="other_fee" name="other_fee"  value="" />
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">其他费用说明:</td>
+					<td class="item_input">
+						<input type="text" id="other_memo" name="other_memo"  value="" />
+						<span class="tip_span"></span>
+					</td> 
+			</tr>
+        </if>
+        <if condition="$vo['op_status'] eq 3">
+        	<tr>
+				<td class="item_title">股票帐户余额:</td>
+					<td class="item_input">
+						{$vo.stock_money}
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">股票市值日期:</td>
+					<td class="item_input">
+						{$vo.stock_date}
+						<span class="tip_span"></span>
+					</td> 
+			</tr>		
+			<tr>
+				<td class="item_title">收取其他费用:</td>
+					<td class="item_input">
+						{$vo.other_fee}
+						<span class="tip_span"></span>
+					</td>
+					<td class="item_title">其他费用说明:</td>
+					<td class="item_input">
+						{$vo.other_memo}
+						<span class="tip_span"></span>
+					</td> 
+			</tr>
+        </if>
+        <tr>
+				<td class="item_title">申请描述:</td>
+				<td class="item_input" <if condition = "$label eq ''">colspan='3'</if> >
+					{$vo.memo}
+					<span class="tip_span"></span>
+				</td>
+                <if condition = "$label neq ''" >
+                <td class="item_title">{$label}:</td>
+				<td class="item_input">
+					{$label_val}
+					<span class="tip_span"></span>
+				</td>
+                </if>
+		</tr>
+        <if condition="$vo['op_status'] eq 3">
+        	<tr >
+                <td class="item_title">变更描述：</td>
+                <td class="item_input" colspan=3>
+                    {$vo.change_memo}
+                </td>
+            </tr>
+        </if>
+		<!-- ///////////////////////////////////////////////////////////////// -->
+		<if condition="$vo['op_status'] neq 3">
+        <tr >
+			<td class="item_title">变更描述：</td>
+			<td class="item_input" colspan=3>
+            	<textarea name="change_memo" cols="30" rows="5" >{$vo.change_memo}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="item_title">审核操作 :</td>
+			<td class="item_input" id="shenhe" colspan=3>
+            <if condition="$vo['op_status'] eq 0">
+            	<input type="radio" name="op_status" id="status_1" value="1"  /><label for="status_1">审核通过</label>
+                <input type="radio" name="op_status" id="status_2" value="2"  /><label for="status_2">审核不通过</label>
+           <elseif condition="$vo['op_status'] eq 1"/>
+            	<input type="radio" name="op_status" id="status_3" value="3"  /><label for="status_3">审核通过</label>
+                <input type="radio" name="op_status" id="status_4" value="4"  /><label for="status_4">审核不通过</label>           		
+           </if>
+				<span class="tip_span"></span>
+			</td>
+		</tr>
+	  <tr id="memo" style="display:none;">
+			<td class="item_title">原因：</td>
+			<td class="item_input" id="shenhe" colspan=3>
+            	<textarea name="memo" cols="30" rows="5"></textarea>
+			</td>
+		</tr>
+        </if>
+		<tr>
+			<td colspan=4 class="bottomTd"></td>
+		</tr>
+        <if condition="$vo['op_status'] neq 3">
+		<tr>
+			<td class="item_title"></td>
+			<td class="item_input"  colspan=3>
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="PeiziOrderOp" />
+            <input type="hidden" name="{:conf("VAR_ACTION")}" value="update" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="提交" />
+			<input type="reset" class="button" value="{%RESET}" />
+			</td>
+		</tr>
+        </if>
+	</table>
+</form>
+
+<script type="text/javascript">
+	jQuery(function(){
+		$("input[name=op_status]").click(function(){
+			var rel= parseInt($(this).val());
+			switch(rel){
+				case 4:
+				case 2:
+					$("#memo").show();
+					break;
+				default:
+					$("#memo").hide();
+					break
+			}
+		});
+	});
+</script>
+<div class="blank5"></div>
+</div>
+<include file="Public:footer" />

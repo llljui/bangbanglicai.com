@@ -1,0 +1,36 @@
+
+			<div style="width:400px; padding:10px;" id="teze">
+				
+				<p style="font-size:14px; font-weight:bold;">
+					请您在新打开的页面完成绑定。
+				</p>
+				<div class="blank"></div>
+				<p class="notice">
+					绑定完成前请不要关闭此窗口。
+					<br />							
+					完成绑定后请根据您的情况点击下面的按钮：	
+				</p>
+				<div class="blank"></div>
+				<p >
+					<input type="button" value="已完成绑定" class="formbutton" onclick="location.href='{url x="index" r="uc_center" }';" >
+                    <input type="button" value="绑定遇到问题，重新发起绑定" class="formbutton" id="J_bind_ips_double" onclick="new_window = window.open();" >
+                </p>
+				
+			</div>
+			<script>
+				$("#J_bind_ips_double").click(function(){
+					$.ajax({
+				url:APP_ROOT+'/index.php?ctl=ajax&act=check_user_info',
+				dataType:"json",
+				success:function(result){
+					if(result.status==0){
+						$.showErr(result.info);
+						return false;
+					}
+					else{
+						 new_window.location.href = result.jump;
+					}
+				}
+			});
+				});
+			</script>			

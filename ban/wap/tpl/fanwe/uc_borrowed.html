@@ -1,0 +1,181 @@
+{if $smarty.request.is_ajax neq 1}	
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll "  data-distance="{$data.rs_count}" now_page="1">
+<!-- 这里是页面内容区 -->
+<!--我的借款-->
+<div class="{$data.act}-box"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="uc_borrowed#index" p="status=$data.status"}">
+
+	<div class="blank15"></div>
+	<div class="choose">
+		<table>
+			<tr>
+				<th {if $data.status eq 0}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_borrowed" p="status=0"}','#uc_borrowed','.{$data.act}-box')">全部</a></th>
+				<th {if $data.status eq 1}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_borrowed" p="status=1"}','#uc_borrowed','.{$data.act}-box')">进行中</a></th>
+				<th {if $data.status eq 2}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_borrowed" p="status=2"}','#uc_borrowed','.{$data.act}-box')">还款中</a></th>
+				<th {if $data.status eq 3}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_borrowed" p="status=3"}','#uc_borrowed','.{$data.act}-box')">已还清</a></th>
+				<th {if $data.status eq 4}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_borrowed" p="status=4"}','#uc_borrowed','.{$data.act}-box')">满标</a></th>
+				<th {if $data.status eq 5}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_borrowed" p="status=5"}','#uc_borrowed','.{$data.act}-box')">流标</a></th>
+			</tr>
+		</table>
+	</div>
+	<div class="blank15"></div>
+
+	<ul class="detail_list invest">
+		{/if}
+		{foreach from=$data.item item="deal"}
+		  {if $deal.deal_status neq 4}
+		    <li>
+			{if $deal.deal_status eq 1 && $deal.remain_time gt 0}
+			<div class="h clearfix b_3b95d3">
+				<span class="Status">进行中</span>
+				<div class="bor clearfix">
+					<span class="name f_l">{$deal.name}</span>
+				</div>
+			</div>
+			{/if}
+			{if $deal.deal_status eq 2}
+			<div class="h clearfix b_ff6f6f">
+				<span class="Status">满标</span>
+				<div class="bor clearfix">
+					<span class="name f_l">{$deal.name}</span>
+				</div>
+			</div>
+			{/if}	
+			{if $deal.deal_status eq 3 }
+			<div class="h clearfix b_b0b0b0">
+				<span class="Status">流标</span>
+				<div class="bor clearfix">
+					<span class="name f_l">{$deal.name}</span>
+				</div>
+			</div>
+			{/if}
+			{if $deal.deal_status eq 1 && $deal.remain_time lte 0}
+			<div class="h clearfix b_b0b0b0">
+				<span class="Status">已过期</span>
+				<div class="bor clearfix">
+					<span class="name f_l">{$deal.name}</span>
+				</div>
+			</div>
+			{/if}
+			{if $deal.deal_status eq 5}
+			<div class="h clearfix b_a4ce1c">
+				<span class="Status">已还清</span>
+				<div class="bor clearfix">
+					<span class="name ">{$deal.name}</span>
+					<a target="_blank" class="f_r" href="{$deal.agree_url}">查看电子协议</a>
+				</div>
+			</div>
+			{/if}
+			{if $deal.deal_status eq 0}
+			<div class="h clearfix b_3b95d3">
+				<span class="Status">待审核</span>
+				<div class="bor clearfix">
+					<span class="name ">{$deal.name}</span>
+				</div>
+			</div>
+			{/if}		
+			<div class="bor_1">
+				<div class="middle clearfix">
+					<table>
+						<tr>
+							<td>
+								<span class="name">金额</span>
+								<span>{$deal.borrow_amount_format}</span>
+							</td>
+							<td>
+								<span class="name">年利率</span>
+								<span class="c_ff8800">{$deal.rate}%</span>
+							</td>
+							<td>
+								<span class="name">期限</span>
+								<span>{$deal.repay_time}{if $deal.repay_time_type eq 0}天{else}个月{/if}</span>
+							</td>
+							<td>
+								<div  class="progress-radial_parent ">
+							<div class="progress-radial  progress-{function name="round" v=$deal.progress_point f=0}
+							{if $deal.is_wait eq 1} c999999
+			            	{else}
+							{if $deal.deal_status eq 0}  c999999 {/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time gt 0}  c56b1ea {/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time lte 0}  c999999 {/if}
+							{if $deal.deal_status eq 2}  ea544a {/if}
+							{if $deal.deal_status eq 3}  c999999  {/if}
+							{if $deal.deal_status eq 4}  c66d191  {/if}
+							{if $deal.deal_status eq 5}  c999999  {/if}
+							{/if}
+							"><b></b></div>
+						</div>
+					</div>
+						 </td>
+						</tr>
+					</table>
+				</div>
+				<div class="bottom clearfix">
+					<span class="time">发布日期 &nbsp; {function name="to_date" v="$deal.start_time" f="Y-m-d"}</span>
+					<div class="f_r">
+						<a href="#" onclick="RouterURL('{wap_url a="index" r="deal_mobile" p="id=$deal.id"}','#deal_mobile',2)" class="but_c c_aad421 bor_aad421">标的详情</a>
+					{if $deal.deal_status eq 5}
+						<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_refund_detail" p="id=$deal.id"}','#uc_refund_detail',2)" class="but_c bor_3b95d3 c_3b95d3">还款详情</a>
+					{/if}
+					</div>
+					
+			   </div>
+			</div>
+		</li>
+		{else}
+		<li>
+			<div class="h clearfix b_ff8800">
+				<span class="Status">还款中</span>
+				<div class="bor clearfix">
+					<span class="name f_l">{$deal.name}</span>
+                    <a target="_blank" class="f_r" href="{$deal.agree_url}">查看电子协议</a>
+				</div>
+			</div>
+			<div class="bor_1">
+				<div class="middle clearfix">
+				      <ul class="list">
+				      	<li><span class="name">借款金额</span>{$deal.borrow_amount_format}</li>
+						<li><span class="name">年利率</span><span class="c_ff8800">{$deal.rate}%</span></li>
+						<li><span class="name">已还本息</span>{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$deal.repay_money f=2}</li>
+						<li><span class="name">罚息</span>{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$deal.impose_money f=2}</li>
+						<li><span class="name">本期还款</span>
+						{if (int)$deal.end_repay_time eq (int)$deal.next_repay_time}
+	                	{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$deal.true_last_month_repay_money f=2}
+						{else}
+						{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$deal.true_month_repay_money f=2}
+						{/if}
+						</li>
+						<li><span class="name">期限</span>{$deal.repay_time}{if $deal.repay_time_type eq 0}天{else}月{/if}</li>
+				      </ul>
+				</div>
+				<div class="bottom clearfix">
+					<span class="time">{if (int)$deal.end_repay_time eq (int)$deal.next_repay_time}还款日{else}下一还款日{/if} &nbsp; {$deal.next_repay_time_format}</span>
+					<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_inrepay_refund" p="id=$deal.id"}','#uc_inrepay_refund',2)" class="but_c c_aad421 bor_aad421 " data-id="{$deal.id}">提前还款</a>
+					<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_quick_refund" p="id=$deal.id"}','#uc_quick_refund',2)" class="but_c bor_3b95d3 c_3b95d3">还款详情</a>
+					
+			   </div>
+			</div>
+		</li>	
+		{/if}
+		{/foreach}
+	{if $smarty.request.is_ajax neq 1}				
+	</ul>	
+	<div class="blank15"></div>
+</div>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+

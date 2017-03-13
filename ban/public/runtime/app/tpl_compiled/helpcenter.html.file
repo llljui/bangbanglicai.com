@@ -1,0 +1,72 @@
+<?php echo $this->fetch('inc/header.html'); ?>
+<div class="blank"></div>
+<div class="short f_l">
+	<div id="tree-box" class="tree-box">
+		<div class="tree">
+		<?php $_from = $this->_var['article_cate']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'cate');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['cate']):
+?>
+		<?php if ($this->_var['cate']['pid'] != 0): ?>
+			<div class="hd" id="hd_<?php echo $this->_var['cate']['id']; ?>" rel="<?php echo $this->_var['cate']['id']; ?>">
+			    <?php echo $this->_var['cate']['title']; ?>
+			</div>
+		<?php endif; ?>
+		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</div>
+	</div>
+</div>
+<div class="long f_r" style="overflow:inherit;" id="J_box">
+	<div class="bdd bddf p15">
+		<?php $_from = $this->_var['article_cate']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'cate');if (count($_from)):
+    foreach ($_from AS $this->_var['cate']):
+?>
+			<?php if ($this->_var['cate']['pid'] != 0): ?>
+			<div id="J_box_<?php echo $this->_var['cate']['id']; ?>" class="j_box_item hide" rel="<?php echo $this->_var['cate']['id']; ?>">
+				<h3 class="f20 f_blue"> <?php echo $this->_var['cate']['title']; ?></h3>
+				<div class="blank"></div>
+				<?php $_from = $this->_var['cate']['article']['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'aitem');if (count($_from)):
+    foreach ($_from AS $this->_var['aitem']):
+?>
+				<div class="btds clearfix pl10 pr10">
+					<div class="f16 pt10 pb10 " id="q<?php echo $this->_var['aitem']['id']; ?>" name="q<?php echo $this->_var['aitem']['id']; ?>">
+						<a href="javascript:void(0);" class="item-tit f_dgray"><b><?php echo $this->_var['aitem']['title']; ?></b></a>
+                  	</div>
+					<div class="clearfix f_dgray hide item-content" style="padding:3px 20px">
+					<?php echo $this->_var['aitem']['content']; ?>
+					</div>
+				</div>
+				<div class="blank"></div>
+				<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			</div>
+			<?php endif; ?>
+		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	</div>
+</div>
+<div class="blank"></div>
+<?php echo $this->fetch('inc/footer.html'); ?>
+<script type="text/javascript">
+jQuery(function(){
+	if($("#J_box .vvs").length == 0){
+		$("#J_box .j_box_item:first").removeClass("hide");
+		$("#tree-box .hd:first").addClass("hd_cur");
+	}
+	
+	$("#tree-box .hd").click(function(){
+		$("#tree-box .hd").removeClass("hd_cur");
+		$(this).addClass("hd_cur");
+		var idx = $(this).attr("rel");
+		$(".j_box_item").addClass("hide");
+		$("#J_box_"+idx).removeClass("hide");
+	});
+	
+	$(".j_box_item .item-tit").click(function(){
+		if($(this).parent().parent().find(".item-content").hasClass("hide")){
+			$(this).parent().parent().find(".item-content").removeClass("hide");
+		}
+		else{
+			$(this).parent().parent().find(".item-content").addClass("hide");
+		}
+	});
+	
+});
+</script>

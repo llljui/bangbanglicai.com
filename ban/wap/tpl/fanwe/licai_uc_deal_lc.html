@@ -1,0 +1,289 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","licai_uc_published_lc#index");
+	$this->_var['back_page'] = "#licai_uc_published_lc";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#licai_uc_published_lc" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<!--我的理财详细页-->
+<div class="mainblok mainborder">
+    <div class="list-block row no-gutter">
+        <ul class="no-border">
+            <li class=" guide-box">
+                <div class="item-box">
+                    <div class="col-50">
+                        <div class="item-title">起购金额</div>
+                        <div class="item-content">{$data.vo.min_money_format}</div>
+                    </div>
+                    <div class="col-50">
+                        <div class="item-title">收益率</div>
+                        <div class="item-content"><span class="f_red">{$data.vo.average_income_rate_format}</span></div>
+                    </div>
+                </div>
+            </li>
+            <li class=" guide-box">
+                <div class="item-box">
+                    <div class="col-50">
+                        <div class="item-title">理财期限</div>
+                        <div class="item-content">
+                            {$data.vo.time_limit}个月
+                        </div>
+                    </div>
+                    <div class="col-50">
+                        <div class="item-title">收益方式</div>
+                        <div class="item-content">{$data.vo.profit_way}</div>
+                    </div>
+                </div>
+            </li> 
+         </ul>
+       </div>
+    <div class="blank"></div>
+</div><!--mainblok——end--> 
+<div class="blank10"></div>
+
+<div class="mainblok mainborder">
+    <div class='list-block '>
+	 <div class="pro_detail_tit item-box">
+          <span><i class="fa fa-newspaper-o"></i>　收益率列表：金额单位（元）</span>
+      </div>
+    </div>
+     <ul>
+       {if $data.vo.type > 0}
+         {if $data.list}
+        	{foreach from=$data.list item=item}
+            <li>
+             <!--mainborder开始-->  
+             <div class="mainborder">
+                <div class="index_content">
+                    <div class="two_column">
+                        <div class="li">
+                            <label>最大金额</label>
+                            <span>{$item.max_money_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>最小金额</label>
+                            <span class="f_red">{$item.min_money_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>原手续费率</label>
+                            <span>{$item.buy_fee_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>网站手续费率</label>
+                            <span>{$item.site_buy_fee_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>赎回手续费率</label>
+                            <span>{$item.redemption_fee_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>预热期收益率</label>
+                            <span>{$item.before_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>预热期违约收益率</label>
+                            <span>{$item.before_breach_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>收益率</label>
+                            <span>{$item.interest_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>违约收益率</label>
+                            <span>{$item.breach_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>平台收益率</label>
+                            <span>{$item.platform_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>违约平台收益率</label>
+                            <span>{$item.platform_breach_rate_format}</span>
+                        </div>
+                        <div class="li">
+                            <label>保证金比率</label>
+                            <span>{$item.freeze_bond_rate_format}</span>
+                        </div>
+                    </div>
+                <div class="blank"></div>    
+                </div>  
+            </div><!--mainborder结束--> 
+            </li>
+			{/foreach}
+		{else}
+			     <li>无任何记录</li>
+		{/if}
+	  {else}
+            <li>
+             <!--mainborder开始-->  
+              <table class="Journal_table">
+                  <tr>
+                      <th>日期</th>
+                      <th>每万份收益</th>
+                      <th>收益率</th>
+                  </tr>
+                  {if $data.list}
+                  {foreach from=$data.list item=item name=deal}
+                  <tr class='item {if $key mod 2 eq 1}item_1{/if}' {if $smarty.foreach.deal.last}style="border-bottom:1px solid #ea544a"{/if}>
+                      <td>{$item.history_date}</td>
+                      <td>{$item.net_value_format}</td>
+                      <td>{$item.rate_format}</td>
+                  </tr>
+                 {/foreach}
+                  {else}
+                  <tr>
+                      <td colspan="3">无任何记录</td>
+                  </tr>
+                  {/if}
+              </table>
+			    
+            <div class="blank5"></div><!--mainborder结束--> 
+            </li>
+			{/if}
+        </ul>
+</div>
+
+<div class="blank10"></div>
+<div class="mainblok mainborder">
+  <div class="detail_list">
+       <ul>
+          <li class="bb1">
+                <label class="w6">产品名称</label>
+                <div class="list_con">
+                     {$data.vo.name}
+                </div>
+         </li>
+         <li class="bb1">
+                <label class="w6">理财代码 </label>
+                <div class="list_con">
+                     {$data.vo.licai_sn}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6">产品规模 </label>
+                <div class="list_con">
+                    {$data.vo.product_size}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6">购买开始时间 </label>
+                <div class="list_con">
+                    {$data.vo.begin_buy_date}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 购买结束时间</label>
+                <div class="list_con">
+                    {$data.vo.end_buy_date}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 起购金额</label>
+                <div class="list_con">
+                    {$data.vo.min_money_format}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 理财期限</label>
+                <div class="list_con">
+                    {$data.vo.time_limit}个月
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 项目起息时间</label>
+                <div class="list_con">
+                    {$data.vo.begin_interest_date}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 利息类型</label>
+                <div class="list_con">
+                    {$data.vo.begin_interest_type_format}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6">项目结束时间 </label>
+                <div class="list_con">
+                    {$data.vo.end_date}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6">获取收益方式 </label>
+                <div class="list_con">
+                    {$data.vo.profit_way}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 赎回到账方式</label>
+                <div class="list_con">
+                     {$data.vo.review_type_format}
+                </div>
+        </li>
+        <li class="bb1">
+                <label style="w6">赎回到账时间</label>
+                <div class="list_con">
+                     {$data.vo.purchasing_time}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6">成交服务费率 </label>
+                <div class="list_con">
+                    {$data.vo.service_fee_rate_format}
+                </div>
+        </li>
+		
+		{if $data.vo.type == 0}
+		<li class="bb1">
+                <label class="w6">平台收益费率 </label>
+                <div class="list_con">
+                     {$data.vo.platform_rate_format}
+                </div>
+        </li>
+		<li class="bb1">
+                <label class="w6">购买手续费率 </label>
+                <div class="list_con">
+                    {$data.vo.site_buy_fee_rate_format}
+                </div>
+        </li>
+		<li class="bb1">
+                <label class="w6">赎回手续费率 </label>
+                <div class="list_con">
+                    {$data.vo.redemption_fee_rate_format}
+                </div>
+        </li>
+        
+        {/if}
+					
+        <li class="bb1">
+                <label class="w6">风险等级</label>
+                <div class="list_con">
+                     {$data.vo.risk_rank_format}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 理财规则</label>
+                <div class="list_con">
+                    {$data.vo.rule_info}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6"> 详情</label>
+                <div class="list_con">
+                    {$data.vo.description}
+                </div>
+        </li>
+        <li class="bb1">
+                <label class="w6">状态 </label>
+                <div class="list_con">
+                    {$data.vo.licai_status_format}
+                </div>
+            </div>
+        </li>
+    </ul>
+    </div>
+</div><!--mainblok——end--> 
+{include file="./inc/footer.html"}

@@ -1,0 +1,117 @@
+{if $smarty.request.is_ajax neq 1}	
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll "  data-distance="{$data.rs_count}" now_page="1">
+<!-- 这里是页面内容区 -->
+<!--账户日志-->
+<div class="{$data.act}-box"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="uc_account_log#index" p="status=$data.status"}">
+
+	<div class="blank15"></div>
+	<div class="choose">
+		<table>
+			<tr>
+				<th {if $data.status eq 0}class="y"{/if}><a href="#" onclick="now_page = 1;reloadpage('{wap_url a="index" r="uc_account_log" p="status=0"}','#uc_account_log','.{$data.act}-box');">资金日志</a></th>
+				<th {if $data.status eq 1}class="y"{/if}><a href="#" onclick="now_page = 1;reloadpage('{wap_url a="index" r="uc_account_log" p="status=1"}','#uc_account_log','.{$data.act}-box');">冻结资金日志</a></th>
+				<th {if $data.status eq 2}class="y"{/if}><a href="#" onclick="now_page = 1;reloadpage('{wap_url a="index" r="uc_account_log" p="status=2"}','#uc_account_log','.{$data.act}-box');">信用积分日志</a></th>
+				<th {if $data.status eq 3}class="y"{/if}><a href="#" onclick="now_page = 1;reloadpage('{wap_url a="index" r="uc_account_log" p="status=3"}','#uc_account_log','.{$data.act}-box');">积分日志</a></th>				
+			</tr>
+		</table>
+	</div>
+	<div class="blank15"></div>	
+	<div class="b_white">
+		<ul class="n_version_ul_1 invest">
+			
+{/if}			 
+			{foreach from=$data.item item="item"}
+		    <li class="clearfix">
+		    	   <div class="f_l">
+		    	   	   {if $data.status eq 1}
+							{if $item.lock_money gt 0 }
+							<p class="c_aad421 ">
+								操作金额：+{$item.lock_money}
+								{elseif $item.lock_money eq 0 }
+							<p>
+								操作金额：{$item.lock_money}
+								{else}
+							<p class="c_ff4a4a ">
+								操作金额：{$item.lock_money}
+						{/if}
+					</p>
+			{elseif $data.status eq 2}
+				{if $item.point gt 0 }
+				<p class="c_aad421 ">
+					操作金额：+{$item.point}
+					{elseif $item.point eq 0 }
+					<p>
+					操作金额：{$item.point}
+					{else}
+					<p class="c_ff4a4a ">
+					操作金额：{$item.point}{/if}
+					</p>
+				
+			{elseif $data.status eq 3}
+				{if $item.score gt 0 }
+				<p class="c_aad421 ">
+					操作金额：+{$item.score}
+				{elseif $item.score eq 0 }
+				<p>
+				操作金额：{$item.score}
+				{else}<p class="c_ff4a4a ">
+				操作金额：{$item.score}
+				{/if}
+				</p>
+				
+			{else}
+				{if $item.money gt 0 }
+				<p class="c_aad421 ">
+					操作金额：+{$item.money}
+					{elseif $item.money eq 0 }
+					<p>
+					操作金额：{$item.money}
+					{else}<p class="c_ff4a4a ">
+					操作金额：{$item.money}
+						{/if}
+						</p>
+				
+			{/if}
+						<p>操作类型：{$item.title}</p>
+						<p>操作时间：{function name="to_date" v=$item.create_time}</p>
+					</div>
+					<div class=" f_r relative">
+						<span class="absolute top0 rig10">余额</span>
+						{if $data.status eq 1}
+							<p class="n_v_mnoney">{$item.account_lock_money}</p>
+						{elseif $data.status eq 2}
+							<p class="n_v_mnoney">{$item.account_point}</p>
+						{elseif $data.status eq 3}
+							<p class="n_v_mnoney">{$item.account_score}</p>
+						{else}
+							<p class="n_v_mnoney">{$item.account_money}</p>
+						{/if}
+					</div>
+		    </li>
+			{/foreach}
+{if $smarty.request.is_ajax neq 1}	
+		</ul>
+	</div>
+	<div class="blank15"></div>
+</div>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+
+
+

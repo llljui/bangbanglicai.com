@@ -1,0 +1,26 @@
+<?php
+return array (
+  0 => 'id',
+  1 => 'title',
+  2 => 'icon',
+  3 => 'content',
+  4 => 'cate_id',
+  5 => 'create_time',
+  6 => 'update_time',
+  7 => 'add_admin_id',
+  8 => 'is_effect',
+  9 => 'rel_url',
+  10 => 'update_admin_id',
+  11 => 'is_delete',
+  12 => 'click_count',
+  13 => 'sort',
+  14 => 'seo_title',
+  15 => 'seo_keyword',
+  16 => 'seo_description',
+  17 => 'uname',
+  18 => 'sub_title',
+  19 => 'brief',
+  '_autoinc' => true,
+  '_pk' => 'id',
+);
+?>

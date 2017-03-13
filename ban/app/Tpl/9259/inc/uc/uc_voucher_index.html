@@ -1,0 +1,37 @@
+<div class="tabbox ">
+	<div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index" r="uc_voucher#index"}">{$LANG.UC_VOUCHER}</a></div>
+	<div class="tab {if $ACTION_NAME eq 'exchange'}cur{/if}"><a href="{url x="index" r="uc_voucher#exchange"}">{$LANG.UC_VOUCHER_EXCHARGE}</a></div>
+</div>
+<div class="uc_box pl25">
+
+	{foreach from=$list item=voucher key=key}
+	<div class="voucher_item">
+		<div class="voucher_bg pr">
+			
+			{if $voucher.use_limit > 0 && ($voucher.use_limit - $voucher.use_count eq 0)}
+				<div class="tip_bg ps tc">已使用</div>
+				{elseif $voucher.end_time gt 0 && ($voucher.end_time+24*3600-1) lt TIME_UTC }
+				<div class="tip_bg ps tc">已过期</div>
+			{/if}
+			<table>
+				<tr>
+					<td>
+						<span class="bonus_name">{$voucher.name} x{if $voucher.use_limit eq 0}无限{else}{$voucher.use_limit}{/if}</span>
+						<br />
+						<span>面额：{function name="format_price" value=$voucher.money}</span>
+						<span>有效期：{if $voucher.begin_time eq 0}无限{else}{function name="to_date" value="$voucher.begin_time" f="Y-m-d"}{/if} {if $voucher.end_time gt 0}{$LANG.TO} {function name="to_date" value="$voucher.end_time" f="Y-m-d"}{/if}</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="voucher_info">
+			sn：{$voucher.sn}
+			{if $voucher.use_count}<br />
+			已使用：{$voucher.use_count}次
+			{/if}
+		</div>
+	</div>
+	{/foreach}
+	<div class="blank0"></div>
+	<div class="pages">{$pages}</div>
+</div>

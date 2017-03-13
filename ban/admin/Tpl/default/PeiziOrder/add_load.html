@@ -1,0 +1,94 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<script type="text/javascript">
+	function check_incharge_form()
+	{
+		if($("input.J_autoUserId").val()=='')
+		{
+			alert("请搜索并选择投资人姓名");
+			return false;
+		}
+		
+		if($("input[name='load_money']").val()=='' || parseInt($("input[name='load_money']").val())==0 || (parseInt($("input[name='load_money']").val()) * 100) % 100 !=0)
+		{
+			alert("请填写正确金额");
+			return false;
+		}
+		
+		return true;
+	}
+</script>
+<div class="main">
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data" onsubmit="return check_incharge_form();">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title" style="width:200px;">配资编号:</td>
+		<td class="item_input">
+		{$vo.order_sn}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">借款人:</td>
+		<td class="item_input">
+			{$vo.user_id|get_user_name_real}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">需募集资金:</td>
+		<td class="item_input">
+			{$vo.need_money|format_price}
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">已募集资金:</td>
+		<td class="item_input">
+			{$vo.has_money|format_price}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">还需募集多少:</td>
+		<td class="item_input">
+			{:format_price($vo['need_money'] - $vo['has_money'])}
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">投资人:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require J_autoUserName" name="load_user_name" value=""/>
+			<input type="hidden" class="textbox require J_autoUserId" name="user_id" value=""/>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">投资人余额:</td>
+		<td class="item_input J_autoUserMoney">{:C("CURRENCY_UNIT")}0.00</td>
+	</tr>
+	<tr>
+		<td class="item_title">投资金额:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="load_money"  value=""/>
+		</td>
+	</tr>
+
+	
+	<tr>
+		<td class="item_title">&nbsp;</td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="id" value="{$vo.id}" />
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="{$Think.const.MODULE_NAME}" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="do_add_load" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%OK}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>

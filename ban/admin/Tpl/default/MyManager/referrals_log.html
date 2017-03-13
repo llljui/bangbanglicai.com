@@ -1,0 +1,70 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">成员提成统计详情</div>
+<script type="text/javascript">
+	function export_csv()
+	{
+	var inputs = $(".search_row").find("input:[type!='checkbox']");
+	var checkboxs = $(".search_row").find("input:[type='checkbox']:checked");
+	var selects = $(".search_row").find("select");
+	var param = '';
+	for(i=0;i<inputs.length;i++)
+	{
+		if(inputs[i].name!='m'&&inputs[i].name!='a')
+		param += "&"+inputs[i].name+"="+$(inputs[i]).val();
+	}
+	for(i=0;i<checkboxs.length;i++)
+	{
+		param += "&"+checkboxs[i].name+"="+$(checkboxs[i]).val();
+	}
+	for(i=0;i<selects.length;i++)
+	{
+		param += "&"+selects[i].name+"="+$(selects[i]).val();
+	}
+	var url= ROOT+"?"+VAR_MODULE+"="+MODULE_NAME+"&"+VAR_ACTION+"=export_log_csv";
+	location.href = url+param;
+}
+</script>
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+<div class="search_row">
+	开始时间：
+	<input type="text" class="textbox" name="start_time" value="{$start_time}" id="start_time"  onfocus="this.blur(); return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" />
+	-
+	结束时间：
+	<input type="text" class="textbox" name="end_time" value="{$end_time}" id="end_time"  onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+	
+		<input type="hidden" value="MyManager" name="m" />
+		<input type="hidden" value="referrals_log" name="a" />
+		<input type="hidden" value="{$admin_id}" name="id" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+	<input type="button" class="button" onclick="export_csv()" value="导出" />
+</div>
+</form>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="customer"
+	checkbox="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,user_id|get_user_name_real:投资会员名
+		,rel_admin_id|get_admin_name:部门成员
+		,admin_id|get_admin_name:所属部门
+		,loan_money|format_price:投资金额
+		,money:提成金额
+		,memo:备注"/>
+
+<div class="blank5"></div>
+<div class="search_row">奖励合计：{$total_money|number_format=2}</div>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

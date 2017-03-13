@@ -1,0 +1,132 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#licai_uc_buyed_deal_lc";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#licai_uc_redeem_lc" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<?php
+    $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/deals.css";   
+    $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/deal.css";  
+    $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+    $this->_var['pagecss'][] = $this->_var['TMPL_REAL']."/css/lynn.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$pagecss"}" />
+<script type="text/javascript" src="{$TMPL}/js/ui_control.js"></script>
+<script type="text/javascript" src="./js/jquery.ui.core.js"></script> 
+<script type="text/javascript" src="./js/jquery.ui.widget.js"></script> 
+<script type="text/javascript" src="./js/jquery.ui.datepicker.js"></script> 
+
+<div class="lc_head">
+    <div class="content_list">
+        <span class="f_red"><em>{$data.vo.licai_all_money_format}</em>元</span>
+        <span>待处理<br/>赎回总额</span>
+    </div>
+    <div class="content_list">
+        <span><em>{if $data.vo.licai_total_count}{$data.vo.licai_total_count}{else}0{/if}</em>个</span>
+        <span>待处理<br/>赎回申请</span>
+    </div>
+    <div class="content_list">
+        <span><em>{$data.vo.licai_total_money_format}</em></span>
+        <span>已赎回本金</span>
+    </div>
+    <div class="content_list">
+    	<span><em>{$data.vo.total_earn_money_format}</em></span>
+        <span>累计收益</span>
+    </div>
+<div class="blank"></div>
+</div>
+
+<div class="blank15"></div>
+<div class="mainblok mainborder">
+  <div class="blank5"></div>
+    <div class="detail_list">
+    <ul>
+        <li class="record_tit">
+        	<div class="detail_tit ">
+                <h3>{function name="msubstr" v=$data.vo.name b=0 e=32}</h3>
+            </div>
+          <div class="f_l">
+            <span>理财期限</span>
+            {$data.vo.time_limit}个月
+          </div>
+          <div class="f_r">
+            收益率
+            <span>{$data.vo.average_income_rate_format}</span>
+          </div>
+          <div class="blank"></div>
+        </li>
+    </ul>
+    </div>
+</div><!--mainblok——end--> 
+<div class="blank15"></div>
+<div class="invest">
+    <!--mainborder开始-->  
+{if $data.list}
+{foreach from=$data.list item="item" key=key name="deal"}
+    <div class="mainblok mainborder">
+        <div class="invest_tit Headerbackground">
+            <span class="sub_name">{function name="msubstr" v="$item.name"}</span>
+        </div>
+        <div class="index_content">
+            <ul class="two_column">
+                <li>
+                    <label>赎回本金</label>
+                    <span>{$item.money_format}</span>
+                </li>
+                <li>
+                    <label>收益金额</label>
+                    <span class="f_red">{$item.earn_money_format}<em> 元</em></span>
+                </li>
+                <li>
+                    <label>手续费</label>
+                    <span>{$item.fee_format}</span>
+                </li>
+                <li>
+                    <label>到账金额</label>
+                    <span>{$item.real_money_format}</span>
+                </li>
+                <li>
+                    <label>到账时间</label>
+                    <span>
+                        {if $item.status == 1 || $item.status == 2 }
+                            <span> {$item.update_date}</span>
+                        {else}
+                            <span> {$item.create_date}</span>
+                        {/if}
+                    </span>
+                </li>
+                <li>
+                    <label>类型</label>
+                    <span>{$item.type_format}</span>
+                </li>
+				<li>
+                    <label>状态</label>
+                    <span>{$item.status_format}</span>
+                </li>
+				
+            </ul>
+            <div class="blank"></div>
+            <div class="bor_d"></div>
+            <div class="blank"></div>
+            <div class="b_box">
+                <a class="buyrecord" href="{wap_url x="index" r="licai_uc_deal_lc" p="id=$data.vo.id&epage=licai_uc_u_buyed_deal_lc"}">查看详情</a>
+                 {if $item.status==0}
+				    <a class="redeemmng" href="{wap_url x="index" r="licai_uc_redeem_lc_status" p="id=$item.id&epage=licai_uc_u_buyed_deal_lc"}">审核通过</a>
+                 {/if}
+            </div>
+            <div class="blank"></div>
+        </div> 
+     </div><!--mainborder结束-->
+   <div class="blank15"></div>
+  {/foreach}
+
+{else}
+    <div style="text-align: center;width:100%;line-height:60px;">无任何记录</div>
+{/if}       
+    </div>
+
+{include file="./inc/footer.html"}

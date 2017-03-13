@@ -1,0 +1,500 @@
+{include file="licai/inc/header_licai.html"}
+<?php
+
+$this->_var['dpagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.SuperSlide.2.1.js";
+$this->_var['dcpagejs'][] = $this->_var['TMPL_REAL']."/js/jquery.SuperSlide.2.1.js";
+
+?>
+
+<script type="text/javascript" src="{function name="parse_script" v="$dpagejs" c="$dcpagejs"}"></script>
+
+
+<style type="text/css">
+	body{background:#fff;}
+</style>
+<div class="blank0"></div>
+<div class="licai">
+	<div class="licai_index">
+		<div class="banner_box pr">
+			<!--  海报区域开始  1-->
+			<div class="banner slideBox" id="banner">
+				<div class="btn_tit effect_hd">
+					<ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+					</ul>
+				</div>
+				<div class="banner_cont effect_bd">
+					<ul>
+						<li rel="1"><a href="javascript:void(0);"><adv adv_id="理财广告位1" /></a></li>
+                        <li rel="2"><a href="javascript:void(0);"><adv adv_id="理财广告位2" /></a></li>
+                        <li rel="3"><a href="javascript:void(0);"><adv adv_id="理财广告位3" /></a></li>
+                        <li rel="4"><a href="javascript:void(0);"><adv adv_id="理财广告位4" /></a></li>
+                        <li rel="5"><a href="javascript:void(0);"><adv adv_id="理财广告位5" /></a></li>						
+					</ul>
+				</div>
+				<div class="fy_box" style="display:none">
+					<!--左右翻页按钮，可以不用-->
+					<a class="prev" href="javascript:void(0)"></a>
+					<a class="next" href="javascript:void(0)"></a>
+				</div>
+			</div>
+			<!--  海报区域结束  -->
+			<!-- 悬浮登录窗口 开始 -->
+			<div class="xf_m">
+				<div class="xf_wrap">
+					<div class="xf_main">
+						<div class="xf_body">
+							<h3 class="xf_title">赚钱小金库</h3>
+							<div class="xf_text" id="xf_text">
+								<div class="xf_cont effect_bd">
+									<ul>
+										{foreach from="$rectype_list" item="rectype_item" name="rectype"}
+										{if $smarty.foreach.rectype.iteration lte 5}
+										<li>
+											<div class="xf_cont1">{function name="msubstr" v=$rectype_item.name b=0 e=20}</div>
+											<div class='xf_cont2'>
+												<span class="b">
+												{if $rectype_item.scope}
+												{$rectype_item.scope}
+												{else}
+												{$rectype_item.average_income_rate}%
+												{/if}
+                                                </span>
+											</div>
+											<div class="pub_btnb">
+												<a href="{$rectype_item.url}" class="f18">立即预约</a>
+											</div>
+											<div class="blank10"></div>
+											<div>本产品由{function name="app_conf" v="SHOP_TITLE"}提供</div>
+										</li>
+										{/if}
+										{/foreach}
+									</ul>
+								</div>
+								<div class="fy_box">
+									<!--左右翻页按钮，可以不用-->
+									<a class="prev" href="javascript:void(0)"></a>
+									<a class="next" href="javascript:void(0)"></a>
+								</div>
+								<script type="text/javascript">
+									jQuery("#xf_text").slide({mainCell:".xf_cont ul",effect:"leftLoop",easing:"easeInOutExpo",autoPlay:true,delayTime:600});
+								</script>
+							</div>
+						</div>
+						<div class="xf_mask"></div>
+					</div>
+				</div>
+			</div>
+			<!-- 悬浮登录窗口 结束 -->
+			<script type="text/javascript">
+				if(!$(".banner_cont ul").has('li').length){ 
+					$("#banner").css("display","none");
+					$(".xf_m").hide();
+				} 
+				
+				$(".btn_tit li").each(function(i,e){
+					var obj = $(".banner_cont ul li:eq("+ i +")");
+					
+					if(obj.length == 0 || obj.has("img").length == 0)
+					{
+						obj.remove();
+						$(e).remove();
+					}
+				});
+				
+				if($(".banner_cont ul").find('li').length==1){ 
+					$(".btn_tit").css("display","none");
+				}
+				else if($(".banner_cont ul").find('li').length>1){
+					$(".btn_tit").css("display","block");
+				}
+				
+				if($(".banner_cont ul").find('li').length>1){
+					jQuery("#banner").slide({mainCell:".banner_cont ul",effect:"fold",autoPlay:true,delayTime:700});
+					$("#banner").mousemove(function(){
+						$(this).find(".prev").show();
+						$(this).find(".next").show();
+					}).mouseout(function(){
+						$(this).find(".prev").hide();
+						$(this).find(".next").hide();
+					});
+				}
+			</script>
+		</div>
+		<div class="wrap">
+			<!-- 热销模块 开始 -->
+			<div class="hot_m">
+				<div class="hot_box">
+					{foreach from="$week_bestseller_list" item="week_bestseller_item" name="week_bestseller"}
+					{if $smarty.foreach.week_bestseller.iteration lte 1}
+					<i class="hot"></i>
+					<div class="hot_title">
+						<h3><a href="{$week_bestseller_item.url}" target="_blank">{function name="msubstr" v=$week_bestseller_item.name b=0 e=15}</a></h3>
+						<div class="sub_tt f_999">{$week_bestseller_item.brief}</div>
+						<div class="blank20"></div>
+					</div>
+					<div class="hot_data">
+						<dl class="data1 first">
+							<dt>预期到期收益率</dt>
+							<dd class="f_red">
+								{if $week_bestseller_item.scope}
+								{$week_bestseller_item.scope}
+								{else}
+								{function name="number_format" v=$week_bestseller_item.average_income_rate f="2"}%
+								{/if}
+ 							</dd>
+						</dl>
+						<dl class="data2">
+							<dt>起购金额</dt>
+							<dd><span>{$week_bestseller_item.min_money_format_num}</span></dd>
+						</dl>
+						<dl class="data3" style="display:none;">
+							<dt>投资风险</dt>
+							<dd>
+								{if $week_bestseller_item.risk_rank eq 0}
+								<span class="risk1"></span>低
+								{elseif $week_bestseller_item.risk_rank eq 1}
+								<span class="risk3"></span>中
+								{else}
+								<span class="risk5"></span>高
+								{/if}
+							</dd>
+						</dl>
+						<div class="blank0"></div>
+					</div>
+					<div class="end_date f_999 f12">截止{$week_bestseller_item.end_buy_date}</div>
+					<div class="sub_box">
+						<span class="f_999 f_l">最新净值<span class="f_red">{$week_bestseller_item.net_value}</span>元</span>
+						<div class="pub_btn f_r">
+							<a href="{$week_bestseller_item.url}" target="_blank" class="f16">立即预约</a>
+						</div>
+					</div>
+					{/if}
+					{/foreach}
+				</div>
+				<div class="hot_box">
+					{foreach from="$limit_rush_list" item="limit_rush_item" name="limit_rush"}
+					{if $smarty.foreach.limit_rush.iteration lte 1}
+					<i class="limit"></i>
+					<div class="hot_title">
+						<h3><a href="{$limit_rush_item.url}" target="_blank">{function name="msubstr" v=$limit_rush_item.name b=0 e=15}</a></h3>
+						<div class="sub_tt f_999">{$limit_rush_item.brief}</div>
+						<div class="blank20"></div>
+					</div>
+					<div class="hot_data">
+						<dl class="data1 first">
+							<dt>预期年化收益率</dt>
+							<dd class="f_red">
+								{if $limit_rush_item.scope}
+								{$limit_rush_item.scope}
+								{else}
+								{function name="number_format" v=$limit_rush_item.average_income_rate f="2"}%
+								{/if}
+ 							</dd>
+						</dl>
+						<dl class="data2">
+							<dt>起购金额</dt>
+							<dd><span>{$limit_rush_item.min_money_format_num}</span></dd>
+						</dl>
+						<dl class="data3" style="display:none;">
+							<dt>投资风险</dt>
+							<dd>
+								{if $limit_rush_item.risk_rank eq 0}
+								<span class="risk1"></span>低
+								{elseif $limit_rush_item.risk_rank eq 1}
+								<span class="risk3"></span>中
+								{else}
+								<span class="risk5"></span>高
+								{/if}
+							</dd>
+						</dl>
+						<div class="blank0"></div>
+					</div>
+					<div class="end_date f_999 f12"></div>
+					<div class="sub_box">
+						<!-- <span class="f_999">最新净值<span class="f_red">1.7650</span>元</span> -->
+						<div class="pub_btn f_r">
+							<a href="{$limit_rush_item.url}" target="_blank" class="f16">立即预约</a>
+						</div>
+					</div>
+					{/if}
+					{/foreach}
+				</div>
+				<div class="hot_box last">
+					{foreach from="$news_list" item="news_item" name="news"}
+					{if $smarty.foreach.news.iteration lte 1}
+					<i class="new"></i>
+					<div class="hot_title">
+						<h3><a href="{$news_item.url}" target="_blank">{function name="msubstr" v=$news_item.name b=0 e=15}</a></h3>
+						<div class="sub_tt f_999">{$news_item.name}</div>
+						<div class="blank20"></div>
+					</div>
+					<div class="hot_data">
+						<dl class="data1 first">
+							<dt>预期到期收益率</dt>
+							<dd class="f_red">
+ 								{if $news_item.scope}
+								{$news_item.scope}
+								{else}
+								{function name="number_format" v=$news_item.average_income_rate f="2"}%
+								{/if}
+							</dd>
+						</dl>
+						<dl class="data2">
+							<dt>起购金额</dt>
+							<dd><span>{$news_item.min_money_format_num}</span></dd>
+						</dl>
+						<dl class="data3" style="display:none;">
+							<dt>投资风险</dt>
+							<dd>
+								{if $news_item.risk_rank eq 0}
+								<span class="risk1"></span>低
+								{elseif $news_item.risk_rank eq 1}
+								<span class="risk3"></span>中
+								{else}
+								<span class="risk5"></span>高
+								{/if}
+							</dd>
+						</dl>
+						<div class="blank0"></div>
+					</div>
+					<div class="end_date f_999 f12">截止{$news_item.end_buy_date}</div>
+					<div class="sub_box">
+						<span class="f_999 f_l">最新净值<span class="f_red">{$news_item.net_value}</span>元</span>
+						<div class="pub_btn f_r">
+							<a href="{$news_item.url}" target="_blank" class="f16">立即预约</a>
+						</div>
+					</div>
+					{/if}
+					{/foreach}
+				</div>
+				<div class="blank0"></div>
+			</div>
+			<!-- 热销模块 结束 -->
+			<div class="l_r_layout">
+				<div class="l_layout">
+					<div class="l_layout_m recommend_box" style="display: none;">
+						<h3 class="common_tt"><span>个性推荐</span>选择最适合的</h3>
+						<div class="text" id="recommend_hover" onmouseover="recommend_box_mousemove(this)" onmouseout="recommend_box_mouseout(this)">
+							<ul>
+								{foreach from="$special_list" item="special_item" name="special"}
+							 	{if $smarty.foreach.special.iteration lte 3}
+								<li {if $smarty.foreach.special.last}class="last"{/if}>
+									<a href="{$special_item.url}" target="_blank">
+									<img src="{if $special_item.special_img eq ''}{$TMPL}/images/empty_thumb.gif{else}{function name="get_spec_image" v=$special_item.special_img w="272" h="270" g=1}{/if}" alt="{$special_item.special_name}" lazy="true" />
+									<div class="text_show">
+										<div  class="text_box">
+											<div class="main_tt">{function name="msubstr" v=$special_item.special_name b=0 e=12}</div>
+											<div class="minor_tt">{function name="msubstr" v=$special_item.special_brief b=0 e=16}</div>
+											<div class="cft_add_box">
+												<div class="blank10"></div>
+												<div class="j_add_box">
+													<div class="data1">
+														<div class="data11" style="line-height:1">
+															<span class="f30 f_red">{function name="number_format" v=$special_item.average_income_rate f="2"}</span><em class="f14 f_red">%</em><span class="f12">&nbsp;(近3个月收益率)</span>
+														</div>
+													</div>
+													<div class="data2 f_666">投资风险：{if $special_item.risk_rank eq 0}低{elseif $special_item.risk_rank eq 1}中{else}高{/if}</div>
+													<div class="data2 f_666">最新净值：<span class="f_red">{$special_item.net_value}</span>元</div>
+													<div class="data2 f_666">起购金额：{$special_item.min_money_format_num}</div>
+												</div>
+											</div>
+											<div class="blank10"></div>
+											<span href="{$special_item.url}" target="_blank" class="view_btn f_r">了解详情<i class="view_icon"></i></span>
+										</div>
+										<div class="text_mask"></div>
+									</div>
+									</a>
+								</li>
+								{/if}
+								{/foreach}
+							</ul>
+						</div>
+					</div>
+					<div class="l_layout_m l_layout_m2_m3_m4 l_layout_m2" style="display:none;">
+						<h3 class="common_tt">
+							<div class="f_l">
+								<span>维余宝</span>短平快稳，理财之王
+							</div>
+							<a href="{url x="index" r="licai#deals" p="type=0"}" target="_blank" class="f_999 f_r mr20">更多</a>
+						</h3>
+						<div class="text">
+							<div class="data_box">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0" class="index_table">
+ 									<tr>
+										<td class="deal_name"><a href="{$licai.url}" target="_blank">懒猫</a></td>
+										<td>预期年化收益率 <span class="f_red f20">4</span><em class="f_red">%</em></td>
+										<td>期数365天</td>
+										<td><a href="{$licai.url}" target="_blank" class="ui_button bg_red">购买</a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="l_layout_m l_layout_m2_m3_m4 l_layout_m3" >
+						<h3 class="common_tt">
+							<div class="f_l">
+								<span>维余宝</span>专业投资，实力强劲
+							</div>
+							<a href="{url x="index" r="licai#deals" p="type=0"}" target="_blank" class="f_999 f_r mr20">更多</a>
+						</h3>
+						<div class="text">
+							<div class="data_box" onmouseover="add_box_mousemove(this)" onmouseout="add_box_mouseout(this)">
+								<ul>
+									{foreach from="$balance_list" item="deposit_item" name="deposit"}
+							 		{if $smarty.foreach.deposit.iteration lte 3}
+									<li class="add_box_hover{if $smarty.foreach.deposit.last} last{/if}">
+										<h3><a href="{$deposit_item.url}" target="_blank">{$deposit_item.name}</a></h3>
+										<div class="cft_add_box">
+											<div class="j_add_box">
+												<span class="minor_tt f_999">{function name="msubstr" v=$deposit_item.brief b=0 e=20}</span>
+												<div class="data1">
+													<div class="data11 f_red">
+														<span>{function name="number_format" v=$deposit_item.average_income_rate f="2"}</span>%
+													</div>
+													<div class="data22">预计年化收益率<br /><span class="f12">(截止{$deposit_item.end_date})</span></div>
+												</div>
+												<div class="data2">投资风险：{if $deposit_item.risk_rank eq 0}低{elseif $deposit_item.risk_rank eq 1}中{else}高{/if}</div>
+												<div class="data2">最新净值：{$deposit_item.net_value}</div>
+												<div class="data2">起购金额：{$deposit_item.min_money_format_num}</div>
+											</div>
+										</div>
+										<a href="{$deposit_item.url}" target="_blank" class="ui_button bg_red">立即预约</a>
+									</li>
+									{/if}
+									{/foreach}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="l_layout_m l_layout_m2_m3_m4 l_layout_m3 l_layout_m4" >
+						<h3 class="common_tt">
+                        	<div class='f_l'>
+                            	<span>一键理财</span>收益高，保安全
+                            </div>
+                            <a href="{url x="index" r="licai#deals" p="type=1"}" target="_blank" class="f_999 f_r mr20">更多</a>
+                        </h3>
+                        	
+						<div class="text">
+							<div class="data_box">
+								<ul>
+									{foreach from="$deposit_list" item="float_item" name="float"}
+							 		{if $smarty.foreach.float.iteration lte 3}
+									<li {if $smarty.foreach.float.last}class="last"{/if}>
+										<h3><a href="{$float_item.url}" target="_blank">{$float_item.name}</a></h3>
+										<div class="data1">
+											<div class="data11 f_red">
+												{if $float_item.scope}
+												{$float_item.scope}
+												{else}
+												{function name="number_format" v=$float_item.average_income_rate f="2"}%
+												{/if}
+ 											</div>
+											<div class="data22">历史年化收益率</div>
+										</div>
+										<div class="data2">投资风险：{if $float_item.risk_rank eq 0}低{elseif $float_item.risk_rank eq 1}中{else}高{/if}</div>
+										<div class="data2">起投金额：{$float_item.min_money_format_num}</div>
+										<a href="{$float_item.url}" target="_blank" class="ui_button bg_red">立即预约</a>
+									</li>
+									{/if}
+									{/foreach}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="r_layout">
+					{if $licai_dealshow}
+					<div class="r_layout_m r_layout_m1">
+						<h3 class="common_tt"><span>大家都在抢</span></h3>
+						<div class="text" id="r_layout_m1">
+							<div class="scroll_show" id="r_layout_m1_bd">
+								<ul>
+									{foreach from=$licai_dealshow item=licai_dealshow_item name=licai_dealshow_name}
+									<li>
+										<a href="{$licai_dealshow_item.url}" target="_blank">
+											<div class="toux f_l"><img src="{function name="get_spec_image" v=$licai_dealshow_item.img w="200" h="200"}" /></div>
+											<div class="text_show f_r">
+												<h3>{function name="msubstr" v=$licai_dealshow_item.name b=0 e=11}</h3>
+												<div class="f_999"><span>{$licai_dealshow_item.user_name}</span>购买了该产品</div>
+											</div>
+											{if !($smarty.foreach.licai_dealshow_name.last)}
+											<div class="blank5"></div>
+											<i class="line"></i>
+											{/if}
+										</a>
+									</li>
+									{/foreach}
+								</ul>
+							</div>
+							<script type="text/javascript">
+						 		jQuery("#r_layout_m1").slide({mainCell:"#r_layout_m1_bd ul",autoPage:true,effect:"top",easing:"easeInOutCirc",autoPlay:true,vis:6,delayTime:500});
+							</script>
+							<div class="blank5"></div>
+							<i class="line"></i>
+						</div>
+					</div>
+					{/if}
+					<div class="r_layout_m r_layout_m2" style="display:none;">
+						<h3 class="common_tt"><span>品牌推荐</span></h3>
+						<div class="text">
+							<ul>
+								<li>
+									<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/brand.jpg" /></a>
+								</li>
+								<li>
+									<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/brand.jpg" /></a>
+								</li>
+								<li>
+									<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/brand.jpg" /></a>
+								</li>
+								<li>
+									<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/brand.jpg" /></a>
+								</li>
+							</ul>
+							<div class="blank0"></div>
+						</div>
+					</div>
+                    
+                    <div style="display:none;">
+					<div class="r_m_banner">
+						<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/m_banner.jpg" /></a>
+					</div>
+					<div class="blank20"></div>
+					<div class="r_m_banner">
+						<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/m_banner.jpg" /></a>
+					</div>
+					<div class="blank20"></div>
+					<div class="r_m_banner">
+						<a href="{url x="index" r="licai#deal" p="id=$deal_item.id"}" target="_blank"><img src="{$TMPL}/images/licai/m_banner.jpg" /></a>
+					</div>
+                    </div>
+				</div>
+				<div class="blank0"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blank0"></div>
+<script type="text/javascript">
+	function add_box_mousemove(o){
+		$(o).find(".j_add_box").stop().animate({marginTop:'-42px'}, 300);
+	}
+	function add_box_mouseout(o){
+		$(o).find(".j_add_box").stop().animate({marginTop:'0'}, 300);
+	}
+	function recommend_box_mousemove(o){
+		$(o).find(".text_show").stop().animate({height:'215px'}, 300);
+		$(o).find(".text_box").stop().animate({height:'185px'}, 300);
+	}
+	function recommend_box_mouseout(o){
+		$(o).find(".text_show").stop().animate({height:'80px'}, 300);
+		$(o).find(".text_box").stop().animate({height:'50px'}, 300);
+	}
+</script>
+<div>
+{include file="inc/footer.html"}

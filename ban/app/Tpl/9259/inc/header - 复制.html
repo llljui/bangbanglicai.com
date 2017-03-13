@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+<meta name="renderer" content="webkit">
+<meta name="Generator" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if $page_title}{$page_title} - {/if}{if $show_site_titile eq 1}{function name='app_conf' value='SHOP_SEO_TITLE'} - {/if}{$site_info.SHOP_TITLE}</title>
+<link rel="icon" href="favicon.ico" type="/image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="/image/x-icon" />
+<meta name="keywords" content="{if $page_keyword}{$page_keyword}{/if}{$site_info.SHOP_KEYWORD}" />
+<meta name="description" content="{if $page_description}{$page_description}{/if}{$site_info.SHOP_DESCRIPTION}" />
+{include file="inc/common/load_css_js.html"}
+<link rel="stylesheet" href="{$TMPL}/css/new_scjb/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="{$TMPL}/css/new_scjb/index.css" type="text/css">
+<link rel="stylesheet" href="{$TMPL}/css/new_scjb/base.css" type="text/css">
+<script type="text/javascript" src="{$TMPL}/js/new_scjb/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{$TMPL}/js/new_scjb/bootstrap.min.js"></script>
+<script type="text/javascript" src="{$TMPL}/js/new_scjb/jquery.SuperSlide.js"></script>
+</head>
+
+<body>
+	<!-- page head -->
+	
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+ul>li {list-style-type: none;}
+a {text-decoration: none;color: #000;}
+.clearfix {clear: both}
+.icon {background: url({$TMPL}/images/new_scjb/allbgs.png') no-repeat;height : 22px;padding-left : 22px;}
+.icon.icon3_1 {background-position:0px -22px;}
+.icon.icon1_1 {background-position: 0px -70px;}
+.icon.icon2_1 {background-position: 0px -123px;}
+.header {width: 100%;background:#fff;}
+.header .header_client {background: #F8F8F8;width: 100%;}
+.header .header_client ul {width: 1250px;height: 36px;margin: 0 auto;line-height: 36px;}
+.header .header_client ul>li {float: left;font-size: 14px;padding-left: 10px;position: relative;}
+.header .header_client ul>li>img {position: absolute;top:25px;display: none;z-index: 5;}
+.header .header_client ul>li:hover img {display: block;}
+.header .header_client ul>li:hover .icon1_1 {background-position: 0px -98px;}
+.header .header_client ul>li:hover .icon2_1 {background-position: 0px 0px;}
+.header .header_client ul>li:hover .icon3_1 {background-position: 0px -48px;}
+.header .header_client ul .denglu {float: right;padding-right: 52px;}
+.header .header_client ul .denglu a {font-size: 14px;}
+.header_client ul>li>i {display: inline-block;position: relative;top: 7px;}
+.header .navigation {width: 1250px;margin: 0 auto;}
+.header .navigation .navigation-logo {float: left;width:320px;height:50px;}
+.header .navigation .navigation-logo img{width:100%;margin-top:10px;}
+.header .navigation .navigation-right {float: right;}
+.header .navigation .navigation-right ul {width: 490px;}
+.header .navigation .navigation-right ul>li {float: left;width: 95px;text-align: center}
+.header .navigation .navigation-right ul>li >a{display: inline-block;width: 100%;height: 100%;}
+.header .navigation .navigation-right {height: 67px;line-height: 65px;}
+.li_border{border-bottom:2px solid #4096ee;}
+.li_border a{color:#4096ee}
+</style>
+
+
+	<div class="header">
+		<div class="header_client">
+			<ul>
+				<li><img src="{$TMPL}/images/new_scjb/khd-code.png" alt=""> <i class="icon icon1_1"></i> <a href="#">宋财聚宝客户端</a></li>
+				<li><img src="{$TMPL}/images/new_scjb/wx-code.png" alt=""> <i class="icon icon2_1"></i> <a href="#">微信公众号</a></li>
+				<li><img src="{$TMPL}/images/new_scjb/wb-code.png" alt=""> <i class="icon icon3_1"></i> <a href="">官方微博</a></li>
+				<div class="denglu">
+					
+						<a style="color:#4096ee" href="http://www.songcaijubao.com/page/tologin/Page">授权服务机构登陆</a>
+						<a class="blue" href="http://www.songcaijubao.com/page/toreg/Page">立即登录</a>
+					
+					
+				</div>
+			</ul>
+		</div>
+		<div class="navigation clearfix">
+			<div class="navigation-logo">
+				<a href="http://www.songcaijubao.com/index/toIndex"><img src="{$TMPL}/images/new_scjb/logo_g_03.png" alt=""></a>
+			</div>
+			<div class="navigation-right">
+				<ul id="header_ul">
+					<li class="nav-0 nav-1">
+						<a href="http://www.songcaijubao.com/index/toIndex">
+							首页 <p class="nav-p-0 nav-p-1"></p>
+						</a>
+					</li>
+					<li class="nav-0 nav-2" id="div-2">
+						<a href="http://www.songcaijubao.com/deal/list">
+							我要理财<p class="nav-p-0 nav-p-2"></p>
+						</a>
+					</li>
+					
+						<!-- 未登录时 -->
+						<li class="nav-0 nav-3">
+							<a href="http://www.songcaijubao.com/fconsumer/personage">
+								个人中心 <p class="nav-p-0 nav-p-3"></p>
+							</a>
+						</li>
+					
+					
+					
+					<li class="nav-0 nav-4">
+						<a href="http://www.songcaijubao.com/page/tosafety/Page">
+							安全保障 <p class="nav-p-0 nav-p-4"></p>
+						</a>
+					</li>
+					<li class="nav-0 nav-5">
+						<a href="http://www.songcaijubao.com/page/toabout/Page">
+							关于我们<p class="nav-p-0 nav-p-5"></p>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!--nav end-->
+	<!-- system modal start -->
+	<div id="ycf-alert" class="modal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					</button>
+					<h5 class="modal-title">
+						<i class="fa fa-exclamation-circle"></i> [Title]
+					</h5>
+				</div>
+				<div class="modal-body small">
+					<p>[Message]</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
+					<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- system modal end -->
+	<script>
+		$(function() {
+			window.Modal = function() {
+				var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+				var alr = $("#ycf-alert");
+				var ahtml = alr.html();
+				
+				//关闭时恢复 modal html 原样，供下次调用时 replace 用
+				//var _init = function () {
+				//	alr.on("hidden.bs.modal", function (e) {
+				//		$(this).html(ahtml);
+				//	});
+				//}();
+				
+				/* html 复原不在 _init() 里面做了，重复调用时会有问题，直接在 _alert/_confirm 里面做 */
+
+				var _alert = function(options) {
+					alr.html(ahtml); // 复原
+					alr.find('.ok').removeClass('btn-success').addClass(
+							'btn-primary');
+					alr.find('.cancel').hide();
+					_dialog(options);
+
+					return {
+						on : function(callback) {
+							if (callback && callback instanceof Function) {
+								alr.find('.ok').click(function() {
+									callback(true)
+								});
+							}
+						}
+					};
+				};
+
+				var _confirm = function(options) {
+					alr.html(ahtml); // 复原
+					alr.find('.ok').removeClass('btn-primary').addClass(
+							'btn-success');
+					alr.find('.cancel').show();
+					_dialog(options);
+
+					return {
+						on : function(callback) {
+							if (callback && callback instanceof Function) {
+								alr.find('.ok').click(function() {
+									callback(true)
+								});
+								alr.find('.cancel').click(function() {
+									callback(false)
+								});
+							}
+						}
+					};
+				};
+
+				var _dialog = function(options) {
+					var ops = {
+						msg : "提示内容",
+						title : "操作提示",
+						btnok : "确定",
+						btncl : "取消"
+					};
+
+					$.extend(ops, options);
+
+					console.log(alr);
+
+					var html = alr.html().replace(reg, function(node, key) {
+						return {
+							Title : ops.title,
+							Message : ops.msg,
+							BtnOk : ops.btnok,
+							BtnCancel : ops.btncl
+						}[key];
+					});
+
+					alr.html(html);
+					alr.modal({
+						width : 500,
+						backdrop : 'static'
+					});
+				}
+
+				return {
+					alert : _alert,
+					confirm : _confirm
+				}
+				
+			}();
+		});
+		
+		
+	</script>
+
+
+
+	<!--轮播部分-->
+	<div class="banner">
+		<div id="carousel" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner" role="listbox">
+				
+					<!-- 判断是否为第一个图片 -->
+					
+						<div style="height:350px;" class="item active">
+							<!-- 判断是否数据库中url为空，不为空则给超链接标签 -->
+							
+								<a style="display:block;width: 100%;overflow: hidden;" href="http://www.songcaijubao.com/page/to/pc_huodong7/page" target="_blank">
+									<img src="{$TMPL}/images/new_scjb/20160414182637656.jpg" alt="..." style="width: 100%;margin: 0 auto;height:350px;">
+								</a>
+							
+							<!-- 判断数据库中url是否为空，为空则不给超链接 -->
+							
+						</div>
+					
+					
+				
+					<!-- 判断是否为第一个图片 -->
+					
+					
+						<div style="height:350px;" class="item">
+							<!-- 判断是否数据库中url为空，不为空则给超链接标签 -->
+							
+								<a style="display:block;width: 100%;overflow: hidden;" href="http://www.songcaijubao.com/page/to/pc_huodong6/page" target="_blank">
+									<img src="{$TMPL}/images/new_scjb/20160414152452444.jpg" alt="..." style="width: 100%;margin: 0 auto;height:350px;">
+								</a>
+							
+							<!-- 判断数据库中url是否为空，为空则不给超链接 -->
+							
+						</div>
+					
+				
+					<!-- 判断是否为第一个图片 -->
+					
+					
+						<div style="height:350px;" class="item">
+							<!-- 判断是否数据库中url为空，不为空则给超链接标签 -->
+							
+								<a style="display:block;width: 100%;overflow: hidden;" href="http://www.songcaijubao.com/page/to/pc_huodong5/page" target="_blank">
+									<img src="{$TMPL}/images/new_scjb/20160413120353460.jpg" alt="..." style="width: 100%;margin: 0 auto;height:350px;">
+								</a>
+							
+							<!-- 判断数据库中url是否为空，为空则不给超链接 -->
+							
+						</div>
+					
+				
+					<!-- 判断是否为第一个图片 -->
+					
+					
+						<div style="height:350px;" class="item">
+							<!-- 判断是否数据库中url为空，不为空则给超链接标签 -->
+							
+								<a style="display:block;width: 100%;overflow: hidden;" href="http://www.songcaijubao.com/page/to/pc_huodong3/page" target="_blank">
+									<img src="{$TMPL}/images/new_scjb/20160413120610994.jpg" alt="..." style="width: 100%;margin: 0 auto;height:350px;">
+								</a>
+							
+							<!-- 判断数据库中url是否为空，为空则不给超链接 -->
+							
+						</div>
+					
+				
+			</div>
+			<a class="left carousel-control" href="http://www.songcaijubao.com//index/toIndex#carousel" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			</a> <a class="right carousel-control" href="http://www.songcaijubao.com//index/toIndex#carousel" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			</a>
+		</div>
+		<div class="container vessel">
+			<div class="login text-center">
+				<img src="{$TMPL}/images/new_scjb/khd.png" alt="">
+				<p class="login-p1">宋财聚宝移动客户端，扫一扫，马上变土豪</p>
+				
+					<a href="http://www.songcaijubao.com/page/toreg/Page"><p class="login-p2">立即登录</p></a>
+					<p class="login-p3">
+						没有帐号？<a href="http://www.songcaijubao.com/page/toreg/Page">去注册！</a>
+					</p>
+				
+				
+			</div>
+		</div>
+	</div>
+
+<div class="wrap">

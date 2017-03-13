@@ -1,0 +1,86 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","integral_mall#index");
+	$this->_var['back_page'] = "#integral_mall";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#integral_mall" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--商品详情-->
+    <div class="card-container">
+    	<div class="card">
+	    	<div class="card-header"><img src="{$data.img}" width="100%"/></div>
+			<div class="card-header bb1">{$data.goods.name}</div>
+			<div class="card-content">
+				<div class="detail_list">
+					<ul>
+						<li>
+							<label>所属类别：</label>
+							<div class="list_con">{$data.goods.cate_name}</div>
+						</li>
+						<li>
+							<label>所需积分：</label>
+							<div class="list_con"><span class="f_red">{if $data.goods.score gt 0}{$data.goods.score}{else}0{/if}</span>/分</div>
+						</li>
+						<li>
+							<label>剩余数量：</label>
+							<div class="list_con"><span class="f_red">{$data.goods.max_bought_format}</span>/份</div>
+						</li>
+						<li>
+							<label>兑换人数：</label>
+							<div class="list_con">{if $data.goods.invented_number gt 0}{$data.goods.invented_number}{else}0{/if}人</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="card-content bb1 ">
+				<div class="detail_list">
+					<ul>
+						<li>
+							<label>兑换数量：</label>
+							<div class="list_con nun_choose">
+								<div class="nun_choose ">
+									<span class="Minus c_number pull-left">−</span>
+								    <input type="text" name="number" id="number" max="{$data.user_can_buy_number}" value="1" class="nuns pull-left"/>
+								    <span class="c_number Plus pull-left">+</span>
+								</div>
+							</div>
+						</li>
+						
+						<li>
+							<div class="w_b but_box_parent padding">
+					<div class="w_b_f_1 but_box">
+						<input id="uscore" name="uscore" type="hidden" value="{$data.uscore}" />
+										<input id="score" name="score" type="hidden" value="{$data.goods.score}" />
+										<input id="user_id" name="user_id" type="hidden" value="{$data.user_id}" />
+										
+										<input id="goods_id" name="goods_id" type="hidden" value="{$data.goods.id}" />
+						<button id="submitt" class=" but_this">立即兑换</button> 
+					</div>
+					
+				</div>
+							
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		
+    </div>
+	<div class="card-container">
+	    <div class="card">
+	        <div class="card-header">商品详情</div>
+	        <div class="card-content">
+	            <div class="card-content-inner">
+	                	{$data.goods_description}
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+{include file="./inc/footer.html"}
+

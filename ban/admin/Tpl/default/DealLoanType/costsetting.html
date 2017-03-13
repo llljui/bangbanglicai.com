@@ -1,0 +1,67 @@
+  <div id="J_TMPINPUT" style="display:none">
+    <div class="item">
+    	VIP等级：
+	<select name="costsetting[$num][vip_id]">
+		
+    <foreach name="vip_list" item="vip_item">
+        <option value="{$vip_item.id}" >{$vip_item.vip_grade}</option>
+    </foreach>
+    </select>
+    借款管理费：
+    <input type="text" class="textbox " name="costsetting[$num][load_mfee]" value=""  size="3" />%
+    投资利息管理费：
+    <input type="text" class="textbox " name="costsetting[$num][interest]" value=""  size="3" />%
+   
+    <a href="javascript:void(0)" class="J_rm">移除</a>
+    
+    <div class="blank5"></div>
+    </div>
+</div> 
+<div id="J_TMPINPUT2" style="display:none">
+    <div class="item">
+               用户等级：
+    <select name="levelsetting[$num][level_id]">
+    <foreach name="user_level_list" item="level_item">
+        <option value="{$level_item.id}" >{$level_item.name}</option>
+    </foreach>
+    </select>
+    服务费：
+    <input type="text" class="textbox " name="levelsetting[$num][services_fee]" value=""  size="3" />%
+  
+    <a href="javascript:void(0)" class="J_rm2">移除</a>
+    
+    <div class="blank5"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+   var maxlength = {$vo.costsetting_list|count};
+    jQuery(function(){
+        $("a.J_rm").live("click",function(){
+            $(this).parent().remove();
+        });
+        $("a.J_add").click(function(){
+            maxlength ++ ;
+            var html = $("#J_TMPINPUT").html();
+            html = html.replace(/\$num/g,maxlength);
+            $(this).before(html);
+        });
+    });
+    
+</script>
+
+<script type="text/javascript">
+    var maxlength = {$vo.levelsetting_list|count};
+    jQuery(function(){
+        $("a.J_rm2").live("click",function(){
+            $(this).parent().remove();
+        });
+        $("a.J_add2").click(function(){
+            maxlength ++ ;
+            var html = $("#J_TMPINPUT2").html();
+            html = html.replace(/\$num/g,maxlength);
+            $(this).before(html);
+        });
+    });
+    
+</script>

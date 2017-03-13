@@ -1,0 +1,112 @@
+.peizi_w_l{ width:890px;}
+.peizi_w_r{ width:295px;}
+.peizi_li h3 button{ display:block; line-height:36px; border-radius:5px; padding:0 22px; font-size:14px; *margin-top:-38px;}
+.peizi_li h3 { border-bottom:1px dashed #e6e6e6; padding:16px 0; line-height:36px; font-size:22px; height:36px; font-weight:500;}
+.peizi_li { padding:0 0 0 172px; overflow:hidden; background:#fff; *overflow:hidden;}
+.peizi_li img{ margin-left:-172px; float:left;}
+.peizi_li .bor{ border:1px solid #e6e6e6; border-left:0px; padding:0 15px; height:186px; _margin-top:-24px;}
+
+.classification_li{ float:left;   padding:0 0 0 70px; width:273px; margin-top:10px;}
+.classification_li .name{ float:left; margin-left:-70px; color:#999999;}
+.classification_li  .peizi_num{ color: #ff524f !important;font-size: 20px !important;}
+/*--------------------------------------------------------------------------------------------------------------------*/
+.sidebar .common-box {border: 1px solid #e6e6e6;padding: 20px;margin-bottom: 20px;background-color: #ffffff;}
+.sidebar .common-box.step-info h4 {padding-bottom: 0;border: none;}
+.red-color {color: #ff524f !important;}
+.f18 {font-size: 18px !important;}
+.sidebar .common-box.step-info .content {background:url(../images/peizi/icon-lg.png) no-repeat 10px -520px ;padding-left: 50px;font-size: 14px;padding-top: 2px;margin-top: 15px;}
+.sidebar .common-box.step-info .content p {line-height: 26px;margin-bottom: 13px;}
+
+.sidebar .common-box {
+border: 1px solid #e6e6e6;
+padding: 20px;
+margin-bottom: 20px;
+background-color: #ffffff;
+}
+.sidebar .common-box h4 {
+font-size: 16px;
+font-family: "微软雅黑";
+margin: 0;
+padding-bottom: 7px;
+padding-left: 6px;
+border-bottom: 1px solid #e6e6e6;
+font-weight:100;
+}
+.sidebar .common-box.question-info h4 a {
+font-size: 12px;
+margin-top: 4px;
+color: #666666;
+}
+.sidebar .common-box.question-info ul.list-group {
+margin: 10px 0 20px;
+}
+.list-group-item {
+position: relative;
+display: block;
+padding: 10px 15px;
+margin-bottom: -1px;
+background-color: #ffffff;
+border: 1px solid #dddddd;
+}
+.list-group-item:first-child {
+border-top-right-radius: 4px;
+border-top-left-radius: 4px;
+}
+.sidebar .common-box.question-info ul.list-group li {
+border: none;
+border-radius: 0;
+margin: 0;
+padding: 10px 0 6px;
+}
+.sidebar .common-box.question-info ul.list-group li a {
+line-height: 18px;
+display: block;
+position: relative;
+padding-left: 20px;
+}
+.sidebar .common-box.question-info ul.list-group li a i {
+background: url(../images/peizi/icon.png) no-repeat  0 -478px ;
+display: inline-block;
+height: 18px;
+width: 20px;
+position: absolute;
+top: 0;
+left: 0;
+}
+
+.sidebar .common-box.question-info .contact-me {
+font-size: 18px;
+line-height: 26px;
+color: #999999;
+font-style: italic;
+padding: 26px 22px 17px;
+border-top: 1px solid #e6e6e6;
+}
+.sidebar .common-box.question-info .contact-me i.a, .sidebar .common-box.question-info .contact-me i.b {
+background: url(../images/peizi/icon-lg.png) no-repeat 0 -344px ;
+width: 30px;
+height: 18px;
+display: inline-block;
+}
+.sidebar .common-box.question-info .contact-me i.b {
+background-position: 7px -370px;
+margin-bottom: -3px;
+}
+
+.sidebar .common-box.question-info .weixin {
+margin-left: 49px;
+margin-bottom: 20px;
+}
+.text-center {
+text-align: center !important;
+}
+.f14 {
+font-size: 14px !important;
+}
+
+.peizi_li a:hover .bor{ background:#fff4eb;}
+
+
+
+
+

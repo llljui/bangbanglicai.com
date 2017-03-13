@@ -1,0 +1,207 @@
+<div class="tabbox clearfix">
+	<div class="tab cur">
+		<a href="{url x="index" r="uc_vip_setting_index"}">VIP等级特权</a>
+	</div>
+</div>
+<div class="uc_box bdd bt0 clearfix">
+    <table width="97%" align="center" border="0" cellspacing="1px" class="credit" style="margin:0px auto">
+      <tbody>
+      	<tr>
+            <td>我的VIP等级：
+			 <span style="color: #CA1A00;font-weight:bold; font-size:15px;" >
+			 {if $userinfo.vip_id neq 0}
+			 	{if $gradeinfo.vip_grade}
+					{$gradeinfo.vip_grade}
+				{else}
+					您还不是VIP会员
+				{/if}
+			 {else}
+			  		您还不是VIP会员
+			 {/if}
+			 &nbsp;
+			 {if $userinfo.vip_id gt 0}
+			 <a href="{url x="index" r="uc_vip_buy#index"}" >
+			 <img src="{$TMPL}/images/vip/{$userinfo.vip_id}.png" title="{function name="get_vip_name" id=$userinfo.vip_id}">
+			 </a>
+			 {/if}
+			 
+			 </span>
+			 </td>
+			<td>我的积分：
+			<span style="color: #CA1A00;font-weight:bold;">
+			 {if $userinfo.score neq 0}
+				{$userinfo.score} 
+			 {else}
+			  	0	
+			 {/if}
+			</span>
+			</td>
+            <td rowspan="2" align="right">
+            <a href="{url x="index" r="uc_vip_buy#index"}" >
+			 <input type="button" class="btn_red f18 b f_white w110 lh40 bdr3" value="VIP购买">
+			 </a>	
+            <a style="margin:0 20px;" title="积分兑现" href="{url x="index" r="uc_score_exchange#score"}">
+			<input type="button" class="btn_red f18 b f_white w110 lh40 bdr3" value="积分兑现">
+			</a>
+            </td>
+          </tr>
+		  {if $customerinfo.name}
+          <tr>
+            <td>VIP客服专员：{$customerinfo.name} </td>
+			<td>电话：{$customerinfo.telphone} </td>
+          </tr>
+		   <tr>
+            <td colspan="2">客服QQ：{if $customerinfo.qq}
+			<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$customerinfo.qq}&amp;site=qq&amp;menu=yes">
+			<img border="0" src="http://wpa.qq.com/pa?p=2:{$customerinfo.qq}:51" alt="点击这里给我发消息" title="点击这里给我发消息" width="77" height="22">
+			</a>
+			{/if} </td>
+          </tr>
+		  {/if}
+		  
+		  <tr>
+            <td colspan="2">您目前的借款与投资总额为
+			<span style="color: #CA1A00;font-weight:bold;">
+			{$bl_total}元 
+			</span>
+			，
+			其中有效金额为
+			<span style="color: #CA1A00;font-weight:bold;">
+			{$yx_total}元
+			</span>
+			<br />
+			{if $overdue_total}
+			逾期金额为
+			<span style="color: #CA1A00;font-weight:bold;">
+			{$overdue_total}元
+			</span>
+			，
+			{/if}
+			{if $is_vip_intime eq 1}
+				您已购买 
+				<span style="color: #CA1A00;font-weight:bold;">
+				{$gradeinfo.vip_grade}
+				</span>
+				， &nbsp;会员将于 
+				<span style="font-weight:bold;">
+				{function name="to_date" v=$userinfo.vip_end_time f="Y-m-d"} 到期
+				</span>
+			{else}
+				再有
+				<span style="color: #CA1A00;font-weight:bold;">
+				{$chazhi}元
+				</span>
+				，
+				即可升级为
+				<span style="font-weight:bold;">
+				{$nextgrade}
+				</span>
+			{/if}
+			</td>
+          </tr>
+		  
+		  
+        </tbody>
+	</table>
+	<div class="blank20"></div>
+	<table width="97%" align="center" border="0" cellspacing="1px" class="credit" style="margin:0px auto">
+        <tbody>
+            <tr class="title f_dgray b">
+                <td colspan="<?php echo count($this->_var['vip_type'])+1; ?>">VIP等级</td>
+            </tr>
+            <tr>
+                <td width="130px">VIP等级</td>
+				{foreach from=$vip_type item=item}
+				<td style="font-weight:bold;">{$item.vip_grade}</td>
+				{/foreach}
+            </tr>
+			<tr>
+                <td>有效金额额度</td>
+				{foreach from=$vip_type item=item key=key name="limit"}
+				<td>
+					{$item.lower_limit}-{$item.upper_limit}元
+				</td>
+				{/foreach}
+            </tr>
+        </tbody>
+	</table>
+	<div class="blank20"></div>
+	
+	
+	<table width="97%" align="center" border="0" cellspacing="1px" class="credit" style="margin:0px auto">
+		<tbody>
+			<tr class="title">
+				<td colspan="<?php echo count($this->_var['vip_setting'])+1; ?>"><b>VIP等级特权</b></td>
+			</tr>
+			<tr>
+				<td class="white_bg">特权等级</td>
+				{foreach from="$vip_setting" item="grade" name="grade"}
+				<td class="white_bg" style="color: #CA1A00;font-weight:bold;">{$grade.vip_grade}</td>
+				{/foreach}
+			</tr>
+			<tr>
+				<td class="white_bg">收益奖励几率</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.probability}%</td>
+				{/foreach}
+			</tr>
+			<!--
+			<tr>
+				<td class="white_bg">借款管理费(每月)</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.load_mfee}%</td>
+				{/foreach}
+			</tr>
+			<tr>
+				<td class="white_bg">投资利息管理费</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.interest}%</td>
+				{/foreach}
+			</tr>
+			<tr>
+				<td class="white_bg">投资返还积分比率</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.multiple}%</td>
+				{/foreach}
+			</tr>
+			-->
+			<tr>
+                <td class="white_bg">积分折现系数</td>
+                {foreach from="$vip_setting" item="info" name="info"}
+                <td class="white_bg">{$info.coefficient}%</td>
+                {/foreach}
+            </tr>
+			<tr>
+				<td class="white_bg">生日礼品</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.bgift}
+				{if $info.btype eq 1}
+					积分
+				{else}
+					元现金红包
+				{/if}
+				</td>
+				{/foreach}
+			</tr>
+			<tr>
+				<td class="white_bg">节日积分</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.holiday_score} 积分</td>
+				{/foreach}
+			</tr>
+			<tr>
+				<td class="white_bg">增加的收益率</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.rate}%</td>
+				{/foreach}
+			</tr>
+			<tr>
+				<td class="white_bg">收益积分值</td>
+				{foreach from="$vip_setting" item="info" name="info"}
+				<td class="white_bg">{$info.integral} 积分</td>
+				{/foreach}
+			</tr>
+		</tbody>
+	</table>
+	<div class="blank"></div>
+</div>

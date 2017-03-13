@@ -1,0 +1,75 @@
+<!-- 右侧联系我们 -->
+<div style="right:-230px;" class="contactusdiyou">
+  <div class="hoverbtn">
+     <span>联</span><span>系</span><span>我</span><span>们</span>
+     <img class="hoverimg" src="<?php echo $this->_var['TMPL']; ?>/images/hoverbtnbg.gif" height="9" width="13">
+  </div>
+  
+  <div class="conter" >
+
+  <div class="con1"> 
+    <dl class="fn_cle">
+         <dt><img src="<?php echo $this->_var['TMPL']; ?>/images/tel.png" height="31" width="31"></dt>
+         <dd class="f1">客服热线：</dd>
+         <dd class="f2"><span class="ph_num"><?php 
+$k = array (
+  'name' => 'app_conf',
+  'value' => 'SHOP_TEL',
+);
+echo $k['name']($k['value']);
+?></span></dd>
+     </dl>
+  </div> 
+    <div class="blank0"></div>
+  <div class="qqcall"> 
+    <dl class="fn_cle">
+         <dt><img src="<?php echo $this->_var['TMPL']; ?>/images/zxkfqq.png" height="31" width="31"></dt>
+         <dd class="f1 f_s14">在线客服：</dd>
+         <?php $_from = $this->_var['online_qq']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'qq');if (count($_from)):
+    foreach ($_from AS $this->_var['qq']):
+?>
+        <dd class="f2">
+          <span><?php echo $this->_var['qq']['name']; ?></span> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo $this->_var['qq']['qq']; ?>&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:<?php echo $this->_var['qq']['qq']; ?>:51" alt="点击这里给我发消息" title="点击这里给我发消息" width="77" height="22" /></a> 
+        </dd>
+       <?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+        
+               </dl>
+    <div class="blank0"></div>           
+  </div> 
+  <?php if (app_conf ( "APPLE_DOWLOAD_URL" ) || app_conf ( "ANDROID_DOWLOAD_URL" )): ?>
+  <div class="blank0"></div>
+    <div class="weixincall"> 
+    <dl class="fn_cle">
+         <dt><img src="<?php echo $this->_var['TMPL']; ?>/images/weixin.png" height="31" width="31"></dt>
+         <dd class="f1" >下载客户端：</dd>
+
+           <dd class="f3"><img src="<?php 
+$k = array (
+  'name' => 'gen_qrcode',
+  'v' => $this->_var['MOBILE_DOWN_PATH'],
+  's' => '8',
+);
+echo $k['name']($k['v'],$k['s']);
+?>" height="73" width="73"></dd>
+
+     </dl>
+  </div> 
+  <?php endif; ?>
+<div class="blank0"></div>
+  <div class="dytimer">
+     <span style="font-weight: bold;">服务时间：</span>
+     <span><?php 
+$k = array (
+  'name' => 'app_conf',
+  'v' => 'ONLINE_TIME',
+);
+echo $k['name']($k['v']);
+?></span>
+  </div>
+  
+  </div>
+
+</div>
+<div class="diyoumask"></div>
+<!-- 右侧联系我们 -->
+

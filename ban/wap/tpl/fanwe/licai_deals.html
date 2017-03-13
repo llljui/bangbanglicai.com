@@ -1,0 +1,70 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","init#index");
+	$this->_var['back_page'] = "#init";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#init" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll pull-to-refresh-content" data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="licai_deals#index"}">
+<!-- 这里是页面内容区 -->
+<!--理财列表-->
+<ul class="recommended_nav_2 invest">
+{/if}
+	<!-- 默认的下拉刷新层 -->
+    <div class="pull-to-refresh-layer" all_page="{$data.page.page_total}" >
+        <div class="preloader"></div>
+        <div class="pull-to-refresh-arrow"></div>
+    </div>	 
+    <!--mainborder开始-->  
+    {foreach from="$data.list" item="list_item" name="list_items"}  
+	<li class="clearfix">
+		<a href="#" onclick="RouterURL('{wap_url a="index" r="licai_deal" p="id=$list_item.id"}','#licai_deal',2);" >
+		<div class="title_nav public_bor">
+            
+            {if $list_item.c_status eq 0}<span class="state  c666666">{/if}
+            {if $list_item.c_status eq 1}<span class="state  c56b1ea">{/if}
+            <!--<span class="state  ea544a">
+            <span class="state  c66d191">-->
+				{$list_item.status_format}
+			</span>
+			<span class="verticalline"></span>
+            <span class="name">{$list_item.name}</span>
+        </div>
+		<div class="con_height">
+            <div class="content_list">
+                <span class='ea544a'><i class='bold'>{function name="number_format" v=$list_item.average_income_rate f="2"}</i><i class='unit'>%</i></span>
+                <span class='unit'>历史收益率</span>
+                <div class="listbr"></div>
+            </div>
+            <div class="content_list">
+                <span class="">{$list_item.min_money}元</span>
+                <span class='unit'>起购金额</span>
+                <div class="listbr"></div>
+            </div>
+            <div class="content_list">
+                <span>{if $list_item.time_limit}{$list_item.time_limit}个月{else}无期限{/if}</span>
+                <span class='unit'>理财期限</span>
+                <div class="listbr"></div>
+            </div>
+            <div class="content_list">
+            	<span><em class="">{$list_item.subscribing_amount}</em>元</span>
+                <span class='unit'>成交总金额</span>
+            </div>
+        </div>    
+        </a>
+        </li>
+	    {/foreach} 
+	    {if $smarty.request.is_ajax neq 1}
+<!--mainborder结束-->	
+</ul>
+
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+
+{include file="./inc/footer.html"}
+{/if}

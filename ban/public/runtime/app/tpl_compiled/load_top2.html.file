@@ -1,0 +1,69 @@
+<!--<?php if ($this->_var['MODULE_NAME'] <> 'user' && $this->_var['MODULE_NAME'] <> 'manageagency' && $this->_var['MODULE_NAME'] <> 'authorized' && $this->_var['MODULE_NAME'] <> 'agency_money'): ?>-->
+
+<div class="constr" style="width: 100%;padding-left: 76px;">
+	<div class="wrap">
+		 <?php if (app_conf ( "APPLE_DOWLOAD_URL" ) || app_conf ( "ANDROID_DOWLOAD_URL" )): ?>
+        		<div  class="app_down f_l" id="J_APP_DOWN" style="font-size:14px; color:#FF0000;"><a href="<?php 
+$k = array (
+  'name' => 'gen_qrcode',
+  'v' => $this->_var['MOBILE_DOWN_PATH'],
+  's' => '8',
+);
+echo $k['name']($k['v'],$k['s']);
+?>"><i class="iconfont">&#xe613;</i>手机理财</a> 客服热线：400-0588-808</div>
+		<?php endif; ?>
+		<div class="f_r lh30">
+			
+		</div>	
+		<div class="f_r">
+			<ul class="right mt9">
+				<li class="hover_a top_li jcur " >
+					<a href="<?php 
+$k = array (
+  'name' => 'gen_qrcode',
+  'v' => $this->_var['WAP_SITE_PATH'],
+  's' => '8',
+);
+echo $k['name']($k['v'],$k['s']);
+?>" id="weixim">
+					<i class="iconfont">&#xe614;</i>
+					微信
+					</a>
+				</li>
+				<!-- <li class="hover_a top_li">
+					<i class="iconfont">&#xe614;</i>
+					官方QQ群
+				</li> -->
+				<?php if ($this->_var['WAP_SITE_PATH']): ?>
+<!--				<li class="hover_a top_li jcur " >
+					<a href="<?php 
+$k = array (
+  'name' => 'gen_qrcode',
+  'v' => $this->_var['WAP_SITE_PATH'],
+  's' => '8',
+);
+echo $k['name']($k['v'],$k['s']);
+?>" id="weixim">
+					<i class="iconfont">&#xe614;</i>
+					微信
+					</a>
+				</li>-->
+				<?php endif; ?>
+				<li class="top_li"><a href="<?php
+echo parse_url_tag("u:index|helpcenter|"."".""); 
+?>">帮助中心</a></li>
+				<li class=" top_li relative">
+					<div id="user_head_tip">
+						<?php 
+$k = array (
+  'name' => 'load_user_tip',
+);
+echo $this->_hash . $k['name'] . '|' . base64_encode(serialize($k)) . $this->_hash;
+?>
+			      </div>
+			    </li>
+			</ul>
+		</div>	
+	</div>
+</div>
+<!--<?php endif; ?>-->

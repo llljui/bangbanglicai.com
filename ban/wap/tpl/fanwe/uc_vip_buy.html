@@ -1,0 +1,78 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_vip_buy_log#index");
+	$this->_var['back_page'] = "#uc_vip_buy_log";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_vip_buy_log" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<div class="blank10"></div>
+<div class="mainblok mainborder">
+	<div class="detail_list">
+		<ul>
+			<li class="bb1">
+				<label>VIP等级：</label>	
+				<div class="list_con">{if $data.now_vip_grade.vip_grade}{$data.now_vip_grade.vip_grade}{else} 您现在还不是VIP会员 {/if}</div>		
+			</li>
+			<li class="bb1">
+				<label>可购买VIP等级：</label>	
+				<div class="list_con">
+					<select name="vip_id" id="vip_id" class="f_l select">
+						{foreach from=$data.vip_list item="item" key=key }
+						<option value={$item.vip_id}>{$item.vip_grade}</option>
+						{/foreach}
+					</select>
+				</div>		
+			</li>
+			<li class="bb1">
+				<label>购买期限：</label>	
+				<div class="list_con">
+					<select name="years" id="Jvip_years"  class="f_l select"  >
+						<option value=1>1 年</option>
+						<option value=2>2 年</option>
+						<option value=3>3 年</option>
+						<option value=4>4 年</option>
+						<option value=5>5 年</option>
+					</select>
+				</div>		
+			</li>
+			<li class="bb1">
+				<label>原价：</label>	
+				<div class="list_con">
+					<span id="Jvip_original_price" class="f_l">{$data.vip_info.original_price}元</span><br>
+				</div>		
+			</li>
+			<li class="bb1">
+				<label>现价：</label>	
+				<div class="list_con">
+					<span id="Jvip_site_pirce" class="f_l">{$data.vip_info.site_pirce} 元</span>
+				</div>		
+			</li>
+			<li >
+				<label>支付密码：</label>	
+				<div class="list_con">
+					<input type="password" class="ipt pull-left" id="paypassword" name="paypassword" placeholder="请输入您的支付密码" style="width:55%">
+					{if $is_login eq 0}
+						<a href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if});" class="linkbtn pull-right ">设置支付密码</a>
+						{else}
+						<a href="#" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd"}','#reset_pay_pwd',2)" class="linkbtn pull-right">设置支付密码</a>
+						{/if}
+				</div>
+			</li>
+	
+		</ul>
+		
+	</div>
+</div>
+<div class="blank0"></div>
+<div class="w_b but_box_parent padding">
+	<div class=" w_b_f_1 but_box">
+		<input type="hidden" id="vip_data" value='{$data.vip_data}'/>
+		<button class=" bg_ea544a but_this" id="vip_submitt"  >VIP 购买 </button> 
+	</div>
+</div>
+{include file="./inc/footer.html"}
+

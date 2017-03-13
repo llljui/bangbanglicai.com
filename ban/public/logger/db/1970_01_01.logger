@@ -1,0 +1,102 @@
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'PROMOTE_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'DEAL_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) order by id asc limit 1
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1)
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 0 where name = 'DEAL_MSG_LOCK'
+1970-01-01 16:00:00 DEBUG: update fanwe_conf set `value` = 1 where name = 'APNS_MSG_LOCK' and `value` = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_link_group where is_effect = 1 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_link where is_effect = 1 and show_index = 1 and group_id = 7 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_link where is_effect = 1 and show_index = 1 and group_id = 8 order by sort desc
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) 
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=1 order by sort desc
+1970-01-01 16:00:00 DEBUG: select a.*,ac.type_id from fanwe_article as a left join fanwe_article_cate as ac on a.cate_id = ac.id where a.id = 1 and a.is_effect = 1 and a.is_delete = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=2 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=3 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=4 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=5 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=27 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=50 order by sort desc
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_article as a left join fanwe_article_cate as ac on a.cate_id = ac.id where a.is_effect = 1 and a.is_delete = 0 and ac.is_delete = 0 and ac.is_effect = 1  and ac.type_id = 3
+1970-01-01 16:00:00 DEBUG: select a.*,ac.type_id from fanwe_article as a left join fanwe_article_cate as ac on a.cate_id = ac.id where a.is_effect = 1 and a.is_delete = 0 and ac.is_delete = 0 and ac.is_effect = 1  and ac.type_id = 3 order by a.sort desc limit 8
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article_cate where type_id = 1 and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=20
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (20) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=14
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (14) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=2
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (2) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=3
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (3) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=4
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (4) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_deal where is_effect = 1 and deal_status not in (3,5) and is_delete = 0 AND load_money/borrow_amount <= 1 LIMIT 10 
+1970-01-01 16:00:00 DEBUG: select * from fanwe_link_group where is_effect = 1 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_link where is_effect = 1 and show_index = 1 and group_id = 7 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_link where is_effect = 1 and show_index = 1 and group_id = 8 order by sort desc
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_deal_msg_list where is_send = 0 and (send_type = 0 or send_type = 1) 
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=1 order by sort desc
+1970-01-01 16:00:00 DEBUG: select a.*,ac.type_id from fanwe_article as a left join fanwe_article_cate as ac on a.cate_id = ac.id where a.id = 1 and a.is_effect = 1 and a.is_delete = 0
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=2 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=3 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=4 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=5 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=27 order by sort desc
+1970-01-01 16:00:00 DEBUG: select * from fanwe_nav where is_effect = 1 AND pid=50 order by sort desc
+1970-01-01 16:00:00 DEBUG: select count(*) from fanwe_article as a left join fanwe_article_cate as ac on a.cate_id = ac.id where a.is_effect = 1 and a.is_delete = 0 and ac.is_delete = 0 and ac.is_effect = 1  and ac.type_id = 3
+1970-01-01 16:00:00 DEBUG: select a.*,ac.type_id from fanwe_article as a left join fanwe_article_cate as ac on a.cate_id = ac.id where a.is_effect = 1 and a.is_delete = 0 and ac.is_delete = 0 and ac.is_effect = 1  and ac.type_id = 3 order by a.sort desc limit 8
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article_cate where type_id = 1 and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=20
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (20) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=14
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (14) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=2
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (2) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=3
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (3) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_article_cate where pid=4
+1970-01-01 16:00:00 DEBUG: select * from fanwe_article where cate_id in (4) and is_effect = 1 and is_delete = 0 order by sort desc
+1970-01-01 16:00:00 DEBUG: select id from fanwe_deal where is_effect = 1 and deal_status not in (3,5) and is_delete = 0 AND load_money/borrow_amount <= 1 LIMIT 10 

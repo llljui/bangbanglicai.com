@@ -1,0 +1,54 @@
+<div class="tabbox ">
+	<div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index" r="uc_interestrate#index"}">我的加息券</a></div>
+	<div class="tab {if $ACTION_NAME eq 'exchange'}cur{/if}"><a href="{url x="index" r="uc_interestrate#exchange"}">兑换加息券</a></div>
+</div>
+<div class="uc_box bdd bt0 clearfix">
+	{foreach from=$list item=voucher key=key}
+	<div class="interestrate_item">
+		<div class="interestrate_bg pr">
+			
+			{if $voucher.use_limit > 0 && ($voucher.use_limit - $voucher.use_count eq 0)}
+				<div class="tip_bg_i_used ps tc"></div>
+			{elseif $voucher.end_time gt 0 && ($voucher.end_time+24*3600-1) lt TIME_UTC }
+				<div class="tip_bg_i_passed ps tc"></div>
+			{/if}
+			<table>
+				<tr>
+					<td>
+                    	<div class="coupon-type">利息券</div>
+						<div class='num_line'><span class='num'>{function name='number_format' value="$voucher.rate" f="2"}</span>%
+                        </div>
+                        <div class='interestrate_info'>
+                        	<span class="bonus_name">{$voucher.name} x{if $voucher.use_limit eq 0}无限{else}{$voucher.use_limit}{/if}</span>
+                        <br/>
+						<span>有效期：{if $voucher.begin_time eq 0}无限{else}{function name="to_date" value="$voucher.begin_time" f="Y-m-d"}{/if} 
+                        </span>
+                        <span class='to_date'>{if $voucher.end_time gt 0}{$LANG.TO} {function name="to_date" value="$voucher.end_time" f="Y-m-d"}{/if}</span>
+                      </div>
+                      <div class="mask">
+                      	{if $voucher.use_limit == 0 || ($voucher.use_limit - $voucher.use_count gt 0)}
+                    	<a class="mask-btn" href="{url x="index" r="deals"}">投</a>
+                             {if $voucher.to_user_id eq 0}
+                              <a class="mask-btn send" href="{url r="index" x="uc_interestrate#send_interestrate" p="id=$voucher.i_id"}">赠</a>
+                              {/if}
+                         {/if}
+                          <ul>
+                              <li>投资时勾选此券年收益增加<span class="interest-sum">{$voucher.rate_format}</span></li>
+                          </ul>
+                          <a class="detail" href="{url r="index" x="uc_interestrate#detail" p="id=$voucher.ecv_type_id"}">详情&gt;&gt;</a>
+                      </div>
+					</td>
+				</tr>
+			</table>
+            <div class="interestrate_sn">
+                sn：{$voucher.sn}<span class='i_type_{$voucher.use_type}'>【{$voucher.use_type_name}】</span>
+                {if $voucher.use_count}<br />
+                已使用：{$voucher.use_count}次
+                {/if}
+            </div>
+		</div>
+	</div>
+	{/foreach}
+	<div class="blank0"></div>
+	<div class="pages">{$pages}</div>
+</div>

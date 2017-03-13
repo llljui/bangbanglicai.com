@@ -1,0 +1,151 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_borrowed#index",array("id"=>$this->_var['data']['status']));
+	$this->_var['back_page'] = "#uc_borrowed";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_borrowed" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+
+<!--偿还贷款 ==>还款列表 ===>还款-->
+<style>
+.pay_block{ position:static;}
+</style>
+<div class="uc_quick_refund">
+	
+	<div class="head">
+		<h5 class="clearfix bb1">
+			<span class="f_l">{$data.deal.name}</span>
+            <a target="_blank" class="f_r" href="#" onclick="RouterURL('{$data.agree_url}','#deal_contract',2);" >查看电子协议</a>
+		</h5>
+		<ul class="clearfix info_list" style=" line-height:30px;">
+			<li>
+				<span>借款金额</span>
+				<span>{$data.deal.load_money_format}</span>
+			</li>
+			<li>
+				<span>年利率</span>
+				<span class="specialfont">{$data.deal.rate_foramt_w}</span>
+			</li>
+			<li>
+				<span>期限</span>
+				<span>{$data.deal.repay_time}{if $data.deal.repay_time_type eq 0}天{else}个月{/if}</span>
+			</li>
+			<li>
+				<span>已还本息</span>
+				<span>{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$data.deal.repay_money f=2}</span>
+			</li>
+			<li>
+				<span>待还本息</span>
+				<span>{function name="app_conf" v="CURRENCY_UNIT"}{function name="number_format" v=$data.deal.need_remain_repay_money f=2}</span>
+			</li>
+		</ul>
+		
+		
+	</div>
+	
+	<div class="detail_content" style=" padding:0 5px;">
+		<h6 style=" line-height:40px;"><span style="font-size:14px;">还款记录<a hre="#" class="specialfont">(温馨提示：还款应遵循先借先还的准则)</a></span></h6>
+		<dl>
+			{foreach from=$data.loan_list item="item" name="loan_list"}
+			<a href="#" onclick="RouterURL('{wap_url a="index" r="uc_quick_refund_detail" p="id=$data.deal.id&l_key=$item.l_key&return_act=uc_quick_refund&app=1"}','#uc_quick_refund_detail',2);" >
+			<dd>
+				<div class="list_bor">
+					<div class="h clearfix">
+						<span class="Installments">第 {$item.l_key_index} 期</span>
+						<div class="bor clearfix">
+							<span class="Repayment_date f_r tr">{$item.repay_day_format}</span>
+						</div>
+						
+					</div>
+					<div class="p">
+							<div class="check_but">
+								<!-- //has_repay：1：已还款;0:未还款 -->
+								<!-- //status 1提前,2准时还款，3逾期还款 4严重逾期 5部分还款 6还款中 -->
+								
+									{if $item.has_repay eq 0 && $item.flag == 1}
+									<input id="l_key" type="hidden" value="{$item.l_key}" />
+									<input name="status" checked="checked" type="checkbox" value="{$item.i_key}" class="mt"/>
+									{/if}
+						</div>
+						<div class="bor clearfix">
+							    <div class="child">已还总额{$item.month_has_repay_money_all_format}</div>
+								<div class="child">待还总额{$item.month_need_all_repay_money_format}</div>
+								<div class="child">待还本息{$item.month_repay_money_format}</div>
+								<div class="child">管理费{$item.month_manage_money_format}</div>
+								<div class="child">逾期/违约金{$item.impose_all_money_format}</div>
+								{if $data.deal.is_mortgage eq 1}
+								<div class="child">抵押物管理费{$item.mortgage_fee_format}</div>
+								{/if}
+								<div class="child">状态 &nbsp;
+								 
+								{if $item.has_repay eq 1 }
+								{if $item.status eq 4}
+								<span class="c_ff4a4a">{$item.status_format}</span>
+								{else}
+								{$item.status_format}
+								{/if}
+								{else}
+								<span class="c_aad421">
+								{$item.status_format}
+								</span>
+								{/if}
+								</div>
+					     </div>
+					</div>
+				</div>
+			</dd>
+			</a>
+				{/foreach}
+		</dl>
+	</div>
+
+	<div class="clearfix pay_block">
+		<div class="blank10"></div>
+		<div class="detail_list ">
+			<ul>
+				<li class="specialfont bb1" >
+					<label>合计还款</label>
+					<div class="list_con">
+						<span class="f_red">
+						{foreach from=$data.loan_list item="items" name="loan_lists"}
+						{if $items.has_repay eq 0 && $items.flag == 1}
+							{$items.month_need_all_repay_money_format}
+						{/if}
+						{/foreach}
+						</span>
+					</div>
+				</li>
+				<li >
+	                <label>支付密码</label>
+	                <div class="list_con">
+	                    <input id="paypassword" class="ipt pull-left" type="password" placeholder="请输入您的支付密码" style="width:55%" />
+	                    {if $is_login eq 0}
+						<a href="#" onclick="RouterURL('{wap_url a="index" r="login"}','#login'{if $is_weixin},1{/if});" class="linkbtn pull-right ">设置支付密码</a>
+						{else}
+						<a href="#" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd"}','#reset_pay_pwd',2)" class="linkbtn pull-right">设置支付密码</a>
+						{/if}
+					</div>
+				 </li>
+			</ul>
+		</div>
+		
+		<div class="blank0"></div>
+			<div class="w_b but_box_parent padding">
+				<div class="w_b_f_1 but_box">
+				    <a href="#" onclick="RouterURL('{wap_url a="index" r="uc_incharge"}','uc_incharge',2)" class=" but_this">充值</a>
+				</div>
+				<div class="w_b_f_1 but_box">    
+				    <input id="deal_id" type="hidden" value="{$data.deal.id}" />
+				    <a href="#" id="submitt" class="bg_ea544a but_this">确认还款</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{include file="./inc/footer.html"}
+
+
+

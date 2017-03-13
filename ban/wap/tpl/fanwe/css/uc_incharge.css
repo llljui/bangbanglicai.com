@@ -1,0 +1,85 @@
+.figure{
+	border-radius:5px;
+
+	position:relative;
+	margin:0px 10px 10px 10px;
+	height:40px;
+
+}
+.figure span{
+	position:absolute;
+	line-height:40px;
+	font-size:15px;
+	color:@font_black;
+	padding:0 10px;
+	left:0px;
+}
+.figure input{
+	line-height:40px;
+	width:100%;
+	background:none;
+	font-size:14px;
+	color:@font_main;
+	border-radius: 5px;
+    padding: 0 5px;
+    border-width: 0px;
+    border-style:solid;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	background:#fff;
+	border-color:#fff;
+}
+.bank_list{
+	background:@box_color;
+
+}
+.bank_list li{
+	padding-left:10px;
+	padding-right:50px;
+	
+    border-bottom:1px solid @border_color;
+	position:relative;
+}
+.bank_list li:first-child{
+	border-top:1px solid @border_color;
+}
+.pay_detail h5{
+	font-size:15px;
+	line-height:25px;
+	
+}
+.pay_detail{
+	color:@font_black;
+	padding:5px;
+}
+.pay_detail .info .peoplo{
+	padding-right:10px;
+}
+.pay_detail .info{
+	font-size:12px;
+	line-height:20px;
+}
+.pay_detail p{
+	font-size:12px;
+	line-height:20px;
+}
+.inline_pay_img_show{
+	float:left; overflow:hidden; height:35px;max-width:50%;margin:15px 0  0 0px;
+}
+.inline_pay_name{
+	line-height:65px; font-size:18px;
+	padding-left:10px;
+	float:left;
+}
+/*橙色按钮css---本页定位*/
+.mt.dw{
+	position:absolute;
+	right: 15px;
+    top: 25px;
+}
+
+.bank_list{ height:auto;}
+
+
+

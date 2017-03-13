@@ -1,0 +1,174 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<div class="register_login" >	
+<form id="user_getpwd_by_mobile" name="user_getpwd_by_mobile" action="{wap_url a="index" r="wx_do_register"}"  method="post">
+		<div class="bg_fff register_login_pd">
+			<div class="bb1 bor height w_b">
+				 <div class="name">手 机 号</div>
+				 <input value="" id="settings-mobile" name="mobile"  class="r_l_input w_b_f_1"  type="text" placeholder="请输入绑定的手机号码">
+			</div>
+			<div class="bb1 bor height w_b">
+				 <div class="name">验 证 码</div>
+				 <input value=""  id="settings_mobile_code" name="code"  class="r_l_input w_b_f_1" type="text" placeholder="请输入验证码">
+				 <div class="ui-button_getcode_parent" style="  width:6rem;"><input class="ui-button_getcode "  " type="button" value="获取验证码"  id ="btn_send"></div>
+			</div>
+		</div>
+		<div class="register_login_pd">
+			<input type="hidden" name="wx_openid" value="{$wx_info.openid}" id="wx_openid" >
+			<input type="hidden" name="province" value="{$wx_info.province}" id="province">
+			<input type="hidden" name="city" value="{$wx_info.city}" id="city">
+			<input type="hidden" name="user_name" value="{$wx_info.nickname}" id="user_name">
+			<input type="hidden" name="sex" value="{$wx_info.sex}" id="sex">			
+			<input class="ui-button_login r_l_but" type="button"  value="立即绑定"  name="submit_form_up_pwd" id="btn_user_register">
+		</div>		
+		</form>
+</div>
+<script type="text/javascript">
+	
+	var code_left_time_act = null;
+	var code_left_time = 0;
+
+	$(function(){	
+		 $("#user_getpwd_by_mobile").find("input[name='submit_form_up_pwd']").bind("click",function(){
+				do_mobile_getpassword();
+		 });
+		 
+		 
+		$("#btn_send").click(function(){
+			if(localStorage.sendtime !="undefined" &&  parseInt(new Date().getTime()/1000) - localStorage.sendtime < 60){
+				$.toast("发送中，请稍后");
+				return false;
+			}
+			if($("#btn_send").hasClass("dis")) return false;
+			$("#btn_send").addClass("dis");
+			$("#btn_send").css({"color":"#999","background":"#eee"});
+			
+			var mobile=$("#settings-mobile").val();
+			if(!mobile){
+				$("#btn_send").css({"color":"#fff","background":"#FF9600"});
+				$("#btn_send").removeClass("dis");
+				$.toast("请填写手机号码");
+				return false;	
+			}
+			if(mobile.length != 11){
+				$("#btn_send").css({"color":"#fff","background":"#FF9600"});
+				$("#btn_send").removeClass("dis");
+				$.toast("请填写正确的手机号码");
+				return false;	
+			}
+			var query = newObject();
+			query.mobile = mobile;
+			query.post_type = "json";
+			var ajaxurl = '{wap_url a="index" r="send_wx_code"}';
+			//var ajaxurl = "http://p2p.fanwe.net/wap/index.php?ctl=send_register_code&mobile=15060037115&post_type=json";
+			
+			$.ajax({
+				url:ajaxurl,
+				data:query,
+				type:"Post",
+				dataType:"json",
+				success:function(result){
+					if(result.response_code == 1){
+						localStorage.sendtime = parseInt(new Date().getTime()/1000);
+						code_left_time = 60;
+						code_left_time_func();
+						$.toast(result.show_err);
+						return false;
+					}else{
+						$("#btn_send").css({"color":"#fff","background":"#FF9600"});
+						$("#btn_send").removeClass("dis");
+						$.toast(result.show_err);
+						return false;
+					}
+				},error:function(o){
+					//$.alert(o.responseText);
+				}
+			});
+		});
+	});
+	//表单提交
+	function do_mobile_getpassword(){
+		var code_val=$.trim($("#settings_mobile_code").val());
+		var mobile=$.trim($("#settings-mobile").val());
+		
+		var wx_openid=$.trim($("#wx_openid").val());
+		var province=$.trim($("#province").val());
+		var city=$.trim($("#city").val());
+		var user_name=$.trim($("#user_name").val());
+		var sex=$.trim($("#sex").val());
+		if(mobile==""){
+			$.toast("请填写手机号码");
+			return false;	
+		}
+		
+		//$.alert(mobile.length);
+		if(mobile.length != 11){
+			$.toast("请填写正确的手机号码");
+			return false;	
+		}
+		if(code_val==""){
+			$.toast("验证码不能为空");
+ 			return false;
+		}
+
+		
+		var query = newObject();
+		var ajaxurl =$("#user_getpwd_by_mobile").attr("action");
+		//var ajaxurl = '{url a="index" r="wx_do_register"}';
+		//var ajaxurl = APP_ROOT_ORA+'{wap_url a="index" r="wx_do_register"}';
+		query.mobile=mobile;
+		query.code=code_val;
+		query.wx_openid=wx_openid;
+		query.user_name=user_name;
+		query.province=province;
+		query.city=city;
+		query.sex=sex;
+		query.referer = "{$data.wap_referer}";
+		query.post_type = "json";
+		
+  		$.ajax({
+			url:ajaxurl,
+			data:query,
+			type:"post",
+			dataType:"json",
+			success:function(data){
+ 		   		if(data.status==1){
+					$.toast(data.info);
+					window.location.href="{wap_url a="index" r="uc_center"}";
+ 				}else{
+					$.toast(data.info);
+				}
+		   },error:function(){
+				//$.alert("服务器提交错误");
+			}
+		});
+		
+	}
+	
+
+function code_left_time_func(){
+	clearTimeout(code_left_time_act);
+	if(code_left_time > 0){
+		$("#btn_send").val(code_left_time + "秒后重新发送" );
+		$("#btn_send").addClass("dis");
+		$("#btn_send").css({"color":"#999","background":"#eee"});
+		code_left_time --;
+		code_left_time_act = setTimeout(code_left_time_func,1000);
+	}
+	else{
+		$("#btn_send").css({"color":"#fff","background":"#FF9600"});
+		$("#btn_send").removeClass("dis");
+		$("#btn_send").val("重新发送" );
+	}
+}	
+	
+		
+</script> 
+{include file="./inc/footer.html"}
+
+
+

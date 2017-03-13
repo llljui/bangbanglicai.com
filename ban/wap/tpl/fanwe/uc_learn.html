@@ -1,0 +1,200 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_center#index");
+	$this->_var['back_page'] = "#uc_center";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_center" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<div class="experience">
+	<div class="w_b first_f">
+		<div class="w_b_f_1">
+			<p class="name">体验金金额</p>
+			<p class="num cec534b">{function name="number_format" v=$data.learn_balance f=2}</p>
+			<p class="unit">(元)</p>
+		</div>
+		<div class="w_b_f_1">
+			<p class="name">已领取收益</p>
+			<p class="num c57b0e8">{function name="number_format" v=$data.has_lead_interest f=2}</p>
+			<p class="unit">(元)</p>
+		</div>
+		<div class="w_b_f_1">
+			<p class="name">待领取收益</p>
+			<p class="num c666666">{function name="number_format" v=$data.no_lead_interest f=2}</p>
+			<p class="unit">(元)</p>
+		</div>
+		<div class="w_b_f_1">
+			          {if $data.no_lead_interest neq 0}
+						<button type="button" class="j_do_interest get_earnings" >领取收益</button>
+					{else}
+						<button type="button" class="get_earnings gray" >领取收益</button>
+					{/if}
+		</div>
+	</div>
+	
+	<div class="blank055"></div>
+	
+	<div class="second_f bg_fff">
+		<ul class="recommended_nav_2">
+			<li class="clearfix">
+				<div class="title_nav public_bor">
+					<span class="name">{$data.learn_info.name}</span>
+					<span class="f_r yield">预计收益:<i class="ea544a">{function name="number_format" v=$data.uc_interest f=2}</i>元</span>
+					</div>
+					<div class=" con_height">
+						<div class="  w_b  pt tc">
+							<div class=" tl lv">
+								{if $data.learn_info}
+									<i class="big">{$data.learn_info.rate}</i><i class="unit">%</i>
+								{else}
+									<span class="no">暂无数据</span>
+								{/if}
+							</div>
+							<div class=" tl je">
+								{if $data.learn_info}
+									<i class="small">{function name="replacemoney" v=$deal.borrow_amount}</i><i class="unit">万</i>
+								{else}
+									<span class="no">暂无数据</span>
+								{/if}
+							</div>
+							<div class=" tl sj">
+								{if $data.learn_info}
+						         	<i class="small">{$data.learn_info.time_limit} </i><i class="unit">天</i>
+								{else}
+									<span class="no">暂无数据</span>
+								{/if}
+							</div>
+						<div class="w_b_f_1"></div>
+						<div  class="progress-radial_parent ">
+							
+							{if $data.learn_balance neq 0}
+							<input type="hidden" name="learn_id" id="learn_id" value="{$data.learn_info.id}" />
+							<input type="hidden" name="money" id="money" value="{$data.learn_balance}" />
+							{if $data.learn_info.load_money gt $data.has_send_money }
+								<button class="progress-radial  progress-50 progress-tx fd7e55 J_do_invest"><b></b></button>
+							{else}
+								<button class="progress-radial progress-50 progress-tx c999999 "><b></b></button>
+							{/if}
+							
+						{else}
+							<button class="progress-radial progress-50 progress-tx c999999 "><b></b></button>
+						{/if}
+						</div>
+					</div>				
+			</li>
+		</ul>
+	</div>
+			
+   <div class="choose">
+		<table>
+			<tr>
+				<th  {if $data.t eq ''}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_learn"}','#{$data.act}','.experience')">获取记录</a></th>				
+			    <th  {if $data.t eq 'load'}class="y"{/if}><a href="#" onclick="reloadpage('{wap_url a="index" r="uc_learn" p="t=load"}','#{$data.act}','.experience')">投资记录</a></th>
+			</tr>
+		</table>
+	</div>
+  
+  <div class="blank055"></div>
+  
+  <div class="tabs">
+    <div id="tab1" class="tab active">
+      <div class="content-block no_p no_m">
+      <ul class="record">
+ {/if}
+ 
+     {if $data.t eq ''}		
+      	{foreach from="$data.learn_send_list" item="learn" }
+      	<li class="clearfix">
+      		<div class="name">第 {$learn.key} 条</div>
+			<div class="con_50 f_l">
+				<span class="name">获取金额</span>
+				<span class="con">￥{$learn.money}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">获取来源</span>
+				<span class="con">
+				               	{if $learn.type eq 0} 
+										注册赠送
+									{/if}
+									{if $learn.type eq 1} 
+										邀请赠送
+									{/if}
+									{if $learn.type eq 2} 
+										管理员发放
+									{/if}
+			    </span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">状态</span>
+				<span class="con ea544a">
+					{if $learn.is_recycle eq 0}
+						{if $learn.is_use eq 0}未投资{else}已投资{/if}
+					{else}
+					被回收
+					{/if}
+				</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">获取时间</span>
+				<span class="con">{$learn.begin_date}</span>
+			</div>
+			<div class="con_100 f_l">
+				<span class="name">有效期</span>
+				<span class="con">{$learn.begin_date} 至 {$learn.end_date}</span>
+			</div>
+      	</li>
+		{/foreach}		
+	{else}		
+		{foreach from="$data.learn_load_list" item="learn" }
+      	<li class="clearfix">
+      		<div class="name">第 {$learn.key} 条</div>
+			
+			<div class="con_50 f_l">
+				<span class="name">投资时间</span>
+				<span class="con">
+				      {$learn.create_date}
+			    </span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">投资金额</span>
+				<span class="con">￥{$learn.money}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">产品名称</span>
+				<span class="con ea544a">{$learn.name}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">期限</span>
+				<span class="con">{$learn.time_limit} 天</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">年化收益率</span>
+				<span class="con">{$learn.rate} %</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">预期收益</span>
+				<span class="con">{function name="number_format" v=$learn.interest f=2}</span>
+			</div>
+			<div class="con_50 f_l">
+				<span class="name">状态</span>
+				<span class="con">{$learn.state}</span>
+			</div>
+      	</li>
+		{/foreach}		
+	{/if}
+{if $smarty.request.is_ajax neq 1}		
+      </ul>
+      </div>
+    </div>
+  </div>  
+</div>
+ <!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}

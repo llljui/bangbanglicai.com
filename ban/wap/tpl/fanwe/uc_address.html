@@ -1,0 +1,104 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","goods_address#index");
+	$this->_var['back_page'] = "#goods_address";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#goods_address" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+
+
+  <div class="list-block">
+    <ul>
+      <!-- Text inputs -->
+      <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">姓名</div>
+            <div class="item-input">
+              <input type="text" id="name" name="name" value="{$data.user_address.name}" placeholder="请输入姓名" />
+            </div>
+          </div>
+        </div>
+      </li>
+	  <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">电话号码</div>
+            <div class="item-input">
+              <input type="text" id="phone" name="phone" value="{$data.user_address.phone}" placeholder="请输入电话号码" data-rules="required|mobile"/>
+            </div>
+          </div>
+        </div>
+      </li>
+	  
+	  <li>
+        <div class="item-content">
+		 <div class="item-inner">
+            <div class="item-title label">邮编</div>
+            <div class="item-input">
+              <input type="text" id="zip_code" name="zip_code" value="{$data.user_address.zip_code}" placeholder="请输入邮编"/>
+            </div>
+          </div>
+        </div>
+      </li>     
+	  <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">省市</div>
+            <div class="item-input">
+              <input type="text"  id="provinces_cities" name="provinces_cities" value="{$data.user_address.provinces_cities}" placeholder="请输入省市"/>
+            </div>
+          </div>
+        </div>
+      </li>
+     <li class="align-top">
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">详细地址</div>
+            <div class="item-input">
+              <textarea id="address" name="address" value="{$data.user_address.address}" placeholder="请输入详细地址">{$data.user_address.address}</textarea>
+			</div>
+          </div>
+        </div>
+      </li>
+	  <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">默认地址</div>
+            <div class="item-input">
+            	<input type="hidden" id="id_val" name="id" value="{$data.user_address.id}" />
+              <label class="label-switch">
+                <input type="checkbox" {if $data.user_address.is_default eq 1} checked="checked"{/if}  id="is_default" name="is_default" value="1">
+                <div class="checkbox"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="content-block">
+    <div class="row">
+    	{if $data.user_address.id }
+       <div class="col-50"><a href="#" class="button button-big button-fill button-danger"  id="del_submitt">删除收货地址</a></div>
+       <div class="col-50"><a href="#" class="button button-big button-fill button-success"  id="submitt">提交</a></div>
+	   {else}
+	   <div class="col-50"><a href="#" onclick="RouterURL('{wap_url x="index" r="goods_address"}','#goods_address');" class="button button-big button-fill button-danger">取消</a></div>
+       <div class="col-50"><a href="#" class="button button-big button-fill button-success"  id="submitt">提交</a></div>
+	   {/if}
+    </div>
+  </div>
+
+<div class="blank30"></div>
+{include file="./inc/footer.html"}
+
+
+
+
+
+
+

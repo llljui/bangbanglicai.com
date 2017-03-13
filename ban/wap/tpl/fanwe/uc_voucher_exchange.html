@@ -1,0 +1,73 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_voucher#index");
+	$this->_var['back_page'] = "#uc_voucher";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_voucher" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+
+<!--收货地址-->
+<div class="blank15"></div>
+
+{foreach from=$data.item item=ecv key=key}
+<div class="voucher_ex_block ">
+	<ul>
+		<li >
+			<span class="name">红包名称:</span>
+         	{$ecv.name} 	
+		</li>
+		<li >
+			<span class="name">红包金额:</span>
+            {$ecv.money}
+		</li>
+		<li >
+			<span class="name">兑换积分:</span>
+			{function name="format_score" value=$ecv.exchange_score}
+		</li>
+		
+		<li class="ex">
+			{if $ecv.begin_time neq 0 && $ecv.begin_time gt $data.nowtime }
+				<a class="gq_exchange">未开始</a>
+			{elseif $ecv.end_time neq 0 && $data.nowtime gt $ecv.end_time }
+				<a class="gq_exchange" style="">已结束</a>
+			{else}
+				<a class="exchange" href="#" url="{wap_url a="index" r="uc_voucher_do_exchange"}" data-id="{$ecv.id}">兑换</a>
+			{/if}
+		</li>
+	</ul>
+	<div class="blank0"></div>
+</div>
+
+<div class="blank15"></div>
+{/foreach}
+{if $pages}
+<div class="fy">
+	{$pages}
+</div>
+{/if}
+<div class="exbox">	
+	<div class="t">序列号兑换红包</div>
+	<div class="bx tc">	
+		<form name="sn_exchange" id="sn_exchange"  method="post" action="{wap_url x="index" r="uc_voucher_do_snexchange"}">
+			<div class="field ">
+				<input class="f-input mainborder " id="sn" name="sn" type="text" placeholder="请输入红包兑换的序列号" />
+			</div>			
+			<div class="blank10"></div>
+			<div class="field ">
+				<input type="hidden" name="post_type" value="json" />
+				<button class="snexchange" type="submit">立即兑换</button>
+			</div>
+			<div class="blank055"></div>
+		</form>
+	</div><!--end content-->
+</div>
+<!--end exchange-->
+{include file="./inc/footer.html"}
+
+
+
+
+
+

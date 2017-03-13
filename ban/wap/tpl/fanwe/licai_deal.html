@@ -1,0 +1,208 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","licai_deals#index");
+	$this->_var['back_page'] = "#licai_deals";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#licai_deals" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--理财详情页-->
+<div class="detail">
+{if $smarty.request.view_data neq '1'}
+		<div class="mainblok mainborder">
+            <div class="detail_tit">
+                <h3>{$data.licai.name}</h3>
+            </div>
+       </div>
+       <div class="blank10"></div>
+        <div class="mainblok mainborder">
+            <div class="detail_list">
+                 <ul>
+                    <li class="bb1">
+                        <label>借款编号</label>
+                        <div class="list_con">{$data.licai.licai_sn}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>成交总额</label>
+                        <div class="list_con">{$data.licai.subscribing_amount_format}&nbsp; 元</div>
+                    </li> 
+                    <li class="bb1">
+                        <label>预期收益率</label>
+                        <div class="list_con">
+                        {if $data.licai.scope}
+                            {$data.licai.scope}
+                        {else}
+                            {if $data.licai.type eq 0}
+                                {function name="number_format" v=$data.licai.average_income_rate f="2"}%
+                            {else}
+                                {function name="number_format" v=$data.min_interest_rate f=2}%起
+                            {/if}
+                        {/if}
+                        </div>
+                    </li>
+                    <li class="bb1">
+                        <label>理财期限</label>
+                        <div class="list_con">
+                            {if $data.licai.type > 0}
+                                {if $data.licai.time_limit}{$data.licai.time_limit}个月{else}无限期{/if}
+                            {else}
+                                {$data.licai.end_date}
+                            {/if}
+                        </div>
+                    </li>
+                    <li class="bb1">
+                        <label>最低投资额</label>
+                        <div class="list_con">{$data.licai.min_money_format_num}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>产品规模</label>
+                        <div class="list_con">{$data.licai.product_size_format_num}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>到期时间</label>
+                        <div class="list_con">{if to_timespan($data.licai['end_date']) eq 0}永久有效{else}{$data.licai.end_date}{/if}</div>
+                    </li>
+                    <li class="bb1">
+                        <label>收益方式</label>
+                        <div class="list_con">{function name='msubstr' v="$data.licai.profit_way" }</div>
+                    </li>
+                    <li class="bb1">
+                        <label>购买时间</label>
+                        <div class="list_con">
+                            <span class="sp3" data="{function name='to_timespan' v="$data.licai.end_buy_date"}" id="left_time">
+                            <em class="s day">--</em>
+                            <em class="l">天</em>
+                            <em class="s hour">--</em>
+                            <em class="l">时</em>
+                            <em class="s min">--</em>
+                            <em class="l">分</em>
+                            <em class="s sec">--</em>
+                            <em class="l mr0">秒</em>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+         </div><!--mainblok——end--> 
+        {/if}
+		{if $data.licai.type == 0}
+            {if $data.table_status eq 1}
+               {if $smarty.request.view_data neq '1'}
+                <div class="blank15"></div>
+                <div class="mainblok mainborder">
+                    <div class="detail_list sp_list">
+                    <ul><li style="border-bottom:none"><label>收益率表</label></li></ul>
+                    </div>
+                    <div class="deal_middle_bd">
+                        {/if}
+                        <div id='data_table' style="background: #fff">
+                        </div>
+                         {if $smarty.request.view_data neq '1'}
+                    </div>
+                </div><!--mainblok——end-->
+               {/if} 
+            {/if}
+        {/if}
+        {if $smarty.request.view_data neq '1'}
+		<div class="blank15"></div>
+       
+        <div class="mainblok mainborder">
+            <div class="detail_list">
+                <ul>
+                    <li class="bb1">
+                        <label>可用余额</label>
+                        <div class="list_con">
+                        	<em class="f_red">{function name="format_price" v=$data.user_info.money" f=2}</em>元
+							{if $is_login eq 0}
+							<a href="{wap_url a="index" r="login" p="epage=licai_deal"}" class="linkbtn {if $is_weixin}external{/if}">我要充值</a>
+							{else}
+							<a href="{wap_url a="index" r="uc_incharge" p="epage=licai_deal"}" class="linkbtn">我要充值</a>
+							{/if}
+						</div>
+                    </li>
+					
+					 <li class="bb1">
+                        <label>购买金额</label>
+						
+                        <div class="list_con" >
+                        	<input type="hidden" name="id" id="id" value="{$data.licai.id}" />
+							<input type="hidden" name="tc_money" id="tc_money" value="{$data.user_info.money}" />
+                        	<input type="hidden" name="min_money" id="min_money" value="{$data.licai.min_money}" />
+                            <input type="hidden" name="income_money" value="" class="textbox" readonly="readonly" />
+                            <input type="hidden" name="income_money_val" value="1.18" />
+                        	<input type="text" name="money" id="money" value="" class="ipt pull-left" placeholder="输入金额" autocomplete="off" style="width:50%" />
+							<input type="hidden" id='ajax_url' value= "{wap_url a="index" r="licai_bid"}" />
+                        </div>
+                     </li>
+                     
+                     <li class="bb1">
+                     	 <label>预计收益</label>
+                     	<div class="list_con f_red">¥ <span class="J_u_money_sy f_red">0.00</span></div>
+                     </li>
+					
+					{if $data.ecv_list}
+					<li class="bb1">
+                        <label>使用红包</label>
+                        <div class="list_con" style="height:75px">
+                        	<select name="ecv_id" id="ecv_id">
+                        		<option value="0">选择红包</option>
+								{foreach from="$data.ecv_list" item="ecv"}
+								<option value="{$ecv.id}">{$ecv.name}[抵{$ecv.money}元]</option>
+								{/foreach}
+                        	</select>
+							<br>
+							<span class="f_red">超出部分不返还</span>
+                        </div>
+						
+                     </li>
+					{/if}
+                   
+					<li class="reset_pay_pwd">
+                    	<label>支付密码</label>
+                        <div class="list_con">
+                        <input id="pay_inmoney_password" class="ipt pull-left" type="password" placeholder="请输入您的支付密码" style="width:55%" />
+                        {if $is_login eq 0}
+							<a href="#" onclick="RouterURL('{wap_url a="index" r="login" p="epage=licai_deal"}','#login'{if $is_weixin},1{/if});" class="linkbtn pull-right ">设置支付密码</a>
+							{else}
+							<a href="#" onclick="RouterURL('{wap_url a="index" r="reset_pay_pwd" p="epage=licai_deal"}','#reset_pay_pwd',2)" class="linkbtn pull-right">设置支付密码</a>
+							{/if}
+						</div>
+                     
+					 </li>
+                </ul>
+            </div>
+			
+        </div><!--mainblok——end--> 
+   </div>
+<div class="w_b but_box_parent padding">
+    <div class="w_b_f_1 but_box">
+	    <a href="#" onclick="RouterURL('{wap_url a="index" r="licai_deal_detail" p="id=$data.licai.id"}','#licai_deal_detail',2);" class="but_this">查看详情</a>
+	</div>
+    <div class="w_b_f_1 but_box">
+	{if $is_login eq 1}
+       <div id="pay_deal" class="bg_ea544a but_this">我要投资</div>
+	{else}
+       <a href="#" onclick="RouterURL('{wap_url a="index" r="login" p="epage=licai_deal"}','#login'{if $is_weixin},1{/if});" class="bg_ea544a but_this">我要投资</a>
+	{/if}
+    </div>
+</div>
+   {/if}
+   <div class="hide">
+   		{if $data.licai.type eq 0}
+   		<div id='h_show_pic'>{if $data.data_table}{foreach from="$data.data_table" item=item name="dt"}{$item.history_md},{$item.rate}{if !$smarty.foreach.dt.last},_{/if}{/foreach}{/if}</div>
+        {/if}
+        <div id='h_system_time'><?php echo TIME_UTC;?></div>
+        <div id='h_licai_type'>{$data.licai.type}</div>
+        <div id='h_licai_interest_json'>{$data.licai_interest_json}</div>
+        <div id='h_before_day'>{$data.licai.before_day}</div>
+        <div id='h_buy_day'>{$data.licai.buy_day}</div>
+        <input type="hidden" id='load_url' value= "{wap_url a="index" r="licai_deal" p="id=$data.licai.id"}" />
+   </div>
+{include file="./inc/footer.html"}
+
+
+
+
+

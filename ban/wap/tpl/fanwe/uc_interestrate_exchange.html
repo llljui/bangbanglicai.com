@@ -1,0 +1,72 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","uc_interestrate#index");
+	$this->_var['back_page'] = "#uc_interestrate";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#uc_interestrate" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+<!--我的加息券-->
+<div class="blank15"></div>
+
+{foreach from=$data.item item=ecv key=key}
+<div class="voucher_ex_block ">
+	<ul>
+		<li >
+			<span class="name">加息券名称:</span>
+         	{$ecv.name} 	
+		</li>
+		<li >
+			<span class="name">加息券利率:</span>
+            {$ecv.rate_format}
+		</li>
+        <li >
+			<span class="name">有效时间:</span>
+            {$ecv.begin_date} 至 {$ecv.end_date}
+		</li>
+		<li >
+			<span class="name">兑换积分:</span>
+			{function name="format_score" value=$ecv.exchange_score}
+		</li>
+        
+		
+		<li class="ex">
+			<a class="exchange" href="#" url="{wap_url a="index" r="uc_interestrate_do_exchange"}" data-id="{$ecv.id}">兑换</a>
+		</li>
+	</ul>
+	<div class="blank0"></div>
+</div>
+
+<div class="blank15"></div>
+{/foreach}
+{if $pages}
+<div class="fy">
+	{$pages}
+</div>
+{/if}
+<div class="exbox">	
+	<div class="t">序列号兑换加息券</div>
+	<div class="bx tc">	
+		<form name="sn_exchange" id="sn_exchange"  method="post" action="{wap_url x="index" r="uc_interestrate_do_snexchange"}">
+			<div class="field ">
+				<input class="f-input mainborder " name="sn" type="text" placeholder="请输入加息券兑换的序列号" />
+			</div>			
+			<div class="blank10"></div>
+			<div class="field ">
+				<button class="snexchange" type="submit">立即兑换</button>
+			</div>
+			<div class="blank055"></div>
+		</form>
+	</div><!--end content-->
+</div>
+<!--end exchange-->
+
+{include file="./inc/footer.html"}
+
+
+
+
+
+

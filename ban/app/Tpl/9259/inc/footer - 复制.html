@@ -1,0 +1,126 @@
+</div>
+{if $MODULE_NAME != 'deals'&& $MODULE_NAME != 'transfer'}
+<div class="blank20"></div>
+{/if}
+
+<div id="ftw">	
+	<div id="ft">
+		{if $MODULE_NAME <> 'user' && $MODULE_NAME <> 'manageagency' && $MODULE_NAME <> 'authorized' && $MODULE_NAME <> 'agency_money'}
+		
+		<div class="wrap">
+			{if $f_link_data}
+				{foreach from=$f_link_data item=link_group}	
+				{if $link_group.name eq '合作伙伴'}	
+				    	<div class="link partner">
+				    		<!---
+					<h3 {if $link_group.name eq '友情链接'}class="yqlj"{/if} {if $link_group.name eq '合作伙伴'}class="hzhb"{/if} >{$link_group.name}</h3>
+					-->
+					<div class="blank10"></div>
+					<h3 style="font-size:15px;">{$link_group.name}</h3>
+					<div class="blank10"></div>
+					<ul {if $link_group.name eq '合作伙伴'}class="td"{/if}>
+					{foreach from=$link_group.links item=link}
+						<li><a href="http://{$link.url}" target="_blank" title="{if $link.description}{$link.description}{else}{$link.name}{/if}" {if $link_group.name eq '合作伙伴'}	class="bor_hover"{/if}>{if $link.img neq ''}<img src='{$link.img}' alt="{if $link.description}{$link.description}{else}{$link.name}{/if}" />{else}{$link.name}{/if}</a></li>
+					{/foreach}
+					</ul>
+					</div>	
+					<div class="blank10"></div>	
+					{/if}
+				{/foreach}
+				{/if}
+		</div>
+		{/if}
+		<div class="ftbj">
+			{if $MODULE_NAME <> 'user' && $MODULE_NAME <> 'manageagency' && $MODULE_NAME <> 'authorized' && $MODULE_NAME <> 'agency_money'}
+		<div class="wrap">
+			<div class="blank10"></div>
+			{if $f_link_data}
+				{foreach from=$f_link_data item=link_group}	
+				{if $link_group.name eq '友情链接'}
+				    <div class="link partner">
+				    	<!--
+					<h3 {if $link_group.name eq '友情链接'}class="yqlj"{/if} {if $link_group.name eq '合作伙伴'}class="hzhb"{/if} >{$link_group.name}</h3>
+					-->
+					<h3 class="f_l">{$link_group.name}：</h3>
+					<ul {if $link_group.name eq '合作伙伴'}class="td"{/if}>
+					{foreach from=$link_group.links item=link}
+						<li><a href="http://{$link.url}" target="_blank" title="{if $link.description}{$link.description}{else}{$link.name}{/if}">{if $link.img neq ''}<img src='{$link.img}' alt="{if $link.description}{$link.description}{else}{$link.name}{/if}" />{else}{$link.name}{/if}</a></li>
+					{/foreach}
+					</ul>
+					</div>	
+					<div class="blank1"></div>	
+					{/if}
+				{/foreach}
+				{/if}
+				<div class="blank10"></div>
+				<div class="footer_line3"></div>
+		</div>
+		{/if}
+		{if $MODULE_NAME <> 'user' && $MODULE_NAME <> 'manageagency' && $MODULE_NAME <> 'authorized' && $MODULE_NAME <> 'agency_money'}
+        		
+    	<div class="wrap ">
+    		<div class="blank20"></div>
+			<div style="padding-bottom:20px;">
+	            <ul class="cf f_l f_box">
+	            	{foreach from=$deal_help item=help_cate name="help_cate"}
+					{if $smarty.foreach.help_cate.iteration <= app_conf('HELP_CATE_LIMIT')}
+					<li class="col hp{$smarty.foreach.help_cate.iteration}{if $smarty.foreach.help_cate.last} end{/if}">
+	                    <h3 class="f_l">{$help_cate.title}</h3>
+						<div class="blank0"></div>
+	                    <ul class="sub-list">
+							{foreach from=$help_cate.help_list item=help_item name="help_item"}
+							{if $smarty.foreach.help_item.iteration <= app_conf('HELP_ITEM_LIMIT')}
+							<li><a href="{$help_item.url}" {if $help_item.new eq 1}target="_blank"{/if}>{$help_item.title}</a></li>
+							{/if}
+							{/foreach}  
+							<li class="blank0"></li>           
+						</ul>
+						<div class="blank0"></div>
+	                </li> 
+					{/if}
+					{/foreach}
+					
+				
+					<li class="blank0"></li>  
+	            </ul>
+				<div class="f_r customer">
+					
+					<div class="telphone f_r">
+						<div class="f_r">
+							<span class="telep b">{function name="app_conf" v="SHOP_TEL"}</span>
+							<span class="time f12">{function name="app_conf" v="ONLINE_TIME"}</span>
+						</div>
+						<i class="iconfont f_r mt1" style="font-size:75px;line-height:50px;">&#xe61f;</i>
+					</div>
+					<div class="blank30"></div>
+					<div class="copy_right tr">
+							{function name="app_conf" value="SHOP_FOOTER"} 
+					<div class="blank1"></div>
+					{function name="app_conf" value="ICP_LICENSE"}&nbsp;&nbsp;
+					{function name="app_conf" value="COUNT_CODE"}
+					</div>
+				</div>
+
+				<div class="blank25"></div>
+
+				<div class="blank0"></div>
+			</div>
+			
+		</div>
+		{/if}
+				
+		</div>	
+	</div>
+	{if $online_qq}
+	{include file="inc/kefu.html"}
+	{/if}
+	<div id="gotop"></div>
+	{if $MODULE_NAME neq 'guide'}
+<script type="text/javascript" defer="defer">
+	resetWindowBox();
+</script>
+{/if}
+</div>
+
+</body>
+</html>

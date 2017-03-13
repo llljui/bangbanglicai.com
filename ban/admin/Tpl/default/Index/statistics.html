@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:conf("APP_NAME")}{:l("ADMIN_PLATFORM")}</title>
+<script type="text/javascript" src="__ROOT__/public/runtime/admin/lang.js"></script>
+<script type="text/javascript">
+	var version = '{:app_conf("DB_VERSION")}';
+	var app_type = '{$apptype}';
+	var ofc_swf = '__TMPL__Common/js/open-flash-chart.swf';
+	var sale_line_data_url = '{:urlencode(u("Ofc/sale_line"))}';
+	var sale_refund_data_url = '{:urlencode(u("Ofc/sale_refund"))}';
+</script>
+<load href='__TMPL__Common/style/style.css' />
+<load href='__TMPL__Common/style/main.css' />
+<load href='__TMPL__Common/js/jquery.js' />
+<load href='__TMPL__Common/js/swfobject.js' />
+<load href='__TMPL__Common/js/main.js' />
+</head>
+
+<body>
+	<div class="main">
+		<div class="main_title">最近30天运营数据</div>
+		<table width=100%>
+			
+			<tr>
+				<td width=10>&nbsp;</td>
+				<td width=90%>
+					<div id="sale_line_data_chart"></div>
+				</td>
+				<td width=10>&nbsp;</td>
+			</tr>
+		</table>
+		<div class="blank5"></div>
+		<div class="blank5"></div>
+		<div class="blank5"></div>
+		<div class="blank5"></div>
+		
+		<div class="main_title">网站统计信息</div>
+		<div class="notify_box notify_boxB">
+			<table>
+				<tr>
+					<td class="statbox statboxB order_box" >
+						<table>
+							<tr>
+								<th>会员统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+		                    			<span class="t">会员总数：</span><span class="bx"><a href="{:u("User/index")}">{$user_count}</a></span>
+									</div>
+									<div class="blank0"></div>
+									<div class="row">
+		                    			<span class="t">有效账户：</span><span class="bx"><a href="{:u("User/index",array("is_effect"=>1))}"><if condition="$effect_user[0]['is_effect'] eq 1">{$effect_user.0.total_user}<else />0</if></a></span>
+									</div>
+									<div class="blank0"></div>
+									<div class="row">
+		                    			<span class="t">无效账户：</span><span class="bx"><a href="{:u("User/index",array("is_effect"=>0))}"><if condition="$effect_user[0]['is_effect'] eq 0">{$effect_user.0.total_user}<elseif condition="$effect_user[1]['is_effect'] eq 0" /><php>if($effect_user[1]['total_user'] > 0){ echo $effect_user[1]['total_user'];}else{ echo  0;} </php><else />0</if></a></span>
+									</div>
+									<div class="blank0"></div>
+									<div class="row">
+		                    			<span class="t">回收站用户：</span><span class="bx"> <a href="{:u("User/trash")}">{$trash_user_count}</a></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+		            <td class="statbox statboxB version_box" >
+						<table>
+							<tr>
+								<th>认证统计</th>
+							</tr>
+							<tr>
+								<td>
+									<foreach name="credit_types" item="credit">
+										<div class="row">
+			                    			<span class="t">通过{$credit.type_name}：</span><span class="bx"><a href="{:u("Credit/user_success",array("type"=>$credit['type']))}">{$credit.user_count}</a></span>
+										</div>
+									</foreach>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+                <if condition="C('LICAI_OPEN') eq 1">
+				<tr>
+					<td class="statbox statboxB user_box">
+						<table>
+							<tr>
+								<th>理财统计</th>
+							</tr>
+							<tr>
+								<td>   
+									<div class="row">
+										<span class="t">待审核：</span><span class="bx"><a href="{:u("Licai/verify")}">{$licai.verify_count}个</a></span>
+									</div>
+									<div class="row">
+										<span class="t">理财个数：</span><span class="bx"><a href="{:u("Licai/index")}">{$licai.count}个</a></span>
+									</div>
+									<div class="row">
+										<span class="t">理财订单：</span><span class="bx"><a href="{:u("LicaiOrder/order_list")}">{$licai.order_count}个</a></span>
+									</div>
+									<div class="row">
+										<span class="t">垫付单：</span><span class="bx"><a href="{:u("LicaiAdvance/index")}">{$licai.advance_count}个</a></span>
+									</div>  
+                                    
+									<div class="row">
+										<span class="t">理财期赎回：</span><span class="bx"><a href="{:u("LicaiRedempte/index")}">{$licai.redempte_count}个</a></span>
+									</div>
+									<div class="row">
+										<span class="t">预热期赎回：</span><span class="bx"><a href="{:u("LicaiRedempte/before_index")}">{$licai.wait_redempte_count}个</a></span>
+									</div>
+                                    
+                                    <div class="row">
+										<span class="t">快到期：</span><span class="bx"><a href="{:u("LicaiNear/index")}">{$licai.near_count}个</a></span>
+									</div>
+                                    
+                                    <div class="row">
+										<span class="t">已发放：</span><span class="bx"><a href="{:u("LicaiSend/index")}">{$licai.send_count}个</a></span>
+									</div>
+                                       
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				</if>
+				<tr>
+					<td class="statbox statboxB tuan_box">
+						<table>
+							<tr>
+								<th>资金进出统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+										<span class="t">线上充值：</span><span class="bx"><a href="{:u("PaymentNotice/index",array('no_payment_id'=>$below_pay_id,'is_paid'=>1))}">{:number_format($online_pay,2)}</a></span>
+									</div>
+                                    <div class="row">
+										<span class="t">第三方充值：</span><span class="bx"><a href="{:u("Ipslog/recharge")}">{:number_format($secend_pay,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">线下充值：</span><span class="bx"><a href="{:u("PaymentNotice/online",array('payment_id'=>$below_pay_id,'is_paid'=>1))}">{:number_format($below_pay,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">管理员充值：</span><span class="bx"><a href="{:u("User/fund_management",array('cate'=>13))}">{:number_format($manage_recharge,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">管理员提现：</span><span class="bx"><a href="{:u("Index/manage_carry")}">{:number_format($manage_carry,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">成功提现：</span><span class="bx"><a href="{:u("UserCarry/success")}">{:number_format($carry_amount,2)}</a></span>
+									</div>
+                                    <div class="row">
+										<span class="t">第三方提现：</span><span class="bx"><a href="{:u("Ipslog/transfer")}">{:number_format($secend_carry_amount,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">总计：</span><span class="bx"><a href="{:u("User/fund_management")}">{:number_format($total_usre_money,2)}</a></span>
+									</div>
+						
+							</td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="statbox statboxB store_box">
+						<table>
+							<tr>
+								<th>借款统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+										<span class="t">成功借出总额：</span><span class="bx"><a href="{:u("StatisticsBorrow/tender_total")}">{:number_format($borrow_amount,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">已还总额：</span><span class="bx"><a href="{:u("StatisticsLoan/loan_hasback_total")}">{:number_format($has_repay_amount,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">待还总额：</span><span class="bx"><a href="{:u("StatisticsLoan/loan_tobe_receivables")}">{:number_format($need_repay_amount,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">冻结中的保证金：</span><span class="bx">{:number_format($freezen_amt,2)}【借款人】 + {:number_format($grt_freezen_amt,2)}【担保方】</span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="statbox statboxB event_box">
+						<table>
+							<tr>
+								<th>投资者收益统计</th>
+							</tr>
+							<tr>
+								<td>
+		                			<div class="row">
+										<span class="t">成功借款利息总额：</span><span class="bx"><a href="{:u("StatisticsBorrow/tender_hasback_total")}">{:number_format($load_rate_amount,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">成功借款投标奖励总额：</span><span class="bx"><a href="{:u("User/fund_management",array("cate"=>28))}">{:number_format($rebate_amount,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">注册奖励冻结资金：</span><span class="bx"><a href="{:u("User/account_detail",array("t"=>"freeze"))}">{:number_format($register_lock_money,2)}</a></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="statbox statboxB youhui_box">
+						<table>
+							<tr>
+								<th>逾期统计</th>
+							</tr>
+							<tr>
+								<td>
+		              				<div class="row">
+										<span class="t">逾期还款总额：</span><span class="bx"><a href="{:u("StatisticsLoan/loan_repay_late_total")}">{:number_format($yq_repay_amount,2)}</a>【含逾期管理费】</span>
+									</div>
+									<div class="row">
+										<span class="t">逾期未还款总额：</span><span class="bx"><a href="{:u("StatisticsLoan/loan_repay_late_total")}">{:number_format($yq_norepay_amount,2)}</a>【含逾期管理费】</span>
+									</div>
+									<div class="row">
+										<span class="t">逾期罚息总额：</span><span class="bx"><a href="{:u("User/fund_management",array("cate"=>11))}">{:number_format($yq_all_amount,2)}</a></span>
+		                        
+		                        	</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="statbox statboxB shop_box">
+						<table>
+							<tr>
+								<th>网站收益统计</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="row">
+										<span class="t">借入者成交服务费总额：</span><span class="bx"><a href="{:u("Deal/site_money",array("status"=>14))}">{:number_format($success_service_fee,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">借入者成交管理费总额：</span><span class="bx"><a href="{:u("Deal/site_money",array("status"=>10))}">{:number_format($success_manage_fee,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">投资者成交管理费总额：</span><span class="bx"><a href="{:u("Deal/site_money",array("status"=>20))}">{:number_format($load_success_manage_fee,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">提现手续费总额：</span><span class="bx"><a href="{:u("Deal/site_money",array("status"=>9))}">{:number_format($carry_manage_fee,2)}</a></span>
+									</div>
+									<div class="row">
+										<span class="t">网站收益总计：</span><span class="bx"><a href="{:u("Deal/site_money")}">{:number_format(($success_service_fee + $success_manage_fee + $load_success_manage_fee + $carry_manage_fee),2)}</a></span>
+									</div>
+		                        
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>	
+	
+	</div>
+    <!--借款 退款  提现-->
+</body>
+</html>

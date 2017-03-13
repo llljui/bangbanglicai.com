@@ -1,0 +1,50 @@
+@charset "utf-8";/* 公共样式 */
+body{font-family: "Microsoft YaHei","iconfont","FontAwesome","SimSun"  !important;}
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0}
+h1,h2,h3,h4,h5,h6{font-size:100%; font-weight:normal;}
+ul,ol,li{list-style:none;}
+em,i{font-style:normal}
+strong,b{font-weight:normal}
+img{border:none}
+input,img{vertical-align:middle}
+a{text-decoration:none; cursor:pointer; }
+*{-webkit-tap-highlight-color:rgba(0,0,0,0)}
+input,select,textarea{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-appearance:none;border:none;border-radius:0}
+textarea:focus{outline:0}
+html{-webkit-tap-highlight-color: transparent;overflow-x: hidden;height: 100%;min-width: 320px;overflow-x: auto;}
+html,body{background-color:@body_color;color:#333;-webkit-text-size-adjust:none}
+a{color:@font_a;text-decoration:none}
+input, textarea, keygen, select, button, isindex, meter, progress {-webkit-writing-mode: horizontal-tb; font-size:100%;}
+input, textarea, keygen, select, button, isindex {margin: 0em;font: -webkit-small-control;color: initial;letter-spacing: normal;word-spacing: normal;text-transform: none;text-indent: 0px;text-shadow: none;display: inline-block;text-align: start;border: none;}
+body{ width: 100%;overflow-x: hidden;}
+a {
+  background-color: transparent;
+  color: #0894ec;
+  text-decoration: none;
+}
+.theme_color, .index_nav i, nav.tab_hd a.cur, .user_icon, .foot .invest_plus, .selectbj .search_cate.cur, .seach_submit {
+  background: #4dbdf5;
+}
+.webkit-box {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+}
+.webkit-box-flex {
+  display: block;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-box-align: center;
+}
+.modal-inner {
+  padding: .2rem;
+}
+.mr5{ margin-right:5px;}
+.bg_red {
+  background: #ff4800;
+}
+.ul_block_list ul li.webkit-box-height{ height:auto;}
+
+.hide{ display:none;}
+
+._hide{ display:none;}

@@ -1,0 +1,29 @@
+<tr>
+  <th rowspan="2">编号</th>
+  <th rowspan="2">借款人</th>
+  <th rowspan="2">标的名称</th>
+  <th rowspan="2">投资金额</th>
+  <th rowspan="2">预期收益</th>
+  <th rowspan="2">收益金额</th>
+  <th rowspan="2">未收益金额</th>
+  <th rowspan="2">借款期限</th>
+  <th colspan="2">未还款金额</th>
+</tr>
+<tr>
+  <th>本金</th>
+  <th>利息</th>
+</tr>
+<foreach name="list" item="item">
+<tr>
+  <td>{$item.id}</td>
+  <td>{$item.user_name}<if condition="$item['real_name'] neq ''">[{$item.real_name}]</if></td>
+  <td><a href="__APP__?m=ExportXls&a=loads&id={$item.id}" target="blank">{$item.name}</a></td>
+  <td>{$item.load_money|number_format=2}</td>
+  <td>{$item.yq_interest_money|number_format=2}</td>
+  <td>{$item.sj_interest_money|number_format=2}</td>
+  <td>{$item.left_interest_money|number_format=2}</td>
+  <td><if condition="$item['repay_time'] neq 0">{$item.repay_time}<if condition="$item['repay_time_type'] eq 0">天<else />月</if></if></td>
+  <td>{$item.left_self_money|number_format=2}</td>
+  <td>{$item.left_interest_money|number_format=2}</td>
+</tr>
+</foreach>

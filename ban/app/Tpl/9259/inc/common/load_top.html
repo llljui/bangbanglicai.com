@@ -1,0 +1,37 @@
+<!--{if $MODULE_NAME <> 'user' && $MODULE_NAME <> 'manageagency' && $MODULE_NAME <> 'authorized' && $MODULE_NAME <> 'agency_money'}-->
+<div class="constr">
+	<div class="wrap">
+		 {if app_conf("APPLE_DOWLOAD_URL") || app_conf("ANDROID_DOWLOAD_URL")}
+		<div class="app_down f_l" id="J_APP_DOWN">
+			<a href="{function name="gen_qrcode" v=$MOBILE_DOWN_PATH s=8}"><i class="iconfont">&#xe613;</i>手机理财</a>
+			
+		</div>
+		{/if}
+		<div class="f_r lh30">
+			
+		</div>	
+		<div class="f_r">
+			<ul class="right mt9">
+				<!-- <li class="hover_a top_li">
+					<i class="iconfont">&#xe614;</i>
+					官方QQ群
+				</li> -->
+				{if $WAP_SITE_PATH}
+				<li class="hover_a top_li jcur " >
+					<a href="{function name="gen_qrcode" v=$WAP_SITE_PATH s=8}" id="weixim">
+					<i class="iconfont">&#xe614;</i>
+					微信
+					</a>
+				</li>
+				{/if}
+				<li class="top_li"><a href="{url x="index" r="helpcenter"}">帮助中心</a></li>
+				<li class=" top_li relative">
+					<div id="user_head_tip">
+						{insert name="load_user_tip"}
+			      </div>
+			    </li>
+			</ul>
+		</div>	
+	</div>
+</div>
+<!--{/if}-->

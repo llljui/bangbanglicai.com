@@ -1,0 +1,52 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<div class="main">
+<div class="main_title">部门提成统计详情</div>
+<script type="text/javascript">
+	function view(id){
+		window.location.href = ROOT+'?m=MyManager&a=referrals_log&id='+id;
+	}
+</script>
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+
+<div class="search_row">
+	开始时间：
+	<input type="text" class="textbox" name="start_time" value="{$start_time}" id="start_time"  onfocus="this.blur(); return showCalendar('start_time', '%Y-%m-%d', false, false, 'start_time');" />
+	-
+	结束时间：
+	<input type="text" class="textbox" name="end_time" value="{$end_time}" id="end_time"  onfocus="this.blur(); return showCalendar('end_time', '%Y-%m-%d', false, false, 'end_time');" />
+	
+		<input type="hidden" value="Departments" name="m" />
+		<input type="hidden" value="referrals_log" name="a" />
+		<input type="hidden" value="{$admin_id}" name="id" />
+		<input type="submit" class="button" value="{%SEARCH}" />
+
+</div>
+</form>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="customer"
+	checkbox="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,user_id|get_user_name_real:投资会员名
+		,admin_id|get_admin_name:部门成员
+		,rel_admin_id|get_admin_name:部门
+		,loan_money|format_price:投资金额
+		,money:提成金额
+		,memo:备注" />
+
+<div class="blank5"></div>
+<div class="search_row">奖励合计：{$total_money|number_format=4}</div>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

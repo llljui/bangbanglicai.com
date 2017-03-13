@@ -1,0 +1,7 @@
+input::-webkit-input-placeholder {
+    color:#dbdbdb;
+}
+input:-moz-placeholder {
+    color:#dbdbdb;
+}
+.ui-button_getcode{ height:1.19736rem; line-height:1.29736rem; text-align:center; width:100%; font-size:0.60rem; color:#ea544a; background:#fff; border-radius:5px; border:1px solid #ea544a;}

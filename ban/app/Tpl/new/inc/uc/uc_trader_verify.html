@@ -1,0 +1,115 @@
+<div class="u_box bddf clearfix p15 " style="background:#fefbf8;">
+    <div class="f_l trader">
+        <div class='f_l top_left'>
+            <div class="clearfix f14" >
+                可用余额：
+            </div>
+            <div class="">
+                <span class=' J_u_money_0 f_yellow f20'>{function name="number_format" v="$user_data.money" f=2}</span>&nbsp;元
+            </div>
+        </div>
+        <div class='f_l top_mid'>
+            <div class="clearfix">
+            	<div class="tc f_r">
+	                <a href="{url x="index" r="uc_money#incharge"}" class="btn_blue blue f_white lh30 bdr3 w90 f14">充值</a>
+	                <a href="{url x="index" r="uc_money#bank"}" class=" btn_green f_white lh30 bdr3 w90 ml20 f14">提现</a>
+				</div>
+            </div>
+        </div>
+        <div class="f_r">
+			 <div class="f_l u_frozen_box pt10 pr10 pb10">
+	                <span class="f14">冻结资金(元)</span>
+					<div class="blank0"></div>
+	                <span class='J_u_money_2 f16'>{$user_data.lock_money}</span>
+            </div>
+            <div class="f_l u_total_box pt10 pr10 pb10">
+	                <span class="f14">账户余额(元)</span>
+					<div class="blank0"></div>
+	                <span class='J_u_money_1 f16'>{$user_data.total_money}</span>
+            </div>
+           
+            
+        </div>
+    </div>  
+</div>
+<div class="blank15"></div>
+<div class="uc_box trader">        
+        <div class="tabbox f14 pl20">
+			审核中的操盘
+		</div>        
+		{if $trader_list}
+		<div class="clearfix tra_box p10">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+				<tbody>
+					<tr border="0">
+						<th style="width:12%">实盘单号</th>
+						<th style="width:12%">开始时间</th>
+                        <th style="width:12%">订单类型</th>
+						<th style="width:10%">实盘金额</th>
+						<th style="width:10%">保证金</th>
+                        <th style="width:10%">订单状态</th>
+                        <th style="width:16%">操作</th>
+					</tr>
+					{foreach from="$trader_list" item="item" key=key}
+			  <tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+						<td >{$item.order_sn}</td>
+						<td>{$item.begin_date}</td>
+                        <td>{$item.conf_type_name}</td>
+						<td>{$item.total_money_format}</td>
+						<td>{$item.cost_money_format} </td>
+						<td style="color:#39A1EA">{$item.status_format} </td>
+                        <td>{if $item.status == 1}<a href='{url x="index" r="uc_trader#cancel" p="id=$item.id"}' class="cancel">撤销</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/if}<a href="{url x="index" r="uc_trader#verify_detail" p="id=$item.id&from=verify"}">详情</a></td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		{else}	
+		<div align="center" class='tra_box' style="padding:20px 0">暂无记录</div>
+		{/if}
+		
+		
+</div>
+<div class="pages">{$pages}</div>
+<style type="text/css">
+	.joke{font-size: 16px;}
+	.long_uc .tabbox{ border-left:1px solid #ddd}
+</style>
+<script>
+	$(".cancel").click(function()
+	{
+		if(confirm("确定要撤销吗？"))
+		{
+			
+			query = {};
+			$.ajax({
+				url:$(this).attr("href"),
+				data:query,
+				type:"post",
+				dataType:"json",
+				success:function(ajaxobj){
+					if(ajaxobj)
+					{
+						if(ajaxobj.status==1){
+							$.showSuccess(ajaxobj.info,function(){
+								window.location.reload();
+							});
+						}
+						else{
+							$.showErr(ajaxobj.info);
+						}
+					}
+					else
+					{
+						$.showErr("请求数据失败!");
+					}
+				}
+				,error:function(){
+					$.showErr("请求数据失败!");
+				}
+			});
+		}
+		return false;
+	});
+	
+</script>

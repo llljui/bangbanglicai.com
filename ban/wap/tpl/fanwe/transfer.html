@@ -1,0 +1,82 @@
+{if $smarty.request.is_ajax neq 1}
+<?php
+$this->_var['hide_back'] = 1;
+?>
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll pull-to-refresh-content" data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="transfer#index"}">
+
+<!--债权转让列表-->
+<ul class=" transfer recommended_nav">
+	{/if}
+	<!-- 默认的下拉刷新层 -->
+    <div class="pull-to-refresh-layer" all_page="{$data.page.page_total}" >
+        <div class="preloader"></div>
+        <div class="pull-to-refresh-arrow"></div>
+    </div>	
+ {foreach from=$data.item item="item"}
+		<li onclick="RouterURL('{wap_url a="index" r="transfer_show" p="id=$item.id&deal_id=$item.deal_id"}','#transfer_show',2);">
+				
+					<div class="title_set bb1">
+						<span class="state c666666">{$item.user.user_name}</span>
+						<span class="name">{$item.name}</span>
+					</div>
+					<dl class="w_b detail">
+						<dd class="w_b_f_1 tc">
+							<p class="con ea544a">{$item.left_benjin_format}</p>
+							<p class="name">剩余本金</p>
+						</dd>
+						<dd class="w_b_f_1 tc">
+							<p class="con c666666">{$item.left_lixi_format}</p>
+							<p class="name">剩余利息</p>
+						</dd>
+						<dd class="w_b_f_1 tc">
+							<p class="con c666666">{$item.transfer_amount_format}</p>
+							<p class="name">转让价</p>
+						</dd>
+						<dd class="w_b_f_1 tc">
+							<p class="con c666666">{$item.rate}%</p>
+							<p class="name">利率</p>
+						</dd>
+					</dl>
+					<div class="title_set top_bor w_b ">
+						<span class="c666666 tf w_b_f_1">
+							{if $item.t_user_id gt 0}
+								已转让
+							{else}
+								{if $item.status eq 0}
+									已撤销
+								{else}
+								{$item.remain_time_format}
+								{if $item.remain_time lt 0}
+								  	逾期还款
+								{/if}
+								{/if}
+							{/if}
+							</span>
+							<span class="c666666 tr w_b_f_1">承接人：
+							{if $item.t_user_id gt 0}{$item.tuser.user_name}{else}无{/if}</span>
+							
+					</div>
+				
+			</li>
+	 {/foreach} 
+	 
+	 {if $smarty.request.is_ajax neq 1}  
+	</ul>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}
+
+
+
+
+
+
+
+

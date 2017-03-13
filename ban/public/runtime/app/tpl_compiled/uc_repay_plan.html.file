@@ -1,0 +1,131 @@
+<?php
+$this->_var['repaycss'][] = $this->_var['TMPL_REAL']."/css/datepicker.css";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.core.js";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.widget.js";
+$this->_var['repayjs'][] = $this->_var['TMPL_REAL']."/js/utils/jquery.ui.datepicker.js";
+?>
+<link rel="stylesheet" type="text/css" href="<?php 
+$k = array (
+  'name' => 'parse_css',
+  'v' => $this->_var['repaycss'],
+);
+echo $k['name']($k['v']);
+?>" />
+<script type="text/javascript" src="<?php 
+$k = array (
+  'name' => 'parse_script',
+  'v' => $this->_var['repayjs'],
+  'c' => $this->_var['repayjs'],
+);
+echo $k['name']($k['v'],$k['c']);
+?>"></script>
+
+<script type="text/javascript">
+jQuery(function(){
+	$("input#time").datepicker({showAnim:'fadeIn'});
+	$("form#search-form").submit(function(){
+		var val = $("input#time").val();
+		$("input[name='time']").val(val.replace(/-/g,""));
+	});
+	
+
+	
+});
+</script>
+
+<div class="tabbox clearfix">
+	<div class="tab cur"><a href="<?php
+echo parse_url_tag("u:index|uc_deal#borrowed|"."".""); 
+?>"><?php echo $this->_var['page_title']; ?></a></div>
+</div>
+
+<div class="uc_box bdd bt0 clearfix">
+		
+	<form name="search" id="search-form" action="<?php
+echo parse_url_tag("u:index|uc_repay_plan|"."".""); 
+?>" method="get">  		
+		<div class="f_l">
+			贷款名称：<input class="f-input ui-textbox w100" name="deal_name" type="text" value="<?php echo $this->_var['deal_name']; ?>">
+			<input name="ctl"  type="hidden" value="uc_repay_plan">
+			
+			还款日：<input class="f-input ui-textbox w100 f_input" id="time" type="text" value="<?php echo $this->_var['time']; ?>">
+			<input type="hidden" name="time" type="text" value="" />
+			<button class="true_btn select_btn" type="submit">搜索</button>
+		</div>
+		<input type="hidden" name="status" type="text" value="<?php echo $this->_var['status']; ?>" />&nbsp;&nbsp;&nbsp;
+		<input type="button" class="select_btn true_btn" value="导出列表" onclick="window.location.href='<?php
+echo parse_url_tag("u:index|uc_repay_plan#export_csv|"."deal_name=".$this->_var['deal_name']."&time=".$this->_var['time_format']."&status=".$this->_var['status']."".""); 
+?>';" />
+		<div class="sub_nav f_r pt5">
+			<span <?php if ($this->_var['status'] == 4): ?> class="act"<?php endif; ?>><a href="<?php
+echo parse_url_tag("u:shop|uc_repay_plan|"."deal_name=".$this->_var['deal_name']."&time=".$this->_var['time_format']."&status=4".""); 
+?>">全部</a></span>
+			<span <?php if ($this->_var['status'] == 1): ?> class="act"<?php endif; ?>><a href="<?php
+echo parse_url_tag("u:shop|uc_repay_plan|"."deal_name=".$this->_var['deal_name']."&time=".$this->_var['time_format']."&status=1".""); 
+?>">待还款</a></span>
+			<span <?php if ($this->_var['status'] == 2): ?> class="act"<?php endif; ?>><a href="<?php
+echo parse_url_tag("u:shop|uc_repay_plan|"."deal_name=".$this->_var['deal_name']."&time=".$this->_var['time_format']."&status=2".""); 
+?>">已还款</a></span>
+			<span <?php if ($this->_var['status'] == 3): ?> class="act"<?php endif; ?>><a href="<?php
+echo parse_url_tag("u:shop|uc_repay_plan|"."deal_name=".$this->_var['deal_name']."&time=".$this->_var['time_format']."&status=3".""); 
+?>">近期还款</a></span>
+			<span <?php if ($this->_var['status'] == 5): ?> class="act"<?php endif; ?>><a href="<?php
+echo parse_url_tag("u:shop|uc_repay_plan|"."deal_name=".$this->_var['deal_name']."&time=".$this->_var['time_format']."&status=5".""); 
+?>">逾期还款</a></span>
+		</div>
+	</form>
+	
+	<div class="blank0"></div>
+	<?php if ($this->_var['list']): ?>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+		<tbody>
+			<tr border="0">
+				<th class="tl pl10">贷款名称</th>
+				<th style="width:10%">第几期</th>
+				<th style="width:15%">待收款</th>
+				<th style="width:12%">利息管理费</th>
+				<th style="width:12%">预期收益</th>
+				<th style="width:12%">实际收益</th>
+				<th style="width:10%">还款日</th>
+				<th style="width:10%">还款状态</th>
+			</tr>
+			<?php $_from = $this->_var['list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['item']):
+?>
+			<tr class="item <?php if ($this->_var['key'] % 2 == 1): ?>item_1<?php endif; ?>" <?php if (($this->_foreach['deal']['iteration'] == $this->_foreach['deal']['total'])): ?>style="border-bottom:0"<?php endif; ?>>
+				<td class="tl pl10">
+					<a href="<?php
+echo parse_url_tag("u:index|deal|"."id=".$this->_var['item']['deal_id']."".""); 
+?>" class="f_blue" target="_blank"><?php echo $this->_var['item']['name']; ?></a>
+				</td>
+				<td>
+					<?php echo $this->_var['item']['l_key_index']; ?>
+				</td>
+				<td>
+					<?php echo $this->_var['item']['repay_money_format']; ?>
+				</td>
+				<td>
+					<?php echo $this->_var['item']['manage_interest_money_format']; ?> 
+				</td>
+				<td>
+					<?php echo $this->_var['item']['interest_money_format']; ?> 
+				</td>
+				<td>
+					<?php if ($this->_var['item']['has_repay'] == 1): ?>	<?php echo $this->_var['item']['shiji_money']; ?> <?php else: ?> 0 <?php endif; ?>
+				</td>
+				<td>
+					<?php echo $this->_var['item']['repay_date']; ?>     
+				</td>
+				<td>
+					<?php echo $this->_var['item']['status_format']; ?> 
+				</td>
+			</tr>
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+		</tbody>
+	</table>
+	<div class="pages"><?php echo $this->_var['pages']; ?></div>
+	<?php else: ?>	
+	<div align="center" style="padding:20px 0">暂无记录</div>
+	<?php endif; ?>
+	<div class="blank"></div>
+</div>

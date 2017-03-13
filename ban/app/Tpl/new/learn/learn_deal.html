@@ -1,0 +1,232 @@
+<style type="text/css">
+a { text-decoration: none; }
+#showtext2 { cursor: hand; cursor:pointer;}
+#contentid2 {width: 100%;  }
+.none { display: none; }
+</style>
+<?PHP 
+$this->_var['lpagecss'][] = $this->_var['TMPL_REAL']."/css/index.css";
+?>
+<link rel="stylesheet" type="text/css" href="{function name="parse_css" v="$lpagecss"}" />
+<div class="tabbox clearfix">
+    <div class="tab cur"><a href="{url x="index" r="uc_learn#deal_invest"}">{$page_title}</a></div>
+</div>
+<div class="blank15"></div>
+<div class="newinvest" id="deal_list">
+{foreach from=$deal_list item="deal" key=key name="deal"}
+        
+        <div class="listblok">
+            <div class="listtit ovhide">
+                <div class="f_l">
+                    <img class="grade f_l mr5" src="{$TMPL}/images/{$deal.user.point_level}.png" align="absmiddle" title="{$deal.user.point_level}" alt="{$deal.user.point_level}" height="30" />
+                    <h3 class="f_l">
+                        <a href="{$deal.url}">{$deal.color_name}</a>
+                    </h3> 
+                    {if $deal.is_new eq 1}
+                    <div class="is_new pr ml10 f_l" style="top:-10px"></div>
+                    {/if}
+                </div>
+                {if $deal.is_wait eq 1 || ($deal.deal_status eq 1 && $deal.remain_time gt 0)}
+                <div class="f_r" >
+                    <div class="left_time AdvLeftTime f_r" data="{$deal.remain_time}">
+                        <span class="s day">--</span>
+                        <span class="l">天</span>
+                        <span class="s hour">--</span>
+                        <span class="l">时</span>
+                        <span class="s min">--</span>
+                        <span class="l">分</span>
+                        <span class="s sec">--</span>
+                        <span class="l">秒</span>
+                    </div>
+                    <div class="f_r maingary"> 剩余时间：</div>
+                    <div class="blank0"></div>
+                </div>
+                {/if}
+            </div>
+            <div class="blank0"></div>
+            <div class="listcon w135">
+                <h6>借款金额</h6>
+                <span><em>{$deal.borrow_amount_format}</em></span>
+            </div>
+            <div class="listcon w120">
+                <h6>年化利率</h6>
+                <span><em  class="f_red">{$deal.rate}%{if $deal.user_bid_rebate gt 0}<span class="f14" title="投资返利:{$deal.user_bid_rebate}%">+{$deal.user_bid_rebate}%</span>{/if}</em></span>
+            </div>
+            <div class="listcon w70">
+                <h6>项目期限</h6>
+                <span><em>{$deal.repay_time}</em>{if $deal.repay_time_type eq 0}天{else}个月{/if}</span>
+            </div>
+            <div class="listcon" style="border-right:none;">
+                <h6>还款方式</h6>
+                <span>{function name="loantypename" v="$deal.loantype" type=0}</span>
+            </div>
+            <div class="listcona f_r">
+                <div class="progressvar">
+                        {if  $deal.deal_status gte 4}
+                        <div class="progress w135 mt9">
+                            <span class="pr bdr3" style="width:100%;">
+                                <img class="ps" title="100%" src="{$TMPL}/images/progressqiu.png" />
+                            </span>
+                        </div>
+                        <div class="progresscon f_blue">100%</div>
+                        {else}
+                        <div class="progress w135 mt9">
+                            <span class="pr bdr3" title="{function name="round" v=$deal.progress_point f=3}%" style="width:{function name="round" v=$deal.progress_point f=2}%;">
+                                <img class="ps" src="{$TMPL}/images/progressqiu.png" />
+                            </span>
+                        </div>
+                        <div class="progresscon f_blue">{function name="round" v=$deal.progress_point f=2}%</div>
+                        {/if}
+                </div>
+				{if $learn_balance neq 0 && $deal.deal_status eq 1 && $deal.remain_time gt 0}
+				<input type="button" class="btn_red f18 b f_white w170 lh38  bdr3 tz_link_btn" data-id="{$deal.id}" value="立即投资">
+				{else}
+				<input type="button" class="btn_gray f18 b f_white w170 lh38  bdr3"  value="立即投资">
+				{/if}
+            </div>
+            <div class="blank0"></div>
+        </div>
+        <div class="blank15"></div>
+        
+        {/foreach}
+	</div>
+	
+<div class="uc_box trader">      
+        <div class="sub_nav pl10">
+            <span {if $t eq ''}class="act"{/if}><a href="{url x="index" r="uc_learn#deal_invest"}">获取记录</a></span>&nbsp;
+        </div>     
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="uc-table">
+            <tbody>
+                <tr>
+                    <th>获取时间</th>   
+                    <th>获取金额(¥)</th>
+                    <th>获取来源</th>
+                    <th>有效期</th>
+                    <th>状态</th>
+                </tr>
+                {foreach from="$learn_send_list" item="learn"  name="name"}
+                <tr class="item {if $smarty.foreach.name.iteration mod 2 eq 0}item_1{/if}">
+                    <td>
+                        {$learn.begin_time}
+                    </td>
+                    <td>{$learn.money}</td>
+                    <td>
+                        {if $learn.type eq 0} 
+                                                                            注册赠送
+                        {/if}
+                        {if $learn.type eq 1} 
+                                                                            邀请赠送
+                        {/if}
+                        {if $learn.type eq 2} 
+                                                                             管理员发放
+                        {/if}
+                    </td>
+                    <td>
+                        {$learn.begin_time} 至 
+                        {$learn.end_time}
+                    </td>
+                    <td>{if $learn.is_use eq 0}未投资{else}已投资{/if} </td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
+
+</div>
+<div class="uc_box trader"> 
+<div class="pages">{$pages}</div>
+<div class="blank15"></div>
+</div>
+
+<style type="text/css">
+    .joke{font-size: 16px;}
+    .long_uc .tabbox{ border-left:1px solid #ddd}
+</style>
+
+<script type="text/javascript">
+
+$(".tz_link_btn").click(function(){
+    var query = new Object();
+    query.id = $(this).attr("data-id");
+    $.ajax({
+        url:'{url x="index" r="uc_learn#bid"}',
+        data:query,
+        type:"post",
+        dataType:"json",
+        success:function(result){
+            if(result.status==2){
+                $.showErr(result.info,function(){
+                    ajax_login();
+                });
+            }
+            else if(result.status==1){
+                $.weeboxs.open(result.info,{boxid:"paypass-box",contentType:'text',showButton:false,title:"使用体验金",width:480,height:240,type:'wee',onopen:function(){
+                    setTimeout(function(){
+                        init_ui_textbox();
+                        init_ui_select();
+                    },200);
+                }});
+                
+            }
+            else{
+                $.showErr(result.info,function(){
+                    if(result.jump)
+                    {
+                        window.location.href = result.jump;
+                    }
+                });
+            }
+        }
+    });
+    
+});
+    var leftTimeActInv = null;
+    jQuery(function(){
+        $(".selct .gray_title .b a").click(function(){
+                $(".selct .gray_title .b a").parent().removeClass("foucs");
+                $(this).parent().addClass("foucs");
+                var rel=$(this).parent().attr("rel");
+                
+                $(".selct .gray_title .more-box .f_r").addClass("hide");
+                $(".selct .gray_title .more-box .f_r[rel='"+rel+"']").removeClass("hide");
+                
+                $(".selct .nicai").addClass("hide");
+                $(".selct  .nicai[rel='"+rel+"']").removeClass("hide");
+                
+            });
+        
+        $("#loadtop #rightTitls a").click(function(){
+            $("#loadtop #rightTitls a").parent().removeClass("current");
+            $(this).parent().addClass("current");
+            var rel=$(this).attr("rel");
+            $("#loadtop #J_conbox ul").addClass("hide");
+            $("#loadtop #J_conbox ul[rel='"+rel+"']").removeClass("hide");
+        });
+        leftTimeAct();
+    });
+    function leftTimeAct(){
+        clearTimeout(leftTimeActInv);
+        $(".AdvLeftTime").each(function(){
+            var leftTime = parseInt($(this).attr("data"));
+            if(leftTime > 0)
+            {
+                var day  =  parseInt(leftTime / 24 /3600);
+                var hour = parseInt((leftTime % (24 *3600)) / 3600);
+                var min = parseInt((leftTime % 3600) / 60);
+                var sec = parseInt((leftTime % 3600) % 60);
+                $(this).find(".day").html((day<10?"0"+day:day));
+                $(this).find(".hour").html((hour<10?"0"+hour:hour));
+                $(this).find(".min").html((min<10?"0"+min:min));
+                $(this).find(".sec").html((sec<10?"0"+sec:sec));
+                leftTime--;
+                $(this).attr("data",leftTime);
+            }
+            else{
+                $(this).html('时间已结束');
+            }
+        });
+        
+        leftTimeActInv = setTimeout(function(){
+            leftTimeAct();
+        },1000);
+    }
+</script>

@@ -1,0 +1,81 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<div class="main">
+<div class="main_title">{%ADD} <a href="{:u("Learn/activity_setting")}" class="back_list">{%BACK_LIST}</a></div>
+<div class="blank5"></div>
+<script type="text/javascript" src="__TMPL__Common/js/calendar/calendar.php?lang=zh-cn" ></script>
+<load href='__TMPL__Common/js/calendar/calendar.css' />
+<load href='__TMPL__Common/js/calendar/calendar.js' />
+<form name="edit" action="__APP__" method="post" enctype="multipart/form-data">
+<table class="form" cellpadding=0 cellspacing=0>
+	<tr>
+		<td colspan=2 class="topTd"></td>
+	</tr>
+	<tr>
+		<td class="item_title">理财产品名:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="name" /></td>
+	</tr>
+	<tr>
+		<td class="item_title">开始时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="begin_time" id="begin_time" value="{:trim($_REQUEST['begin_time'])}" onfocus="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" style="width:150px" />
+			<input type="button" class="button" id="btn_begin_time" value="{%SELECT_TIME}" onclick="return showCalendar('begin_time', '%Y-%m-%d', false, false, 'btn_begin_time');" />	
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">结束时间:</td>
+		<td class="item_input">
+			<input type="text" class="textbox require" name="end_time" id="end_time" value="{:trim($_REQUEST['day'])}" onfocus="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" style="width:150px" />
+			<input type="button" class="button" id="btn_end_time" value="{%SELECT_TIME}" onclick="return showCalendar('end_time', '%Y-%m-%d', false, false, 'btn_end_time');" />
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title">活动金额:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="load_money" value="0" /> 0为不限制募集金额</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">年利率:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="rate" /> %</td>
+	</tr>
+	<tr>
+		<td class="item_title">产品期限:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="time_limit" /> 天</td>
+	</tr>
+	<tr>
+		<td class="item_title">收益结算有效期限:</td>
+		<td class="item_input"><input type="text" class="textbox require" name="time_expire_limit" /> 天</td>
+	</tr>
+	<tr>
+		<td class="item_title">说明:</td>
+		<td class="item_input">
+			 <html:editor id="editor" name="description" type="KINDEDITOR" content="" />
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="item_title">{%IS_EFFECT}:</td>
+		<td class="item_input">
+			<lable>{%IS_EFFECT_1}<input type="radio" name="is_effect" value="1" checked="checked" /></lable>
+			<lable>{%IS_EFFECT_0}<input type="radio" name="is_effect" value="0" /></lable>
+		</td>
+	</tr>
+	<tr>
+		<td class="item_title"></td>
+		<td class="item_input">
+			<!--隐藏元素-->
+			<input type="hidden" name="{:conf("VAR_MODULE")}" value="Learn" />
+			<input type="hidden" name="{:conf("VAR_ACTION")}" value="insert_learn" />
+			<!--隐藏元素-->
+			<input type="submit" class="button" value="{%ADD}" />
+			<input type="reset" class="button" value="{%RESET}" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan=2 class="bottomTd"></td>
+	</tr>
+</table>	 
+</form>
+</div>
+<include file="Public:footer" />

@@ -1,0 +1,80 @@
+{if $deal_list}
+<div class="i_deal_list clearfix pr15 pl15">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+        <tbody>
+            <tr border="0" style="background-color:#f5f5f5; height:34px;">
+                <th class="tl pl10">借款标题</th>
+                <th style="width:12%">借款目的</th>
+                <th style="width:12%">金额</th>
+                <th style="width:10%">年利率</th>
+                <th style="width:10%">期限</th>
+                <th style="width:10%">完成度</th>
+                <th style="width:20%">发布日期</th>
+            </tr>
+            {foreach from=$deal_list item="deal" key=key name="deal"}
+                <tr class="item {if $key mod 2 eq 1}item_1{/if}" {if $smarty.foreach.deal.last}style="border-bottom:0"{/if}>
+                     <td class="tl pl10">
+                        <a href="{$deal.url}">{$deal.name}</a>
+                    </td>
+                    <td class="tc" >
+                        {$deal.type_match_row}
+                    </td>
+                    <td class="tc" >
+                        {$deal.borrow_amount_format}
+                    </td>                    
+                    <td class="tc" >
+                        {function name="number_format" v="$deal.rate" f="2"}%
+                    </td>
+                    <td class="tc" >
+                        {$deal.repay_time}{if $deal.repay_time_type eq 0}天{else}个月{/if}
+                    </td>
+                    <td class="tc" >
+                       <?php
+		                    $rate_img =  round($this->_var['deal']['progress_point'],0)*54;
+		                ?>
+				  		<strong class="iepng ui-progressbar-mid " style="background-position: -<?php echo $rate_img;?>px 0;" >{function name="round" v=$deal.progress_point f=0}%</strong>
+                    </td>
+                    <td class="tc">
+                        <span class="f_red">
+                         {if $deal.is_delete eq 2}
+							待发布
+						{elseif $deal.is_wait eq 1}
+							未开始
+						{elseif $deal.deal_status eq 5}
+							还款完毕
+						{elseif $deal.deal_status eq 4}
+							还款中
+						{elseif $deal.deal_status eq 0}
+							{if $deal.need_credit eq 0}等待审核{else}等待材料{/if}
+						{elseif $deal.deal_status eq 1 && $deal.remain_time gt 0}
+							进行中
+						{elseif $deal.deal_status eq 2}
+							已满标
+						{elseif $deal.deal_status eq 3}
+							已流标
+						{elseif $deal.deal_status eq 1 && $deal.remain_time lte 0}
+							已过期
+						{/if}
+                        </span>
+						{if $deal.start_time gt 0}
+                        <div class="blank0"></div>
+                        {function name="to_date" v="$deal.start_time" f="Y-m-d"} {function name="to_date" v="$deal.start_time" f="H:i"}
+                        {/if}
+                    </td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+	<div class="pages">{$pages}</div>
+</div>
+{else}
+<div class="tc p15">暂无记录</div>
+{/if}
+<script type="text/javascript">
+$(function(){
+    var p_width=$(".i_deal_list p").width();
+    var box_width=$(".i_deal_list .graph-box").width();
+    var left_w=(box_width/2)-(p_width/2);
+    $(".i_deal_list p").css("left",left_w+"px");
+})  
+</script>

@@ -1,0 +1,356 @@
+<div id="deal-intro" class="bdd bddf">
+	<div class="deal-lf">
+		<div class="hd">
+			<h3>
+				<div class="lt f_l">
+					<span class="f_l"><a href="<?php echo $this->_var['deal']['url']; ?>"><?php echo $this->_var['deal']['color_name']; ?></a></span>
+					<span class="cate f_l pl5">
+						<img src="<?php echo $this->_var['deal']['cate_info']['icon']; ?>" width="24" height="24" />
+						<?php echo $this->_var['deal']['cate_info']['name']; ?>
+					</span>
+					<?php if ($this->_var['deal']['is_new'] == 1): ?>
+					<div class="is_new pr ml10 f_l" style="top:-10px"></div>
+					<?php endif; ?>
+					<div class="f_r"><span class="f16">借款人：</span><a href="<?php echo $this->_var['u_info']['url']; ?>" class="f_blue f16"><?php echo $this->_var['u_info']['user_name']; ?></a></div>
+				</div>
+				<div class="rt f_r f_red">
+					借款编号#<?php echo $this->_var['deal']['deal_sn']; ?>
+				</div>
+			</h3>
+		</div>
+		<div class="bd pt15 pl20 pr20 pb20">
+			<div class="bd_lf">
+				<div class="listbox">
+					<div class="listcon">
+						<h6>年利率</h6>
+						<span><em class="f_red"><?php echo $this->_var['deal']['rate']; ?> %<?php if ($this->_var['deal']['user_bid_rebate'] > 0): ?><span class="f14" title="投资返利:<?php echo $this->_var['deal']['user_bid_rebate']; ?>%">+<?php echo $this->_var['deal']['user_bid_rebate']; ?>%</span><?php endif; ?></em></span>
+					</div>
+					<div class="listcon">
+						<h6>投资期限</h6>
+						<span><em><?php echo $this->_var['deal']['repay_time']; ?><?php if ($this->_var['deal']['repay_time_type'] == 0): ?>天<?php else: ?>个月<?php endif; ?></em></span>
+					</div>
+					<div class="listcon">
+						<h6>还款方式</h6>
+						<span><em><?php 
+$k = array (
+  'name' => 'loantypename',
+  'v' => $this->_var['deal']['loantype'],
+  'type' => '0',
+);
+echo $k['name']($k['v'],$k['type']);
+?></em></span>
+					</div>
+					<div class="listcon last">
+						<h6>项目金额（元）</h6>
+						<span><em><?php echo $this->_var['deal']['borrow_amount_format']; ?></em></span>
+					</div>
+					<?php if ($this->_var['ACTION_NAME'] != 'preview'): ?>
+					<div id="addFav">
+						<?php if ($this->_var['deal']['is_faved'] > 0): ?>
+						已关注
+						<?php else: ?>
+						<a href="javascript:;" id="addFavLink" onclick="collect_deal(this,'<?php echo $this->_var['deal']['id']; ?>',fav_result);" class="f_red">关注此标</a>
+						<?php endif; ?>
+					</div>
+					<?php endif; ?>
+					<div class="blank0"></div>
+				</div>
+				<div class="blank20"></div>
+				<ul class="itembox">
+					<li>
+						<span class="t">发标时间</span>
+						<span><?php 
+$k = array (
+  'name' => 'to_date',
+  'v' => $this->_var['deal']['start_time'],
+  'f' => 'Y-m-d',
+);
+echo $k['name']($k['v'],$k['f']);
+?> <?php 
+$k = array (
+  'name' => 'to_date',
+  'v' => $this->_var['deal']['start_time'],
+  'f' => 'H:i',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+					</li>
+					<li>
+						<span class="t">担保范围</span>
+						<span><?php if ($this->_var['deal']['warrant'] == 1): ?>本金<?php elseif ($this->_var['deal']['warrant'] == 2): ?>本金及利息<?php else: ?>无<?php endif; ?></span>
+					</li>
+					<?php if ($this->_var['deal']['uloadtype'] == 1): ?>
+					<li>
+						<span class="t">最大认购</span>
+						<span><?php echo $this->_var['deal']['max_portion']; ?></span> 份
+					</li>
+					<?php else: ?>
+					<li>
+						<span class="t">单笔最大额</span>
+						<?php if ($this->_var['deal']['max_loan_money'] == 0): ?>无限制<?php else: ?>&yen;<em><?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['deal']['max_loan_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></em><?php endif; ?> 
+					</li>
+					<?php endif; ?>
+					
+					<li>
+						<span class="t">借款用途</span>
+						<span><?php echo $this->_var['deal']['type_info']['name']; ?></span>
+					</li>
+					
+					<?php if ($this->_var['deal']['loantype'] == 1 || $this->_var['deal']['loantype'] == 2): ?>
+					<li>
+						<span class="t">到期需还本金</span>
+						<span class="f_red"><?php echo $this->_var['deal']['borrow_amount_format']; ?></span>
+					</li>
+					<?php endif; ?>
+					
+					<li>
+						<span class="t">提前还款费率</span>
+						<span><?php echo $this->_var['deal']['compensate_fee']; ?>%</span>
+					</li>
+					
+					<li>
+						<?php if ($this->_var['deal']['loantype'] == 2 || $this->_var['deal']['repay_time_type'] == 0): ?>
+							<span class="t">到期利息</span>
+							<span class="f_red"><?php echo $this->_var['deal']['month_repay_money_format']; ?></span>
+						<?php else: ?>
+							<span class="t">月还<?php if ($this->_var['deal']['loantype'] == 0): ?>本<?php else: ?>利<?php endif; ?>息</span>
+							<span class="f_red"><?php echo $this->_var['deal']['month_repay_money_format']; ?></span>
+						<?php endif; ?>
+					</li>
+					
+					
+					<li class="dsjbox">
+						<span class="t"><?php if ($this->_var['deal']['is_wait']): ?>开始<?php else: ?>剩余<?php endif; ?>时间</span>
+						<div class="J_left_time dsj" id="dsj" rel="<?php if ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0): ?><?php echo $this->_var['deal']['remain_time']; ?><?php else: ?>0<?php endif; ?>">
+							<span class="s day">--</span>
+							<!--<span class="l">天</span>-->
+							<span class="s hour">--</span>
+							<span class="l">时</span>
+							<span class="s min">--</span>
+							<span class="l">分</span>
+							<span class="s sec">--</span>
+							<span class="l">秒</span>
+						</div>
+					</li>
+					
+					<li>
+						<span class="t">投标人数</span>
+						<?php 
+$k = array (
+  'name' => 'count',
+  'v' => $this->_var['load_list'],
+);
+echo $k['name']($k['v']);
+?>
+					</li>
+					
+				</ul>
+			</div>
+			
+			
+			<div class="bd_rt f_r ">
+			 	<?php if ($this->_var['deal']['is_delete'] == 2): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/not_publish.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['is_wait'] == 1): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/wait_load.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 5): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/load_done.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 4): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/load_in_progress.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 0): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/loan_writeM.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/load.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 2): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/load_full.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 3): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/load_fail.png" alt="" width="137px" height="110px">
+				<?php elseif ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] <= 0): ?>
+					<img src="<?php echo $this->_var['TMPL']; ?>/images/load_expire.png" alt="" width="137px" height="110px">
+				<?php endif; ?>
+			</div>
+			<div class="blank0"></div>
+		</div>
+	</div>
+	<div class="deal-rf">
+		<div class="f_l">当前成交进度</div>
+		<div class=" f_greent f_r"><?php if ($this->_var['deal']['deal_status'] >= 4): ?>100<?php else: ?><?php 
+$k = array (
+  'name' => 'round',
+  'v' => $this->_var['deal']['progress_point'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%<?php endif; ?></div>
+		<div class="blank5"></div>
+		<?php if ($this->_var['deal']['deal_status'] >= 4): ?>
+		<div class="progressB bdr3  ">
+			<span class="pr bdr3" title="100%" style="width:100%;">
+				<img class="ps" src="<?php echo $this->_var['TMPL']; ?>/images/progressBqiu.png" />
+			</span>
+		</div>
+		<?php else: ?>
+		<div class="progressB bdr3 ">
+			<span class="pr bdr3"  title="<?php 
+$k = array (
+  'name' => 'round',
+  'v' => $this->_var['deal']['progress_point'],
+  'f' => '3',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%" style="width:<?php 
+$k = array (
+  'name' => 'round',
+  'v' => $this->_var['deal']['progress_point'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?>%;">
+				<img class="ps" src="<?php echo $this->_var['TMPL']; ?>/images/progressBqiu.png" />
+			</span>
+		</div>
+		<?php endif; ?>
+		<div class="blank5"></div>
+		<div class="moneybox">
+			<ul>
+				<li>
+					<span class="t">账户余额</span>
+					<?php if ($this->_var['user_info']): ?>
+						<span class="J_u_money_0"><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['user_info']['money'],
+);
+echo $k['name']($k['v']);
+?></span>
+						<a href="<?php
+echo parse_url_tag("u:index|uc_money#incharge|"."".""); 
+?>" target=_blank class="recharge">充值</a>
+					<?php else: ?>
+					<a href="javascript:void(0);" onclick="ajax_login();" >请登录查看</a>
+					<?php endif; ?>
+				</li>
+				<li>
+					<span class="t">项目可投<?php if ($this->_var['deal']['uloadtype'] == 0): ?>金额<?php else: ?>份数<?php endif; ?></span>
+					<span><?php if ($this->_var['deal']['uloadtype'] == 0): ?><?php echo $this->_var['deal']['need_money']; ?><?php else: ?><?php echo $this->_var['deal']['need_portion']; ?><?php endif; ?></span>
+				</li>
+				
+				<?php if ($this->_var['deal']['uloadtype'] == 1): ?>
+				<li>
+					<span class="t">最小认购金额</span>
+					<span><?php echo $this->_var['deal']['min_loan_money_format']; ?></span>
+				</li>
+				<?php else: ?>
+				<li>
+					<span class="t">最小认购金额</span>
+					&yen;<em><?php 
+$k = array (
+  'name' => 'number_format',
+  'v' => $this->_var['deal']['min_loan_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?><?php if (intval ( app_conf ( "DEAL_BID_MULTIPLE" ) ) > 0): ?>，<?php 
+$k = array (
+  'name' => 'app_conf',
+  'v' => 'DEAL_BID_MULTIPLE',
+);
+echo $k['name']($k['v']);
+?>的倍数<?php endif; ?></em>
+				</li>
+				<?php endif; ?>
+				
+				<li>
+     	     		<span class="t">已认购</span>
+					<?php if ($this->_var['deal']['uloadtype'] == 1): ?>
+					<span><?php echo $this->_var['deal']['buy_portion']; ?>笔</span>
+					<?php else: ?>
+					<span><?php 
+$k = array (
+  'name' => 'format_price',
+  'v' => $this->_var['deal']['load_money'],
+  'f' => '2',
+);
+echo $k['name']($k['v'],$k['f']);
+?></span>
+					<?php endif; ?>
+				</li>
+				
+			</ul>
+		</div>
+		
+		<div class="blank10"></div>
+			<?php if ($this->_var['user_info']): ?>
+			<?php if ($this->_var['deal']['deal_status'] == 1 && $this->_var['deal']['remain_time'] > 0 && $this->_var['deal']['start_time'] <= TIME_UTC): ?>
+			<div class="touzbox  <?php if ($this->_var['deal']['uloadtype'] == 1): ?>c_number-box<?php endif; ?>">
+				<?php if ($this->_var['deal']['uloadtype'] == 1): ?>
+					收益：<span class="J_u_money_sy f_red">0.00</span>
+					<div class="blank0"></div>
+					<div class="f_r">
+						<a href="javascript:void(0);" class="c_number " rel="-">-</a>
+						<input type="text" class="f-input ui-textbox tc w50 f_l"  autocomplete="off" name="bid_money" id="J_BIDMONEY" value="1" />
+						<a href="javascript:void(0);" class="c_number "  rel="+">+</a>&nbsp;份
+					</div>
+					<input type="button" class="btn_red f18 b f_white w140 lh38  bdr3 f_l" id="tz_link" value="立即投资" />
+				<?php else: ?>
+					<div class="pr">
+					<input type="text" class="f-input ui-textbox w230" holder="请输入投资金额"  autocomplete="off" name="bid_money" id="J_BIDMONEY" />
+					</div>
+					<input type="hidden" name="id" value="<?php echo $this->_var['deal']['id']; ?>" />
+					<span class="unit ps">元</span>
+					<div class="blank5"></div>
+					收益：<span class="J_u_money_sy f_red">0.00</span>
+					<div class="blank0"></div>
+					<input type="button" class="btn_red f18 b f_white w280 lh38  bdr3 f_l" id="tz_link" value="立即投资" />
+				<?php endif; ?>
+				
+			</div>
+			<?php endif; ?>
+			<?php else: ?>
+			<div class="touz-login tc f18 b"><a href="javascript:void(0);" onclick="ajax_login();" class="f_blue">您还没登录，请点击登录</a></div>
+			<?php endif; ?>
+	</div>
+	<div class="blank0"></div>
+</div>
+<script type="text/javascript">
+	var leftTimeActInv = null;
+	jQuery(function(){
+		leftTimeAct();
+	});
+	function leftTimeAct(){
+		clearTimeout(leftTimeActInv);
+		$(".J_left_time").each(function(){
+			var leftTime = parseInt($(this).attr("rel"));
+			if(leftTime > 0)
+			{
+				/*var day  =  parseInt(leftTime / 24 /3600);
+				var hour = parseInt((leftTime % (24 *3600)) / 3600);*/
+				var hour = parseInt(leftTime / 3600);
+				var min = parseInt((leftTime % 3600) / 60);
+				var sec = parseInt((leftTime % 3600) % 60);
+				/*$(this).find(".day").html((day<10?"0"+day:day));*/
+				$(this).find(".day").hide();
+				$(this).find(".hour").html((hour<10?"0"+hour:hour));
+				$(this).find(".min").html((min<10?"0"+min:min));
+				$(this).find(".sec").html((sec<10?"0"+sec:sec));
+				leftTime--;
+				$(this).attr("rel",leftTime);
+			}
+			else{
+				$(this).css("background","none");
+				$(this).html('时间已结束');
+			}
+		});
+		
+		leftTimeActInv = setTimeout(function(){
+			leftTimeAct();
+		},1000);
+	}
+</script>

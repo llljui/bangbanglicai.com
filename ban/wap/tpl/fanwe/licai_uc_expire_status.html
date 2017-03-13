@@ -1,0 +1,76 @@
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","licai_uc_expire_lc#index");
+	$this->_var['back_page'] = "#licai_uc_expire_lc";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#licai_uc_expire_lc" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content">
+<!-- 这里是页面内容区 -->
+
+<div class="float_block Object_0"  ><!--这是密码域块-->
+    <div class="float_background"></div>
+    <div class="float_content">
+        <div class="set_pw_block">
+            <h5>发放理财<div class="close_but"><a href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_expire_lc"}','#licai_uc_expire_lc',2);"}"><i class="fa fa-close"></i></a></div></h5>
+            
+            <div class="full_li">
+                <ul>
+                    <li>
+                        <div class="paddingbr">
+                            <label>申请金额：</label>
+                            <div class="list_con">
+                            <div class="lh35">{$data.vo.money}</div>
+                            </div>
+                        <div class="blank0"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="paddingbr">
+                        <label class="f_red">收益：</label>
+                        <div class="list_con ">
+                        <input name="earn_money" id="earn_money"  class="ui-button_login ui_width f_l brinput" value="{$data.vo.earn_money}" style=" height:35px;line-height: 35px;" type="" >
+                        </div>
+                        <div class="blank0"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="paddingbr">
+                        <label class="f_red">手续费：</label>
+                        <div class="list_con">
+                        <input name="fee" id="fee" value="{$data.vo.fee}" class="ui-button_login ui_width f_l brinput" style=" height:35px;line-height: 35px;" type="" placeholder="请输入手续费">
+                        </div>
+                        <div class="blank0"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="paddingbr">
+                        <label>平台收益：</label>
+                        <div class="list_con lh35">
+                            <div class="lh35">{$data.vo.organiser_fee}</div>
+                        </div>
+                        <div class="blank0"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>		
+			<div class="w_b but_box_parent padding">
+				<div class="w_b_f_1 but_box">					
+				    <input type="hidden" id="ajax_url" value="{wap_url a="index" r="licai_set_status"}">
+                    <input type="hidden" id="url_str" value="{wap_url a="index" r="licai_uc_expire_lc"}">
+					<input type="hidden" name="id" id="id" value="{$data.vo.id}">
+				    <button id="submittss" class="but_this">确定</button>
+				</div>
+				<div class="w_b_f_1 but_box">	
+                    <a href="#" onclick="RouterURL('{wap_url a="index" r="licai_uc_expire_lc"}','#licai_uc_expire_lc',2);" class="bg_dbdbdb but_this">取消</a>						
+				</div>
+			</div>
+			
+			
+			
+			
+        </div>
+    </div>
+    </div>
+{include file="./inc/footer.html"}

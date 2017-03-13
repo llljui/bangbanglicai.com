@@ -1,0 +1,55 @@
+<style>
+.ui-select dt{ line-height:26px; height:34px;padding: 0px 25px 0 15px; }
+.ui-select dt span{width:200px;overflow:hidden; display:block; height:26px;line-height:26px;}
+.ui-select dt i{ right:8px; top:12px;}
+.ui-select dd{ line-height:26px; margin-left:0px}
+.ui-select dd a{line-height:26px;width:238px}
+.ui-select dd a:hover{ background:#f1f1f1}
+</style>
+<form method="post" id="consult-add-form" action="{url x="index" r="uc_learn#dobid"}"  onsubmit="return check_content(this);" autocomplete="off" name="uc_learn">
+{if $deal.use_learn eq 1 && $lecv_list}
+<div class="blank5"></div>
+<div class="field">
+    <label>使用体验金</label>
+   <!-- <select id="learn_id" name="learn_id" class="ui-select w250 select-w240" height="140"> -->
+   <select id="learn_id" name="learn_id" class="ui-select w250 select-w250" height="140">
+        <option>选择体验金</option>
+        {foreach from=$lecv_list item="lecv"}
+        <option value="{$lecv.id}">体验金[加{$lecv.money}元]</option>
+        {/foreach}
+    </select>
+    <div class="blank0"></div>
+  <span class="hint" style="margin-left:90px">体验金部分，还款时自动回收</span>
+</div>
+{/if}
+
+<div class="blank5"></div>
+<div class="field lh30">
+    <label>投资金额：</label>
+	<input type="text" name="bid_money" class="f-input ui-textbox w240" style="height:26px;line-height:26px;" id="J_bid_money" />
+	<input type="hidden" name="id" value="{$id}"   id="deal_id" />
+</div>
+<div class="blank5"></div>
+<div class="field">
+    <label>支付密码：</label><input type="password" name="bid_paypassword" class="f-input ui-textbox w240 normal" style="height:26px;line-height:26px;" id="J_bid_password" />
+</div>
+<div class="blank5"></div>
+<div class="field">
+    <label>&nbsp;</label>
+    {if $user_info.paypassword eq ''}还未设置！{else}忘记了？{/if}
+    <a href="{url x="index" r="uc_account#security"}" target="_blank" class="f_blue">点这里</a>
+</div>
+<div class="blank5"></div>
+<div class="field">
+    <label>&nbsp;</label>
+	<input type="submit" class="sub_btn btn_red" id="J_learn_invest"  value="确定">
+    &nbsp;&nbsp;
+    <input type="button" class="reset_btn"  id="J_reset_btn" value="取消"></div>
+</div>
+</form>
+<script type="text/javascript">
+     
+$("#J_reset_btn").live("click",function(){
+     $.weeboxs.close("paypass-box");
+});
+</script>

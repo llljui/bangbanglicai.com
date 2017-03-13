@@ -1,0 +1,155 @@
+{include file="inc/header.html"}
+<style type="text/css">
+    .right_uc{width: 318px;}
+    .big_left_uc{width: 868px;}
+    .u_icons{
+        display: inline-block;
+        float: left;
+        padding-left: 21px;
+        height: 21px;
+        line-height: 21px;
+        padding-right: 3px;
+        border: 1px solid #e4e4e4;
+        border-radius: 3px;
+        
+    }
+    .follow {
+background-position: 0 2px;
+}
+.reportGuy {
+background: url({$TMPL}/images/jb.png) 3px center no-repeat;
+}
+.send_msg {
+background: url({$TMPL}/images/xj.png) 3px center no-repeat;
+}
+.add_focus, .add_focus:hover{
+    height: 21px;
+    line-height: 21px;
+    color: #fff
+}
+.remove_focus, .remove_focus:hover{
+    color: #fff
+}
+.guanzhu{
+    padding: 0 8px;
+    border-radius: 3px;
+}
+.guanzhu a{
+    color: #fff;
+    line-height: 21px;
+}
+</style>
+	<div class="blank"></div>
+	<div class="big_left_uc uc_user_info f_l">
+		<div class="cont homeBg bddf bdd p15">
+            <div class="blank5"></div>
+            <div class="clearfix lh22" style="height: 22px;vertical-align: middle">
+                <div class="f_r">
+					<img src="{$TMPL}/images/about_credit.png" alt="" style="cursor: pointer" onclick="javascript:window.location.href='{url x="index" r="space#level" p="id=$space_user.id"}'">
+				</div>
+                <div class="f_blue f14 b tc">
+                    <span>{$space_user.user_name} 的个人信息</span>
+                </div>
+            </div>
+            <div class="pt5 pb5" style="border-bottom:1px solid #D8DFEA;"></div>
+
+            <div class="clearfix mt10 mb15 ml10">
+                <div class="f_l pr30" style="width:125px;">
+                    <div class="pl10">
+                    	<img class="img_b" src="{function name="get_user_avatar" uid="$space_user.id" type="big"}" width="100px" height="100px" alt="{$space_user.user_name}" title="{$space_user.user_name}">
+                    </div>
+                    <div class="pt10">							
+							<div class="J_reportGuy f_l " id="J_reportGuy_{$space_user.id}" dataid="{$space_user.id}">
+								<a href="###" class="u_icons reportGuy">举报</a>
+							</div>
+                            <div class="J_send_msg f_l pl15" dataid="{$space_user.id}">
+                                <a href="#znxDiv" id="znx" class="u_icons send_msg" title="">信件</a>
+                            </div>
+                    </div>
+                </div>
+                <div class="f_l f_dgray" style="width:566px">
+                    <div class="lh24 pt10" style="height:24px;">
+                        <div class="f_l" style="width:70px;">
+						用户名：
+                        </div>
+                        <div class="f_l">
+                        	{$space_user.user_name}
+                        </div>
+                        <div class="f_l ml10 guanzhu btn_yellow">
+                                {if $space_user.focused eq 1}
+                                    <a class="gzcyh" title="">已关注此用户
+                                    </a>
+                                {else}  
+                                    <a href="javascript:;" onclick="focus_user({$space_user.id},this);" class="" title=""> {$LANG.FOCUS_THEY}</a>
+                                {/if}  
+                            </div>
+                    </div>
+                    <div style="height:24px; line-height:24px">
+                        <div class="f_l" style="width:70px;">
+						注册时间：
+                        </div>
+                        <div class="f_l">
+                            {function name="to_date" v=$space_user.create_time f="Y-m-d"}
+                        </div>
+                    </div>
+                    <div style="height:24px; line-height:24px">
+                        <div class="f_l" style="width:70px;">
+						所在地：
+                        </div>
+                        <div class="f_l">{$space_user.user_location}</div>
+                    </div>
+                    <div style="height:24px; line-height:24px">
+                        <div class="f_l" style="width:70px;">
+						角色：
+                        </div>
+                        <div class="f_l">
+                        	{if $space_user.user_type eq 0}普通会员{else}企业会员{/if}{if $space_user.is_borrow_in gt 0} 借入者{/if} {if $space_user.is_borrow_out gt 0} 借出者{/if} 
+						</div>
+                    </div>
+                    <div style="height:24px; line-height:24px">
+                        <div class="f_l" style="width:70px;">
+						个人统计：
+                        </div>
+                        <div class="f_l">
+                            {$user_statics.deal_count} 条借款记录，{$user_statics.load_count}条投标记录
+                        </div>
+                    </div>
+                </div>
+                <div class="r" style="display:none;width:260px;">
+                    <div class="layout-box">
+                        <div class="top">
+                            <b class="cor-l"></b>
+                            <b class="cor-r"></b>
+                        </div>
+                        <div class="cont" style="height:145px; ">
+                            <h3>个人描述</h3>
+                            <p>
+                                
+                            </p>
+                        </div>
+                        <div class="bt">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<div class="blank"></div>
+        <div class="tabbox" style="border:none;border-bottom:1px solid #ddd">
+            <div class="tab {if $ACTION_NAME eq 'index'}cur{/if}"><a href="{url x="index"r="space#index" p="id=$space_user.id"}">{$LANG.SPACE_HOME}</a></div>
+            <div class="tab {if $ACTION_NAME eq 'focus'}cur{/if}"><a href="{url x="index"r="space#focus" p="id=$space_user.id"}">{$LANG.SPACE_FOCUS}</a></div>
+            <div class="tab {if $ACTION_NAME eq 'focustopic'}cur{/if}"><a href="{url x="index"r="space#focustopic" p="id=$space_user.id"}">{$LANG.SPACE_FOCUSTOPIC}</a></div>
+            <div class="tab {if $ACTION_NAME eq 'deal'}cur{/if}"><a href="{url x="index"r="space#deal" p="id=$space_user.id"}">{$LANG.SPACE_DEAL}</a></div>
+            <div class="tab {if $ACTION_NAME eq 'lend'}cur{/if}"><a href="{url x="index"r="space#lend" p="id=$space_user.id"}">{$LANG.SPACE_LEND}</a></div>
+        </div>
+       <div class="uc_box bddf bdd bt0 clearfix p10">{$list_html}</div>
+       
+	</div>
+	
+	<div class="right_uc f_r">
+		{insert name="space_right"}
+	</div>
+	
+	<div class="blank"></div>
+
+{include file="inc/footer.html"}

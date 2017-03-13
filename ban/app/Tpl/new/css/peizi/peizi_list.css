@@ -1,0 +1,57 @@
+.peizi_list_li .detail_li{ width:25%; float:left; text-align:center;border-right: 1px dashed #dddddd; padding:6px 0;}
+.peizi_list_li .detail_li:last-child{ width:24%; border-right:0px;}
+.peizi_list_li a{ display:block;  overflow:hidden;padding:15px 20px 3px 20px ; background:#fff; border:1px solid #e6e6e6; border-top:0px;}
+.peizi_list_li:first-child a{ border-top:1px solid #e6e6e6;}
+.peizi_list_li a:hover{ background:#fff4eb;}
+.peizi_list_li h3 {
+font-size: 18px;
+line-height: 24px;
+font-family: "微软雅黑";
+color: #333333;
+margin:10px 0;
+font-weight:100;
+}
+.peizi_list_li h3 span{background-color: #95c8e1;vertical-align: bottom;
+width: 150px;
+height: 24px;
+font-size: 12px;
+text-align: center;
+display: inline-block;
+border-top-left-radius: 1px;
+border-bottom-left-radius: 1px;
+color: #ffffff;
+margin-right: 10px;
+position: relative;}
+
+.peizi_list_li h3 span i{height: 24px;
+width: 4px;
+display: inline-block;
+background: url("../images/peizi/icon.png") no-repeat  0 -356px;
+position: absolute;
+top: 0;
+right: -4px;
+background-position: 0 -388px;
+}
+
+.peizi_list_li .detail_li .name{ color:#999999; line-height:26px;}
+.peizi_list_li .detail_li .icon-auth{ width:32px; height:20px;display: inline-block;
+background: url("../images/peizi/icon-auth.png") no-repeat  0 -795px;
+vertical-align: middle;background-position: 0 -818px;}
+
+.peizi_list_li .detail_li .gray{filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter:grayscale(100%);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+{if $smarty.request.is_ajax neq 1}
+<?php
+$this->_var['hide_back'] = 1;
+$this->_var['view_search'] = 1;
+$this->_var['search_url'] = wap_url("index","deals_search");
+$this->_var['search_act'] = "deals_search";
+?>
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+{include file="./inc/title.html"}
+<div class="content infinite-scroll pull-to-refresh-content" now_page="1"  data-distance="{$data.rs_count}"  all_page="{$data.page.page_total}" ajaxurl="{wap_url x="index" r="deals#index"}">
+<!--投资借款列表-->
+<ul class="recommended_nav_2 invest">
+{/if}
+	<!-- 默认的下拉刷新层 -->
+    <div class="pull-to-refresh-layer" all_page="{$data.page.page_total}" >
+        <div class="preloader"></div>
+        <div class="pull-to-refresh-arrow"></div>
+    </div>
+	{foreach from=$data.item item="deal"}
+			<li class="clearfix" onclick="RouterURL('{wap_url a="index" r="deal" p="id=$deal.id"}','#deal',2);">
+				
+					<div class="novice f_l">
+						{if $deal.is_advance eq 1 && $deal.start_time gt TIME_UTC}
+						<img src="{$TMPL}/images/novice_0.png" width="100%" height="100%"/>
+						{elseif $deal.is_new eq 1}
+						<img src="{$TMPL}/images/novice.png" width="100%" height="100%"/>
+						{/if}
+					</div>
+					<div class="title_nav bb1">
+						{if $deal.is_wait eq 1}<span class="state  c666666">
+			            	{else}
+							{if $deal.deal_status eq 0}<span class="state  c666666">{/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time gt 0}<span class="state  c56b1ea">{/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time lte 0}<span class="state  c666666">{/if}
+							{if $deal.deal_status eq 2}<span class="state  ea544a">{/if}
+							{if $deal.deal_status eq 3}<span class="state  c666666">{/if}
+							{if $deal.deal_status eq 4}<span class="state  c66d191">{/if}
+							{if $deal.deal_status eq 5}<span class="state  c666666">{/if}
+							{/if}
+								
+							{if $deal.is_wait eq 1}未开始
+			            	{else}
+							{if $deal.deal_status eq 0}等待材料{/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time gt 0}进行中{/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time lte 0}已过期{/if}
+							{if $deal.deal_status eq 2}已满标{/if}
+							{if $deal.deal_status eq 3}已流标{/if}
+							{if $deal.deal_status eq 4}还款中{/if}
+							{if $deal.deal_status eq 5}已还清{/if}
+							{/if}
+							</span>
+						<span class="name">{$deal.name}</span>
+						<span class="r_state">{function name="loantypename" v="$deal.loantype" type=1}</span>
+					</div>
+					<div class=" con_height">
+						<div class="  w_b  pt tc">
+							<div class=" tl lv"><i class="big">{function name="round" v=$deal.rate f=0}</i><i class="unit">%</i></div>
+							<div class=" tl je"><i class="small">{function name="replacemoney" v=$deal.borrow_amount}</i><i class="unit">万</i></div>
+							<div class=" tl sj"><i class="small">{$deal.repay_time}</i><i class="unit">{if $deal.repay_time_type eq 1}月{else}天{/if}</i></div>
+						<div class="w_b_f_1"></div>
+						<div  class="progress-radial_parent ">
+							<div class="progress-radial  progress-{function name="round" v=$deal.progress_point f=0}
+							{if $deal.is_wait eq 1} c999999
+			            	{else}
+							{if $deal.deal_status eq 0}  c999999 {/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time gt 0}  c56b1ea {/if}
+							{if $deal.deal_status eq 1 && $deal.remain_time lte 0}  c999999 {/if}
+							{if $deal.deal_status eq 2}  ea544a {/if}
+							{if $deal.deal_status eq 3}  c999999  {/if}
+							{if $deal.deal_status eq 4}  c66d191  {/if}
+							{if $deal.deal_status eq 5}  c999999  {/if}
+							{/if}
+							"><b></b></div>
+						</div>
+					</div>
+						</div>
+						
+				
+			</li>
+			{/foreach}	  
+{if $smarty.request.is_ajax neq 1}
+</ul>
+<!-- 加载提示符 -->
+<div class="infinite-scroll-preloader">
+  <div class="preloader">
+  </div>
+</div>
+{include file="./inc/footer.html"}
+{/if}

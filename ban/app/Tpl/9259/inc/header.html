@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta name="Generator" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{if $page_title}{$page_title} - {/if}{if $show_site_titile eq 1}{function name='app_conf' value='SHOP_SEO_TITLE'} - {/if}{$site_info.SHOP_TITLE}</title>
+    <link rel="icon" href="favicon.ico" type="/image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="/image/x-icon" />
+    <meta name="keywords" content="{if $page_keyword}{$page_keyword}{/if}{$site_info.SHOP_KEYWORD}" />
+    <meta name="description" content="{if $page_description}{$page_description}{/if}{$site_info.SHOP_DESCRIPTION}" />
+    {include file="inc/common/load_css_js.html"}
+
+
+    <!--{if $MODULE_NAME == 'index'}-->
+
+    <link href="{$TMPL}/newstyle/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{$TMPL}/newstyle/css/home.css" />
+    <!--数字字体-->
+    <link rel="stylesheet" type="text/css" href="{$TMPL}/newstyle/css/proximasansmedium.css" />
+
+    <!--{/if}-->
+    <link rel="stylesheet" type="text/css" href="{$TMPL}/newstyle/css/public.css" />
+
+</head>
+
+<style>
+    .header-Logo .logoimg-wrap a{
+        background: url(<?php
+        echo $this->_var['logo_image'] = app_conf("SHOP_LOGO");
+        ?>) no-repeat;
+    }
+    .clear m:hover{
+        color: #fff;
+    }
+</style>
+<body>
+
+<!--网站通用头部-->
+<div id="header">
+    <!--灰色顶部区域-->
+    <div class="header-top">
+        <div class="content clear">
+            <div class="top_l2">
+                <span class="ht-sp-l">服务电话：{function name="app_conf" v="SHOP_TEL"} （{function name="app_conf" v="ONLINE_TIME"}）</span>
+                <span class="ht-line mgl10"></span>
+                <span class="ht-gz">关注我们：
+                    <a class="ht-gz-qq" target="_blank"  href="#"></a>
+                    <a target="_blank" class="ht-gz-wb" href="#"></a>
+                    <span class="dropdown dropdown-erwei">
+                        <a href="javascript:;"  class="dropdown-toggle ht-gz-wx" data-toggle="dropdown" role="button" aria-expanded="false"></a>
+                    <div class="dropdown-menu top-erwei-style" style="display: none">
+                  		<ul class="header-top-erwei clear">
+                  			<li class="pull-left">
+                  				<img src="{$TMPL}/newstyle/picture/erwei-ding.jpg" alt="订阅号" />
+                  				<p>订阅号</p>
+                  				<p>关注最新发标提醒</p>
+                  			</li>
+                  			<li class="pull-right">
+                  				<img src="{$TMPL}/newstyle/picture/erwei-fuwu.jpg" alt="服务号"/>
+                  				<p>服务号</p>
+                  				<p>手机投资更方便</p>
+                  			</li>
+                  		</ul>
+                  </div>
+                  </span></span>
+            </div>
+            <div class="pull-left top_act_position disNone" id="Brihide">
+            <span  class="top_act_txt">您有<span id="spanhbmoney">0</span>元红包待激活<a class="view" href="/MemberCenter/myaward.html#hb">点击查看</a></span>
+        </div>
+            <div class="top_a_r ht-r">
+                <span class="ht-r-ico1"></span>
+                {if $user_info}
+                <span class="header-name" id="islogin">您好，
+                    <a href="{url x="shop" r="uc_center"}">{$user_info.user_name}</a>
+                    <a href="{url x="shop" r="user#loginout"}">[退出]</a>
+                </span>
+                {else}
+                <span class="" id="noislogin">
+                        <a href="{url x="index" u="user#login" }">登录</a>
+                        <span class="ht-line"></span>
+                        <a href="{url x="index" u="user#register" }">注册</a>
+                    </span>
+                {/if}
+                <span class="ht-line"></span>
+                <a  href="#" class="">新手指引</a>
+                <span class="ht-line"></span>
+                <a href="javascript:;" onclick="openCenter(2)">帮助中心</a>
+                <span class="ht-line"></span>
+                <a href="#" target="_blank">社区</a>
+                <span class="ht-line"></span>
+                <a href="#" class="actToplink">所有活动</a>
+            </div>
+        </div>
+    </div>
+    <!--LOGO区域-->
+    <div class="header-Logo">
+        <div class="content clear">
+            <div class="logoimg-wrap">
+                <a href="/"></a>
+                <i class="light"></i>
+            </div>
+            <div class="top-Nav">
+                <ul class="clear" id="nav-list">
+                    {foreach from=$nav_list item=nav_item}
+
+
+                    <li><a class="m {if $nav_item.current eq 1} cur{/if}"  href="{$nav_item.url}">{$nav_item.name}</a></li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--通用头部end-->
+
+
+<!--{if $MODULE_NAME != 'index'}-->
+<div class="wrap">
+    <!--{/if}-->

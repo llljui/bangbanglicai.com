@@ -1,0 +1,93 @@
+<?php if ($this->_var['deal']['is_mortgage'] == 1): ?>
+<?php if ($this->_var['deal']['mortgage_desc']): ?>
+<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;抵押信息</div>
+<div class="box-bd">
+	<?php echo $this->_var['deal']['mortgage_desc']; ?>
+</div>
+<?php endif; ?>
+<?php endif; ?>
+<?php if ($this->_var['deal']['mortgage_infos_list'] || $this->_var['deal']['mortgage_contract_list']): ?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->_var['TMPL']; ?>/css/jquery.lightbox-0.5.css" media="screen" />
+<script type="text/javascript" src="<?php echo $this->_var['TMPL']; ?>/js/utils/jquery.lightbox-0.5.min.js"></script>
+	<?php if ($this->_var['deal']['mortgage_contract_list']): ?>
+	<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;借款合同</div>
+	<div class="box-bd">
+	   <ul id="mortgage_contract">
+	  		<?php $_from = $this->_var['deal']['mortgage_contract_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['item']):
+?>
+	      	<li class="f_l mr10 bdd">
+	       		<a href='<?php 
+$k = array (
+  'name' => 'get_spec_image',
+  'v' => $this->_var['item']['img'],
+  'w' => '800',
+  'h' => '800',
+);
+echo $k['name']($k['v'],$k['w'],$k['h']);
+?>' rel="lightbox-myMor" title="<?php echo $this->_var['item']['name']; ?>">
+	       			<img src='<?php 
+$k = array (
+  'name' => 'get_spec_image',
+  'v' => $this->_var['item']['img'],
+  'w' => '100',
+  'h' => '100',
+  'g' => '1',
+);
+echo $k['name']($k['v'],$k['w'],$k['h'],$k['g']);
+?>' style="height: 100px" title="<?php echo $this->_var['item']['name']; ?>" alt="<?php echo $this->_var['item']['name']; ?>"/>
+	       		</a>
+	       	</li>
+	  		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	   </ul>
+	</div>
+	<div class="blank10"></div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	 		$('#mortgage_contract a').lightBox();
+		});
+	</script>
+	<?php endif; ?>
+	
+	<?php if ($this->_var['deal']['is_mortgage'] == 1): ?>
+	<div class="box-t f_blue f18"><i class="iconfont">&#xe627;</i>&nbsp;抵押物</div>
+	<div class="box-bd">
+	   <ul id="mortgage_infos">
+	  		<?php $_from = $this->_var['deal']['mortgage_infos_list']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['item']):
+?>
+	      	<li class="f_l mr10 bdd">
+	       		<a href='<?php 
+$k = array (
+  'name' => 'get_spec_image',
+  'v' => $this->_var['item']['img'],
+  'w' => '800',
+  'h' => '800',
+);
+echo $k['name']($k['v'],$k['w'],$k['h']);
+?>' rel="lightbox-myMor" title="<?php echo $this->_var['item']['name']; ?>">
+	       			<img src='<?php 
+$k = array (
+  'name' => 'get_spec_image',
+  'v' => $this->_var['item']['img'],
+  'w' => '100',
+  'h' => '100',
+  'g' => '1',
+);
+echo $k['name']($k['v'],$k['w'],$k['h'],$k['g']);
+?>' style="height: 100px" title="<?php echo $this->_var['item']['name']; ?>" alt="<?php echo $this->_var['item']['name']; ?>" />
+	       		</a>
+	       	</li>
+	  		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	   </ul>
+	</div>
+	<div class="blank10"></div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	 		$('#mortgage_infos a').lightBox();
+		});
+	</script>
+	<?php endif; ?>
+	
+	
+<?php endif; ?>

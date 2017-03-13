@@ -1,0 +1,46 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+
+<div class="main">
+<div class="main_title">部门提成统计</div>
+<div class="blank5"></div>
+<script type="text/javascript">
+	function view(id){
+		window.location.href = ROOT+'?m=Departments&a=referrals_log&id='+id;
+	}
+</script>
+<div class="blank5"></div>
+<form name="search" action="__APP__" method="get">	
+<div class="search_row">
+	成员：
+	<input type="text" class="textbox" name="adm_name"  value="{$adm_name}" />
+	
+	<input type="hidden" value="Departments" name="m" />
+	<input type="hidden" value="referrals" name="a" />
+	<input type="submit" class="button" value="{%SEARCH}" />
+	<input type="button" class="button" onclick="export_csv()" value="导出" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable"
+	style="dataTable"
+	name="department"
+	checkbox="true"
+	action="true"
+	datasource="list"
+	show="id:{%ID}|50px
+		,adm_name:部门名称
+		,role_id_format:部门角色
+		,referrals_rate:提成系数(%)
+		,referrals_money|format_price:提成金额
+		"
+	actionlist="view:查看"
+	actionwidth="100px"/>
+
+<div class="blank5"></div>
+<div class="search_row">奖励合计：{$total_money|number_format=4}</div>
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

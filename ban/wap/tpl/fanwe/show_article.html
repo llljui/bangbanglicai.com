@@ -1,0 +1,29 @@
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/header.html"}	
+<div class="page" id='{$data.act}'>
+<?php
+	$this->_var['back_url'] = wap_url("index","article_list#index");
+	$this->_var['back_page'] = "#article_list";
+	$this->_var['back_epage'] = $_REQUEST['epage']=="" ? "#article_list" : "#".$_REQUEST['epage'];
+?>
+{include file="./inc/title.html"}
+<div class="content show_article">
+	{/if}
+<!-- 这里是页面内容区 -->
+<div class="card-container">
+    <div class="card">
+        <div class="card-header">{$data.title}</div>
+        <div class="card-content">
+            <div class="card-content-inner">
+                	{$data.content}
+            </div>
+        </div>
+    </div>
+</div>
+{if $smarty.request.is_ajax neq 1}
+{include file="./inc/footer.html"}
+	{/if}
+
+
+
+

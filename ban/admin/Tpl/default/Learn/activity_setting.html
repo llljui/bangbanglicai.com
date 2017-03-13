@@ -1,0 +1,66 @@
+{// 引入标签库 }
+<tagLib name="html" />
+<include file="Public:header" />
+<php>
+	function get_learn_type($type){
+		if($type==0)
+			return "注册送";
+		else if($type==1)
+			return "邀请送";
+		else if($type==2)
+			return "管理员发放";
+	}
+	
+	function get_invest_type($invest_type){
+        if($invest_type==0)
+            return "体验产品";
+        else if($invest_type==1)
+            return "真实产品";
+    }
+	
+	
+	function admin_send($id)
+    {
+    	if(M("LearnType")->where("id=".$id)->getField("type")==2)
+        {
+			return "<a href='".u("Learn/send",array("id"=>$id))."'>管理员发放</a>";
+        }
+    }
+	
+</php>
+<script type="text/javascript">
+	
+	function search(id){
+		location.href = ROOT + '?m=Learn&a=search_activity&id='+id;
+	}
+	
+</script>
+<div class="main">
+<div class="main_title">活动设置</div>
+<div class="blank5"></div>
+<div class="button_row">
+	<input type="button" class="button" value="{%ADD}" onclick="add();" />
+	<input type="button" class="button" value="{%DEL}" onclick="del();" />
+</div>
+<div class="blank5"></div>
+<html:list 
+	id="dataTable" 
+	style="dataTable" 
+	name="learn" 
+	checkbox="true" 
+	action="true" 
+	datasource="list" 
+	show="id:{%ID}|50px
+		,name:活动名
+		,type|get_learn_type:类型
+		,invest_type|get_invest_type:可用投资类型
+		,begin_time:活动开始时间
+		,end_time:活动结束时间
+		" 
+	actionlist="edit:{%EDIT}, del:{%DEL},search:查看,id|admin_send=$type" 
+	actionwidth="100px"/> 
+
+<div class="blank5"></div>
+<div class="page">{$page}</div>
+</div>
+<include file="Public:footer" />

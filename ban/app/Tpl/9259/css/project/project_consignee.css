@@ -1,0 +1,21 @@
+.consignee_row{ border-bottom:1px dashed #e3e3e3; padding:10px 0; overflow:hidden; font-size:14px;}
+.consignee_item{ float:left; width:610px; overflow:hidden; }
+.consignee_op{ float:right; padding-right:80px; overflow:hidden;}
+.consignee_op a{ color:#690; text-decoration:none; }
+.consignee_op a:hover{ color:#12adff; text-decoration:none; }
+.small-control-group .control_label, .small-control-group .control-label, .small-control-group .control_text, .small-control-group .control-text {
+  height: 37px;
+  line-height: 37px;
+  font-size: 14px;
+  float: left;
+}
+.control-group .control-label, .control-group .control_label, .control-group .form_lable {
+  width: 90px;
+  float: left;
+  text-align: right;
+  font-size: 14px;
+  margin-right: 10px;
+  overflow: hidden;
+  color: #666;
+}
+.w250{ width:250px !important;}
